@@ -105,7 +105,28 @@
           }
         }
       ]
-    }
+    },
+    {
+		"root": "pages/package-leader",
+		"pages": [
+		  {
+		    "path": "pages/apply-leader/apply-leader",
+		    "style": {
+		      "navigationBarTitleText": "申请团长",
+		      "navigationBarBackgroundColor": "#025BFF",
+		      "navigationBarTextStyle": "white"
+		    }
+		  },
+		  {
+		  	"path" : "leader-index/leader-index",
+		  	"style" : 
+		  	{
+		  		"navigationBarTitleText" : "",
+		  		"enablePullDownRefresh" : false
+		  	}
+		  }
+		]
+	}
   ],
   "tabBar": {
     "selectedColor": "#005AFF",
