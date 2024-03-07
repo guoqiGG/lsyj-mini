@@ -21,12 +21,12 @@
 					<view class="order-title-left">
 						我的订单
 					</view>
-					<view class="order-title-right" @click="goOrderList()">
+					<view class="order-title-right" @click="goOrderList(0)">
 						全部订单>
 					</view>
 				</view>
 				<view class="order-content">
-					<view class="order-wrap" @click="goOrderList()">
+					<view class="order-wrap" @click="goOrderList(1)">
 						<view class="order-img">
 							<image src="/static/user/pay.png" mode=""></image>
 						</view>
@@ -34,7 +34,7 @@
 							待付款
 						</view>
 					</view>
-					<view class="order-wrap" @click="goOrderList()">
+					<view class="order-wrap" @click="goOrderList(2)">
 						<view class="order-img">
 							<image src="/static/user/order-deliver.png" mode=""></image>
 						</view>
@@ -42,7 +42,7 @@
 							待发货
 						</view>
 					</view>
-					<view class="order-wrap" @click="goOrderList()">
+					<view class="order-wrap" @click="goOrderList(3)">
 						<view class="order-img">
 							<image src="/static/user/order-receiving.png" mode=""></image>
 						</view>
@@ -50,7 +50,7 @@
 							待收货
 						</view>
 					</view>
-					<view class="order-wrap" @click="goOrderList()">
+					<view class="order-wrap" @click="goOrderList(4)">
 						<view class="order-img">
 							<image src="/static/user/order-finish.png" mode=""></image>
 						</view>
@@ -157,9 +157,9 @@
 					url:'/pages/package-refund/pages/apply-refund/apply-refund'
 				})
 			},
-			goOrderList(){
+			goOrderList(orderId){
 				uni.navigateTo({
-					url:'/pages/package-user/pages/order-list/order-list'
+					url:'/pages/package-user/pages/order-list/order-list?id='+orderId
 				})
 			}
 						

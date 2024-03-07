@@ -1,14 +1,17 @@
 <template>
 	<view class="order-list">
-		<u-tabs :scrollable="false" :list="list1" @click="click"></u-tabs>
+		<u-tabs :scrollable="false" 
+		:current="currentTab"
+		:list="list1" @click="handleTabClick()"
+		></u-tabs>
 		<view class="order-list-content">
 			<view class="order-list-content-box">
 				<view class="order-list-content-box-title">
 					<view class="order-list-content-box-title-left">
-						订单编号：1764841653610352642
+						订单编号：1764841653610352640
 					</view>
 					<view class="order-list-content-box-title-right">
-						待发货aaa
+						待发货
 					</view>
 				</view>
 				<view class="order-list-content-box-content" @click="goOrderDetail()">
@@ -17,11 +20,11 @@
 					</view>
 					<view class="order-list-content-box-content-text">
 						<view class="title">
-							测试限购a
+							测试限购
 						</view>
 						<view class="price">
 							<view class="price-number">
-								0.01wqe
+								0.01
 							</view>
 							<view class="price-amount">
 								X1
@@ -31,7 +34,7 @@
 					</view>
 				</view>
 				<view class="order-list-content-box-count">
-					共1件商品 总计：0.01asd
+					共1件商品 总计：0.01
 				</view>
 			</view>
 			<view class="order-list-content-box">
@@ -86,7 +89,13 @@
 					name: '待收货'
 				}, {
 					name: '已完成'
-				}]
+				}],
+				currentTab: 0,
+				 activeLineStyle: {
+				        width: '56rpx',
+				        height: '2rpx',
+				        background: '#025BFF'
+				      }
 			}
 		},
 		methods: {
@@ -94,13 +103,26 @@
 				uni.navigateTo({
 					url:'/pages/package-user/pages/order-detail/order-detail'
 				})
+			},
+			handleTabClick(index){
+				this.currentTab = index.index;
+				console.log(index.index,7777)
 			}
 
+		},
+		onLoad(orderId) {
+			console.log(orderId)
+			this.currentTab=orderId.id
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+	
+	/deep/ .u-tabs__wrapper__nav__line {
+		left: -12rpx;
+	    width: 58rpx !important;
+	}
 	.order-list{
 		background: #f2f2f2;
 		height: 100vh;
