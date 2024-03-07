@@ -1,6 +1,9 @@
 <template>
 	<view>
-		分类222
+		分类阿萨德洼地
+	</view>
+	<view>
+		分类阿萨德洼地222
 	</view>
 </template>
 

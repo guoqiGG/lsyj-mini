@@ -3,6 +3,8 @@
 		<view class="">
 			购物车asdas
 			sad
+			sadhasdhgajghfjhags
+			
 		</view>
 	</view>
 </template>
