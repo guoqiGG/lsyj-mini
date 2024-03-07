@@ -8,13 +8,6 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/package-user/pages/order-list/order-list",
-          "pathName": "pages/package-user/pages/order-list/order-list",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
           "name": "pages/package-refund/pages/apply-refund/apply-refund",
           "pathName": "pages/package-refund/pages/apply-refund/apply-refund",
           "query": "",

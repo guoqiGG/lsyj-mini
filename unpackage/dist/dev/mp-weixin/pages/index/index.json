@@ -1,6 +1,9 @@
 {
-  "navigationBarTitleText": "氢春态欢乐团",
-  "navigationBarBackgroundColor": "#025BFF",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": true,
+  "navigationStyle": "custom",
   "navigationBarTextStyle": "white",
-  "usingComponents": {}
+  "usingComponents": {
+    "navigation-bar": "/components/navigation-bar/index"
+  }
 }

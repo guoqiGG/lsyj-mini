@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/user-login/user-login",
     "pages/category/category",
     "pages/user/user",
     "pages/basket/basket",
@@ -17,7 +18,9 @@
       "root": "pages/package-user",
       "pages": [
         "pages/order-list/order-list",
-        "pages/order-detail/order-detail"
+        "pages/order-detail/order-detail",
+        "pages/terms-page/terms-page",
+        "pages/card-package/card-package"
       ]
     }
   ],

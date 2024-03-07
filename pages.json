@@ -1,124 +1,148 @@
 {
-	
-	"style": {
-	  "app-plus": {
-	    "style": "uview-ui/css/uview-ui.css"
-	  }
-	},
-	"easycom": {
-				"^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
-			},
-			
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "氢春态欢乐团",
-				"navigationBarBackgroundColor": "#025BFF",
-				"navigationBarTextStyle": "white"
-			}
-		},
-		{
-			"path": "pages/category/category",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/user/user",
-			"style": {
-				"navigationBarTitleText": "个人中心",
-				"navigationBarBackgroundColor": "#025BFF",
-				"navigationBarTextStyle": "white"
-			}
-		},
-		{
-			"path": "pages/basket/basket",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/youth-bean-center/youth-bean-center",
-			"style": {
-				"navigationBarTitleText": "青春豆中心",
-				"enablePullDownRefresh": false
-			}
-		}
-	],
-	"subPackages": [
-		{
-			"root": "pages/package-refund",
-			"pages": [
-				{
-				"path": "pages/apply-refund/apply-refund",
-				"style": {
-					"navigationBarTitleText": "申请退款",
-					"navigationBarBackgroundColor": "#025BFF",
-					"navigationBarTextStyle": "white"
-				}
-			  }
-		  ]
-		},
-		{
-			"root": "pages/package-user",
-			"pages": [
-				{
-				"path": "pages/order-list/order-list",
-				"style": {
-					"navigationBarTitleText": "订单列表",
-					"navigationBarBackgroundColor": "#025BFF",
-					"navigationBarTextStyle": "white"
-				    }
-			    },
-				{
-				"path": "pages/order-detail/order-detail",
-				"style": {
-					"navigationBarTitleText": "订单详情",
-					"navigationBarBackgroundColor": "#025BFF",
-					"navigationBarTextStyle": "white"
-				    }
-				}
-				]
-		}
-	],
-	"tabBar": {
-		"selectedColor": "#005AFF",
-		"color": "#999999",
-		"iconWidth": "18px",
-		"list": [{
-				"pagePath": "pages/index/index",
-				"text": "首页",
-				"iconPath": "/static/tabbar/uncheck-home.png",
-				"selectedIconPath": "/static/tabbar/selecte-home.png"
-			},
-			{
-				"pagePath": "pages/category/category",
-				"text": "分类",
-				"iconPath": "/static/tabbar/uncheck-classify.png",
-				"selectedIconPath": "/static/tabbar/selecte-classify.png"
-			},
-			{
-				"pagePath": "pages/basket/basket",
-				"text": "视频",
-				"iconPath": "/static/tabbar/video.png",
-				"selectedIconPath": "/static/tabbar/basket-sel.png"
-			},
-			{
-				"pagePath": "pages/user/user",
-				"text": "我的",
-				"iconPath": "/static/tabbar/uncheck-center.png",
-				"selectedIconPath": "/static/tabbar/selecte-center.png"
-			}
-		]
-	},
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
-	},
-	"uniIdRouter": {}
+  "style": {
+    "app-plus": {
+      "style": "uview-ui/css/uview-ui.css"
+    }
+  },
+  "easycom": {
+    "^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
+  },
+  "pages": [
+    //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+    {
+      "path": "pages/index/index",
+      "style": {
+        "backgroundTextStyle": "dark",
+        "enablePullDownRefresh": true,
+        "navigationStyle": "custom",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/user-login/user-login",
+      "style": {
+        "navigationBarTitleText": "用户登录",
+        "navigationBarBackgroundColor": "#025BFF",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/category/category",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/user/user",
+      "style": {
+        "navigationBarTitleText": "个人中心",
+        "navigationBarBackgroundColor": "#025BFF",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/basket/basket",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/youth-bean-center/youth-bean-center",
+      "style": {
+        "navigationBarTitleText": "青春豆中心",
+        "enablePullDownRefresh": false
+      }
+    }
+  ],
+  "subPackages": [
+    {
+      "root": "pages/package-refund",
+      "pages": [
+        {
+          "path": "pages/apply-refund/apply-refund",
+          "style": {
+            "navigationBarTitleText": "申请退款",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pages/package-user",
+      "pages": [
+        {
+          "path": "pages/order-list/order-list",
+          "style": {
+            "navigationBarTitleText": "订单列表",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
+        },
+        {
+          "path": "pages/order-detail/order-detail",
+          "style": {
+            "navigationBarTitleText": "订单详情",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
+        },
+        {
+          "path": "pages/terms-page/terms-page",
+          "style": {
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
+        },
+        {
+          "path": "pages/card-package/card-package",
+          "style": {
+            "navigationBarTitleText": "我的卡包",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
+        }
+      ]
+    }
+  ],
+  "tabBar": {
+    "selectedColor": "#005AFF",
+    "color": "#999999",
+    "iconWidth": "18px",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "/static/tabbar/uncheck-home.png",
+        "selectedIconPath": "/static/tabbar/selecte-home.png"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "text": "分类",
+        "iconPath": "/static/tabbar/uncheck-classify.png",
+        "selectedIconPath": "/static/tabbar/selecte-classify.png"
+      },
+      {
+        "pagePath": "pages/basket/basket",
+        "text": "视频",
+        "iconPath": "/static/tabbar/video.png",
+        "selectedIconPath": "/static/tabbar/basket-sel.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "/static/tabbar/uncheck-center.png",
+        "selectedIconPath": "/static/tabbar/selecte-center.png"
+      }
+    ]
+  },
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "uniIdRouter": {}
 }

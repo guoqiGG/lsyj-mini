@@ -1,157 +1,333 @@
 <template>
-	<view class="content">
-           asd123
-		   <swiper 
-		   circular="true"
-		   :indicator-dots="true" 
-		   :autoplay="true" 
-		   :interval="3000" 
-		   :duration="1000">
-		   <block v-for="(item, seq) in indexImgs" :key="seq">
-			   <swiper-item class="banner-item">
-			   	<view class="img-box">
-					<img :src="item.imgUrl" alt="" />
-				</view>
-			   </swiper-item>
-		   </block>
-		   </swiper>
-		   <view class="middle">
-		   	<view class="convert" @click="goConvert()">
-				<view class="convert-title">
-					青春豆兑换区
-				</view>
-				<view class="convert-sub">
-					福利多多
-				</view>
-				<view class="convert-go-pic">
-					<view class="convert-go">
-					    GO>
-					</view>
-					<view class="convert-pic">
-						<image src="/static/index-convert.png" alt="" />
+	<view class="main">
+		<view class="top">
+			<!-- 导航&公告 -->
+			<!-- #ifndef H5-->
+			<navigationBar v-if="navigationBarIsShow" bg-color="bg-gradual-pink" :show-back="false"
+				:navigation-bar-style="tabConfig" :is-left="false" :is-bg-img="isBgImg" :title="title" />
+			<!-- #endif -->
+			<view :class="['news-swiper']">
+				<!-- 消息播放 -->
+				<view style="
+            display: block;
+            padding-top: 26rpx;
+            height: 280rpx;
+            background: #005aff;
+          ">
+					<view class="message-play">
+						<image src="/static/horn.png" class="hornpng" />
+						<view class="scroll-news-content" :style="'transform: translateX(' + move + 'px);'">
+							<view class="news-content">
+								<view class="news-text">走进氢春态，省钱成常态！进入直播间，福利不间断！</view>
+							</view>
+						</view>
+						<!-- <text class="arrow" /> -->
 					</view>
 				</view>
-				
-		   	</view>
-		   	<view class="singIn">
-		   		<view class="singIn-title">
-		   			签到
-		   		</view>
-		   		<view class="singIn-sub">
-		   			签到有礼
-		   		</view>
-		   		<view class="singIn-go-pic">
-		   			<view class="singIn-go">
-		   			    GO>
-		   			</view>
-		   			<view class="singIn-pic">
-		   				<image src="/static/index-signIn.png" alt="" />
-		   			</view>
-		   		</view>
-		   	</view>
-		   </view>
-		   <view class="sponsored-ad">
-			   <view class="sponsored-ad-title">
-			   	    赞助广告
-			   </view>
-			   <view class="sponsored-ad-content-box">
-			   	<view class="sponsored-ad-content">
-			   	
-			   </view>
-			   </view>
-			   
-		   	
-		   </view>
-		  <!-- <view class="">
+				<!-- 消息播放end -->
+			</view>
+			<!-- 导航&公告end -->
+		</view>
+
+		<swiper class="swiper" circular="true" :indicator-dots="true" :autoplay="true" :interval="3000"
+			:duration="1000">
+			<block v-for="(item, seq) in indexImgs" :key="seq">
+				<swiper-item class="banner-item">
+					<view class="img-box">
+						<img :src="item.imgUrl" alt="" />
+					</view>
+				</swiper-item>
+			</block>
+		</swiper>
+
+		<view class="content">
+			<view class="middle">
+				<view class="convert" @click="goConvert()">
+					<view class="convert-title">
+						青春豆兑换区
+					</view>
+					<view class="convert-sub">
+						福利多多
+					</view>
+					<view class="convert-go-pic">
+						<view class="convert-go">
+							GO>
+						</view>
+						<view class="convert-pic">
+							<image src="/static/index-convert.png" alt="" />
+						</view>
+					</view>
+
+				</view>
+				<view class="singIn">
+					<view class="singIn-title">
+						签到
+					</view>
+					<view class="singIn-sub">
+						签到有礼
+					</view>
+					<view class="singIn-go-pic">
+						<view class="singIn-go">
+							GO>
+						</view>
+						<view class="singIn-pic">
+							<image src="/static/index-signIn.png" alt="" />
+						</view>
+					</view>
+				</view>
+			</view>
+			<view class="sponsored-ad">
+				<view class="sponsored-ad-title">
+					赞助广告
+				</view>
+				<view class="sponsored-ad-content-box">
+					<view class="sponsored-ad-content">
+
+					</view>
+				</view>
+
+
+			</view>
+			<!-- <view class="">
 		   	{{text}}1
 		   </view> -->
-		   
+		</view>
 	</view>
 </template>
 
 <script>
-	import {mapGetters,mapState} from 'vuex'
-	export default {
-		data() {
-			return {
-				title: 'Hello',
-				indexImgs:[
-					{
-						imgUrl:'https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/02/20/1.jpg',
-						id:1
-					},
-					{
-						imgUrl:'https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/02/20/2.jpg',
-						id:2
-					},
-					{
-						imgUrl:'https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/02/20/3.jpg',
-						id:3
-					},
-					{
-						imgUrl:'https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/02/20/4.jpg',
-						id:4
-					},
-				],
-			}
-		},
-		computed:{
-			// ...mapState('user',['text'])
-		},
-		onLoad() {
+import { mapGetters, mapState } from 'vuex'
+import navigationBar from '@/components/navigation-bar/index.vue'
+export default {
+	components: {
+		navigationBar
+	},
+	data() {
+		return {
+			navigationBarIsShow: false,
+			title: '氢春态欢乐园',
+			tabConfig: {
+				background: '',
+				fontColor: '#FFFFFF',
+				iconColor: '#FFFFFF'
+			},
+			isBgImg: false,
+			indexImgs: [
+				{
+					imgUrl: 'https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/02/20/1.jpg',
+					id: 1
+				},
+				{
+					imgUrl: 'https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/02/20/2.jpg',
+					id: 2
+				},
+				{
+					imgUrl: 'https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/02/20/3.jpg',
+					id: 3
+				},
+				{
+					imgUrl: 'https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/02/20/4.jpg',
+					id: 4
+				},
+			],
+		}
+	},
+	computed: {
+		// ...mapState('user',['text'])
+	},
+	onLoad() {
 
-		},
-		methods: {
-			goConvert(){
-				uni.navigateTo({
-					url:'/pages/youth-bean-center/youth-bean-center'
-				})
-			}
+	},
+	created() {
+		const res = wx.getSystemInfoSync()
+		if (res['system'].toString().indexOf('Windows') < 0) {
+			this.navigationBarIsShow = true
+		}
+	},
+	methods: {
+		goConvert() {
+			uni.navigateTo({
+				url: '/pages/youth-bean-center/youth-bean-center'
+			})
 		}
 	}
+}
 </script>
 
 <style lang="less" scoped>
-	.content{
-		// width: 700rpx;
-		padding: 0 20rpx;
-		box-sizing: border-box;
-		height: 100vh;
-		background: #e6e6e6;
-		overflow-x:hidden;
-	}
-swiper {
-  width: 710rpx;
-  height: 320rpx;
-  overflow: hidden;
-  // margin: 0 30rpx;
+.main {
+	background-color: #e6e6e6;
+	min-height: 100vh;
 }
-.middle{
+
+.content {
+	// width: 700rpx;
+	padding: 0 20rpx;
+	box-sizing: border-box;
+	// height: 100vh;
+	background: #e6e6e6;
+	overflow-x: hidden;
+}
+
+.top {
+	background: #025BFF;
+	width: 100%;
+	height: 480rpx;
+}
+
+.news-swiper {
+	padding: 0 10rpx;
+}
+
+/* 消息播放 */
+.message-play {
+	position: relative;
+	height: 64rpx;
+	background: #fff;
+	margin: 0 10rpx;
+	padding: 0 10rpx 0 55rpx;
+	box-sizing: border-box;
+	border-radius: 8rpx;
+}
+
+.message-play .hornpng {
+	width: 140rpx;
+	height: 250rpx;
+	position: absolute;
+	left: -20rpx;
+	bottom: -25rpx;
+	margin-right: 8rpx;
+	z-index: 998;
+	transform: rotate(-12deg);
+}
+
+.message-play .swiper-cont {
+	height: 64rpx;
+	line-height: 64rpx;
+	margin-top: 0;
+	z-index: 999;
+}
+
+.message-play .swiper-cont .items {
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	text-align: left;
+	font-size: 32rpx;
+}
+
+.news-text {
+	color: #BC0906;
+	font-size: 30rpx;
+}
+
+.arrow {
+	width: 15rpx;
+	height: 15rpx;
+	border-top: 3rpx solid #686868;
+	border-right: 3rpx solid #686868;
+	transform: rotate(45deg);
+	position: absolute;
+	right: 30rpx;
+	top: 34rpx;
+}
+
+.scroll-news-content {
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	height: 64rpx;
+	line-height: 64rpx;
+	font-size: 33rpx;
+	color: #232323;
+}
+
+.scroll-news-content .news-content {
+	animation: loop 8s linear infinite;
+}
+
+.scroll-news-content .content {
+	display: inline-block;
+	background: #fff;
+}
+
+.scroll-news-content .content:nth-child(2) {
+	margin-left: 10rpx;
+	padding-right: 50rpx;
+	box-sizing: border-box;
+}
+
+@keyframes loop {
+	0% {
+		transform: translateX(100%);
+		-webkit-transform: translateX(100%);
+	}
+
+	100% {
+		transform: translateX(calc(-120% + 90rpx));
+		-webkit-transform: translateX(calc(-120% + 90rpx));
+	}
+}
+
+/* 消息播放end */
+
+swiper {
+	width: calc(100% - 40rpx);
+	height: 320rpx;
+	margin: 0 20rpx;
+	margin-top: -195rpx;
+	border-radius: 8rpx;
+	overflow: hidden;
+}
+
+swiper .banner-item {
+	width: 100%;
+	height: 320rpx;
+}
+
+swiper .banner-item .img-box {
+	width: 100%;
+	height: 320rpx;
+}
+
+swiper .banner-item .img-box img {
+	width: 100%;
+	height: 320rpx;
+}
+
+.middle {
 	display: flex;
-	justify-content:space-between;
+	justify-content: space-between;
 	align-items: center;
 	margin-top: 20rpx;
-	.convert{
-		background: linear-gradient(270deg, #BCD73A 0%, #43C944 96%);;
+
+	.convert {
+		background: linear-gradient(270deg, #BCD73A 0%, #43C944 96%);
+		;
 		width: 346rpx;
 		height: 294rpx;
-        border-radius: 8rpx;
+		border-radius: 8rpx;
 		box-sizing: border-box;
 		padding: 14rpx 22rpx;
-		.convert-title{
+
+		.convert-title {
 			font-size: 36rpx;
 			color: #FFFFFF;
 		}
-		.convert-sub{
+
+		.convert-sub {
 			font-size: 22rpx;
 			color: #FFFFFF;
 		}
-		.convert-go-pic{
+
+		.convert-go-pic {
 			display: flex;
 			justify-content: space-between;
 			width: 320rpx;
 			height: 196rpx;
-			.convert-go{
+
+			.convert-go {
 				margin-top: 114rpx;
 				width: 112rpx;
 				height: 62rpx;
@@ -161,38 +337,45 @@ swiper {
 				line-height: 62rpx;
 				text-align: center;
 			}
-			.convert-pic{
+
+			.convert-pic {
 				box-sizing: border-box;
 				width: 196rpx;
 				height: 196rpx;
-				image{
+
+				image {
 					width: 100%;
 					height: 100%;
 				}
 			}
 		}
 	}
-	.singIn{
+
+	.singIn {
 		background: linear-gradient(270deg, #F1C33C 0%, #FE8206 100%);
 		width: 346rpx;
 		height: 294rpx;
 		border-radius: 8rpx;
 		box-sizing: border-box;
 		padding: 14rpx 22rpx;
-		.singIn-title{
+
+		.singIn-title {
 			font-size: 36rpx;
 			color: #FFFFFF;
 		}
-		.singIn-sub{
+
+		.singIn-sub {
 			font-size: 22rpx;
 			color: #FFFFFF;
 		}
-		.singIn-go-pic{
+
+		.singIn-go-pic {
 			display: flex;
 			justify-content: space-between;
 			width: 320rpx;
 			height: 196rpx;
-			.singIn-go{
+
+			.singIn-go {
 				margin-top: 114rpx;
 				width: 112rpx;
 				height: 62rpx;
@@ -202,11 +385,13 @@ swiper {
 				line-height: 62rpx;
 				text-align: center;
 			}
-			.singIn-pic{
+
+			.singIn-pic {
 				box-sizing: border-box;
 				width: 196rpx;
 				height: 196rpx;
-				image{
+
+				image {
 					width: 120%;
 					height: 120%;
 				}
@@ -215,30 +400,34 @@ swiper {
 	}
 
 }
-    .sponsored-ad{
-		width: 710rpx;
-		margin-top: 20rpx;
-		background: #FFFFFF;
-		.sponsored-ad-title{
-			background: linear-gradient(270deg, #86AFFF 0%, #045BFF 100%);
-			height: 86rpx;
-			box-sizing: border-box;
-			padding: 22rpx 24rpx;
-			color: #FFFFFF;
-		}
-		.sponsored-ad-content-box{
-			box-sizing: border-box;
-			padding: 52rpx 24rpx;
-			width: 710rpx;
-			height: 404rpx;
-			border-radius: 8rpx;
-			background: #FFFFFF;
-		}
-		.sponsored-ad-content{
-			width: 662rpx;
-			height: 296rpx;
-			border-radius: 8rpx;
-			background: #D8D8D8;
-		}
+
+.sponsored-ad {
+	width: 710rpx;
+	margin-top: 20rpx;
+	background: #FFFFFF;
+
+	.sponsored-ad-title {
+		background: linear-gradient(270deg, #86AFFF 0%, #045BFF 100%);
+		height: 86rpx;
+		box-sizing: border-box;
+		padding: 22rpx 24rpx;
+		color: #FFFFFF;
 	}
+
+	.sponsored-ad-content-box {
+		box-sizing: border-box;
+		padding: 52rpx 24rpx;
+		width: 710rpx;
+		height: 404rpx;
+		border-radius: 8rpx;
+		background: #FFFFFF;
+	}
+
+	.sponsored-ad-content {
+		width: 662rpx;
+		height: 296rpx;
+		border-radius: 8rpx;
+		background: #D8D8D8;
+	}
+}
 </style>
