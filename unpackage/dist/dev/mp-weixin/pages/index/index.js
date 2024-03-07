@@ -241,7 +241,7 @@ var _vuex = __webpack_require__(/*! vuex */ 35);
 //
 var navigationBar = function navigationBar() {
   __webpack_require__.e(/*! require.ensure | components/navigation-bar/index */ "components/navigation-bar/index").then((function () {
-    return resolve(__webpack_require__(/*! @/components/navigation-bar/index.vue */ 274));
+    return resolve(__webpack_require__(/*! @/components/navigation-bar/index.vue */ 283));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {
