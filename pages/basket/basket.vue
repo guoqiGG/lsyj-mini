@@ -1,7 +1,8 @@
 <template>
 	<view>
 		<view class="">
-			购物车
+			购物车asdas
+			sad
 		</view>
 	</view>
 </template>
