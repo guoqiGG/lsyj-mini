@@ -5,10 +5,10 @@
 			<view class="order-list-content-box">
 				<view class="order-list-content-box-title">
 					<view class="order-list-content-box-title-left">
-						订单编号：1764841653610352640
+						订单编号：1764841653610352642
 					</view>
 					<view class="order-list-content-box-title-right">
-						待发货
+						待发货aaa
 					</view>
 				</view>
 				<view class="order-list-content-box-content" @click="goOrderDetail()">
@@ -17,11 +17,11 @@
 					</view>
 					<view class="order-list-content-box-content-text">
 						<view class="title">
-							测试限购
+							测试限购a
 						</view>
 						<view class="price">
 							<view class="price-number">
-								0.01
+								0.01wqe
 							</view>
 							<view class="price-amount">
 								X1
@@ -31,7 +31,7 @@
 					</view>
 				</view>
 				<view class="order-list-content-box-count">
-					共1件商品 总计：0.01
+					共1件商品 总计：0.01asd
 				</view>
 			</view>
 			<view class="order-list-content-box">
