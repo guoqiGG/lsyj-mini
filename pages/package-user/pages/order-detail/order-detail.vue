@@ -26,7 +26,17 @@
 					交易完成
 				</view>
 			</view>
-			
+		</view>
+		<view class="address">
+			<view class="address-icon">
+				！！
+			</view>
+			<view class="address-name">
+				北京市
+			</view>
+			<view class="address-tel">
+				1753331996
+			</view>
 		</view>
 		
 	</view>

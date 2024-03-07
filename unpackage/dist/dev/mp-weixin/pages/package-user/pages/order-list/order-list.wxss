@@ -24,6 +24,10 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.data-v-0114bfa0 .u-tabs__wrapper__nav__line {
+  left: -12rpx;
+  width: 58rpx !important;
+}
 .order-list.data-v-0114bfa0 {
   background: #f2f2f2;
   height: 100vh;
