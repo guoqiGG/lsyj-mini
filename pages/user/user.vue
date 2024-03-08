@@ -83,7 +83,7 @@
 				</view>
 
 			</view>
-			<view class="become-leader">
+			<view class="become-leader" @click="goLeader()">
 				<view class="become-leader-pic">
 					<image src="/static/user/become-leader.png" mode=""></image>
 				</view>
@@ -148,6 +148,7 @@
 export default {
 	data() {
 		return {
+			isLeader:false
 
 		}
 	},
@@ -168,6 +169,17 @@ export default {
 				url: '/pages/package-user/pages/card-package/card-package'
 			})
 		},
+		goLeader(){
+			if(this.isLeader){
+				uni.navigateTo({
+					url:'/pages/package-leader/pages/leader-index/leader-index'
+				})
+			}else{
+				uni.navigateTo({
+					url:'/pages/package-leader/pages/apply-leader/apply-leader'
+				})
+			}
+		}
 		// login(){
 		//     console.log('登录')
 		// 	uni.showModal({

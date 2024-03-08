@@ -118,11 +118,12 @@
 		    }
 		  },
 		  {
-		  	"path" : "leader-index/leader-index",
+		  	"path" : "pages/leader-index/leader-index",
 		  	"style" : 
 		  	{
-		  		"navigationBarTitleText" : "",
-		  		"enablePullDownRefresh" : false
+		  		"navigationBarTitleText": "团长管理",
+		  		"navigationBarBackgroundColor": "#025BFF",
+		  		"navigationBarTextStyle": "white"
 		  	}
 		  }
 		]
