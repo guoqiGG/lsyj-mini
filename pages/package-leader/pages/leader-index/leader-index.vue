@@ -146,6 +146,11 @@ instanceWithdrawal(){
 	uni.navigateTo({
 		url:"/pages/package-leader/pages/withdrawal/withdrawal"
 	})
+},
+withdrawalRecord(){
+	uni.navigateTo({
+		url:"/pages/package-pay/pages/pay-index/pay-index"
+	})
 }
 		}
 	}

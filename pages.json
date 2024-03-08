@@ -121,6 +121,19 @@
         }
       ]
     },
+	{
+		"root": "pages/package-pay",
+		"pages":[
+			{
+				"path":"pages/pay-index/pay-index",
+				"style": {
+				  "navigationBarTitleText": "提交订单",
+				  "navigationBarBackgroundColor": "#025BFF",
+				  "navigationBarTextStyle": "white"
+				}
+			}
+		]
+	},
     {
       "root": "pages/package-leader",
       "pages": [
