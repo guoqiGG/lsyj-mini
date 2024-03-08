@@ -1,0 +1,110 @@
+package-pay/pages/pay-result/pay-result.wxss
+
+.pay-sts {
+  font-size: 40rpx;
+  margin-top: 47rpx;
+  padding: 30rpx 0;
+  text-align: center;
+}
+
+.pay-success,.pay-fail {
+  padding-top: 28rpx;
+}
+.img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding-top: 50rpx;
+}
+.img image{
+  width: 364rpx;
+  height: 205rpx;
+}
+.pay-fail .img image{
+  width: 157rpx;
+  height: 157rpx;
+}
+
+
+.pay-sts.fail {
+  color: #101010;
+  font-size: 44rpx;
+  font-weight: 500;
+}
+
+.order-detail-title{
+  color: #101010;
+  font-size: 44rpx;
+  font-weight: 500;
+  padding: 30rpx 0;
+  margin: 59rpx 30rpx 0;
+  border-top: 1rpx solid #E6E6E6;
+}
+
+.pay-sts.succ {
+  color: #101010;
+  font-size: 44rpx;
+  font-weight: 500;
+}
+
+.btns {
+  margin-top: 50rpx;
+  text-align: center;
+}
+
+.tips {
+  font-size: 34rpx;
+  color: #101010;
+  line-height: 50rpx;
+  margin: 0 30rpx;
+}
+
+.tips .warn {
+  color: #F81A1A;
+}
+.btns {
+  margin-top: 60rpx;
+}
+.btns .button {
+  border-radius: 10rpx;
+  font-size: 32rpx;
+  font-weight: 400;
+  background: #fff;
+  color: #9E9E9E;
+  border-radius: 8rpx;
+  border: 1rpx solid #9E9E9E;
+  padding: 33rpx 99rpx;
+  width: 300rpx;
+  line-height: 100rpx;
+  text-align: center;
+}
+
+.btns .button.checkorder {
+  /* background: #F81A1A;
+  color: #fff;
+  margin-bottom: 20rpx;
+  border: 2rpx solid #F81A1A; */
+}
+.pay-success .my-order{
+  color: #005aff;
+  text-decoration:  #005aff  underline;
+}
+
+.btns .button.payagain {
+  background: #005aff;
+  border: 1rpx solid #005aff;
+  color: #fff;
+  margin-left: 30rpx;
+}
+.pay-success .btns .button.checkorder{
+  border: 1rpx solid #005aff;
+  color: #005aff;
+}
+
+.btns .button.shopcontinue {
+  background: #005aff;
+  border: 1rpx solid #005aff;
+  color: #fff;
+  margin-left: 30rpx;
+}

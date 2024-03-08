@@ -77,7 +77,8 @@
 					<view class="list-line-rt">
 						<u-icon name="arrow-right" size="28"></u-icon>
 					</view>
-				</view><view class="list-line">
+				</view>
+				<view class="list-line">
 					<view class="list-line-lf">
 						<view class="list-line-lf-img">
 							<image src="/pages/package-leader/static/ls.png" mode=""></image>
@@ -89,7 +90,8 @@
 					<view class="list-line-rt">
 						<u-icon name="arrow-right" size="28"></u-icon>
 					</view>
-				</view><view class="list-line">
+				</view>
+				<view class="list-line">
 					<view class="list-line-lf">
 						<view class="list-line-lf-img">
 							<image src="/pages/package-leader/static/friend.png" mode=""></image>
@@ -101,7 +103,8 @@
 					<view class="list-line-rt">
 						<u-icon name="arrow-right" size="28"></u-icon>
 					</view>
-				</view><view class="list-line">
+				</view>
+				<view class="list-line">
 					<view class="list-line-lf">
 						<view class="list-line-lf-img">
 							<image src="/pages/package-leader/static/mx3.png" mode=""></image>
@@ -113,7 +116,8 @@
 					<view class="list-line-rt">
 						<u-icon name="arrow-right" size="28"></u-icon>
 					</view>
-				</view><view class="list-line">
+				</view>
+				<view class="list-line">
 					<view class="list-line-lf">
 						<view class="list-line-lf-img">
 							<image src="/pages/package-leader/static/hx.png" mode=""></image>
@@ -135,236 +139,235 @@
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-
-			}
+export default {
+	data() {
+		return {}
+	},
+	methods: {
+		instanceWithdrawal() {
+			uni.navigateTo({
+				url: "/pages/package-leader/pages/withdrawal/withdrawal"
+			})
 		},
-		methods: {
-instanceWithdrawal(){
-	uni.navigateTo({
-		url:"/pages/package-leader/pages/withdrawal/withdrawal"
-	})
-},
-withdrawalRecord(){
-	uni.navigateTo({
-		url:"/pages/package-pay/pages/pay-index/pay-index"
-	})
-}
+		withdrawalRecord() {
+			uni.navigateTo({
+				url: "/pages/package-leader/pages/take-notes/take-notes"
+			})
 		}
 	}
+}
 </script>
 
 <style lang="scss" scoped>
-	.leader-index {
-		width: 100vw;
-		height: 100vh;
-		overflow-x: hidden;
-		overflow-y: auto;
-		box-sizing: border-box;
+.leader-index {
+	width: 100vw;
+	height: 100vh;
+	overflow-x: hidden;
+	overflow-y: auto;
+	box-sizing: border-box;
+	padding: 26rpx 22rpx;
+	background: #f2f2f2;
+	position: relative;
+
+	.leader-index-background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 2;
+		width: 100%;
+		height: 350rpx;
+		opacity: 1;
+
+		background: #E53130;
+	}
+
+	.leader-index-cot {
+		position: absolute;
+		top: 0;
+		left: 0;
 		padding: 26rpx 22rpx;
-		background: #f2f2f2;
-		position: relative;
+		z-index: 3;
 
-		.leader-index-background {
-			position: absolute;
-			top: 0;
-			left: 0;
-			z-index: 2;
-			width: 100%;
-			height: 350rpx;
-			opacity: 1;
+		.user-info {
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			height: 80rpx;
 
-			background: #E53130;
-		}
-
-		.leader-index-cot {
-			position: absolute;
-			top: 0;
-			left: 0;
-			padding: 26rpx 22rpx;
-			z-index: 3;
-
-			.user-info {
-				display: flex;
-				align-items: center;
-				justify-content: flex-start;
+			.user-info-photo {
+				width: 80rpx;
 				height: 80rpx;
 
-				.user-info-photo {
-					width: 80rpx;
-					height: 80rpx;
-
-					image {
-						width: 100%;
-						height: 100%;
-					}
-				}
-				.user-info-name{
-					margin-left: 20rpx;
+				image {
+					width: 100%;
+					height: 100%;
 				}
 			}
 
-			.finance {
-				margin-top: 28rpx;
-				width: 708rpx;
-				height: 332rpx;
-				border-radius: 12rpx;
-				opacity: 1;
-				padding: 76rpx 68rpx;
-				box-sizing: border-box;
-				background: #FFFFFF;
+			.user-info-name {
+				margin-left: 20rpx;
+			}
+		}
 
-				.finance-number {
+		.finance {
+			margin-top: 28rpx;
+			width: 708rpx;
+			height: 332rpx;
+			border-radius: 12rpx;
+			opacity: 1;
+			padding: 76rpx 68rpx;
+			box-sizing: border-box;
+			background: #FFFFFF;
+
+			.finance-number {
+				display: flex;
+				justify-content: space-between;
+
+				.finance-number-lf {
 					display: flex;
-					justify-content: space-between;
+					justify-content: center;
+					flex-direction: column;
+					align-items: center;
+					padding: 0 56rpx;
+					box-sizing: border-box;
 
-					.finance-number-lf {
-						display: flex;
-						justify-content: center;
-						flex-direction: column;
-						align-items: center;
-						padding: 0 56rpx;
-						box-sizing: border-box;
+					.finance-number-lf-tit {
+						font-size: 40rpx;
+						font-weight: normal;
+						line-height: 48rpx;
+						text-align: center;
+						letter-spacing: 0rpx;
 
-						.finance-number-lf-tit {
-							font-size: 40rpx;
-							font-weight: normal;
-							line-height: 48rpx;
-							text-align: center;
-							letter-spacing: 0rpx;
-
-							font-variation-settings: "opsz" auto;
-							/* 10 */
-							color: #101010;
-						}
-
-						.finance-number-lf-cot {
-							margin-top: 10rpx;
-							font-size: 24rpx;
-							font-weight: normal;
-							line-height: 48rpx;
-							text-align: center;
-							color: #9E9E9E;
-						}
-					}
-				}
-
-				.finance-button {
-					margin-top: 40rpx;
-					display: flex;
-					justify-content: space-between;
-
-					.finance-button-lf {
-						/deep/ .u-button {
-							width: 162rpx;
-							height: 54rpx;
-							border-radius: 27rpx;
-							background: #F91919;
-							border: 0 solid transparent;
-							color: #FFFFFF;
-						}
-
-						/deep/ .u-button__text {
-							line-height: 54rpx !important;
-							font-size: 24rpx !important;
-						}
+						font-variation-settings: "opsz" auto;
+						/* 10 */
+						color: #101010;
 					}
 
-					.finance-button-rt {
-						/deep/ .u-button {
-							width: 162rpx;
-							height: 54rpx;
-							border-radius: 27rpx;
-							background: #FFFFFF;
-							border: 2rpx solid #C53032;
-							color: #C53032;
-						}
-
-						/deep/ .u-button__text {
-							line-height: 54rpx !important;
-							font-size: 24rpx !important;
-						}
+					.finance-number-lf-cot {
+						margin-top: 10rpx;
+						font-size: 24rpx;
+						font-weight: normal;
+						line-height: 48rpx;
+						text-align: center;
+						color: #9E9E9E;
 					}
 				}
 			}
 
-			.invite {
-				margin-top: 20rpx;
-				width: 708rpx;
-				height: 124rpx;
-				border-radius: 12rpx;
-				background: #FFFFFF;
+			.finance-button {
+				margin-top: 40rpx;
+				display: flex;
+				justify-content: space-between;
+
+				.finance-button-lf {
+					/deep/ .u-button {
+						width: 162rpx;
+						height: 54rpx;
+						border-radius: 27rpx;
+						background: #F91919;
+						border: 0 solid transparent;
+						color: #FFFFFF;
+					}
+
+					/deep/ .u-button__text {
+						line-height: 54rpx !important;
+						font-size: 24rpx !important;
+					}
+				}
+
+				.finance-button-rt {
+					/deep/ .u-button {
+						width: 162rpx;
+						height: 54rpx;
+						border-radius: 27rpx;
+						background: #FFFFFF;
+						border: 2rpx solid #C53032;
+						color: #C53032;
+					}
+
+					/deep/ .u-button__text {
+						line-height: 54rpx !important;
+						font-size: 24rpx !important;
+					}
+				}
+			}
+		}
+
+		.invite {
+			margin-top: 20rpx;
+			width: 708rpx;
+			height: 124rpx;
+			border-radius: 12rpx;
+			background: #FFFFFF;
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			box-sizing: border-box;
+			padding: 20rpx 40rpx;
+
+			.invite-img {
+				width: 86rpx;
+				height: 86rpx;
+
+				image {
+					width: 100%;
+					height: 100%;
+				}
+			}
+
+			.invite-text-lf {
+				margin-left: 24rpx;
+				font-size: 32rpx;
+				font-weight: normal;
+				line-height: 48rpx;
+				color: #101010;
+			}
+
+			.invite-text-rt {
+				margin-left: 24rpx;
+				font-size: 24rpx;
+				font-weight: normal;
+				line-height: 48rpx;
+				color: #979797;
+			}
+		}
+
+		.list {
+			margin-top: 20rpx;
+			box-sizing: border-box;
+			width: 708rpx;
+			height: 652rpx;
+			border-radius: 12rpx;
+			background: #FFFFFF;
+			padding: 44rpx 44rpx;
+
+			.list-line {
 				display: flex;
 				align-items: center;
-				justify-content: flex-start;
-				box-sizing: border-box;
-				padding: 20rpx 40rpx;
+				justify-content: space-between;
+				margin-bottom: 40rpx;
 
-				.invite-img {
-					width: 86rpx;
-					height: 86rpx;
-
-					image {
-						width: 100%;
-						height: 100%;
-					}
-				}
-
-				.invite-text-lf {
-					margin-left: 24rpx;
-					font-size: 32rpx;
-					font-weight: normal;
-					line-height: 48rpx;
-					color: #101010;
-				}
-
-				.invite-text-rt {
-					margin-left: 24rpx;
-					font-size: 24rpx;
-					font-weight: normal;
-					line-height: 48rpx;
-					color: #979797;
-				}
-			}
-
-			.list {
-				margin-top: 20rpx;
-				box-sizing: border-box;
-				width: 708rpx;
-				height: 652rpx;
-				border-radius: 12rpx;
-				background: #FFFFFF;
-				padding: 44rpx 44rpx;
-
-				.list-line {
+				.list-line-lf {
 					display: flex;
 					align-items: center;
-					justify-content: space-between;
-					margin-bottom: 40rpx;
+					justify-content: flex-start;
 
-					.list-line-lf {
-						display: flex;
-						align-items: center;
-						justify-content: flex-start;
+					.list-line-lf-img {
+						width: 60rpx;
+						height: 60rpx;
 
-						.list-line-lf-img {
-							width: 60rpx;
-							height: 60rpx;
-
-							image {
-								width: 100%;
-								height: 100%;
-							}
+						image {
+							width: 100%;
+							height: 100%;
 						}
+					}
 
-						.list-line-lf-text {
-							margin-left: 20rpx;
-						}
+					.list-line-lf-text {
+						margin-left: 20rpx;
 					}
 				}
 			}
 		}
 	}
+}
 </style>

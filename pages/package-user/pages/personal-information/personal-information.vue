@@ -63,28 +63,14 @@ export default {
   data() {
     return {
       photoFiles: "",
-      // genderArray: ['男', '女'],
-      // genderArray: [this.i18n.female, this.i18n.male],
-      // 不能直接这样的，要读取后保存进来
-      genderArray: [],
-      genderIndex: 0,
-      date: "", // 用户生日
       dateIndex: 0,
-
-      // birthDate: '',   //用户生日
       nickName: "", // 用户昵称
-      score: 0, // 青春豆
-      sex: "", // 性别
-      oldSex: "", // 原先性别
-      sexNumber: 0, // 判断有无滑动
       phoneNumber: "", // 手机号
-      countryCode: "", // 区号
       pic: "",
       isChange: false, // 是否修改用户信息
       isSexChange: false, // 是否修改性别
       animation: "",
       show: "",
-      showPicker: false,
       username: "",
     };
   },

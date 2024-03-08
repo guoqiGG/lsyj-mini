@@ -148,7 +148,7 @@ export default {
 		// 跳转到青春豆兑换专区
 		goConvert() {
 			uni.navigateTo({
-				url: '/pages/youth-bean-center/youth-bean-center'
+				url: '/pages/package-member-integral/pages/integral-index/integral-index'
 			})
 		},
 		// 跳转到会员中心

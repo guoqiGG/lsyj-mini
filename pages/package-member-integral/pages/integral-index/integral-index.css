@@ -1,0 +1,559 @@
+/* 青春豆中心 */
+
+page {
+  background: #f6f7f9;
+}
+
+.integral-index {
+  position: relative;
+}
+
+.integral-index .integral-msg {
+  width: 690rpx;
+  height: 330rpx;
+  position: relative;
+  margin: 43rpx auto 0;
+  background: linear-gradient(270deg, #b9d93a 0%, #46c645 100%);
+  /* background: linear-gradient(287deg, #B1D241 8%, #54C945 54%); */
+  border-radius: 25rpx;
+  box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(29, 137, 0, 0.4);
+}
+.integral-index .integral-msg .image-bg .bg {
+  width: 100%;
+  height: 100%;
+}
+
+.integral-index .integral-msg .my-integral {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 90rpx;
+  width: 690rpx;
+  height: 330rpx;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.integral-index .integral-msg .my-integral .number-box .text {
+  font-size: 32rpx;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.integral-index .integral-msg .my-integral .number-box .number {
+  font-size: 96rpx;
+  font-weight: normal;
+  color: #ffffff;
+  margin-top: 10rpx;
+}
+
+.integral-index .integral-msg .my-integral .det {
+  width: 170rpx;
+  height: 86rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fe8102;
+  border-radius: 43rpx;
+  font-size: 32rpx;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.integral-index .integral-msg .my-integral .det image {
+  width: 12rpx;
+  height: 20rpx;
+  margin-left: 10rpx;
+  padding-top: 4rpx;
+}
+
+.integral-index .integral-msg .make {
+  position: absolute;
+  right: 30rpx;
+  bottom: 70rpx;
+  padding: 6rpx 12rpx 6rpx 6rpx;
+  background: #fff;
+  color: #ee3f0f;
+  font-size: 24rpx;
+  height: 42rpx;
+  line-height: 42rpx;
+  border-radius: 54rpx;
+  display: flex;
+}
+
+.integral-index .integral-msg .make image {
+  width: 42rpx;
+  height: 42rpx;
+  vertical-align: top;
+  margin: 0 8rpx 0 4rpx;
+}
+
+/* 青春豆中心 */
+
+/* 加载完成 */
+.loadall {
+  margin: 20rpx 0;
+  line-height: 2em;
+  font-size: 28rpx;
+  color: #aaa;
+  text-align: center;
+}
+
+/* 空 */
+.empty {
+  display: block;
+  height: 200rpx;
+  line-height: 200rpx;
+  font-size: 30rpx;
+  color: #888;
+  text-align: center;
+}
+
+.integral-list {
+  width: calc(100% - 60rpx);
+  margin: 0 auto;
+  margin-top: 20rpx;
+}
+.integral-list .member-tits .text {
+  font-size: 32rpx;
+  font-weight: 400;
+  color: #101010;
+  line-height: 24rpx;
+}
+/* 会员首页 */
+
+.member-index {
+  position: relative;
+}
+
+/* 会员信息 */
+.member-index .member-msg {
+  position: relative;
+  width: 750rpx;
+  height: 350rpx;
+  background: linear-gradient(180deg, #005aff, #88b2ff);
+}
+
+.member-index .member-msg .m-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.member-index .member-msg .member-info {
+  padding: 50rpx 30rpx 20rpx;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.member-index .member-msg .member-info .head-portrait {
+  width: 80rpx;
+  height: 87rpx;
+  border-radius: 50%;
+  position: relative;
+}
+.member-index .member-msg .member-info .head-portrait .head-avatar-bg {
+  width: 98rpx;
+  height: 98rpx;
+  /* border: 1rpx solid black; */
+  border-radius: 50%;
+}
+
+.member-index .member-msg .member-info .head-portrait .head-avatar {
+  position: absolute;
+  top: -22rpx;
+  left: -4rpx;
+  width: 105rpx;
+  height: 125rpx;
+  border-radius: 50%;
+}
+
+.member-index .member-msg .member-info .text-box {
+  margin: 0 40rpx;
+  flex: 1;
+}
+
+.member-index .member-msg .member-info .text-box .name-box {
+  display: flex;
+  align-items: center;
+}
+
+.member-index .member-msg .member-info .text-box .name-box .name {
+  max-width: 160rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #fff;
+  /* max-width: 196rpx; */
+  /* display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1; */
+}
+
+.member-index .member-msg .member-info .text-box .name-box .level {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* height: 40rpx; */
+  padding: 10rpx 14rpx;
+  margin-left: 10rpx;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 32rpx;
+}
+
+.member-index .member-msg .member-info .text-box .name-box .level .l-bg {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.member-index .member-msg .member-info .text-box .name-box .level .text {
+  color: #7c4733;
+  font-size: 24rpx;
+  font-family: arial;
+  position: relative;
+  line-height: 1.4em;
+  margin-left: 12rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+
+.member-index .member-msg .member-info .text-box .date {
+  margin-top: 14rpx;
+  font-size: 24rpx;
+  color: #fff;
+}
+
+.member-index .member-msg .member-info .buy-btn {
+  width: 170rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #7c4733;
+  background: #fbe3b4;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 70rpx;
+  font-weight: 600;
+}
+
+.member-index .member-msg .grow-box {
+  position: absolute;
+  left: 0;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  width: 100%;
+  padding: 0 70rpx;
+  box-sizing: border-box;
+}
+
+.member-index .member-msg .grow-box .item {
+  flex: 1;
+  text-align: center;
+}
+
+.member-index .member-msg .grow-box .item .text {
+  font-size: 30rpx;
+  font-weight: 500;
+}
+
+.member-index .member-msg .grow-box .item .number-box {
+  margin-top: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.member-index .member-msg .grow-box .item .number-box .number {
+  font-family: arial;
+  font-size: 50rpx;
+  font-weight: 500;
+  color: #fff;
+}
+
+.member-index .member-msg .grow-box .item .number-box .arr {
+  font-size: 0;
+  margin-left: 10rpx;
+}
+
+.member-index .member-msg .grow-box .item .number-box .arr image {
+  width: 12rpx;
+  height: 20rpx;
+}
+
+/* 会员信息 end */
+
+.member-tit {
+  display: flex;
+  align-items: center;
+}
+.member-tit2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.member-tit .text {
+  flex: 1;
+  font-size: 34rpx;
+  font-weight: 800;
+  position: relative;
+  padding-left: 16rpx;
+  color: #232323;
+}
+
+/* .member-tit .text::before {
+  position: absolute;
+  left: 0;
+  top: 20%;
+  display: block;
+  width: 6rpx;
+  height: 60%;
+  content: ' ';
+  background: #F81A1A;
+  border-radius: 6rpx;
+} */
+
+.member-tit .more {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 10rpx;
+}
+
+/* 每日签到、青春豆活动、青春豆任务 */
+
+.member-index .sign-in,
+.member-index .activity,
+.member-index .mission {
+  margin-top: 50rpx;
+  padding: 0 30rpx;
+}
+.member-index .sign-in1 {
+  position: relative;
+  margin: 10rpx 10rpx 0;
+  background: #ffffff;
+  /* box-shadow: 0rpx 0rpx 25rpx 0rpx rgba(0, 0, 0, 0.15); */
+  border-radius: 10rpx;
+  padding: 30rpx 10rpx;
+}
+.member-index .sign-in .con-box {
+  display: flex;
+  padding: 0 5rpx;
+  margin-bottom: -40rpx;
+  overflow-y: auto;
+}
+
+.member-index .sign-in .con-box .item {
+  margin-right: 20rpx;
+  margin-top: 30rpx;
+  text-align: center;
+  height: 160rpx;
+  flex: 1;
+}
+
+.member-index .sign-in .con-box .item:nth-child(7n) {
+  margin-right: 0;
+}
+
+.member-index .sign-in .con-box .item .number {
+  min-width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 80rpx;
+  background: linear-gradient(180deg, #005aff, #88b2ff);
+  color: #fff;
+  font-family: arial;
+  font-size: 24rpx;
+}
+
+.member-index .sign-in .con-box .item .number.num-text {
+  font-size: 20rpx;
+}
+
+.member-index .sign-in .con-box .item .number.active {
+  color: #fff;
+}
+
+.member-index .sign-in .con-box .item .day {
+  font-size: 24rpx;
+  margin-top: 10rpx;
+}
+
+.member-index .activity .con-box {
+  display: flex;
+  margin-top: 30rpx;
+}
+
+.member-index .activity .con-box .item {
+  width: 330rpx;
+  height: 168rpx;
+  position: relative;
+}
+
+.member-index .activity .con-box .item:first-child {
+  margin-right: 30rpx;
+}
+
+.member-index .activity .con-box .item .bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 10rpx rgba(255, 121, 1, 0.5);
+  border-radius: 16rpx;
+}
+
+.member-index .activity .con-box .item .b-text,
+.member-index .activity .con-box .item .s-text {
+  position: relative;
+  color: #fff;
+  margin-left: 20rpx;
+}
+
+.member-index .activity .con-box .item .b-text {
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-top: 48rpx;
+}
+
+.member-index .activity .con-box .item .s-text {
+  font-size: 24rpx;
+  margin-top: 6rpx;
+  opacity: 0.8;
+}
+
+.member-index .mission .con-box .item {
+  margin-top: 30rpx;
+  display: flex;
+  align-items: center;
+  padding-bottom: 30rpx;
+  border-bottom: 1px solid #eee;
+}
+
+.member-index .mission .con-box .item:last-child {
+  border: 0;
+}
+
+.member-index .mission .con-box .item .mission-box {
+  flex: 1;
+  margin-right: 30rpx;
+}
+
+.member-index .mission .con-box .item .mission-box .name {
+  font-size: 28rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.member-index .mission .con-box .item .mission-box .mission-des {
+  color: #999;
+  font-size: 24rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 10rpx;
+}
+
+.member-index .mission .con-box .item .btn {
+  background: #f81a1a;
+  color: #fff;
+  padding: 10rpx;
+  border-radius: 60rpx;
+  font-size: 28rpx;
+  text-align: center;
+}
+
+.member-index .mission .con-box .item .btn.done {
+  background: #ccc;
+}
+
+/* 每日签到、青春豆活动、青春豆任务 end */
+
+/* 青春豆兑换 */
+
+.integral-list {
+  padding: 50rpx 30rpx 30rpx;
+  background: #f6f7f9;
+}
+
+.integral-list .con-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+/* .integral-list .con-box .item {
+  margin: 30rpx 30rpx 0 0;
+  width: 330rpx;
+  background: #fff;
+  padding: 20rpx;
+  box-sizing: border-box;
+  border-radius: 10rpx;
+}
+
+.integral-list .con-box .item:nth-child(2n) {
+  margin-right: 0;
+}
+
+.integral-list .con-box .item .img {
+  width: 290rpx;
+  height: 290rpx;
+  font-size: 0;
+}
+
+.integral-list .con-box .item .img image {
+  width: 100%;
+  height: 100%;
+}
+
+.integral-list .con-box .item .name {
+  font-size: 28rpx;
+  margin: 16rpx 0 10rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.integral-list .con-box .item .price {
+  position: relative;
+  padding-left: 34rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  font-size: 24rpx;
+}
+
+.integral-list .con-box .item .price .icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.integral-list .con-box .item .old-price {
+  font-size: 24rpx;
+  color: #999;
+  text-decoration: line-through;
+  font-family: arial;
+} */
+
+/* 青春豆兑换 end */

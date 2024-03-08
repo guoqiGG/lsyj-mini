@@ -12,6 +12,12 @@ uni.$u.config.unit = 'rpx'
 const app = new Vue({
   ...App
 })
+Vue.prototype.toPrice = function(val) {
+  if (!val) {
+    val = 0
+  }
+  return val.toFixed(2)
+}
 app.$mount()
 // #endif
 

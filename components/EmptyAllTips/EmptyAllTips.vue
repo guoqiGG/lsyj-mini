@@ -87,17 +87,17 @@ export default {
 }
 
 .empty-text {
-  font-size: 28rpx;
+  font-size: 24rpx;
   text-align: center;
   color: #999;
-  line-height: 2em;
+  line-height:4.5em;
 }
 
 /* 加载完成 */
 .load-all {
   margin-top: 40rpx;
   line-height: 2em;
-  font-size: 28rpx;
+  font-size: 24rpx;
   color: #aaa;
   text-align: center;
 }

@@ -47,13 +47,6 @@
         "navigationBarTitleText": "",
         "enablePullDownRefresh": false
       }
-    },
-    {
-      "path": "pages/youth-bean-center/youth-bean-center",
-      "style": {
-        "navigationBarTitleText": "青春豆中心",
-        "enablePullDownRefresh": false
-      }
     }
   ],
   "subPackages": [
@@ -147,6 +140,20 @@
             "navigationBarBackgroundColor": "#025BFF",
             "navigationBarTextStyle": "white"
           }
+        },
+        {
+          "path": "pages/pay-result/pay-result",
+          "style": {
+            "backgroundTextStyle": "light"
+          }
+        },
+        {
+          "path": "pages/pay-success/pay-success",
+          "style": {
+            "backgroundTextStyle": "dark",
+            "navigationBarBackgroundColor": "#ffffff",
+            "navigationBarTextStyle": "black"
+          }
         }
       ]
     },
@@ -176,6 +183,14 @@
             "navigationBarBackgroundColor": "#025BFF",
             "navigationBarTextStyle": "white"
           }
+        },
+        {
+          "path": "pages/take-notes/take-notes",
+          "style": {
+            "navigationBarTitleText": "提现记录",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
         }
       ]
     },
@@ -189,6 +204,13 @@
             "navigationBarTitleText": "会员中心",
             "navigationBarBackgroundColor": "#025BFF",
             "navigationBarTextStyle": "white"
+          }
+        },
+        {
+          "path": "pages/integral-index/integral-index",
+          "style": {
+            "navigationBarTitleText": "青春豆中心",
+            "enablePullDownRefresh": false
           }
         }
       ]
