@@ -33,10 +33,10 @@
 				</view>
 				<view class="finance-button">
 					<view class="finance-button-lf">
-						<u-button type="primary" text="立即提现"></u-button>
+						<u-button @click="instanceWithdrawal()" type="primary" text="立即提现"></u-button>
 					</view>
 					<view class="finance-button-rt">
-						<u-button class="button-rt" text="提现记录"></u-button>
+						<u-button @click="withdrawalRecord()" class="button-rt" text="提现记录"></u-button>
 					</view>
 				</view>
 			</view>
@@ -142,7 +142,11 @@
 			}
 		},
 		methods: {
-
+instanceWithdrawal(){
+	uni.navigateTo({
+		url:"/pages/package-leader/pages/withdrawal/withdrawal"
+	})
+}
 		}
 	}
 </script>

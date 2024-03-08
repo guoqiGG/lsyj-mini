@@ -139,6 +139,15 @@
             "navigationBarBackgroundColor": "#025BFF",
             "navigationBarTextStyle": "white"
           }
+		  },
+		  {
+		  	"path" : "pages/withdrawal/withdrawal",
+		  	"style" : 
+		  	{
+		  		"navigationBarTitleText": "提现",
+		  		"navigationBarBackgroundColor": "#025BFF",
+		  		"navigationBarTextStyle": "white"
+		  	}
         }
       ]
     },
