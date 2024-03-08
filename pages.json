@@ -112,7 +112,7 @@
 		  {
 		    "path": "pages/apply-leader/apply-leader",
 		    "style": {
-		      "navigationBarTitleText": "申请团长",
+		      "navigationBarTitleText": "申请成为团长",
 		      "navigationBarBackgroundColor": "#025BFF",
 		      "navigationBarTextStyle": "white"
 		    }

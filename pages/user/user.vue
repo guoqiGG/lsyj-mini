@@ -148,7 +148,7 @@
 export default {
 	data() {
 		return {
-			isLeader:false
+			isLeader:true
 
 		}
 	},
