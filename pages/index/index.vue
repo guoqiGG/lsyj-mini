@@ -152,9 +152,9 @@ export default {
 			})
 		},
 		// 跳转到会员中心
-		goMemberCenter(){
+		goMemberCenter() {
 			uni.navigateTo({
-				url:'/pages/package-member-integral/pages/member-center/member-center'
+				url: '/pages/package-member-integral/pages/member-center/member-center'
 			})
 		}
 	}

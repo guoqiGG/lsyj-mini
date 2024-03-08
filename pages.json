@@ -107,40 +107,40 @@
       ]
     },
     {
-		"root": "pages/package-leader",
-		"pages": [
-		  {
-		    "path": "pages/apply-leader/apply-leader",
-		    "style": {
-		      "navigationBarTitleText": "申请成为团长",
-		      "navigationBarBackgroundColor": "#025BFF",
-		      "navigationBarTextStyle": "white"
-		    }
-		  }
-		]
-	},
-  { // 会员中心
-		"root": "pages/package-member-integral",
-		"pages": [
-		  {
-		  	"path" : "pages/leader-index/leader-index",
-		  	"style" : 
-		  	{
-		  		"navigationBarTitleText": "团长管理",
-		  		"navigationBarBackgroundColor": "#025BFF",
-		  		"navigationBarTextStyle": "white"
-		  	}
-      },
-      {
-		    "path": "pages/member-center/member-center",
-		    "style": {
-		      "navigationBarTitleText": "会员中心",
-		      "navigationBarBackgroundColor": "#025BFF",
-		      "navigationBarTextStyle": "white"
-		    }
-		  }
-		]
-	}
+      "root": "pages/package-leader",
+      "pages": [
+        {
+          "path": "pages/apply-leader/apply-leader",
+          "style": {
+            "navigationBarTitleText": "申请成为团长",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
+        },
+        {
+          "path": "pages/leader-index/leader-index",
+          "style": {
+            "navigationBarTitleText": "团长管理",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
+        }
+      ]
+    },
+    {
+      // 会员中心
+      "root": "pages/package-member-integral",
+      "pages": [
+        {
+          "path": "pages/member-center/member-center",
+          "style": {
+            "navigationBarTitleText": "会员中心",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
+        }
+      ]
+    }
   ],
   "tabBar": {
     "selectedColor": "#005AFF",
