@@ -1,0 +1,79 @@
+/* 个人信息 */
+page {
+  background-color: #f6f6f6;
+  font-size: 28rpx;
+  color: #333333;
+}
+.birthday-wrap image.right-img,
+.cloumn-item image.right-img {
+  width: 32rpx;
+  height: 32rpx;
+}
+/* 栏 */
+.item-wrap {
+  background-color: #ffffff;
+  margin-top: 20rpx;
+  border-radius: 14rpx;
+  padding: 0 30rpx;
+}
+.item-wrap .cloumn-item {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  align-items: center;
+  -webkit-align-items: center;
+
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+}
+.item-wrap .cloumn-item .txt-wrap {
+  height: 100rpx;
+  line-height: 100rpx;
+  min-width: 25%;
+  white-space: nowrap;
+  color: #010101;
+}
+.item-wrap .cloumn-item:not(:first-child) {
+  border-top: #e1e1e1 1rpx solid;
+}
+.infor-right-wrap,
+.right-wrap {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  align-items: center;
+  -webkit-align-items: center;
+  color: #666666;
+  width: 80%;
+}
+.txt-infor {
+  color: #979797;
+}
+/* 头像 */
+.infor-right-wrap {
+  justify-content: flex-end;
+  -webkit-justify-content: flex-end;
+}
+.infor-right-wrap > .avatar-picture {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  margin-right: 8rpx;
+}
+/* 确认按钮 */
+.confirm {
+  display: block;
+  margin: 0 auto;
+  margin-top: 100rpx;
+  width: 70%;
+  padding: 20rpx 0;
+  font-size: 28rpx;
+  text-align: center;
+  color: #fff;
+  background: #005aff;
+  letter-spacing: 2px;
+  border-radius: 10rpx;
+}

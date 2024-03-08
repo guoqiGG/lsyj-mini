@@ -119,7 +119,7 @@
 							卡包
 						</view>
 					</view>
-					<view class="service-tool-content-wrap">
+					<view class="service-tool-content-wrap" @tap="toSystemSetUp">
 						<view class="service-tool-content-img">
 							<image src="/static/user/system.png" mode=""></image>
 						</view>
@@ -167,6 +167,12 @@ export default {
 		goCardPackage() {
 			uni.navigateTo({
 				url: '/pages/package-user/pages/card-package/card-package'
+			})
+		},
+		// 跳转系统设置
+		toSystemSetUp() {
+			uni.navigateTo({
+				url: '/pages/package-user/pages/account-settings/account-settings'
 			})
 		},
 		goLeader(){

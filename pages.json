@@ -118,22 +118,38 @@
             "navigationBarBackgroundColor": "#025BFF",
             "navigationBarTextStyle": "white"
           }
+        },
+        {
+          "path": "pages/account-settings/account-settings",
+          "style": {
+            "navigationBarTitleText": "账户设置",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
+        },
+        {
+          "path": "pages/personal-information/personal-information",
+          "style": {
+            "navigationBarTitleText": "账户设置",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
         }
       ]
     },
-	{
-		"root": "pages/package-pay",
-		"pages":[
-			{
-				"path":"pages/pay-index/pay-index",
-				"style": {
-				  "navigationBarTitleText": "提交订单",
-				  "navigationBarBackgroundColor": "#025BFF",
-				  "navigationBarTextStyle": "white"
-				}
-			}
-		]
-	},
+    {
+      "root": "pages/package-pay",
+      "pages": [
+        {
+          "path": "pages/pay-index/pay-index",
+          "style": {
+            "navigationBarTitleText": "提交订单",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
+        }
+      ]
+    },
     {
       "root": "pages/package-leader",
       "pages": [
@@ -152,15 +168,14 @@
             "navigationBarBackgroundColor": "#025BFF",
             "navigationBarTextStyle": "white"
           }
-		  },
-		  {
-		  	"path" : "pages/withdrawal/withdrawal",
-		  	"style" : 
-		  	{
-		  		"navigationBarTitleText": "提现",
-		  		"navigationBarBackgroundColor": "#025BFF",
-		  		"navigationBarTextStyle": "white"
-		  	}
+        },
+        {
+          "path": "pages/withdrawal/withdrawal",
+          "style": {
+            "navigationBarTitleText": "提现",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
         }
       ]
     },
