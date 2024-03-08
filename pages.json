@@ -116,7 +116,12 @@
 		      "navigationBarBackgroundColor": "#025BFF",
 		      "navigationBarTextStyle": "white"
 		    }
-		  },
+		  }
+		]
+	},
+  { // 会员中心
+		"root": "pages/package-member-integral",
+		"pages": [
 		  {
 		  	"path" : "pages/leader-index/leader-index",
 		  	"style" : 
@@ -125,6 +130,14 @@
 		  		"navigationBarBackgroundColor": "#025BFF",
 		  		"navigationBarTextStyle": "white"
 		  	}
+      },
+      {
+		    "path": "pages/member-center/member-center",
+		    "style": {
+		      "navigationBarTitleText": "会员中心",
+		      "navigationBarBackgroundColor": "#025BFF",
+		      "navigationBarTextStyle": "white"
+		    }
 		  }
 		]
 	}
