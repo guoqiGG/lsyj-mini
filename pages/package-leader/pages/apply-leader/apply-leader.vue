@@ -96,8 +96,6 @@
 		height: 94rpx !important;
 		border-radius: 4rpx !important;
 		opacity: 1;
-
-		/* 02 */
 		background: #025BFF !important;
 	}
 

@@ -33,7 +33,7 @@
 			</view>
 		</view>
 		<view class="withdrawal-btn">
-			<u-button @click="onSubmitApplyWithdrawal()" text="确认体现"></u-button>
+			<u-button @click="onSubmitApplyWithdrawal()" text="确认提现"></u-button>
 		</view>
 		<view class="withdrawal-text">
 			<view class="withdrawal-text-cot">
@@ -136,7 +136,7 @@
 		}
 		
 		.withdrawal-cot-subscribe{
-			margin-top: 60rpx;
+			margin-top: 40rpx;
 			box-sizing: border-box;
 			width: 624rpx;
 			height: 50rpx;

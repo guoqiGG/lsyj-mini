@@ -113,7 +113,7 @@
 						平台优惠券：
 					</view>
 					<view class="submit-order-coupon-select-button">
-
+						<u-button @click="selectCouponClick()" type="primary" text="选择优惠券"></u-button>
 					</view>
 
 				</view>
@@ -135,21 +135,181 @@
 				</view>
 			</view>
 
+			<view class="submit-order-price">
+				<view class="submit-order-price-left">
+					<view class="submit-order-price-left-text">
+						总计：
+					</view>
+					<view class="submit-order-price-middle-text">
+						￥39.90
+					</view>
+				</view>
+				<view class="submit-order-price-button">
+					<u-button type="primary" text="提交订单"></u-button>
+				</view>
+			</view>
 		</view>
+		<view class="submit-popup">
+			<u-popup :show="show" @close="close" @open="open">
+				<view class="popup-style">
+					<view class="popup-style-title">
+						<view class="popup-style-title-left">
+							优惠券
+						</view>
+						<view @click="close()" class="popup-style-title-right">
+							<u-icon name="close" size="38"></u-icon>
+						</view>
+					</view>
+					<view class="popup-style-content">
+						<u-checkbox-group v-model="checkboxValue1" placement="column"  @change="checkboxChange">
+						<view v-for="(item,index) in couponList" class="popup-style-content-wrap">
+							<view class="popup-style-content-wrap-left">
+								<view class="popup-style-content-wrap-left-img">
+									<image src="/pages/package-pay/static/coupon-list.png" mode=""></image>
+								</view>
+								<view class="popup-style-content-wrap-left-text">
+									<view class="popup-style-content-wrap-left-text-number">
+										<view class="popup-style-content-wrap-left-text-number-left">
+											￥
+										</view>
+										<view class="popup-style-content-wrap-left-text-number-middle">
+											30
+										</view>
+										<view class="popup-style-content-wrap-left-text-number-right">
+											.00
+										</view>
+									</view>
+									<view class="popup-style-content-wrap-left-text-info">
+										满30元可用
+									</view>
+								</view>
+							</view>
+							<view class="popup-style-content-wrap-right">
+								<view class="popup-style-content-wrap-right-title">
+									<view class="popup-style-content-wrap-right-title-lf">
+										平台
+									</view>
+									<view class="popup-style-content-wrap-right-title-rt">
+										益生菌30元优惠券 全场通用
+									</view>
+								</view>
+								<view class="popup-style-content-wrap-right-cot">
+									（特殊商品除外）
+								</view>
+								<view class="popup-style-content-wrap-right-button">
+									<!-- 	<u-radio-group v-model="radiovalue1" placement="column" @change="groupChange">
+										<u-radio   v-for="(item, index) in radiolist" @change="radioChange"></u-radio>
+									</u-radio-group> -->
+										<u-checkbox :key="index" :name="index" @change="getCheckClick(item.id)">
+										</u-checkbox>
+								</view>
+								<view class="popup-style-content-wrap-right-time">
+									2024-03-03~2025-04-11
+								</view>
+
+
+							</view>
+						</view>
+									</u-checkbox-group>
+					</view>
+					<view class="popup-style-button">
+
+						<u-button @click="confirmSelectCoupon()" type="primary" text="确定"></u-button>
+					</view>
+				</view>
+			</u-popup>
+		</view>
+
 	</view>
 </template>
 
 <script>
+	import {
+		log
+	} from 'util'
 	export default {
 		data() {
 			return {
 				express: true,
 				name: '',
-				tel: ''
+				tel: '',
+				show: true,
+				couponList: [{
+						id: 1,
+						value: "30"
+					},
+					{
+						id: 2,
+						value: "40"
+					},
+					{
+						id: 3,
+						value: "40"
+					},
+					{
+						id: 4,
+						value: "40"
+					},
+					{
+						id: 5,
+						value: "40"
+					},
+					{
+						id: 6,
+						value: "40"
+					},
+					{
+						id: 7,
+						value: "40"
+					},
+					{
+						id: 8,
+						value: "40"
+					},
+					{
+						id: 9,
+						value: "40"
+					}
+				],
+				checkboxValue1: [],
+				radiolist: [{
+					name: '',
+					disabled: false
+				}],
+				checkList: []
 
 			}
 		},
 		methods: {
+			open() {
+
+			},
+			close() {
+				this.show = false
+				// console.log('close');
+				this.checkList = []
+				this.checkboxValue1=[]
+			},
+			selectCouponClick() {
+				this.show = true
+				console.log("sasd")
+			},
+			checkboxChange(n) {
+				console.log('groupChange', n);
+			},
+			getCheckClick(id) {
+				console.log(id,5555)
+				// let index = this.checkList.indexOf(id)
+				// if (index === -1) {
+				// 	this.checkList.push(id);
+				// } else {
+				// 	this.checkList.splice(index, 1);
+				// }
+
+			},
+			confirmSelectCoupon() {
+				console.log(this.checkList)
+			}
 
 		}
 	}
@@ -160,7 +320,7 @@
 		width: 100vw;
 		height: 100vh;
 		overflow-x: hidden;
-		overflow-y: auto;
+		overflow-y: hidden;
 
 		background: #f2f2f2;
 		position: relative;
@@ -434,18 +594,265 @@
 				}
 
 			}
-  
-            .submit-order-coupon{
-				width: 355px;
-				border-radius: 4px;
+
+			.submit-order-coupon {
+				margin-top: 10px;
+				width: 710rpx;
+				border-radius: 8rpx;
 				opacity: 1;
 				background: #FFFFFF;
 				box-sizing: border-box;
-				padding:8px 10px ;
+				padding: 16rpx 20rpx;
+
+				.submit-order-coupon-select {
+					display: flex;
+					justify-content: space-between;
+
+					.submit-order-coupon-select-left {
+						font-size: 32rpx;
+						color: #101010;
+					}
+
+					.submit-order-coupon-select-button {
+						/deep/ .u-button {
+							width: 78px !important;
+							height: 28px !important;
+							border-radius: 4px !important;
+							background: #FFFFFF !important;
+							box-sizing: border-box !important;
+							border: 1px solid #979797 !important;
+							color: #9E9E9E !important;
+						}
+
+						/deep/ .u-button__text {
+							font-size: 24rpx !important;
+						}
+					}
+				}
+
+				.submit-order-coupon-amount-price,
+				.submit-order-coupon-express-price {
+					margin-top: 18rpx;
+					display: flex;
+					justify-content: space-between;
+
+					.submit-order-coupon-amount-price-left,
+					.submit-order-coupon-express-price-left {
+						font-size: 32rpx;
+						color: #101010;
+					}
+
+					.submit-order-coupon-amount-price-right,
+					.submit-order-coupon-express-price-right {
+						font-size: 32rpx;
+						color: #C53032;
+					}
+				}
+
 			}
-         
+
+
+			.submit-order-price {
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				margin-left: -10%;
+				width: 120%;
+				height: 168rpx;
+				background: #FFFFFF;
+				box-sizing: border-box;
+				padding: 14rpx 15%;
+				display: flex;
+				justify-content: space-between;
+
+				.submit-order-price-left {
+					display: flex;
+					justify-content: flex-start;
+					margin-top: 13px;
+
+					.submit-order-price-left-text {
+						font-size: 12px;
+						color: #101010;
+					}
+
+					.submit-order-price-middle-text {
+						font-size: 14px;
+						color: #C53032;
+					}
+				}
+
+				.submit-order-price-button {
+					/deep/ .u-button {
+						width: 100px !important;
+						height: 36px !important;
+						border-radius: 18px !important;
+						background: linear-gradient(270deg, #FC4D0E 0%, #F58927 100%) !important;
+						border: 0px solid transparent;
+					}
+
+				}
+
+			}
+		}
+
+		.popup-style {
+			height: 1168rpx;
+			box-sizing: border-box;
+			padding: 10rpx 20rpx;
+			position: relative;
+
+			.popup-style-title {
+				display: flex;
+				justify-content: space-between;
+			}
+
+			.popup-style-content {
+				margin-top: 40rpx;
+				height: 900rpx;
+				overflow-y: auto;
+
+				.popup-style-content-wrap {
+					width: 712rpx;
+					display: flex;
+					justify-content: flex-start;
+					margin-bottom: 20rpx;
+
+					.popup-style-content-wrap-left {
+						width: 258rpx;
+						height: 192rpx;
+						position: relative;
+
+						.popup-style-content-wrap-left-img {
+							position: absolute;
+							top: 0;
+							left: 0;
+							width: 100%;
+							height: 100%;
+							z-index: 2;
+
+							image {
+								width: 100%;
+								height: 100%;
+							}
+
+						}
+
+						.popup-style-content-wrap-left-text {
+							position: absolute;
+							top: 0;
+							left: 0;
+							z-index: 3;
+							display: flex;
+							flex-direction: column;
+							align-items: center;
+							justify-content: center;
+							margin-left: 60rpx;
+
+							.popup-style-content-wrap-left-text-number {
+								display: flex;
+								justify-content: flex-start;
+								align-items: flex-end;
+								margin-top: 48rpx;
+
+								.popup-style-content-wrap-left-text-number-left {
+									font-size: 20rpx;
+									color: #FFFFFF;
+								}
+
+								.popup-style-content-wrap-left-text-number-middle {
+									font-size: 48rpx;
+									color: #FFFFFF;
+								}
+
+								.popup-style-content-wrap-left-text-number-right {
+									font-size: 20rpx;
+									color: #FFFFFF;
+								}
+
+							}
+
+							.popup-style-content-wrap-left-text-info {
+								font-size: 24rpx;
+								color: #FFFFFF;
+							}
+						}
+					}
+
+					.popup-style-content-wrap-right {
+						width: 452rpx;
+						height: 192rpx;
+						background: #FFFFFF;
+						box-sizing: border-box;
+						padding: 18rpx 20rpx;
+
+						box-shadow: 0rpx 2rpx 8rpx 0rpx rgba(187, 187, 187, 0.5);
+
+						.popup-style-content-wrap-right-title {
+							display: flex;
+							justify-content: flex-start;
+
+							.popup-style-content-wrap-right-title-lf {
+								width: 86rpx;
+								height: 36rpx;
+								border-radius: 18rpx;
+								background: #FBEFEF;
+								font-size: 24rpx;
+								text-align: center;
+								line-height: 36rpx;
+								color: #C53032;
+							}
+
+							.popup-style-content-wrap-right-title-rt {
+								margin-left: 10rpx;
+								font-size: 24rpx;
+								color: #101010;
+							}
+						}
+
+						.popup-style-content-wrap-right-cot {
+							font-size: 24rpx;
+							color: #101010;
+						}
+
+
+						.popup-style-content-wrap-right-button {
+							margin-left: 342rpx;
+							margin-bottom: 16rpx;
+
+							/deep/ .u-checkbox__icon-wrap {
+								width: 40rpx !important;
+								height: 40rpx !important;
+								border-radius: 20rpx !important;
+
+							}
+
+							/deep/ .u-icon__icon {
+								font-size: 36rpx !important;
+							}
+						}
+
+						.popup-style-content-wrap-right-time {
+							font-size: 20rpx;
+							color: #3D3D3D;
+						}
+					}
+				}
+			}
 
 		}
 
+		.popup-style-button {
+			position: absolute;
+			bottom: 40rpx;
+			left: 40rpx;
+
+			/deep/ .u-button {
+				width: 670rpx !important;
+				height: 78rpx !important;
+				border-radius: 54rpx !important;
+
+				background: #025BFF !important;
+			}
+		}
 	}
 </style>
