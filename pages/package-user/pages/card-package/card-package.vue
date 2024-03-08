@@ -26,14 +26,15 @@
                 <view class="right">
                     <view class="coupon-name">龙年首播鸡蛋卡(1)</view>
                     <view class="coupon-text" v-if="coupon_state == 'MERGED'">合成时间：2024-03-07</view>
-                    <view class="coupon-text" v-if="coupon_state == 'SENDED'||coupon_state == 'MERGED'">领取时间：2024-03-07 08:00:00</view>
+                    <view class="coupon-text" v-if="coupon_state == 'SENDED' || coupon_state == 'MERGED'">领取时间：2024-03-07
+                        08:00:00</view>
                 </view>
                 <view class="use" v-if="coupon_state == 'SENDED'">
                     <text class="text">合并</text>
                 </view>
 
                 <!-- <view class="use" v-if="coupon_state == 'MERGED'">核销</view> -->
-                <view class="use used" v-if="coupon_state == 'MERGED' ">已核销</view>
+                <view class="use used" v-if="coupon_state == 'MERGED'">已核销</view>
             </view>
             <!-- 空列表或加载全部提示 -->
             <EmptyAllTips v-if="isLoaded" :isEmpty="!dataList.length" emptyTips="暂无数据" :isAll="isAll" />
@@ -41,8 +42,8 @@
     </view>
 </template>
 <script>
-//   const http = require("@/utils/http.js");
-//   const util = require("@/utils/util.js");
+const http = require("@/utils/http");
+// const util = require("@/utils/util");
 import dayjs from "dayjs";
 export default {
     data() {

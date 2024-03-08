@@ -127,7 +127,7 @@
 							系统设置
 						</view>
 					</view>
-					<view class="service-tool-content-wrap">
+					<view class="service-tool-content-wrap" @tap="toAddressList">
 						<view class="service-tool-content-img">
 							<image src="/static/user/address-manage.png" mode=""></image>
 						</view>
@@ -179,6 +179,12 @@ export default {
 					url:'/pages/package-leader/pages/apply-leader/apply-leader'
 				})
 			}
+		},
+		// 跳转到我的地址列表
+		toAddressList(){
+			uni.navigateTo({
+				url: '/pages/package-user/pages/delivery-address/delivery-address'
+			})
 		}
 		// login(){
 		//     console.log('登录')

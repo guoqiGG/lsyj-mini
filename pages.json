@@ -103,6 +103,21 @@
             "navigationBarBackgroundColor": "#025BFF",
             "navigationBarTextStyle": "white"
           }
+        },
+        {
+          "path": "pages/delivery-address/delivery-address",
+          "style": {
+            "navigationBarTitleText": "地址管理",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
+        },
+        {
+          "path": "pages/edit-address/edit-address",
+          "style": {
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
         }
       ]
     },
