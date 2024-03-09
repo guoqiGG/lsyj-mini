@@ -1,0 +1,178 @@
+.income-all {
+  position: relative;
+  margin: 20rpx;
+  box-sizing: border-box;
+  background: linear-gradient(306deg, #962eff 7%, #2a5cfa 52%, #08e2fe 96%);
+  border-radius: 12rpx;
+  padding: 42rpx 36rpx;
+  overflow: hidden;
+}
+.income-all::before {
+  position: absolute;
+  content: "";
+  left: -99px;
+  top: -88px;
+  width: 315px;
+  height: 191px;
+  border-radius: 50%;
+  z-index: 0;
+  background: linear-gradient(283deg, rgba(75, 60, 235, 0.53) 7%, #1bc0ff 71%);
+}
+.income-total {
+  position: absolute;
+  font-size: 28rpx;
+  font-weight: 400;
+  line-height: 48rpx;
+  letter-spacing: 0rpx;
+  color: #ffffff;
+  z-index: 2;
+}
+.income-total-text {
+  position: absolute;
+  margin-top: 36rpx;
+  font-size: 72rpx;
+  font-weight: normal;
+  line-height: 48rpx;
+  letter-spacing: 0px;
+  color: #ffffff;
+  z-index: 2;
+  top: 80rpx;
+}
+.income-box {
+  margin-top: 152rpx;
+  display: flex;
+  justify-content: space-around;
+}
+.income-box .box {
+  text-align: center;
+}
+.income-box .box .box-title {
+  font-size: 24rpx;
+  font-weight: normal;
+  line-height: 48rpx;
+  text-align: center;
+  letter-spacing: 0rpx;
+  color: #ffffff;
+}
+.income-box .box .box-number {
+  font-size: 36rpx;
+  font-weight: normal;
+  line-height: 48rpx;
+  letter-spacing: 0px;
+  color: #ffffff;
+}
+.income-con {
+  margin: 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.income-con .today-income {
+  font-size: 28rpx;
+  font-weight: normal;
+  line-height: 48rpx;
+  letter-spacing: 0rpx;
+  color: #101010;
+}
+.income-con .today-income .red {
+  margin-left: 14rpx;
+  font-size: 20rpx;
+  font-weight: normal;
+  line-height: 48rpx;
+  letter-spacing: 0rpx;
+  /* 红 */
+  color: #c53032;
+}
+.income-detail {
+  margin: 20rpx;
+}
+.income-detail .income-detail-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 32rpx;
+  font-weight: normal;
+  line-height: 48rpx;
+  letter-spacing: 0rpx;
+  color: #101010;
+}
+
+.income-detail .income-detail-top .income-detail-top-right {
+  padding: 0 20rpx;
+  border-radius: 32rpx;
+  background: #e7e7e8;
+  line-height: 64rpx;
+  font-weight: normal;
+  letter-spacing: 0px;
+  font-size: 24rpx;
+  color: #9e9e9e;
+}
+.income-detail-list {
+  padding: 38rpx 24rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 12rpx;
+  background: #ffffff;
+  box-shadow: 0rpx 8rpx 20rpx 0rpx rgba(200, 200, 200, 0.3);
+  margin-top: 20rpx;
+}
+.income-detail-list .left-box {
+  width: 68rpx;
+  height: 68rpx;
+  background: #d8d8d8;
+}
+.income-detail-list .right-box {
+  margin-left: 10rpx;
+  width: calc(100% - 86rpx);
+}
+.right-box .name-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.right-box .name-box .name {
+  font-size: 32rpx;
+  font-weight: 400;
+  line-height: 48rpx;
+  letter-spacing: 0rpx;
+  color: #101010;
+}
+.right-box .name-box .income-money {
+  font-size: 32rpx;
+  font-weight: 400;
+  line-height: 48rpx;
+  letter-spacing: 0rpx;
+  color: #c53032;
+}
+.right-box .order-people {
+  font-size: 28rpx;
+  font-weight: 400;
+  line-height: 48rpx;
+  letter-spacing: 0rpx;
+  color: #9e9e9e;
+  margin-top: 12rpx;
+}
+.right-box .other {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12rpx;
+}
+.right-box .other .amount {
+  font-size: 28rpx;
+  font-weight: normal;
+  line-height: 48rpx;
+  letter-spacing: 0rpx;
+  color: #9e9e9e;
+}
+.right-box .other .time {
+  font-size: 24rpx;
+  font-weight: normal;
+  line-height: 48rpx;
+  letter-spacing: 0rpx;
+  color: #9e9e9e;
+}

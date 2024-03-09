@@ -1,0 +1,47 @@
+Page {
+  width: 100%;
+  min-height: 100vh;
+}
+.con {
+  padding: 20rpx;
+}
+.con .list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-shadow: 0rpx 8rpx 24rpx 0rpx rgba(141, 141, 141, 0.3);
+  height: 200rpx;
+  border-radius: 20rpx;
+}
+.con .list .left-con {
+  width: 488rpx;
+  /* border-radius: 6px 0px 0px 6px; */
+  background: #ffffff;
+  margin-left: 28rpx;
+}
+.left-con .name {
+  font-size: 36rpx;
+  font-weight: 400;
+  line-height: 48rpx;
+  letter-spacing: 0.06em;
+  color: #101010;
+}
+.left-con .time {
+  font-size: 22rpx;
+  font-weight: normal;
+  line-height: 48rpx;
+  letter-spacing: 0.06em;
+  color: #979797;
+}
+.con .list .button {
+  border-radius: 0rpx 12rpx 12rpx 0rpx;
+  background: #ea3b26;
+  width: 222rpx;
+  height: 200rpx;
+  line-height: 200rpx;
+  color: #ffffff;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: normal;
+  letter-spacing: 0.06em;
+}
