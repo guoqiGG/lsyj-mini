@@ -8,7 +8,6 @@
 		</view>
 		<!-- 滚动内容区 -->
 		<view class="main">
-
 			<!-- 左侧菜单start -->
 			<scroll-view scroll-y="true" class="leftmenu">
 				<block v-for="(item, index) in categoryList" :key="index">
