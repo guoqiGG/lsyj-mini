@@ -85,26 +85,23 @@
 
 					</view>
 				</view>
-
-
 			</view>
-			<!-- <view class="">
-		   	{{text}}1
-		   </view> -->
 		</view>
 	</view>
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
 import navigationBar from '@/components/navigation-bar/index.vue'
 export default {
 	components: {
 		navigationBar
 	},
+	onLoad: function (options) {
+		
+	},
 	data() {
 		return {
-			navigationBarIsShow: false,
+			navigationBarIsShow: true,
 			title: '氢春态欢乐园',
 			tabConfig: {
 				background: '',
@@ -132,18 +129,6 @@ export default {
 			],
 		}
 	},
-	computed: {
-		// ...mapState('user',['text'])
-	},
-	onLoad() {
-
-	},
-	created() {
-		const res = wx.getSystemInfoSync()
-		if (res['system'].toString().indexOf('Windows') < 0) {
-			this.navigationBarIsShow = true
-		}
-	},
 	methods: {
 		// 跳转到青春豆兑换专区
 		goConvert() {
@@ -157,7 +142,7 @@ export default {
 				url: '/pages/package-member-integral/pages/member-center/member-center'
 			})
 		}
-	}
+	},
 }
 </script>
 

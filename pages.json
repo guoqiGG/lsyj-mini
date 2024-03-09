@@ -29,7 +29,9 @@
     {
       "path": "pages/category/category",
       "style": {
-        "navigationBarTitleText": "",
+        "navigationBarTitleText": "分类商品",
+        "navigationBarBackgroundColor": "#025BFF",
+        "navigationBarTextStyle": "white",
         "enablePullDownRefresh": false
       }
     },
@@ -44,12 +46,14 @@
     {
       "path": "pages/basket/basket",
       "style": {
-        "navigationBarTitleText": "",
-        "enablePullDownRefresh": false
+        "navigationBarTitleText": "视频",
+        "navigationBarBackgroundColor": "#025BFF",
+        "navigationBarTextStyle": "white"
       }
     }
   ],
   "subPackages": [
+    // 退款分包
     {
       "root": "pages/package-refund",
       "pages": [
@@ -63,6 +67,7 @@
         }
       ]
     },
+    // 用户分包
     {
       "root": "pages/package-user",
       "pages": [
@@ -130,6 +135,7 @@
         }
       ]
     },
+    // 支付分包
     {
       "root": "pages/package-pay",
       "pages": [
@@ -157,6 +163,7 @@
         }
       ]
     },
+    // 团长分包
     {
       "root": "pages/package-leader",
       "pages": [
@@ -194,8 +201,8 @@
         }
       ]
     },
+    // 会员中心分包
     {
-      // 会员中心
       "root": "pages/package-member-integral",
       "pages": [
         {
@@ -211,6 +218,20 @@
           "style": {
             "navigationBarTitleText": "青春豆中心",
             "enablePullDownRefresh": false
+          }
+        }
+      ]
+    },
+    // 商品详情分包
+    {
+      "root": "pages/package-prod",
+      "pages": [
+        {
+          "path": "pages/prod/prod",
+          "style": {
+            "navigationBarTitleText": "商品详情",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
           }
         }
       ]

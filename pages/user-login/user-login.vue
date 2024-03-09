@@ -2,7 +2,6 @@
   <view class="Mall4j con">
     <view class="logo">
       <view class="logo-con">
-        <!-- <image :src="uniLoginLogoImg" mode="heightFix" @tap="toIndex" /> -->
         <image :src="picDomain + '/2023/10/3531fd5d3d034964bd1c365db16a8421.png'" mode="heightFix" @tap="toIndex" />
       </view>
     </view>
@@ -10,7 +9,10 @@
     <view class="login-form">
       <!-- 按钮 -->
       <view>
-        <button open-type="getPhoneNumber" class="authorized-btn" @getphonenumber="getPhoneNumberLogin">
+        <button v-if="!isPrivacy" class="authorized-btn" @tap="maskBtn">
+          手机号快捷登录
+        </button>
+        <button v-else open-type="getPhoneNumber" class="authorized-btn" @getphonenumber="getPhoneNumberLogin">
           手机号快捷登录
         </button>
       </view>
@@ -31,10 +33,10 @@
 </template>
 
 <script>
-// const http = require("../../utils/http");
-// const util = require("../../utils/util.js");
-import { encrypt } from "../../utils/crypto.js";
-import { picDomain } from "../../utils/config";
+const http = require("@/utils/http");
+const util = require("@/utils/util.js");
+import { encrypt } from "@/utils/crypto.js";
+import { picDomain } from "@/utils/config";
 
 export default {
   props: {},
@@ -112,7 +114,7 @@ export default {
      */
     maskBtn() {
       uni.showToast({
-        title: this.i18n.agreementTips,
+        title: '请先阅读并勾选协议',
         icon: "none",
       });
     },
@@ -126,11 +128,11 @@ export default {
         return;
       }
       const params = {
-        url: "/ma/login",
+        url: "/pub/user/login/auth",
         method: "POST",
         data: {
           code: e.detail.code,
-          tempUid: uni.getStorageSync("bbcTempUid"),
+          // tempUid: uni.getStorageSync("bbcTempUid"),
         },
         callBack: (res) => {
           if (res.accessToken) {
@@ -156,6 +158,7 @@ export default {
           }
         },
         errCallBack: (err) => {
+          console.log(err)
           this.loginErrHandle(err);
         },
       };
@@ -168,64 +171,6 @@ export default {
      */
     handlePrivacyClick() {
       this.isPrivacy = this.isPrivacy === 1 ? 0 : 1;
-    },
-
-    /**
-     * 登录
-     */
-    login() {
-      // 密码账号登录
-      if (this.loginStatus === 0) {
-        this.errorTips = !this.principal.trim()
-          ? 1
-          : !this.credentials.trim()
-            ? 2
-            : 0;
-      }
-      // 验证码登录 - 手机号校验
-      if (this.loginStatus === 1) {
-        this.errorTips = !this.principal.trim()
-          ? 8
-          : !util.checkPhoneNumber(this.principal)
-            ? 1
-            : !this.validCode.trim()
-              ? 3
-              : 0;
-      }
-      if (this.errorTips) return;
-      if (this.isPrivacy != 1) {
-        uni.showToast({
-          title: this.i18n.agreementTips,
-          icon: "none",
-        });
-        return;
-      }
-      const url =
-        uni.getStorageSync("bbcAppType") > AppType.MP
-          ? this.loginStatus === 0
-            ? "/login"
-            : "/smsLogin"
-          : this.loginStatus === 0
-            ? "/wx/login"
-            : "/smsLogin";
-      const params = {
-        url,
-        method: "POST",
-        data: {
-          passWord:
-            this.loginStatus === 0 ? encrypt(this.credentials) : this.validCode,
-          socialType: uni.getStorageSync("bbcAppType"),
-          tempUid: uni.getStorageSync("bbcTempUid"),
-          userName: this.principal,
-        },
-        callBack: (res) => {
-          util.loginSuccess(res.tokenInfo ? res.tokenInfo : res);
-        },
-        errCallBack: (err) => {
-          this.loginErrHandle(err);
-        },
-      };
-      http.request(params);
     },
 
     /**
@@ -253,9 +198,9 @@ export default {
         uni.removeStorageSync("bbcTempUid");
         uni.showModal({
           showCancel: false,
-          title: this.i18n.tips,
-          content: this.i18n.codeErrorTips,
-          confirmText: this.i18n.confirm,
+          title: '提示',
+          content: '登录信息异常，请重新登录',
+          confirmText: '确定',
           success: (res) => {
             if (res.confirm) {
               // #ifdef H5
@@ -274,9 +219,9 @@ export default {
         // 弹窗
         uni.showModal({
           showCancel: false,
-          title: this.i18n.bindedTipsTit,
-          content: this.i18n.bindedTipsCon,
-          confirmText: this.i18n.bindedTipsBtn,
+          title: '该账户已绑定其他微信',
+          content: '一个账户只能绑定一个微信，您的手机号已经绑定了其他微信，请您先解除后再尝试。',
+          confirmText: '知道了',
           confirmColor: "#F81A1A",
         });
       }

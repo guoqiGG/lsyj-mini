@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "crypto-js": "^4.2.0",
-    "dayjs": "^1.11.10"
+    "dayjs": "^1.11.10",
+    "uni-simple-router": "^2.0.8-beta.4"
   },
   "devDependencies": {
     "@types/node": "^20.11.25"

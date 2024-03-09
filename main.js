@@ -1,33 +1,40 @@
-import App from './App'
+import App from "./App";
 
 // #ifndef VUE3
-import Vue from 'vue'
-import './uni.promisify.adaptor'
-import store from './store/store.js'
-import uView from './uni_modules/uview-ui'
-Vue.config.productionTip = false
-App.mpType = 'app'
-Vue.use(uView)
-uni.$u.config.unit = 'rpx'
+import Vue from "vue";
+import "./uni.promisify.adaptor";
+import store from "./store/store.js";
+import uView from "./uni_modules/uview-ui";
+
+Vue.config.productionTip = false;
+App.mpType = "app";
+Vue.use(uView);
+uni.$u.config.unit = "rpx";
 const app = new Vue({
-  ...App
-})
-Vue.prototype.toPrice = function(val) {
+  ...App,
+});
+Vue.prototype.parsePrice = function (val) {
   if (!val) {
-    val = 0
+    val = 0;
   }
-  return val.toFixed(2)
-}
-app.$mount()
+  return val.toFixed(2).split(".");
+};
+Vue.prototype.toPrice = function (val) {
+  if (!val) {
+    val = 0;
+  }
+  return val.toFixed(2);
+};
+app.$mount();
 // #endif
 
 // #ifdef VUE3
-import { createSSRApp } from 'vue'
+import { createSSRApp } from "vue";
 export function createApp() {
-  const app = createSSRApp(App)
+  const app = createSSRApp(App);
   return {
     app,
-	store
-  }
+    store,
+  };
 }
 // #endif

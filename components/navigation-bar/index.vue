@@ -9,7 +9,7 @@
 -->
 
 <template>
-  <view class="Mall4j bar-sticky" :style="[
+  <view class=" bar-sticky" :style="[
     isBgImg
       ? { backgroundImage: navigationBarStyle.backgroundImage }
       : { background: navigationBarStyle.background },
@@ -112,7 +112,6 @@ export default {
   },
   mounted() {
     this.lineHeight = this.$system.ktxStatusHeight + 'rpx'
-    console.log(this.lineHeight)
   },
   methods: {
     $turnPage(x, y) {
