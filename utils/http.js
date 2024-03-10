@@ -125,7 +125,7 @@ function request(params) {
       }
 
       // A00001 用于直接显示提示用户的错误，内容由输入内容决定
-      if (responseData.code === "A00001") {
+      if (responseData.code === 500) {
         if (params.errCallBack) {
           params.errCallBack(responseData);
           return;

@@ -22,10 +22,9 @@
 </template>
 
 <script>
-const http = require('../../utils/http.js')
-
+const http = require('@/utils/http.js')
+const util = require("@/utils/util.js");
 export default {
-
   components: {},
   props: {
     item: {

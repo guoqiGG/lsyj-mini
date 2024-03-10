@@ -92,12 +92,13 @@
 
 <script>
 import navigationBar from '@/components/navigation-bar/index.vue'
+const util = require("@/utils/util.js");
 export default {
 	components: {
 		navigationBar
 	},
 	onLoad: function (options) {
-		
+
 	},
 	data() {
 		return {
@@ -132,14 +133,18 @@ export default {
 	methods: {
 		// 跳转到青春豆兑换专区
 		goConvert() {
-			uni.navigateTo({
-				url: '/pages/package-member-integral/pages/integral-index/integral-index'
+			util.checkAuthInfo(() => {
+				uni.navigateTo({
+					url: '/pages/package-member-integral/pages/integral-index/integral-index'
+				})
 			})
 		},
 		// 跳转到会员中心
 		goMemberCenter() {
-			uni.navigateTo({
-				url: '/pages/package-member-integral/pages/member-center/member-center'
+			util.checkAuthInfo(() => {
+				uni.navigateTo({
+					url: '/pages/package-member-integral/pages/member-center/member-center'
+				})
 			})
 		}
 	},

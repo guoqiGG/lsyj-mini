@@ -51,6 +51,10 @@
   margin-left: 10rpx;
 }
 .right .coupon-name {
+  width: 340rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 28rpx;
   color: #000000;
   font-weight: normal;

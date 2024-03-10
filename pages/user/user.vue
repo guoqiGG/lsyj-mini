@@ -2,7 +2,6 @@
 	<view class="main">
 		<view class="background"></view>
 		<view class="user">
-			<!-- <button @click="login()">一键登录</button> -->
 			<view class="user-login">
 				<view class="user-img">
 					<image src="/static/user/head-pic.png" mode=""></image>
@@ -103,7 +102,7 @@
 					服务与工具
 				</view>
 				<view class="service-tool-content">
-					<view class="service-tool-content-wrap">
+					<view class="service-tool-content-wrap" @tap="goCoupon">
 						<view class="service-tool-content-img">
 							<image src="/static/user/coupon.png" mode=""></image>
 						</view>
@@ -145,19 +144,22 @@
 </template>
 
 <script>
+const util = require("@/utils/util");
 export default {
 	data() {
 		return {
-			isLeader:true
+			isLeader: true
 
 		}
 	},
 	methods: {
+		// 跳转申请退款
 		goRefund() {
 			uni.navigateTo({
 				url: '/pages/package-refund/pages/apply-refund/apply-refund'
 			})
 		},
+		// 跳转订单列表
 		goOrderList(orderId) {
 			uni.navigateTo({
 				url: '/pages/package-user/pages/order-list/order-list?id=' + orderId
@@ -165,8 +167,18 @@ export default {
 		},
 		// 跳转我的卡包
 		goCardPackage() {
-			uni.navigateTo({
-				url: '/pages/package-user/pages/card-package/card-package'
+			util.checkAuthInfo(() => {
+				uni.navigateTo({
+					url: '/pages/package-user/pages/card-package/card-package'
+				})
+			})
+		},
+		// 跳转我的优惠券
+		goCoupon() {
+			util.checkAuthInfo(() => {
+				uni.navigateTo({
+					url: '/pages/package-user/pages/coupon/coupon'
+				})
 			})
 		},
 		// 跳转系统设置
@@ -175,19 +187,19 @@ export default {
 				url: '/pages/package-user/pages/account-settings/account-settings'
 			})
 		},
-		goLeader(){
-			if(this.isLeader){
+		goLeader() {
+			if (this.isLeader) {
 				uni.navigateTo({
-					url:'/pages/package-leader/pages/leader-index/leader-index'
+					url: '/pages/package-leader/pages/leader-index/leader-index'
 				})
-			}else{
+			} else {
 				uni.navigateTo({
-					url:'/pages/package-leader/pages/apply-leader/apply-leader'
+					url: '/pages/package-leader/pages/apply-leader/apply-leader'
 				})
 			}
 		},
 		// 跳转到我的地址列表
-		toAddressList(){
+		toAddressList() {
 			uni.navigateTo({
 				url: '/pages/package-user/pages/delivery-address/delivery-address'
 			})

@@ -72,9 +72,6 @@ export default {
     uni.setNavigationBarTitle({
       title: '用户登录',
     });
-    // this.getConfig();
-    // 如果没有 tempUid 重新请求一个
-    // if (!uni.getStorageSync("bbcTempUid")) util.weChatLogin();
   },
 
   /**
@@ -108,7 +105,6 @@ export default {
   },
 
   methods: {
-    // #ifdef MP-WEIXIN
     /**
      * 蒙版按钮
      */
@@ -127,44 +123,62 @@ export default {
       if (!e.detail.code) {
         return;
       }
-      const params = {
-        url: "/pub/user/login/auth",
-        method: "POST",
-        data: {
-          code: e.detail.code,
-          // tempUid: uni.getStorageSync("bbcTempUid"),
-        },
-        callBack: (res) => {
-          if (res.accessToken) {
-            uni.setStorageSync("bbcIsPrivacy", 1);
-            uni.setStorageSync("bbcHadLogin", true);
-            uni.setStorageSync("bbcToken", res.accessToken);
-            uni.setStorageSync("bbcLoginResult", res); // 保存整个登录数据
-            const expiresTimeStamp =
-              (res.expiresIn * 1000) / 2 + new Date().getTime();
-            // 缓存token的过期时间
-            uni.setStorageSync("bbcExpiresTimeStamp", expiresTimeStamp);
+      // const params = {
+      //   url: "/pub/user/login/auth",
+      //   method: "POST",
+      //   data: {
+      //     code: e.detail.code,
+      //     // tempUid: uni.getStorageSync("bbcTempUid"),
+      //   },
+      //   callBack: (res) => {
+      //     if (res.accessToken) {
+      //       uni.setStorageSync("bbcIsPrivacy", 1);
+      //       uni.setStorageSync("bbcHadLogin", true);
+      //       uni.setStorageSync("bbcToken", res.accessToken);
+      //       uni.setStorageSync("bbcLoginResult", res); // 保存整个登录数据
+      //       const expiresTimeStamp =
+      //         (res.expiresIn * 1000) / 2 + new Date().getTime();
+      //       // 缓存token的过期时间
+      //       uni.setStorageSync("bbcExpiresTimeStamp", expiresTimeStamp);
 
-            // 还原全局 正在登录状态
-            getApp().globalData.isLanding = false;
-            while (getApp().globalData.requestQueue.length) {
-              http.request(getApp().globalData.requestQueue.pop());
-            }
-            // 请求购物车数量
-            http.getCartCount();
-            uni.redirectTo({
-              url: "/package-user/pages/login-success/login-success",
-            });
-          }
-        },
-        errCallBack: (err) => {
-          console.log(err)
-          this.loginErrHandle(err);
-        },
-      };
-      http.request(params);
+      //       // 还原全局 正在登录状态
+      //       getApp().globalData.isLanding = false;
+      //       while (getApp().globalData.requestQueue.length) {
+      //         http.request(getApp().globalData.requestQueue.pop());
+      //       }
+      //       uni.redirectTo({
+      //         url: "/package-user/pages/login-success/login-success",
+      //       });
+      //     }
+      //   },
+      //   errCallBack: (err) => {
+      //     console.log(err)
+      //     this.loginErrHandle(err);
+      //   },
+      // };
+      // http.request(params);
+      let res = {
+        accessToken: 'qcsd' // 设置假的token
+      }
+      uni.setStorageSync("bbcIsPrivacy", 1);
+      uni.setStorageSync("bbcHadLogin", true);
+      uni.setStorageSync("bbcToken", res.accessToken);
+      uni.setStorageSync("bbcLoginResult", res); // 保存整个登录数据
+      const expiresTimeStamp =
+        (res.expiresIn * 1000) / 2 + new Date().getTime();
+      // 缓存token的过期时间
+      uni.setStorageSync("bbcExpiresTimeStamp", expiresTimeStamp);
+
+      // 还原全局 正在登录状态
+      getApp().globalData.isLanding = false;
+      while (getApp().globalData.requestQueue?.length) {
+        http.request(getApp().globalData.requestQueue.pop());
+      }
+      uni.redirectTo({
+        url: "/pages/package-user/pages/login-success/login-success",
+      });
     },
-    // #endif
+
 
     /**
      * 条款点击事件(勾选/取选)

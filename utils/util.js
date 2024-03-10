@@ -2,6 +2,42 @@ const config = require("./config.js");
 const http = require("./http.js");
 import { picDomain } from "./config.js";
 
+// 检查是否授权
+const checkAuthInfo = (fn) => {
+  const pages = getCurrentPages();
+  if (uni.getStorageSync("bbcToken")) {
+    fn();
+    return;
+  }
+  // 设置登录后的跳转地址
+  setRouteUrlAfterLogin();
+  uni.redirectTo({
+    url: "/pages/user-login/user-login",
+  });
+};
+
+/**
+ * 设置登录后的跳转地址
+ */
+const setRouteUrlAfterLogin = () => {
+  const pages = getCurrentPages();
+};
+
+// 登录返回上一页
+const previousPage = (isRefreshToken) => {
+  const pages = getCurrentPages();
+  const nowRoute = pages[pages.length - 1].route;
+  // 若为刷新token的登录
+  if (isRefreshToken) {
+    // 在登录页面登录时
+    if (nowRoute === "pages/user-login/user-login") {
+      util.toHomePage();
+    }
+    return;
+  }
+  util.toHomePage();
+};
+
 /**
  * 刷新token
  */
@@ -54,8 +90,42 @@ const refreshToken = (params) => {
   };
 };
 
+/**
+ * 回到首页
+ */
+const toHomePage = () => {
+  uni.switchTab({ url: "/pages/index/index" });
+};
+
+/**
+ * 防抖
+ * @param fn
+ * @param wait
+ * @returns {Function}
+ * @constructor
+ */
+const debounce = (fn, t) => {
+  const delay = t || 500;
+  let timer;
+  return function () {
+    const args = arguments;
+    if (timer) {
+      clearTimeout(timer);
+    }
+    const callNow = !timer;
+    timer = setTimeout(() => {
+      timer = null;
+    }, delay);
+    if (callNow) fn.apply(this, args);
+  };
+};
+
 export const util = {
-  refreshToken
+  refreshToken,
+  checkAuthInfo,
+  previousPage,
+  toHomePage,
+  debounce,
 };
 
 module.exports = util;

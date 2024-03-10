@@ -103,6 +103,14 @@
           }
         },
         {
+          "path": "pages/coupon/coupon",
+          "style": {
+            "navigationBarTitleText": "我的优惠券",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
+        },
+        {
           "path": "pages/delivery-address/delivery-address",
           "style": {
             "navigationBarTitleText": "地址管理",
@@ -129,6 +137,13 @@
           "path": "pages/personal-information/personal-information",
           "style": {
             "navigationBarTitleText": "账户设置",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
+        },
+        {
+          "path": "pages/login-success/login-success",
+          "style": {
             "navigationBarBackgroundColor": "#025BFF",
             "navigationBarTextStyle": "white"
           }
