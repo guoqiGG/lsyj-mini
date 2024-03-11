@@ -36,7 +36,6 @@
 <script>
 const http = require("@/utils/http");
 const util = require("@/utils/util");
-import dayjs from "dayjs";
 export default {
     data() {
         return {
@@ -50,8 +49,6 @@ export default {
             current: 1,  // 当前页
             pages: 1 //总页数
         };
-    },
-    onLoad: function (options) {
     },
     onShow: function () {
         uni.setNavigationBarTitle({
@@ -68,7 +65,7 @@ export default {
             this.getGiftCardList();
         },
         getGiftCardList() {
-            this.isLoaded = true
+            this.isLoaded = false
             let data
             if (this.coupon_state == 1) { //可合并列表
                 data = {
@@ -84,9 +81,9 @@ export default {
                         data: JSON.stringify(data),
                     },
                     callBack: (res) => {
-                        this.isLoaded = false
-                        this.dataList= this.current==1?res.list:this.dataList.concat(res.list)
-                        this.pages = Math.ceil(res.total / this.pageSize)
+                        this.isLoaded = true
+                        this.dataList = this.current == 1 ? res.list : this.dataList.concat(res.list)
+                        this.pages = res.total == 0 ? 1 : Math.ceil(res.total / this.pageSize)
                     },
                 }
                 http.request(params);
@@ -104,9 +101,9 @@ export default {
                         data: JSON.stringify(data),
                     },
                     callBack: (res) => {
-                        this.isLoaded = false
-                        this.dataList= this.current==1?res.list:this.dataList.concat(res.list)
-                        this.pages = Math.ceil(res.total / this.pageSize)
+                        this.isLoaded = true
+                        this.dataList = this.current == 1 ? res.list : this.dataList.concat(res.list)
+                        this.pages = res.total == 0 ? 1 : Math.ceil(res.total / this.pageSize)
                     },
 
 

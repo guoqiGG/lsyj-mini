@@ -57,7 +57,7 @@ uni-checkbox .uni-checkbox-input {
   width: 32rpx !important;
   height: 32rpx !important;
   border-radius: 50% !important;
-  border-color: #082BA6 !important;
+  border-color: #025BFF !important;
 }
 /*checkbox选中后样式  */
 uni-checkbox .uni-checkbox-input.uni-checkbox-input-checked {
@@ -87,7 +87,7 @@ checkbox .wx-checkbox-input {
   border-radius: 50%;
   width: 35rpx;
   height: 35rpx;
-  border-color: #082BA6 !important;
+  border-color: #025BFF !important;
 }
 /*checkbox选中后样式  */
 checkbox .wx-checkbox-input.wx-checkbox-input-checked {

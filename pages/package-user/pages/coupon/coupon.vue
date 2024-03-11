@@ -15,7 +15,8 @@
     </view>
 
     <!-- 空列表或加载全部提示 -->
-    <EmptyAllTips v-if="isLoaded" :isEmpty="!couponList.length" :emptyTips="i18n.couponTips" :isAll="isAll" />
+    <EmptyAllTips v-if="isLoaded" :isEmpty="!couponList.length || couponList == []" :emptyTips="i18n.couponTips"
+      :isAll="isAll" />
   </view>
 </template>
 
@@ -84,7 +85,7 @@ export default {
      * 获取我的优惠券列表
      */
     loadMyCouponData(status) {
-      this.isLoaded = true
+      this.isLoaded = false
       // 我的优惠券状态(status优惠券状态 0待使用 1已使用 2已过期)
       let data = {
         pageNo: this.current,
@@ -100,15 +101,9 @@ export default {
           data: JSON.stringify(data)
         },
         callBack: (res) => {
-          this.isLoaded = false
-
-          if (!res.list) {
-            this.couponList = []
-            this.pages = 1
-          } else {
-            this.couponList = this.current == 1 ? res.list : this.couponList.concat(res.list)
-            this.pages = Math.ceil((res.total ? res.total : 0) / this.pageSize)
-          }
+          this.isLoaded = true
+          this.couponList = this.current == 1 ? res.list : this.couponList.concat(res.list)
+          this.pages = res.total == 0 ? 1 : Math.ceil(res.total / this.pageSize)
         }
       }
       http.request(params)

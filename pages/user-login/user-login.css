@@ -4,28 +4,63 @@ page {
   position: relative;
 }
 .con {
-  padding: 100rpx 0 160rpx 0;
+  padding: 0rpx 0 160rpx 0;
 }
 .logo {
   display: flex;
   width: 100%;
   justify-content: center;
-  height: 99rpx;
   margin-bottom: 101rpx;
   object-fit: contain;
+  background: linear-gradient(180deg, #bfd6ff 0%, rgba(238, 238, 238, 0) 100%);
+  height: 500rpx;
+  position: relative;
 }
-.logo .logo-con {
-  display: inline-block;
+.left-bg {
+  position: absolute;
+  left: -56rpx;
+  top: 136rpx;
+  width: 280rpx;
+  height: 200rpx;
+  border-radius: 160rpx 160rpx 0rpx 0rpx;
+  opacity: 1;
+  filter: opacity(0.40000000298023224);
+  overflow: hidden;
 }
-.logo .logo-con image {
-  display: block;
+.left-bg image {
   width: 100%;
   height: 100%;
 }
+.right-bg {
+  position: absolute;
+  left: 300rpx;
+  top: 80rpx;
+  width: 400rpx;
+  height: 350rpx;
+  /* transform: rotate(-30deg); */
+  opacity: 1;
+  /* filter: opacity(0.40000000298023224); */
+  /* overflow: hidden; */
+}
+.right-bg image {
+  width: 100%;
+  height: 100%;
+}
+.logo-img {
+  position: absolute;
+  top: 254rpx;
+  left: 50%;
+  width: 300rpx;
+  height: 300rpx;
+  transform: translateX(-50%);
+  border-radius: 12rpx;
+}
+
 .login-form {
   width: 90%;
   margin: 0 auto;
   margin-bottom: 10%;
+  padding-top: 10rpx;
 }
 .authorized-btn {
   width: 100%;
@@ -37,8 +72,14 @@ page {
   border: 1rpx solid #005aff;
   color: #fff;
   border-radius: 14rpx;
-  font-size: 30rpx;
+  font-size: 32rpx;
   margin-top: 80rpx;
+  border-radius: 12px;
+  font-weight: normal;
+  letter-spacing: 0rpx;
+  opacity: 1;
+  background: #025bff;
+  box-shadow: 0rpx 8rpx 20rpx 0rpx rgba(140, 180, 255, 0.83);
 }
 .item {
   display: block;
@@ -113,6 +154,9 @@ button::after {
 .statement-label {
   display: flex;
   align-items: flex-start;
+  font-size: 28rpx;
+  line-height: 48rpx;
+  color: #025bff;
 }
 .statement-label:active {
   background-color: none;
@@ -130,7 +174,7 @@ button::after {
   cursor: pointer;
 }
 .statement .check-box {
-  transform: scale(1.2);
+  /* transform: scale(1); */
 }
 .statement .check-box .uni-checkbox-input {
   border: 1rpx solid #f81a1a;

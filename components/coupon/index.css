@@ -19,11 +19,11 @@
     left top,
     right top,
     from(#f45c43),
-    to(#F81A1A)
+    to(#f81a1a)
   );
-  background: -o-linear-gradient(to left, #f45c43, #F81A1A);
-  background: linear-gradient(to left, #f45c43, #F81A1A);
-  background: -webkit-linear-gradient(to left, #f45c43, #F81A1A);
+  background: -o-linear-gradient(to left, #f45c43, #f81a1a);
+  background: linear-gradient(to left, #f45c43, #f81a1a);
+  background: -webkit-linear-gradient(to left, #f45c43, #f81a1a);
   width: 260rpx;
 }
 .coupon-item .left .num {
@@ -40,7 +40,7 @@
   font-family: arial;
   font-weight: normal;
 }
-.coupon-item .left .num .coupon-price .small{
+.coupon-item .left .num .coupon-price .small {
   font-size: 18rpx;
 }
 .coupon-item .left .coupon-condition {
@@ -75,7 +75,7 @@
 .coupon-item .right .c-des .c-type {
   font-size: 24rpx;
   background: #fdf0f0;
-  color: #C53032;
+  color: #c53032;
   border-radius: 8px;
   padding: 3px 10px;
   margin-right: 6rpx;
@@ -98,11 +98,16 @@
   justify-content: space-between;
 }
 .coupon-item .right .c-date .c-data-info {
-  font-family: arial;
-  word-break: break-word;
-  max-width: 70%;
+  margin-top: 68rpx;
+  font-family: D-DIN, D-DIN;
+  font-weight: 400;
   font-size: 20rpx;
-  color: #3D3D3D;
+  color: #3d3d3d;
+  /* line-height: 48rpx; */
+  letter-spacing: 1px;
+  text-align: left;
+  font-style: normal;
+  text-transform: none;
 }
 .coupon-item .right .c-date .c-btn {
   display: inline-block;
@@ -111,14 +116,14 @@
   font-family: arial;
   border-radius: 14px;
   padding: 3px 7px;
-  background-color: #F81A1A;
-  border: 1px solid #F81A1A;
+  background-color: #f81a1a;
+  border: 1px solid #f81a1a;
 }
 
 .coupon-item .right .c-date .c-btn.get-btn {
   background: #fff;
-  border: 1px solid #F81A1A;
-  color: #F81A1A;
+  border: 1px solid #f81a1a;
+  color: #f81a1a;
 }
 
 .coupon-item .right .c-date .no-use-btn {
@@ -146,14 +151,21 @@
 
 .coupon-item .tag-img {
   position: absolute;
-  top: 0;
+  top: 50%;
   right: 0;
   width: 120rpx;
   height: 120rpx;
+  transform: translateY(-50%);
 }
 
 .coupon-item .sel-btn {
   position: absolute;
   right: 10px;
   top: 35px;
+}
+.rule {
+  font-size: 20rpx;
+  color: #aaaaaa;
+  margin-top: 10rpx;
+  font-weight: 300;
 }

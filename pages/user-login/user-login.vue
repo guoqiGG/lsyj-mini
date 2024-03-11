@@ -1,9 +1,13 @@
 <template>
-  <view class="Mall4j con">
+  <view class="con">
     <view class="logo">
-      <view class="logo-con">
-        <image :src="picDomain + '/2023/10/3531fd5d3d034964bd1c365db16a8421.png'" mode="heightFix" @tap="toIndex" />
+      <view class="left-bg">
+        <image src="/static/rectangle.png" mode="widthFix" />
       </view>
+      <view class="right-bg">
+        <image src="/static/cube.png" mode="widthFix" />
+      </view>
+      <image class="logo-img" src="/static/logo.png" mode="heightFix" @tap="toIndex" />
     </view>
     <!-- 微信登录 -->
     <view class="login-form">
@@ -20,10 +24,10 @@
       <view class="item statement">
         <label class="statement-label" @tap.stop="handlePrivacyClick">
           <checkbox class="check-box" :checked="isPrivacy === 1" />
-          <view style="color: #999999">
-            我已阅读并同意氢春态欢乐团
+          <view style="color: #979797">
+            我已阅读并同意氢春态欢乐园
             <text @tap.stop="toTermsOfService('serviceTerms')">《服务条款》</text>
-            <text style="color: #999999">和</text>
+            <text style="color: #979797">和</text>
             <text @tap.stop="toTermsOfService('servicePolicy')">《隐私协议》</text>
           </view>
         </label>

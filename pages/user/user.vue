@@ -2,9 +2,9 @@
 	<view class="main">
 		<view class="background"></view>
 		<view class="user">
-			<view class="user-login">
+			<view class="user-login" v-if="isAuthInfo">
 				<view class="user-img">
-					<image src="/static/user/head-pic.png" mode=""></image>
+					<image src="/static/user/head-pic.png"></image>
 				</view>
 				<view class="user-info">
 					<view class="user-name">
@@ -14,6 +14,12 @@
 						普通
 					</view>
 				</view>
+			</view>
+			<view class="user-login" v-if="!isAuthInfo">
+				<view class="user-img">
+					<image src="/static/user/head-pic.png"></image>
+				</view>
+				<view class="user-info"><text class="login-text" @tap="toLogin">立即登录</text></view>
 			</view>
 			<view class="order">
 				<view class="order-title">
@@ -89,7 +95,7 @@
 				<view class="become-leader-text">
 
 					<view class="become-leader-text-title">
-						成为团长
+						{{ (isLeader && isAuthInfo) ? '团长管理' : '成为团长' }}
 					</view>
 					<view class="become-leader-text-content">
 						分享转化获佣金
@@ -148,8 +154,14 @@ const util = require("@/utils/util");
 export default {
 	data() {
 		return {
-			isLeader: true
-
+			isLeader: false,  // 是否是团长
+			userInfo: {}, // 用户信息
+			isAuthInfo: false, //用户是否登录	
+		}
+	},
+	onShow: function () {
+		if (uni.getStorageSync("bbcToken")) {
+			this.isAuthInfo = true;
 		}
 	},
 	methods: {
@@ -188,67 +200,29 @@ export default {
 			})
 		},
 		goLeader() {
-			if (this.isLeader) {
-				uni.navigateTo({
-					url: '/pages/package-leader/pages/leader-index/leader-index'
-				})
-			} else {
-				uni.navigateTo({
-					url: '/pages/package-leader/pages/apply-leader/apply-leader'
-				})
-			}
+			util.checkAuthInfo(() => {
+				if (this.isLeader) {
+					uni.navigateTo({
+						url: '/pages/package-leader/pages/leader-index/leader-index'
+					})
+				} else {
+					uni.navigateTo({
+						url: '/pages/package-leader/pages/apply-leader/apply-leader'
+					})
+				}
+			})
 		},
 		// 跳转到我的地址列表
 		toAddressList() {
 			uni.navigateTo({
 				url: '/pages/package-user/pages/delivery-address/delivery-address'
 			})
+		},
+		toLogin() {
+			uni.navigateTo({
+				url: '/pages/user-login/user-login'
+			})
 		}
-		// login(){
-		//     console.log('登录')
-		// 	uni.showModal({
-		// 		title: '登录获取权限提醒',
-		// 		content: '是否同意获取权限'
-		// 		success: function (res) {
-		// 			if (res.confirm) {
-		// 				uni.getUserProfile({
-		// 					success:(userinfo)=>{
-		// 						uni.login({
-		// 						  provider: 'weixin', //使用微信登录
-		// 						  success: function (loginRes) {
-		// 						    console.log(loginRes.authResult);
-		// 							uni.request({
-		// 							    url: 'https://www.example.com/request', //仅为示例，并非真实接口地址。
-		// 							    data: {
-		// 									appid:'wx2ce1b5f7423287cb',
-		// 							        text: 'uni.request'
-		// 							    },
-		// 							    header: {
-		// 							        'content-type': 'application/json'//自定义请求头信息
-		// 							    },
-		// 							    success: (res) => {
-		// 							        console.log(res.data);
-		// 							        this.text = 'request success';
-		// 							    }
-		// 							});
-		// 						  }
-		// 						});
-
-		// 					}
-		// 				})
-		// 				console.log('用户点击确定');
-		// 			} else if (res.cancel) {
-		// 				uni.showToast({
-		// 					title:'获取失败',
-		// 					icon:'none'
-		// 				})
-		// 				console.log('用户点击取消');
-		// 			}
-		// 		}
-		// 	});
-
-		// }
-
 	}
 }
 </script>
@@ -287,6 +261,7 @@ export default {
 		height: 178rpx;
 		display: flex;
 		justify-content: flex-start;
+		align-items: center;
 
 		.user-img {
 			width: 108rpx;
@@ -301,15 +276,37 @@ export default {
 		}
 
 		.user-info {
-			margin-left: 22rpx;
+			margin-left: 20rpx;
 			color: #fff;
 
 			.user-name {
+				font-weight: 400;
 				font-size: 34rpx;
+				color: #FFFFFF;
+				line-height: 48rpx;
+				text-align: center;
+				font-style: normal;
+				text-transform: none;
 			}
 
 			.user-name-type {
+				font-weight: 400;
 				font-size: 24rpx;
+				color: #FFFFFF;
+				line-height: 48rpx;
+				text-align: center;
+				font-style: normal;
+				text-transform: none;
+			}
+
+			.login-text {
+				font-weight: 400;
+				font-size: 34rpx;
+				color: #FFFFFF;
+				line-height: 48rpx;
+				text-align: left;
+				font-style: normal;
+				text-transform: none;
 			}
 		}
 	}

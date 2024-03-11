@@ -17,31 +17,27 @@
           <text class="c-type">平台</text>
           <text>{{ item.couponName }}</text>
         </text>
-        <view style="font-size: 20rpx;color:#aaaaaa;margin-top:10rpx;font-weight:300;">{{ item.suitableProdType == 0 ?
-    '全场通用(特殊商品除外)' :
-    item.suitableProdType == 3 ? '指定分类可用' + '(' + item.couponGroupName + '分类)' : '部分商品可用' }}</view>
-      </view>
-      <view v-if="item.shopId != 0 && item.shopName" class="c-desc">
-        限购 [{{ item.shopName }}] {{ item.suitableProdType == 0 ? '全场通用(特殊商品除外)' :
-    '部分商品可用'
-        }}
-      </view>
-      <view v-if="item && update" class="c-date">
-        <view v-if="showTimeType == 1 && item.validTimeType == 2" class="c-data-info">{{ '领券' + ' ' }}{{
+        <view class="rule" v-if="item.type == 0">全部分类可用</view>
+        <view class="rule" v-if="item.type == 1">指定分类不可用</view>
+        <view class="rule" v-if="item.type == 2">指定商品不可用 </view>
+        <view class="rule" v-if="item.type == 3">指定商品可用</view>
+        <view v-if="item && update" class="c-date">
+          <view v-if="showTimeType == 1 && item.validTimeType == 2" class="c-data-info">{{ '领券' + ' ' }}{{
     item.validDays }}天后失效</view>
-        <view v-else class="c-data-info">{{ item.createTime }}</view>
-        <view v-if="item.canReceive && !order" class="c-btn" @tap="receiveCoupon">立即领取</view>
-        <view v-if="item.canUse == false && !order" class="no-use-btn" @tap="receiveCoupon">立即领取</view>
+          <view v-else class="c-data-info">{{ item.createTime }}</view>
+          <view v-if="item.canReceive && !order" class="c-btn" @tap="receiveCoupon">立即领取</view>
+          <view v-if="item.canUse == false && !order" class="no-use-btn" @tap="receiveCoupon">立即领取</view>
+        </view>
+        <view v-if="order && canUse" class="sel-btn">
+          <checkbox color="#eb2444" :data-couponid="item.couponId" :checked="item.choose" @tap="checkCoupon" />
+        </view>
       </view>
-      <view v-if="order && canUse" class="sel-btn">
-        <checkbox color="#eb2444" :data-couponid="item.couponId" :checked="item.choose" @tap="checkCoupon" />
-      </view>
+      <!-- 我的优惠券状态(优惠券状态 0:失效 1:有效 2:使用过) -->
+      <!-- 已使用 -->
+      <image v-if="status == 2 && myCoupon" class="tag-img" src="/static/coupon-used.png" />
+      <!-- 已过期 -->
+      <image v-if="status == 0 && myCoupon" class="tag-img" src="/static/coupon-ot.png" />
     </view>
-    <!-- 我的优惠券状态(优惠券状态 0:失效 1:有效 2:使用过) -->
-    <!-- 已使用 -->
-    <image v-if="status == 2 && myCoupon" class="tag-img" src="/static/coupon-used.png" />
-    <!-- 已过期 -->
-    <image v-if="status == 0 && myCoupon" class="tag-img" src="/static/coupon-ot.png" />
   </view>
 </template>
 
