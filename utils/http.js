@@ -16,9 +16,9 @@ function request(params) {
 
   globalData.currentReqCounts++;
   // 刷新token
-  // if (!params.login && !globalData.isLanding && !params.isRefreshing) {
-  //   params = refreshToken(params);
-  // }
+  if (!params.login && !globalData.isLanding && !params.isRefreshing) {
+    params = refreshToken(params);
+  }
   // 如果正在进行登陆，就将非登陆请求放在队列中等待登陆完毕后进行调用
   if (!params.login && globalData.isLanding && !params.isRefreshing) {
     globalData.requestQueue.push(params);
@@ -37,7 +37,7 @@ function request(params) {
     data: params.data,
     header: {
       // 'content-type': params.method == "GET" ? 'application/x-www-form-urlencoded' : 'application/json;charset=utf-8',
-      // Authorization: uni.getStorageSync("bbcToken"),
+      Authorization: uni.getStorageSync("bbcToken"),
       // locale: "zh_CN",
     },
     method: params.method == undefined ? "POST" : params.method,
