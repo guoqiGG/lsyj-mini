@@ -26,7 +26,7 @@ export default {
 		// 微信小程序检查升级
 		this.checkMiniUpdate();
 		// 微信环境统一登录方法
-		util.weChatLogin();
+		// util.weChatLogin();
 	},
 	onShow: function () {
 		console.log('App Show')
