@@ -154,7 +154,7 @@ const util = require("@/utils/util");
 export default {
 	data() {
 		return {
-			isLeader: false,  // 是否是团长
+			isLeader: true,  // 是否是团长
 			userInfo: {}, // 用户信息
 			isAuthInfo: false, //用户是否登录	
 		}

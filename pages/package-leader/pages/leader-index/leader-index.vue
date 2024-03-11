@@ -6,8 +6,8 @@
 		<view class="leader-index-cot">
 			<view class="user-info">
 				<view class="user-info-photo">
-					<!-- <image src="/pages/package-leader/static/user-photo.png" mode=""></image> -->
-					<image :src="leaderInfo.avatar" mode=""></image>
+					<image :src="leaderInfo.avatar ? leaderInfo.avatar : '/static/head04.png'"
+                @error="imageError(leaderInfo, 'pic')" />
 				</view>
 				<view class="user-info-name">
 					{{leaderInfo.leaderName}}
@@ -144,7 +144,12 @@ const http = require("@/utils/http");
 export default {
 	data() {
 		return {
-			leaderInfo:{},
+			leaderInfo:{
+				avatar:'',
+				leaderName:'',
+				balance:0,
+				totalIncome:0
+			},
 			userId: 1,
 		}
 	},
@@ -236,6 +241,7 @@ export default {
 				height: 80rpx;
 
 				image {
+				border-radius: 50%;
 					width: 100%;
 					height: 100%;
 				}
@@ -243,6 +249,7 @@ export default {
 
 			.user-info-name {
 				margin-left: 20rpx;
+				color: #FFF;
 			}
 		}
 

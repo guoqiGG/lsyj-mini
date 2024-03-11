@@ -120,12 +120,21 @@ const debounce = (fn, t) => {
   };
 };
 
+/**
+ * 手机号正则校验
+ */
+const checkPhoneNumber = (phoneNumber) => {
+  var regexp = /^[1][0-9]{10}$/;
+  return regexp.test(phoneNumber);
+};
+
 export const util = {
   refreshToken,
   checkAuthInfo,
   previousPage,
   toHomePage,
   debounce,
+  checkPhoneNumber,
 };
 
 module.exports = util;

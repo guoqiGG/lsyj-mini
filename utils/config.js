@@ -8,13 +8,16 @@ const mpAppName = "氢春态欢乐园";
 // ===============生产环境===============
 if (process.env.NODE_ENV === "production") {
   // 统一接口域名
-  domain = " http://192.168.110.64:8072";
+  domain = " http://192.168.110.64:8072"; // 本地
+  // domain = "https://www.hnliyue.cn"; // 线上
   // 图片域名
   picDomain = "http://qingchuntaijava1.oss-cn-beijing.aliyuncs.com";
 }
 // =============== 开发环境 ===============
 if (process.env.NODE_ENV === "development") {
-  domain = "http://192.168.110.64:8072";
+  domain = "http://192.168.110.64:8072"; // 本地
+  // domain = "https://www.hnliyue.cn";  // 线上
+
   picDomain = "http://qingchuntaijava1.oss-cn-beijing.aliyuncs.com";
 }
 

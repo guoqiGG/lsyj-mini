@@ -214,22 +214,22 @@
             "navigationBarTextStyle": "white"
           }
         },
-		{
-		  "path": "pages/my-friends/my-friends",
-		  "style": {
-		    "navigationBarTitleText": "我的好友",
-		    "navigationBarBackgroundColor": "#025BFF",
-		    "navigationBarTextStyle": "white"
-		  }
-		},
-		{
-		  "path": "pages/user-shop-details/user-shop-details",
-		  "style": {
-		    "navigationBarTitleText": "用户购物明细",
-		    "navigationBarBackgroundColor": "#025BFF",
-		    "navigationBarTextStyle": "white"
-		  }
-		}
+        {
+          "path": "pages/my-friends/my-friends",
+          "style": {
+            "navigationBarTitleText": "我的好友",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
+        },
+        {
+          "path": "pages/user-shop-details/user-shop-details",
+          "style": {
+            "navigationBarTitleText": "用户购物明细",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
+        }
       ]
     },
     // 会员中心分包
@@ -277,25 +277,25 @@
         "pagePath": "pages/index/index",
         "text": "首页",
         "iconPath": "/static/tabbar/uncheck-home.png",
-        "selectedIconPath": "/static/tabbar/selecte-home.png"
+        "selectedIconPath": "/static/tabbar/selected-home.png"
       },
       {
         "pagePath": "pages/category/category",
         "text": "分类",
         "iconPath": "/static/tabbar/uncheck-classify.png",
-        "selectedIconPath": "/static/tabbar/selecte-classify.png"
+        "selectedIconPath": "/static/tabbar/selected-classify.png"
       },
       {
         "pagePath": "pages/basket/basket",
         "text": "视频",
-        "iconPath": "/static/tabbar/video.png",
-        "selectedIconPath": "/static/tabbar/basket-sel.png"
+        "iconPath": "/static/tabbar/uncheck-video.png",
+        "selectedIconPath": "/static/tabbar/selected-video.png"
       },
       {
         "pagePath": "pages/user/user",
         "text": "我的",
         "iconPath": "/static/tabbar/uncheck-center.png",
-        "selectedIconPath": "/static/tabbar/selecte-center.png"
+        "selectedIconPath": "/static/tabbar/selected-center.png"
       }
     ]
   },

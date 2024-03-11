@@ -113,9 +113,9 @@ export default {
 			}
 			http.request(params)
 		},
-			/**
-		* 图片加载失败时，现实默认图片
-		*/
+		/**
+	* 图片加载失败时，现实默认图片
+	*/
 		handlePicError() {
 			this.categoryImg = '../../static/def.png'
 		},
