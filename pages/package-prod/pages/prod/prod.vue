@@ -3,7 +3,7 @@
     <view class="image-con">
       <image class="image" :src="productDetail.thumbail" mode="aspectFit" @error="handlePicError" />
     </view>
-    <view class="prod-content">
+    <view class="prod-content" v-if="productDetail.name">
       <view class="prod-name">{{productDetail.name}}</view>
       <view class="price">
         <text class="symbol">￥</text>
@@ -66,7 +66,10 @@
         </view>
       </u-popup>
     </view>
-
+	<!-- 加载状态 -->
+	<view v-if="!productDetail.name">
+		<u-loading-icon :show="loadingShow" text="加载中" textSize="40"></u-loading-icon>
+	</view>
   </view>
 </template>
 <script>
@@ -74,7 +77,8 @@ const http = require("@/utils/http");
 export default {
   data() {
     return {
-      skuShow: true,//规格弹窗显示
+	  loadingShow:true,
+      skuShow: false,//规格弹窗显示
       numberValue: 1,// 选择件数默认为 1
 	  goodsId:null,//商品id
 	  productDetail:{},
@@ -85,7 +89,6 @@ export default {
     }
   },
   onLoad(option){
-	console.log(option,'option====>')
 	if(option.prodId){
 		this.goodsId=option.prodId
 		this.getProductDetail()
