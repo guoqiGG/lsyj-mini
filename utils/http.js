@@ -1,4 +1,4 @@
-import { refreshToken } from "./util.js";
+// import { refreshToken } from "./util.js";
 const config = require("./config.js"); // 统一的网络请求方法
 let loadingTimer, isShowLoad;
 function request(params) {
@@ -16,9 +16,9 @@ function request(params) {
 
   globalData.currentReqCounts++;
   // 刷新token
-  if (!params.login && !globalData.isLanding && !params.isRefreshing) {
-    params = refreshToken(params);
-  }
+  // if (!params.login && !globalData.isLanding && !params.isRefreshing) {
+  //   params = refreshToken(params);
+  // }
   // 如果正在进行登陆，就将非登陆请求放在队列中等待登陆完毕后进行调用
   if (!params.login && globalData.isLanding && !params.isRefreshing) {
     globalData.requestQueue.push(params);
@@ -37,8 +37,8 @@ function request(params) {
     data: params.data,
     header: {
       // 'content-type': params.method == "GET" ? 'application/x-www-form-urlencoded' : 'application/json;charset=utf-8',
-      Authorization: uni.getStorageSync("bbcToken"),
-      locale: "zh_CN",
+      // Authorization: uni.getStorageSync("bbcToken"),
+      // locale: "zh_CN",
     },
     method: params.method == undefined ? "POST" : params.method,
     dataType: "json",
@@ -56,16 +56,16 @@ function request(params) {
         return;
       }
 
-      // 00000 请求成功
+      // 0 请求成功
       if (responseData.code === 0) {
         if (params.callBack) {
           params.callBack(responseData.data);
         }
         return;
       }
-
-      if(responseData.code == -640){
-        if(params.callBack){
+      // -640 请求成功 用户首次登录
+      if (responseData.code == -640) {
+        if (params.callBack) {
           params.callBack(responseData.msg);
         }
       }
@@ -130,7 +130,7 @@ function request(params) {
         });
       }
 
-      // A00001 用于直接显示提示用户的错误，内容由输入内容决定
+      // 500 用于直接显示提示用户的错误，内容由输入内容决定
       if (responseData.code === 500) {
         if (params.errCallBack) {
           params.errCallBack(responseData);
@@ -144,7 +144,7 @@ function request(params) {
       }
 
       // 其他异常
-      if (responseData.code !== "00000") {
+      if (responseData.code !== "0") {
         // console.log('params', params)
 
         if (params.errCallBack) {
@@ -188,111 +188,4 @@ function hideLoad(globalData) {
     isShowLoad = false;
   }
 }
-
-/**
- * 上传文件统一接口
- */
-function upload(params) {
-  console.log(params);
-  wx.uploadFile({
-    url: config.domain + params.url,
-    filePath: params.filePath,
-    name: params.name,
-    header: {
-      Authorization: params.login ? undefined : wx.getStorageSync("bbcToken"),
-    },
-    dataType: "json",
-    responseType:
-      params.responseType == undefined ? "json" : params.responseType,
-    success: (res) => {
-      const responseData = JSON.parse(res.data);
-      if (responseData.code === "00000") {
-        if (params.callBack) {
-          params.callBack(responseData.data);
-        }
-      } else {
-        uni.showToast({
-          title: "服务器出了点小差",
-          icon: "none",
-        });
-      }
-    },
-    fail: function () {
-      uni.hideLoading();
-    },
-  });
-}
-
-// 更新用户头像昵称
-function updateUserInfo() {
-  wx.getUserInfo({
-    success: (res) => {
-      var userInfo = JSON.parse(res.rawData);
-      request({
-        url: "/p/user/setUserInfo",
-        method: "PUT",
-        data: {
-          avatarUrl: userInfo.avatarUrl,
-          nickName: userInfo.nickName,
-        },
-      });
-    },
-  });
-}
-
-/**
- * 获取购物车商品数量
- */
-function getCartCount() {
-  if (!wx.getStorageSync("bbcToken")) {
-    util.removeTabBadge();
-    return;
-  }
-  const params = {
-    url: "/p/shopCart/prodCount",
-    method: "GET",
-    dontTrunLogin: true,
-    data: {},
-    callBack: function (res) {
-      if (res > 0) {
-        let pl = "";
-        // #ifdef MP-WEIXIN
-        pl = "mp";
-        // #endif
-        wx.setTabBarBadge({
-          index: pl == "mp" ? 2 : 2,
-          text: res > 99 ? "99+" : res + "",
-        });
-        const app = getApp().globalData;
-        app.totalCartCount = res;
-      } else {
-        util.removeTabBadge();
-        const app = getApp().globalData;
-        app.totalCartCount = 0;
-      }
-    },
-  };
-  request(params);
-}
-
-function isUserAuthInfo() {
-  // 查看是否授权
-  wx.getSetting({
-    success(res) {
-      if (res.authSetting["scope.userInfo"]) {
-        // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-        wx.getUserInfo({
-          success: function (res) {
-            console.log(res.userInfo);
-          },
-        });
-      }
-    },
-  });
-}
-
 exports.request = request;
-exports.getCartCount = getCartCount;
-exports.updateUserInfo = updateUserInfo;
-exports.upload = upload;
-exports.isUserAuthInfo = isUserAuthInfo;

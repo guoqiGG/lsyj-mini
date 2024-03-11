@@ -145,17 +145,16 @@ export default {
             // 缓存token的过期时间
             uni.setStorageSync("bbcExpiresTimeStamp", expiresTimeStamp);
             // 还原全局 正在登录状态
-            // getApp().globalData.isLanding = false;
-            // while (getApp().globalData.requestQueue.length) {
-            //   http.request(getApp().globalData.requestQueue.pop());
-            // }
+            getApp().globalData.isLanding = false;
+            while (getApp().globalData.requestQueue.length) {
+              http.request(getApp().globalData.requestQueue.pop());
+            }
             uni.redirectTo({
               url: "/pages/package-user/pages/login-success/login-success",
             });
           }
         },
         errCallBack: (err) => {
-          console.log(err)
           this.loginErrHandle(err);
         },
       };

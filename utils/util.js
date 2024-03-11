@@ -39,58 +39,6 @@ const previousPage = (isRefreshToken) => {
 };
 
 /**
- * 刷新token
- */
-const refreshToken = (params) => {
-  const refreshToken = uni.getStorageSync("bbcLoginResult").refreshToken;
-  const expiresTimeStamp = uni.getStorageSync("bbcExpiresTimeStamp");
-  if (
-    !(
-      refreshToken &&
-      expiresTimeStamp &&
-      expiresTimeStamp < new Date().getTime()
-    )
-  ) {
-    return params;
-  }
-  getApp().globalData.isLanding = true;
-  // getApp().globalData.requestQueue.push(params);
-  // return {
-  //   url: "/token/refresh",
-  //   method: "POST",
-  //   login: true,
-  //   isRefreshing: true,
-  //   dontTrunLogin: true,
-  //   data: {
-  //     refreshToken,
-  //   },
-  //   callBack: (res) => {
-  //     getApp().globalData.isLanding = false;
-  //     loginSuccess(res, true);
-  //   },
-  //   errCallBack: (errMsg) => {
-  //     // 清除refreshToken 过期时间
-  //     uni.removeStorageSync("bbcExpiresTimeStamp");
-  //     uni.removeStorageSync("bbcLoginResult");
-  //     uni.removeStorageSync("bbcToken");
-  //     uni.removeStorageSync("bbcHadBindUser");
-  //     uni.removeStorageSync("bbcCode");
-  //     uni.removeStorageSync("bbcUserInfo");
-  //     uni.removeStorageSync("bbcExpiresTimeStamp");
-
-  //     // 还原全局 正在登录状态
-  //     getApp().globalData.isLanding = false;
-  //     while (getApp().globalData.requestQueue.length) {
-  //       const queueParam = getApp().globalData.requestQueue.pop();
-  //       http.request(queueParam);
-  //     }
-  //     // 请求微信环境登录
-  //     weChatLogin();
-  //   },
-  // };
-};
-
-/**
  * 回到首页
  */
 const toHomePage = () => {
@@ -132,10 +80,10 @@ const checkPhoneNumber = (phoneNumber) => {
  * 微信环境统一登录方法 (公众号 & 小程序)
  */
 const weChatLogin = () => {
-  // if (getApp().globalData.isLanding) return;
-  // // 改变全局中登录
-  // const globalData = getApp().globalData;
-  // globalData.isLanding = true;
+  if (getApp().globalData.isLanding) return;
+  // 改变全局中登录
+  const globalData = getApp().globalData;
+  globalData.isLanding = true;
   // 微信小程序
   // 请求微信接口获取 code
   wx.login({
@@ -152,18 +100,14 @@ const weChatLogin = () => {
  * @param {String} code 请求微信返回的 code
  */
 const loginByCode = (code) => {
-  console.log(1, 21313);
-
   const params = {
     url: "/pub/user/login/auth",
     method: "POST",
     data: JSON.stringify({ code: code, loginType: 1 }),
     callBack: (res) => {
-      console.log(2);
-      console.log(res);
       if (!res.id) {
         uni.setStorageSync("bbcTempUid", res);
-      }else{
+      } else {
         uni.setStorageSync("bbcTempUid", res.openId);
       }
       // if (res.tokenInfo) {
@@ -214,12 +158,10 @@ const loginSuccess = (loginRes, isRefreshToken) => {
   while (getApp().globalData.requestQueue.length) {
     http.request(getApp().globalData.requestQueue.pop());
   }
-
   previousPage(isRefreshToken);
 };
 
 export const util = {
-  refreshToken,
   checkAuthInfo,
   previousPage,
   toHomePage,
