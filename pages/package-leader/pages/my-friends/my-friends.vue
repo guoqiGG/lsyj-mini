@@ -2,27 +2,84 @@
     <view class="container">
         <view class="search-con">
             <image class="img" src="../../static/search.png" mode="scaleToFill" />
-            <input class="input" placeholder="请输入搜索昵称" type="text" :value="searchValue" />
-            <view class="search-button">搜索</view>
+            <input class="input" placeholder="请输入搜索昵称" type="text" v-model="searchValue" />
+            <view class="search-button" @click="searchBtn()">搜索</view>
         </view>
       <view class="con">
-        <view class="list-con" v-for="item,index in 10" :key="index">
-            <image class="img-avatar" src="/static/head04.png" mode="scaleToFill" />
+        <view class="list-con" v-for="(item,index) in friendsList" :key="index">
+            <!-- <image class="img-avatar" src="/static/head04.png" mode="scaleToFill" /> -->
+            <image class="img-avatar" :src="item.avatar" mode="scaleToFill" />
             <view class="right-con">
-                <view class="name">QCT9996</view>
+                <view class="name">{{item.realName}}</view>
                 <view class="phone">18437930709</view>
             </view>
         </view>
-      </view>
+		<!-- 空列表或加载全部提示 -->
+		<EmptyAllTips v-if="isLoaded" :isEmpty="!friendsList.length" emptyTips="暂无数据" :isAll="isAll" />
+		
+	  </view>
     </view>
 </template>
 <script>
+
+const http = require("@/utils/http");
 export default {
     data() {
         return {
-            searchValue: ''
+			isLoaded: false,
+			isAll: false,
+            searchValue: '',
+			userId: 1,
+			current: 1,  // 当前页
+			pages: 1 ,//总页数
+			friendsList:[]
         }
-    }
+    },
+	onShow: function () {
+	    this.getLeaderFriends()
+	},
+	methods:{
+		// 团长好友列表
+		getLeaderFriends(){
+			this.isLoaded = false
+			let obj={
+				pageNo: this.current,
+				pageSize: this.pageSize,
+				userId: this.userId,
+				name:this.searchValue,
+			}
+			const params = {
+			    url: "/pub/leader/friend/list",
+			    method: "POST",
+			    data: {
+			        sign: 'qcsd',
+			        data: JSON.stringify(obj),
+			    },
+			    callBack: (res) => {
+					this.isLoaded = true
+					this.friendsList = this.current == 1 ? res.list : this.friendsList.concat(res.list)
+					this.pages = res.total == 0 ? 1 : Math.ceil(res.total / this.pageSize)
+			    },
+			}
+			http.request(params);
+		},
+		searchBtn(){
+			 this.current= 1,  // 当前页
+			 this.pages= 1 ,//总页数
+			 this.getLeaderFriends()
+		}
+	},
+	/**
+	* 页面上拉触底事件的处理函数
+	*/
+	onReachBottom() {
+	    if (this.current < this.pages) {
+	        this.current = this.current + 1
+	        this.getLeaderFriends()
+	    } else {
+	        this.isAll = true
+	    }
+	}
 }
 
 </script>

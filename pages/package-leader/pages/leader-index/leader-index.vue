@@ -6,17 +6,18 @@
 		<view class="leader-index-cot">
 			<view class="user-info">
 				<view class="user-info-photo">
-					<image src="/pages/package-leader/static/user-photo.png" mode=""></image>
+					<!-- <image src="/pages/package-leader/static/user-photo.png" mode=""></image> -->
+					<image :src="leaderInfo.avatar" mode=""></image>
 				</view>
 				<view class="user-info-name">
-					王一
+					{{leaderInfo.leaderName}}
 				</view>
 			</view>
 			<view class="finance">
 				<view class="finance-number">
 					<view class="finance-number-lf">
 						<view class="finance-number-lf-tit">
-							6.36
+							{{leaderInfo.balance}}
 						</view>
 						<view class="finance-number-lf-cot">
 							可提现（元）
@@ -24,7 +25,7 @@
 					</view>
 					<view class="finance-number-lf">
 						<view class="finance-number-lf-tit">
-							16.36
+							{{leaderInfo.totalIncome}}
 						</view>
 						<view class="finance-number-lf-cot">
 							总收益（元）
@@ -52,7 +53,7 @@
 				</view>
 			</view>
 			<view class="list">
-				<view class="list-line">
+				<view class="list-line"  @click="goToFriends()">
 					<view class="list-line-lf">
 						<view class="list-line-lf-img">
 							<image src="/pages/package-leader/static/friend.png" mode=""></image>
@@ -139,9 +140,16 @@
 </template>
 
 <script>
+const http = require("@/utils/http");
 export default {
 	data() {
-		return {}
+		return {
+			leaderInfo:{},
+			userId: 1,
+		}
+	},
+	onShow: function () {
+	    this.getLeaderInformation()
 	},
 	methods: {
 		instanceWithdrawal() {
@@ -160,6 +168,29 @@ export default {
 				url: "/pages/package-leader/pages/user-shop-details/user-shop-details"
 			})
 		},
+		goToFriends(){
+			uni.navigateTo({
+				url: "/pages/package-leader/pages/my-friends/my-friends"
+			})
+		},
+		// 查询团长信息
+		getLeaderInformation(){
+			let obj={
+				 userId: this.userId
+			}
+			const params = {
+			    url: "/pub/leader",
+			    method: "POST",
+			    data: {
+			        sign: 'qcsd',
+			        data: JSON.stringify(obj),
+			    },
+			    callBack: (res) => {
+					this.leaderInfo=res
+			    },
+			}
+			http.request(params);
+		}
 	}
 }
 </script>

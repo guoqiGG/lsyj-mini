@@ -215,6 +215,14 @@
           }
         },
 		{
+		  "path": "pages/my-friends/my-friends",
+		  "style": {
+		    "navigationBarTitleText": "我的好友",
+		    "navigationBarBackgroundColor": "#025BFF",
+		    "navigationBarTextStyle": "white"
+		  }
+		},
+		{
 		  "path": "pages/user-shop-details/user-shop-details",
 		  "style": {
 		    "navigationBarTitleText": "用户购物明细",
