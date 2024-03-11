@@ -91,7 +91,7 @@
 						<u-icon name="arrow-right" size="28"></u-icon>
 					</view>
 				</view>
-				<view class="list-line">
+				<view class="list-line" @click="userShopDetails()">
 					<view class="list-line-lf">
 						<view class="list-line-lf-img">
 							<image src="/pages/package-leader/static/friend.png" mode=""></image>
@@ -153,7 +153,13 @@ export default {
 			uni.navigateTo({
 				url: "/pages/package-leader/pages/take-notes/take-notes"
 			})
-		}
+		},
+		// 用户购物明细
+		userShopDetails() {
+			uni.navigateTo({
+				url: "/pages/package-leader/pages/user-shop-details/user-shop-details"
+			})
+		},
 	}
 }
 </script>
