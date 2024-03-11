@@ -29,9 +29,9 @@
             v-if="showBack"
           >
           </view> -->
-            <image v-if="showBack && isWhiteBack" class="back-img" src="../../static/images/icon/back-white.png" mode=""
+           <image v-if="showBack && isWhiteBack" class="back-img" src="../../static/back-white.png" mode=""
               @click="$turnPage('1', 'navigateBack')" />
-            <image v-if="showBack && !isWhiteBack" class="back-img" src="../../static/images/icon/back.png" mode=""
+            <image v-if="showBack && !isWhiteBack" class="back-img" src="../../static/back.png" mode=""
               @click="$turnPage('1', 'navigateBack')" />
             <view v-if="showTitle" class="bar-title"
               :style="{ color: navigationBarStyle.fontColor || normal.fontColor }">
