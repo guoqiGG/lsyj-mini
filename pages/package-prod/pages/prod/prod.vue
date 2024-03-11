@@ -1,21 +1,21 @@
 <template>
   <view class="container">
     <view class="image-con">
-      <image class="image" src="/static/def.png" mode="aspectFit" @error="handlePicError" />
+      <image class="image" :src="productDetail.thumbail" mode="aspectFit" @error="handlePicError" />
     </view>
     <view class="prod-content">
-      <view class="prod-name">银水杯</view>
+      <view class="prod-name">{{productDetail.name}}</view>
       <view class="price">
         <text class="symbol">￥</text>
-        <text class="big-num">11</text>
-        <text class="small-num">.22</text>
+        <text class="big-num">{{parseInt(price)}}</text>
+        <text class="small-num">.{{smallPrice}}</text>
       </view>
-      <view class="prod-number">仅剩<text class="red">xx</text>件</view>
+      <view class="prod-number">仅剩<text class="red">{{productDetail.stock}}</text>件</view>
     </view>
     <view class="prod-select-number">
       <view class="prod-select-number-left">
         <view class="has-select-text">已选</view>
-        <view class="has-select-number">1件</view>
+        <view class="has-select-number">{{numberValue}}件</view>
       </view>
       <view class="prod-select-number-right" @tap="openSkuPopup">
         ...
@@ -42,23 +42,23 @@
         <view class="con-container">
           <view class="sku-info">
             <view class="sku-info-left">
-              <image class="image" src="/static/def.png" mode="aspectFit" @error="handlePicError" />
+              <image class="image" :src="productDetail.thumbail" mode="aspectFit" @error="handlePicError" />
             </view>
             <view class="sku-info-right">
               <view class="price">
                 <text class="symbol">￥</text>
-                <text class="big-num">11</text>
-                <text class="small-num">.22</text>
+                <text class="big-num">{{parseInt(totalPrice)}}</text>
+                <text class="small-num">.{{totalSmallPrice}}</text>
               </view>
-              <view class="select-number">已选：<text class="number">1件</text></view>
-              <view class="stock">库存：<text class="stock-number">714</text></view>
+              <view class="select-number">已选：<text class="number">{{numberValue}}件</text></view>
+              <view class="stock">库存：<text class="stock-number">{{productDetail.stock}}</text></view>
             </view>
           </view>
           <view class="select-number-con">
             <view class="number-title"><text>数量</text></view>
             <view class="number-con">
               <view class="minus" @tap="numberValueMinus">-</view>
-              <input class="input" type="number" min="1" :value="numberValue" />
+              <input class="input" type="number" min="1" v-model="numberValue"  @input="numberInput()"/>
               <view class="add" @tap="numberValueAdd">+</view>
             </view>
           </view>
@@ -70,12 +70,27 @@
   </view>
 </template>
 <script>
+const http = require("@/utils/http");
 export default {
   data() {
     return {
       skuShow: true,//规格弹窗显示
       numberValue: 1,// 选择件数默认为 1
+	  goodsId:null,//商品id
+	  productDetail:{},
+	  price:null,
+	  smallPrice:null,
+	  totalPrice:null,
+	  totalSmallPrice:null
     }
+  },
+  onLoad(option){
+	console.log(option,'option====>')
+	if(option.prodId){
+		this.goodsId=option.prodId
+		this.getProductDetail()
+	}
+	  
   },
   methods: {
 
@@ -95,12 +110,61 @@ export default {
     },
     // 减少数量
     numberValueMinus() {
+	  this.numberValue=Number(this.numberValue)
       this.numberValue = this.numberValue <= 1 ? 1 : this.numberValue - 1
+	  this.totalPrice=(this.price*this.numberValue).toFixed(2)
+	  var parts = this.totalPrice.split('.');
+	  if (parts.length === 2) {
+	  	this.totalSmallPrice=parts[1]
+	  }
     },
     // 增加商品数量
     numberValueAdd() {
+	  this.numberValue=Number(this.numberValue)
       this.numberValue = this.numberValue + 1
+	  this.totalPrice=(this.price*this.numberValue).toFixed(2)
+	  var parts = this.totalPrice.split('.');
+	  if (parts.length === 2) {
+	  	this.totalSmallPrice=parts[1]
+	  }
     },
+	 numberInput(){
+		this.numberValue=Number(this.numberValue)
+		this.totalPrice=(this.price*this.numberValue).toFixed(2)
+		var parts = this.totalPrice.split('.');
+		if (parts.length === 2) {
+			this.totalSmallPrice=parts[1]
+		}
+	},
+	getProductDetail() {
+	    let obj = {
+	            goodsId: this.goodsId
+	        }
+	        const params = {
+	            url: "/pub/goods/detail",
+	            method: "POST",
+	            data: {
+	                sign: 'qcsd',
+	                data: JSON.stringify(obj),
+	            },
+	            callBack: (res) => {
+	                this.productDetail =res
+					var num=res.goodsSkus[0].price
+					this.price=num.toFixed(2)
+					console.log(this.price,'this.price')
+					this.totalPrice=this.price
+					var parts = this.price.split('.');
+					if (parts.length === 2) {
+						this.smallPrice=parts[1]
+						this.totalSmallPrice=parts[1]
+					}
+					
+	            },
+	        }
+	        http.request(params);
+	},
+	
+	
   },
 }
 </script>

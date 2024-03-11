@@ -59,7 +59,7 @@ export default {
     },
     toProdPage() {
       let prodId = this.item.goodsId
-      uni.navigateTo({ url: '/pages/package-prod/pages/prod/prod?prodId' + prodId })
+      uni.navigateTo({ url: '/pages/package-prod/pages/prod/prod?prodId=' + prodId })
     },
   }
 }
