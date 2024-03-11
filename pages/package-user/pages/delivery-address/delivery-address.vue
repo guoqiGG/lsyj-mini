@@ -4,23 +4,20 @@
             <radio-group v-if="reDraw" class="radio-group">
                 <block v-for="(item, index) in addressList" :key="index">
                     <view class="address">
-                        <view class="personal" :data-addrid="item.addrId" @tap="selAddrToOrder">
+                        <view class="personal" :data-id="item.id" @tap="selAddrToOrder">
                             <view class="info-tit">
-                                <text class="name">{{ item.receiver }}</text>
-                                <text class="tel">{{ item.mobile }}</text>
-                                <image src="/static/revise.png" :data-addrid="item.addrId" @tap.stop="toEditAddress" />
+                                <text class="name">{{ item.name }}</text>
+                                <text class="tel">{{ item.tel }}</text>
+                                <image src="/static/revise.png" :data-id="item.id" @tap.stop="toEditAddress" />
                             </view>
                             <view class="addr">
-                                <text class="addr-get">{{ item.province }}{{ item.city }}{{ item.area
-                                    }}{{ item.addr }}</text>
+                                <text class="addr-get">{{ item.address }}</text>
                             </view>
                         </view>
                         <view class="select-btn">
                             <view class="box">
-                                <label :data-addrid="item.addrId" @tap="onDefaultAddr">
-                                    <radio :checked="item.commonAddr == 1" color="#005AFF" />{{
-                i18n.asDefaultAddress
-            }}
+                                <label :data-addrid="item.id" @tap="onDefaultAddr">
+                                    <radio :checked="item.isDefault == 1" color="#005AFF" />设为默认地址
                                 </label>
                             </view>
                         </view>
@@ -42,19 +39,15 @@ export default {
     props: {},
     data() {
         return {
-            defaultSize: 'mini',
-            disabled: false,
-            plain: true,
-            loading: false,
+            userId: 0,
             addressList: [],
-            addAddress: '',
-            order: -1,
-            item: '',
-            selAddress: '',
             reDraw: true,
             isLoaded: true,
             noShippingAddress: '您还没有收货地址',
-            addNewAddress: '新增收货地址'
+            addNewAddress: '新增收货地址',
+            current: 1,
+            pages: 1,
+            pageSize: 20
         }
     },
     onLoad: function (option) {
@@ -70,6 +63,7 @@ export default {
         uni.setNavigationBarTitle({
             title: '收货地址'
         })
+        this.userId = uni.getStorageSync('bbcUserInfo').userId
         this.getAddrList()
     },
     methods: {
@@ -80,17 +74,24 @@ export default {
             this.reDraw = false
             this.isLoaded = false
             const params = {
-                url: '/p/address/list',
-                method: 'GET',
+                url: '/pub/user/address/list',
+                method: 'POST',
+                data: {
+                    sign: "qcsd",
+                    data: JSON.stringify({
+                        userId: this.userId,
+                        pageNo: this.current,
+                        pageSize: this.pageSize
+                    })
+                },
                 callBack: (res) => {
                     this.isLoaded = true
-                    this.setData({
-                        addressList: res,
-                        reDraw: true
-                    })
+                    this.reDraw = true
+                    this.addressList = this.current == 1 ? res.list : this.addressList.concat(res.list)
+                    this.pages = res.total == 0 ? 1 : Math.ceil(res.total / this.pageSize)
                 }
             }
-            // http.request(params)
+            http.request(params)
         },
 
         /**
@@ -112,9 +113,9 @@ export default {
          * 设置为默认地址
          */
         onDefaultAddr: function (e) {
-            var addrId = e.currentTarget.dataset.addrid
+            var addrId = e.currentTarget.dataset.id
             const params = {
-                url: '/p/address/defaultAddr/' + addrId,
+                url: '/p/address/defaultAddr/' + id,
                 method: 'PUT',
                 callBack: (res) => {
                     this.getAddrList()
@@ -127,9 +128,9 @@ export default {
          * 修改地址
          */
         toEditAddress: function (e) {
-            var addrId = e.currentTarget.dataset.addrid
+            var id = e.currentTarget.dataset.id
             uni.navigateTo({
-                url: '/package-user/pages/edit-address/edit-address?addrId=' + addrId
+                url: '/pages/package-user/pages/edit-address/edit-address?id=' + id
             })
         },
 
@@ -137,7 +138,7 @@ export default {
          * 选择地址 跳转回提交订单页
          */
         selAddrToOrder: function (e) {
-            const id = e.currentTarget.dataset.addrid
+            const id = e.currentTarget.dataset.id
             let item = null
             this.addressList.forEach((addrItem) => {
                 if (addrItem.addrId == id) {
@@ -154,6 +155,17 @@ export default {
                     delta: 1
                 })
             }
+        },
+    },
+    /**
+* 页面上拉触底事件的处理函数
+*/
+    onReachBottom() {
+        if (this.current < this.pages) {
+            this.current = this.current + 1
+            this.getAddrList()
+        } else {
+            this.isAll = true
         }
     }
 }

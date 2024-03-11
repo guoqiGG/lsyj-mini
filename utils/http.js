@@ -64,6 +64,12 @@ function request(params) {
         return;
       }
 
+      if(responseData.code == -640){
+        if(params.callBack){
+          params.callBack(responseData.msg);
+        }
+      }
+
       // A00004 未授权
       if (responseData.code === "A00004") {
         // 重设登录后跳转地址

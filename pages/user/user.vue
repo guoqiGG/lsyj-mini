@@ -214,8 +214,10 @@ export default {
 		},
 		// 跳转到我的地址列表
 		toAddressList() {
-			uni.navigateTo({
-				url: '/pages/package-user/pages/delivery-address/delivery-address'
+			util.checkAuthInfo(() => {
+				uni.navigateTo({
+					url: '/pages/package-user/pages/delivery-address/delivery-address'
+				})
 			})
 		},
 		toLogin() {
