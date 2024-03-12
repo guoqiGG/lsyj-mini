@@ -8,7 +8,7 @@
       <view class="price">
         <text class="symbol">￥</text>
         <text class="big-num">{{ parseInt(price) }}</text>
-        <text class="small-num">.{{ smallPrice }}</text>
+        <text class="big-num">.{{ smallPrice }}</text>
       </view>
       <view class="prod-number">仅剩<text class="red">{{ productDetail.stock }}</text>件</view>
     </view>
@@ -48,7 +48,7 @@
               <view class="price">
                 <text class="symbol">￥</text>
                 <text class="big-num">{{ parseInt(totalPrice) }}</text>
-                <text class="small-num">.{{ totalSmallPrice }}</text>
+                <text class="big-num">.{{ totalSmallPrice }}</text>
               </view>
               <view class="select-number">已选：<text class="number">{{ numberValue }}件</text></view>
               <view class="stock">库存：<text class="stock-number">{{ productDetail.stock }}</text></view>

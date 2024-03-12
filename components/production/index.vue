@@ -14,7 +14,7 @@
         <view class="price">
           <text class="symbol">￥</text>
           <text class="big-num">{{ parsePrice(item.price)[0] }}</text>
-          <text class="small-num">.{{ parsePrice(item.price)[1] }}</text>
+          <text class="big-num">.{{ parsePrice(item.price)[1] }}</text>
         </view>
       </view>
     </view>
