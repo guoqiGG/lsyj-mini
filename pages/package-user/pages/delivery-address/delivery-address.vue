@@ -16,8 +16,9 @@
                         </view>
                         <view class="select-btn">
                             <view class="box">
-                                <label :data-addrid="item.id" @tap="onDefaultAddr">
-                                    <radio :checked="item.isDefault == 1" color="#005AFF" />设为默认地址
+                                <label :data-addrid="item.id" color="#005AFF">
+                                    <!-- <radio :checked="item.isDefault == 1" color="#005AFF" disabled /> -->
+                                    当前为默认地址
                                 </label>
                             </view>
                         </view>
@@ -63,7 +64,9 @@ export default {
         uni.setNavigationBarTitle({
             title: '收货地址'
         })
-        this.userId = uni.getStorageSync('bbcUserInfo').userId
+        if (uni.getStorageSync('bbcUserInfo')) {
+            this.userId = uni.getStorageSync('bbcUserInfo').id
+        }
         this.getAddrList()
     },
     methods: {

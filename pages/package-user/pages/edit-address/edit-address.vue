@@ -63,13 +63,17 @@ export default {
       userId: 0,
     }
   },
-  onLoad: async function (options) {
+  onLoad: function (options) {
     // 获取地址列表信息
     this.isEdit = !!options.id
-
+    if (uni.getStorageSync('bbcUserInfo')) {
+      this.userId = uni.getStorageSync('bbcUserInfo').id
+    }
     if (options.id) {
       this.getAddressInfoById(options.id)
+      this.id = options.id
     }
+
   },
   /**
   * 生命周期函数--监听页面显示
@@ -79,7 +83,10 @@ export default {
     uni.setNavigationBarTitle({
       title: this.isEdit ? '编辑收货地址' : '新增收获地址'
     })
-    this.userId = uni.getStorageSync('bbcUserInfo').userId
+    if (uni.getStorageSync('bbcUserInfo')) {
+      this.userId = uni.getStorageSync('bbcUserInfo').id
+    }
+
   },
   methods: {
     /**
@@ -94,23 +101,22 @@ export default {
      */
     getAddressInfoById(addrId) {
       const params = {
-        url: '/p/address/addrInfo/' + addrId,
-        method: 'GET',
-        data: {},
-        callBack: res => {
-          console.log(res)
-          this.setData({
-            provinceId: res.provinceId,
-            cityId: res.cityId,
-            areaId: res.areaId,
-            receiver: res.receiver,
-            mobile: res.mobile,
-            addr: res.addr,
-            addrId: addrId,
-            lat: res.lat,
-            lng: res.lng
+        url: '/pub/user/address/list',
+        method: 'POST',
+        data: {
+          sign: 'qcsd',
+          data: JSON.stringify({
+            userId: this.userId,
+            id: addrId
           })
-          this.initCityData(this.provinceId, this.cityId, this.areaId)
+        },
+        callBack: res => {
+          this.setData({
+            name: res.list[0].name,
+            tel: res.list[0].tel,
+            address: res.list[0].address,
+            isDefault: res.list[0].isDefault,
+          })
         }
       }
       http.request(params)
@@ -128,6 +134,7 @@ export default {
       var tel = ths.tel
       var address = ths.address
       var isDefault = ths.isDefault
+
       if (!name) {
         uni.showToast({
           title: '请输入收货人姓名',
@@ -179,11 +186,31 @@ export default {
           }
         }
         http.request(params)
+      } else {
+        // 编辑
+        const params = {
+          url: '/pub/user/address/update',
+          method: 'POST',
+          data: {
+            sign: 'qcsd',
+            data: JSON.stringify({
+              userId:this.userId,
+              id: this.id,
+              name: name,
+              tel: tel,
+              address: address,
+              isDefault: isDefault,
+              isDeleted: 0
+            })
+          },
+          callBack: function (res) {
+            uni.navigateBack({
+              delta: 1
+            })
+          }
+        }
+        http.request(params)
       }
-
-
-
-
     },
     onReceiverInput: function (e) {
       this.setData({
@@ -209,14 +236,18 @@ export default {
         cancelText: '取消',
         confirmText: '确定',
         confirmColor: '#eb2444',
-
         success(res) {
           if (res.confirm) {
-            var addrId = ths.addrId
             const params = {
-              url: '/p/address/deleteAddr/' + addrId,
-              method: 'DELETE',
-              data: {},
+              url: '/pub/user/address/update',
+              method: 'POST',
+              data: {
+                sign: 'qcsd',
+                data: JSON.stringify({
+                  id: ths.id,
+                  isDeleted: 1
+                })
+              },
               callBack: function (res) {
                 uni.navigateBack({
                   delta: 1

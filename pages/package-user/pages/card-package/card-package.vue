@@ -45,7 +45,7 @@ export default {
             isAll: false,
             remark: "",
             pageSize: 10,
-            userId: 1,
+            userId: 0,
             current: 1,  // 当前页
             pages: 1 //总页数
         };
@@ -54,6 +54,9 @@ export default {
         uni.setNavigationBarTitle({
             title: "我的卡包",
         });
+        if (uni.getStorageSync('bbcUserInfo')) {
+            this.userId = uni.getStorageSync('bbcUserInfo').id
+        }
         this.getGiftCardList()
     },
     methods: {

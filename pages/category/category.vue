@@ -105,7 +105,6 @@ export default {
 					data: JSON.stringify(data)
 				},
 				callBack: res => {
-					console.log(res)
 					this.isLoaded = true
 					this.prodList = res
 				}

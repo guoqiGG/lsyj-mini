@@ -36,7 +36,7 @@ export default {
       current: 1,
       pageSize: 20,
       isLoaded: false,
-      userId: 1
+      userId: 0
     }
   },
 
@@ -44,7 +44,7 @@ export default {
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.loadMyCouponData(this.status)
+
   },
   /**
    * 生命周期函数--监听页面显示
@@ -53,6 +53,10 @@ export default {
     uni.setNavigationBarTitle({
       title: '我的优惠券'
     })
+    if (uni.getStorageSync('bbcUserInfo')) {
+      this.userId = uni.getStorageSync('bbcUserInfo').id
+    }
+    this.loadMyCouponData(this.status)
   },
 
   /**

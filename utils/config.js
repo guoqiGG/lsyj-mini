@@ -17,7 +17,6 @@ if (process.env.NODE_ENV === "production") {
 if (process.env.NODE_ENV === "development") {
   domain = "http://192.168.110.64:8072"; // 本地
   // domain = "https://qct.hnliyue.cn/youth/";  // 线上
-
   picDomain = "http://qingchuntaijava1.oss-cn-beijing.aliyuncs.com";
 }
 
