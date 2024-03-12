@@ -133,7 +133,6 @@ export default {
           openid: uni.getStorageSync('bbcTempUid')
         }),
         callBack: (res) => {
-          console.log(res)
           if (res.loginToken) {
             uni.setStorageSync("bbcIsPrivacy", 1);
             uni.setStorageSync("bbcHadLogin", true);

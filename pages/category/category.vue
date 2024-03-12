@@ -60,6 +60,7 @@ export default {
 		uni.setNavigationBarTitle({
 			title: '分类商品'
 		})
+		this.selIndex = 0
 		this.getCategory()
 	},
 	methods: {

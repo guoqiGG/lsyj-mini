@@ -155,7 +155,7 @@
       "root": "pages/package-pay",
       "pages": [
         {
-          "path": "pages/pay-index/pay-index",
+          "path": "pages/submit-order/submit-order",
           "style": {
             "navigationBarTitleText": "提交订单",
             "navigationBarBackgroundColor": "#025BFF",
