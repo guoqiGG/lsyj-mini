@@ -150,16 +150,18 @@ export default {
 				balance:0,
 				totalIncome:0
 			},
-			userId: 1,
+			userId: null,
 		}
 	},
 	onShow: function () {
+		let bbcUserInfo =uni.getStorageSync("bbcUserInfo"); //用户信息
+		this.userId=bbcUserInfo.id
 	    this.getLeaderInformation()
 	},
 	methods: {
 		instanceWithdrawal() {
 			uni.navigateTo({
-				url: "/pages/package-leader/pages/withdrawal/withdrawal"
+				  url: '/pages/package-leader/pages/withdrawal/withdrawal?withdrawable=' + this.leaderInfo.balance
 			})
 		},
 		withdrawalRecord() {

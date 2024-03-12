@@ -24,7 +24,7 @@
 					    v-model="withdrawalNumber"
 					  ></u--input>
 				</view>
-				<view class="withdrawal-cot-cot-rt">
+				<view class="withdrawal-cot-cot-rt" @click="allWithdrawals()">
 					全部提现
 				</view>
 			</view>
@@ -57,21 +57,57 @@
 </template>
 
 <script>
+	const http = require("@/utils/http");
 	export default {
 		data() {
 			return {
-				withdrawalNumberPlaceholder:'可提现金额￥2.16',
-				withdrawalNumber:''
+				withdrawalNumberPlaceholder:'可提现金额￥',
+				withdrawalNumber:null,
+				withdrawable:null,
+				userId:null,
 			}
 		},
+		onLoad(option){
+			if(option.withdrawable){
+				this.withdrawable=option.withdrawable
+				this.withdrawalNumberPlaceholder+=this.withdrawable
+			}
+			let bbcUserInfo =uni.getStorageSync("bbcUserInfo"); //用户信息
+			this.userId=bbcUserInfo.id
+		},
+		
 		methods: {
 			onSubmitApplyWithdrawal(){
 				console.log(this.withdrawalNumber)
-				uni.showModal({
-					content:"提现申请已提交",
-					confirmText:'确定',
-					showCancel: false,
-				})
+				let obj = {
+				        userId: this.userId,
+						amount:this.withdrawalNumber
+				    }
+					console.log(obj,'obj====>')
+				    const params = {
+				        url: "/pub/leader/apply/withdrawal",
+				        method: "POST",
+				        data: {
+				            sign: 'qcsd',
+				            data: JSON.stringify(obj),
+				        },
+				        callBack: (res) => {
+							uni.showModal({
+								content:"提现申请已提交",
+								confirmText:'确定',
+								showCancel: false,
+							})
+				        },
+				    }
+				    http.request(params);
+				// uni.showModal({
+				// 	content:"提现申请已提交",
+				// 	confirmText:'确定',
+				// 	showCancel: false,
+				// })
+			},
+			allWithdrawals(){
+				this.withdrawalNumber=this.withdrawable
 			}
 		}
 	}

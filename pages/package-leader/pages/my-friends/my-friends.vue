@@ -29,13 +29,15 @@ export default {
 			isLoaded: false,
 			isAll: false,
             searchValue: '',
-			userId: 1,
+			userId: null,
 			current: 1,  // 当前页
 			pages: 1 ,//总页数
 			friendsList:[]
         }
     },
 	onShow: function () {
+		let bbcUserInfo =uni.getStorageSync("bbcUserInfo"); //用户信息
+		this.userId=bbcUserInfo.id
 	    this.getLeaderFriends()
 	},
 	methods:{
