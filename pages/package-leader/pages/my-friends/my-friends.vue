@@ -31,7 +31,7 @@ export default {
             searchValue: '',
 			userId: null,
 			current: 1,  // 当前页
-			pages: 1 ,//总页数
+			pages: 10 ,//总页数
 			friendsList:[]
         }
     },
