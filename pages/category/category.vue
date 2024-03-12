@@ -97,7 +97,6 @@ export default {
 				pageNo: 1,
 				pageSize: 40
 			}
-			console.log(JSON.stringify(data))
 			const params = {
 				url: '/pub/goods/list',
 				method: 'POST',

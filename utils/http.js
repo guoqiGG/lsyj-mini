@@ -1,7 +1,8 @@
-// import { refreshToken } from "./util.js";
+import util from "@/utils/util";
 const config = require("./config.js"); // 统一的网络请求方法
 let loadingTimer, isShowLoad;
 function request(params) {
+  console.log(params);
   // 全局变量
   var globalData = getApp().globalData;
   // 默认全局 loading
@@ -16,21 +17,25 @@ function request(params) {
 
   globalData.currentReqCounts++;
   // 刷新token
-  if (!params.login && !globalData.isLanding && !params.isRefreshing) {
-    params = refreshToken(params);
-  }
+  // if (!params.login && !globalData.isLanding && !params.isRefreshing) {
+  //   params = util.refreshToken(params);
+  // }
+  
   // 如果正在进行登陆，就将非登陆请求放在队列中等待登陆完毕后进行调用
-  if (!params.login && globalData.isLanding && !params.isRefreshing) {
-    globalData.requestQueue.push(params);
-    clearTimeout(loadingTimer);
-    uni.hideLoading();
-    return;
-  }
+  // if (!params.login && globalData.isLanding && !params.isRefreshing) {
+  //   globalData.requestQueue.push(params);
+  //   clearTimeout(loadingTimer);
+  //   uni.hideLoading();
+  //   return;
+  // }
+  console.log(1)
   if (Object.prototype.toString.call(params.data) == "[object Array]") {
     params.data = JSON.stringify(params.data);
   } else if (Object.prototype.toString.call(params.data) == "[object Number]") {
     params.data = params.data + "";
   }
+
+  
   uni.request({
     url: (params.domain ? params.domain : config.domain) + params.url,
     // 接口请求地址
@@ -38,7 +43,7 @@ function request(params) {
     header: {
       // 'content-type': params.method == "GET" ? 'application/x-www-form-urlencoded' : 'application/json;charset=utf-8',
       Authorization: uni.getStorageSync("bbcToken"),
-      // locale: "zh_CN",
+      locale: "zh_CN",
     },
     method: params.method == undefined ? "POST" : params.method,
     dataType: "json",
@@ -114,8 +119,8 @@ function request(params) {
         return;
       }
 
-      // A00005 服务器出了点小差
-      if (responseData.code === "A00005") {
+      // 500 服务器出了点小差
+      if (responseData.code === 500) {
         console.error("============== 请求异常 ==============");
         // console.log("接口: ", params.url);
         console.log("异常信息: ", responseData);
@@ -130,8 +135,8 @@ function request(params) {
         });
       }
 
-      // 500 用于直接显示提示用户的错误，内容由输入内容决定
-      if (responseData.code === 500) {
+      // A00001 用于直接显示提示用户的错误，内容由输入内容决定
+      if (responseData.code === "A00001") {
         if (params.errCallBack) {
           params.errCallBack(responseData);
           return;
@@ -144,16 +149,16 @@ function request(params) {
       }
 
       // 其他异常
-      if (responseData.code !== "0") {
-        // console.log('params', params)
+      // if (responseData.code !== "00000") {
+      //   // console.log('params', params)
 
-        if (params.errCallBack) {
-          params.errCallBack(responseData);
-        } else {
-          // console.log(`接口: ${params.url}`);
-          // console.log(`返回信息： `, res);
-        }
-      }
+      //   if (params.errCallBack) {
+      //     params.errCallBack(responseData);
+      //   } else {
+      //     // console.log(`接口: ${params.url}`);
+      //     // console.log(`返回信息： `, res);
+      //   }
+      // }
     },
     fail: (err) => {
       console.log(err);

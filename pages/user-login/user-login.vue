@@ -155,6 +155,7 @@ export default {
           }
         },
         errCallBack: (err) => {
+          console.log(err)
           this.loginErrHandle(err);
         },
       };

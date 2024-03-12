@@ -84,6 +84,7 @@ const weChatLogin = () => {
   // 改变全局中登录
   const globalData = getApp().globalData;
   globalData.isLanding = true;
+
   // 微信小程序
   // 请求微信接口获取 code
   wx.login({
@@ -110,9 +111,6 @@ const loginByCode = (code) => {
       } else {
         uni.setStorageSync("bbcTempUid", res.openId);
       }
-      // if (res.tokenInfo) {
-      //   loginSuccess(res.tokenInfo);
-      // }
       // 还原全局 正在登录状态
       getApp().globalData.isLanding = false;
       while (getApp().globalData.requestQueue.length) {
@@ -158,8 +156,59 @@ const loginSuccess = (loginRes, isRefreshToken) => {
   while (getApp().globalData.requestQueue.length) {
     http.request(getApp().globalData.requestQueue.pop());
   }
-  previousPage(isRefreshToken);
+  // previousPage(isRefreshToken);
 };
+/**
+ * 刷新token
+ */
+// const refreshToken = (params) => {
+// const refreshToken = uni.getStorageSync("bbcLoginResult").refreshToken;
+// const expiresTimeStamp = uni.getStorageSync("bbcExpiresTimeStamp");
+// if (
+//   !(
+//     refreshToken &&
+//     expiresTimeStamp &&
+//     expiresTimeStamp < new Date().getTime()
+//   )
+// ) {
+//   return params;
+// }
+// getApp().globalData.isLanding = true;
+// getApp().globalData.requestQueue.push(params);
+// return {
+//   url: "/token/refresh",
+//   method: "POST",
+//   login: true,
+//   isRefreshing: true,
+//   dontTrunLogin: true,
+//   data: {
+//     refreshToken,
+//   },
+//   callBack: (res) => {
+//     getApp().globalData.isLanding = false;
+//     loginSuccess(res, true);
+//   },
+//   errCallBack: (errMsg) => {
+//     // 清除refreshToken 过期时间
+//     uni.removeStorageSync("bbcExpiresTimeStamp");
+//     uni.removeStorageSync("bbcLoginResult");
+//     uni.removeStorageSync("bbcToken");
+//     uni.removeStorageSync("bbcHadBindUser");
+//     uni.removeStorageSync("bbcCode");
+//     uni.removeStorageSync("bbcUserInfo");
+//     uni.removeStorageSync("bbcExpiresTimeStamp");
+
+//     // 还原全局 正在登录状态
+//     getApp().globalData.isLanding = false;
+//     while (getApp().globalData.requestQueue.length) {
+//       const queueParam = getApp().globalData.requestQueue.pop();
+//       http.request(queueParam);
+//     }
+//     // 请求微信环境登录
+//     weChatLogin();
+//   },
+// };
+// };
 
 export const util = {
   checkAuthInfo,
@@ -169,6 +218,7 @@ export const util = {
   checkPhoneNumber,
   weChatLogin,
   loginSuccess,
+  // refreshToken
 };
 
 module.exports = util;
