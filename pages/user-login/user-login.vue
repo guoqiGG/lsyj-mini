@@ -149,9 +149,18 @@ export default {
             while (getApp().globalData.requestQueue.length) {
               http.request(getApp().globalData.requestQueue.pop());
             }
-            uni.redirectTo({
-              url: "/pages/package-user/pages/login-success/login-success",
-            });
+			 let routeUrl=uni.getStorageSync("routeUrl")
+			 if(routeUrl){
+				 // 跳转到 "领取礼品卡" 
+				 // uni.switchTab({
+				 	// url: '/pages/user-login/user-login'
+				 // });
+			 }else{
+				 uni.redirectTo({
+				   url: "/pages/package-user/pages/login-success/login-success",
+				 });
+			 }
+           
           }
         },
         errCallBack: (err) => {
