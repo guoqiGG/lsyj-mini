@@ -4,14 +4,15 @@
 		<view class="user">
 			<view class="user-login" v-if="isAuthInfo">
 				<view class="user-img">
-					<image src="/static/user/head-pic.png"></image>
+					<image style="border-radius: 50%;" :src="userInfo.avatar ? userInfo.avatar : '/static/user/head-pic.png'" mode="scaleToFill"
+					  />
 				</view>
 				<view class="user-info">
 					<view class="user-name">
-						QCT9996
+						{{userInfo.name}}
 					</view>
 					<view class="user-name-type">
-						普通
+						{{userInfo.type===0?'普通':userInfo.type===1?'团长':''}}
 					</view>
 				</view>
 			</view>
@@ -159,7 +160,11 @@ export default {
 			isAuthInfo: false, //用户是否登录	
 		}
 	},
+
 	onShow: function () {
+		// 用户信息
+		this.userInfo = uni.getStorageSync("bbcUserInfo"); //用户信息
+		this.userInfo.type===0?this.isLeader=false:this.userInfo.type===1?this.isLeader=true:''
 		if (uni.getStorageSync("bbcToken")) {
 			this.isAuthInfo = true;
 		}

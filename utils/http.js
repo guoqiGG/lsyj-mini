@@ -178,4 +178,37 @@ function hideLoad(globalData) {
     isShowLoad = false;
   }
 }
+function upload(params) {
+  wx.uploadFile({
+    url: config.domain + params.url,
+    filePath: params.filePath,
+    name: params.name,
+    header: {
+	   Authorization: uni.getStorageSync("bbcToken"),
+      // Authorization: params.login ? undefined : wx.getStorageSync("bbcToken"),
+    },
+    dataType: "json",
+    responseType:
+      params.responseType == undefined ? "json" : params.responseType,
+    success: (res) => {
+		console.log(res,'upload===res')
+		const responseData =res.data;
+		console.log(responseData,'responseData')
+		  if (res.statusCode === 200) {
+		    if (params.callBack) {
+		      params.callBack(responseData);
+		    }
+		  } else {
+		    uni.showToast({
+			 title: res.msg || "Error",
+		      icon: "none",
+		    });
+		  }
+    },
+    fail: function () {
+      uni.hideLoading();
+    },
+  });
+}
 exports.request = request;
+exports.upload = upload;

@@ -14,9 +14,9 @@
     <view class="item-wrap">
       <view class="cloumn-item" @tap="toPersonalInformation">
         <view class="left-infor">
-          <image :src="userInfo.pic ? userInfo.pic : '/static/head04.png'" mode="scaleToFill"
-            @error="imageError(userInfo, 'pic')" />
-          <text class="nick-name">卡酷郭</text>
+          <image :src="userInfo.avatar ? userInfo.avatar : '/static/head04.png'" mode="scaleToFill"
+            @error="imageError(userInfo, 'avatar')" />
+          <text class="nick-name">{{userInfo.name}}</text>
         </view>
         <view class="right-img">
           <view class="txt-wrap">个人信息</view>
@@ -32,7 +32,7 @@
       <view class="cloumn-item" @tap.stop="">
         <view class="txt-wrap">手机号码</view>
         <view class="right-img">
-          <view class="phone-number">{{ (18437930709).toString().replace(/^(.{3})(?:\d+)(.{4})$/, "$1****$2") }}</view>
+          <view class="phone-number">{{ (userInfo.mobile).toString().replace(/^(.{3})(?:\d+)(.{4})$/, "$1****$2") }}</view>
         </view>
       </view>
     </view>
@@ -61,6 +61,8 @@ export default {
     }
   },
   onShow() {
+	  // 用户信息
+	  this.userInfo = uni.getStorageSync("bbcUserInfo"); //用户信息
     uni.setNavigationBarTitle({
       title: '账户设置'
     })
