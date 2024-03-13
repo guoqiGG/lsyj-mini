@@ -1,5 +1,5 @@
 <template>
-    <view class="Mall4j con">
+    <view class="con">
         <view class="h-tabs">
             <view :class="'h-tab ' + (coupon_state == 1 ? 'on' : '')" data-type="1" @tap="changeTab">可合并
             </view>
@@ -7,7 +7,7 @@
             </view>
         </view>
         <view class="container">
-            <view class="item" v-for="item in dataList" :key="coupon_state == 1 ? item.giftId : item.id">
+            <view class="item" v-for="item,index in dataList" :key="index">
                 <view class="left">
                     <image src="../../static/icon_delivery.png" mode="scaleToFill" />
                 </view>

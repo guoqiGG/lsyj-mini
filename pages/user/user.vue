@@ -3,21 +3,25 @@
 		<view class="background"></view>
 		<view class="user">
 			<view class="user-login" v-if="isAuthInfo">
-				<view class="user-img">
-					<image style="border-radius: 50%;" :src="userInfo.avatar ? userInfo.avatar : '/static/user/head-pic.png'" mode="scaleToFill"
-					  />
-				</view>
+				<button class="user-img" style="background-color: transparent; margin: 0; padding: 0"
+					open-type="chooseAvatar" @chooseavatar="getUploadImg">
+					<image class="" :src="userInfo.avatar
+				? userInfo.avatar : '/static/head04.png'
+				" mode="scaleToFill" />
+				</button>
 				<view class="user-info">
 					<view class="user-name">
-						{{userInfo.name}}
+						<input style=" width: auto;min-width: 100rpx;" class="txt-infor" type="nickname"
+							:value="userInfo.name" @change="getNickNameInt">
 					</view>
+
 					<view class="user-name-type">
-						{{userInfo.type===0?'普通':userInfo.type===1?'团长':''}}
+						{{ userInfo.type === 0 ? '普通' : userInfo.type === 1 ? '团长' : '' }}
 					</view>
 				</view>
 			</view>
 			<view class="user-login" v-if="!isAuthInfo">
-				<view class="user-img">
+				<view class="user-img" @tap="toLogin">
 					<image src="/static/user/head-pic.png"></image>
 				</view>
 				<view class="user-info"><text class="login-text" @tap="toLogin">立即登录</text></view>
@@ -76,18 +80,33 @@
 				</view>
 			</view>
 			<view class="receving-address">
-				<view class="receving-address-text">
+				<view class="receving-address-text" v-if="!isAuthInfo">
 					<view class="receving-address-text-title">
 						收货地址
 					</view>
-					<view class="receving-address-text-content">
+					<view class="receving-address-text-content" style="margin-top: 10rpx;">
 						请在地址管理中添加收货地址
 					</view>
+				</view>
+				<view class="receving-address-text" v-if="isAuthInfo">
+					<view class="receving-address-text-title">
+						{{ userInfo.leaderAddress ? '自提地址' : '收货地址' }}
+					</view>
+					<view class="receving-address-text-content"
+						style="font-weight: 400;font-size: 28rpx;color: #101010;line-height: 48rpx;"
+						v-if="userInfo.leaderAddress">{{ userInfo.leaderStore }}
+					</view>
+					<view class="receving-address-text-content" style="margin-top: 10rpx;">
+						{{ userInfo.leaderAddress
+				? userInfo.leaderAddress : userInfo.userAddress ? userInfo.userAddress : '请在地址管理中添加收货地址' }}
+					</view>
+					<view class="receving-address-text-content" v-if="userInfo.leaderAddress"><text
+							style="font-weight: 400;font-size: 28rpx;color: #101010;line-height: 48rpx;">
+							{{ userInfo.leaderName }}：</text>{{ userInfo.leaderMobile }}</view>
 				</view>
 				<view class="receving-address-pic">
 					<image src="/static/user/receiving-address.png" mode=""></image>
 				</view>
-
 			</view>
 			<view class="become-leader" @click="goLeader()">
 				<view class="become-leader-pic">
@@ -103,7 +122,6 @@
 					</view>
 				</view>
 			</view>
-
 			<view class="service-tool">
 				<view class="service-tool-title">
 					服务与工具
@@ -147,11 +165,15 @@
 			</view>
 
 		</view>
+		<hCompress ref="hCompress" />
 	</view>
 </template>
 
 <script>
+const http = require("@/utils/http.js");
 const util = require("@/utils/util");
+import hCompress from "@/components/helang-compress/helang-compress";
+
 export default {
 	data() {
 		return {
@@ -160,13 +182,27 @@ export default {
 			isAuthInfo: false, //用户是否登录	
 		}
 	},
+	components: {
+		hCompress,
+	},
 
 	onShow: function () {
+		// if (!uni.getStorageSync("bbcUserInfo")) {
+		// 	uni.showToast({
+		// 		title: '您当前还没有登录，请点击页面上方头像进行登录！',
+		// 		icon: 'none',
+		// 		mask: true
+		// 	})
+		// }
+
 		// 用户信息
 		this.userInfo = uni.getStorageSync("bbcUserInfo"); //用户信息
-		this.userInfo.type===0?this.isLeader=false:this.userInfo.type===1?this.isLeader=true:''
+		this.userInfo.type === 0 ? this.isLeader = false : this.userInfo.type === 1 ? this.isLeader = true : ''
 		if (uni.getStorageSync("bbcToken")) {
 			this.isAuthInfo = true;
+			this.getDefaultAddress()
+		} else {
+			this.isAuthInfo = false;
 		}
 	},
 	methods: {
@@ -229,7 +265,72 @@ export default {
 			uni.navigateTo({
 				url: '/pages/user-login/user-login'
 			})
-		}
+		},
+		/**
+			 * 头像
+			 */
+		getUploadImg: function (e) {
+			var tempFilePaths = e.detail.avatarUrl;
+			const params = {
+				url: "/upload/oss",
+				filePath: tempFilePaths,
+				name: "file",
+				callBack: (res2) => {
+					this.userInfo.avatar = res2
+					this.setUserInfo()
+				},
+			};
+			const obj = {
+				src: tempFilePaths,
+				quality: 0.2,
+			};
+			this.$refs.hCompress.compress(obj, e.detail.avatarUrl).then((res) => {
+				params.filePath = res;
+				http.upload(params);
+			});
+		},
+		// 用户昵称
+		getNickNameInt: function (e) {
+			this.userInfo.name = e.detail.value;
+			this.setUserInfo()
+		},
+		// 修改用户信息
+		setUserInfo() {
+			let obj = {
+				userId: this.userInfo.id,
+				avatar: this.userInfo.avatar,
+				name: this.userInfo.name,
+			}
+			const params = {
+				url: "/pub/user/update",
+				method: "POST",
+				data: {
+					sign: 'qcsd',
+					data: JSON.stringify(obj),
+				},
+				callBack: (res) => {
+					uni.setStorageSync("bbcUserInfo", res); //用户信息
+					this.userInfo = res
+					uni.showToast({
+						title: "修改成功",
+						icon: "none",
+					});
+				},
+			};
+			http.request(params);
+		},
+		// 用户默认地址
+		getDefaultAddress() {
+			const params = {
+				url: "/pub/user/address?loginToken=" + this.userInfo.loginToken,
+				method: "GET",
+				callBack: (res) => {
+					this.userInfo.userAddress = res.userAddress
+				},
+			};
+			http.request(params);
+		},
+
 	}
 }
 </script>
@@ -291,7 +392,7 @@ export default {
 				font-size: 34rpx;
 				color: #FFFFFF;
 				line-height: 48rpx;
-				text-align: center;
+				text-align: left;
 				font-style: normal;
 				text-transform: none;
 			}
@@ -301,7 +402,7 @@ export default {
 				font-size: 24rpx;
 				color: #FFFFFF;
 				line-height: 48rpx;
-				text-align: center;
+				text-align: left;
 				font-style: normal;
 				text-transform: none;
 			}

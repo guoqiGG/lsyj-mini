@@ -33,17 +33,49 @@
         </label>
       </view>
     </view>
+    <!-- 授权登录 -->
+    <view>
+      <u-popup :show="showAuth">
+        <view class="con-container">
+          <view class="title"><text>氢春态欢乐园 申请</text></view>
+          <view class="desc">
+            <view class="desc-big"><text>获取您的昵称、头像</text></view>
+            <view class="desc-small"><text>提供具有辨识度的用户中心界面</text></view>
+          </view>
+          <view class="line"></view>
+          <view class="avatar">
+            <view class="avatar-title"><text>头像</text></view>
+            <button class="avatar-img" style="background-color: transparent; margin: 0; padding: 0"
+              open-type="chooseAvatar" @chooseavatar="getUploadImg">
+              <image :src="avatar ? avatar : '/static/head04.png'" mode="scaleToFill" />
+            </button>
+          </view>
+          <view class="line"></view>
+          <view class="name">
+            <view class="name-title"><text>昵称</text></view>
+            <input class="name-input" type="nickname" placeholder="请输入昵称" :value="name" @change="getNickNameInt">
+          </view>
+          <view class="line"></view>
+          <view :class="['button', (name && avatar) ? '' : 'un']" @tap="save"><text>保存</text></view>
+        </view>
+      </u-popup>
+    </view>
+    <hCompress ref="hCompress" />
   </view>
 </template>
 
 <script>
 const http = require("@/utils/http");
 const util = require("@/utils/util.js");
-import { encrypt } from "@/utils/crypto.js";
 import { picDomain } from "@/utils/config";
-
+import hCompress from "@/components/helang-compress/helang-compress";
+import { resolve } from "path";
+import { rejects } from "assert";
 export default {
   props: {},
+  components: {
+    hCompress,
+  },
   data() {
     return {
       uniLoginLogoImg: "",
@@ -54,18 +86,12 @@ export default {
       privacyNumber: "",
       // 图片域名
       picDomain: picDomain,
+      showAuth: false,// 用户是否首次登录 true 是 false 否
+      name: '',
+      avatar: ''
     };
   },
-  watch: {
-    loginStatus(nv) {
-      this.errorTips = 0;
-      this.validCode = "";
-      this.principal = "";
-      this.credentials = "";
-      const phone = uni.getStorageSync("bbcUserInfo").userMobile || "";
 
-    },
-  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -76,6 +102,8 @@ export default {
     uni.setNavigationBarTitle({
       title: '用户登录',
     });
+
+
   },
 
   /**
@@ -100,9 +128,15 @@ export default {
     });
 
     // // 如果没有tempUid 则先获取
-    if (!uni.getStorageSync("bbcTempUid")) {
-      util.weChatLogin();
-    }
+    util.weChatLogin()
+    setTimeout(() => {
+      if (uni.getStorageSync('noAuth')) {
+        this.showAuth = true
+      } else {
+        this.showAuth = false
+      }
+    }, 1000)
+
   },
 
   methods: {
@@ -130,7 +164,9 @@ export default {
         data: JSON.stringify({
           code: e.detail.code,
           loginType: 2,
-          openid: uni.getStorageSync('bbcTempUid')
+          openid: uni.getStorageSync('bbcTempUid'),
+          name: this.name,
+          avatar: this.avatar
         }),
         callBack: (res) => {
           if (res.loginToken) {
@@ -139,6 +175,7 @@ export default {
             uni.setStorageSync("bbcToken", res.loginToken);
             uni.setStorageSync("bbcLoginResult", res); // 保存整个登录数据
             uni.setStorageSync("bbcUserInfo", res); //用户信息
+            uni.setStorageSync('noAuth', false) // 用户是否首次授权
             const expiresTimeStamp =
               (res.expiresIn * 1000) / 2 + new Date().getTime();
             // 缓存token的过期时间
@@ -148,18 +185,18 @@ export default {
             while (getApp().globalData.requestQueue.length) {
               http.request(getApp().globalData.requestQueue.pop());
             }
-			 let routeUrl=uni.getStorageSync("routeUrl")
-			 if(routeUrl){
-				 // 跳转到 "领取礼品卡" 
-				 // uni.switchTab({
-				 	// url: '/pages/user-login/user-login'
-				 // });
-			 }else{
-				 uni.redirectTo({
-				   url: "/pages/package-user/pages/login-success/login-success",
-				 });
-			 }
-           
+            let routeUrl = uni.getStorageSync("routeUrl")
+            if (routeUrl) {
+              // 跳转到 "领取礼品卡" 
+              // uni.switchTab({
+              // url: '/pages/user-login/user-login'
+              // });
+            } else {
+              uni.redirectTo({
+                url: "/pages/package-user/pages/login-success/login-success",
+              });
+            }
+
           }
         },
         errCallBack: (err) => {
@@ -246,6 +283,38 @@ export default {
         url: "/pages/package-user/pages/terms-page/terms-page?sts=" + key,
       });
     },
+    /**
+     * 头像
+     */
+    getUploadImg: function (e) {
+      var tempFilePaths = e.detail.avatarUrl;
+      const params = {
+        url: "/upload/oss",
+        filePath: tempFilePaths,
+        name: "file",
+        callBack: (res2) => {
+          this.avatar = res2
+        },
+      };
+      const obj = {
+        src: tempFilePaths,
+        quality: 0.2,
+      };
+      this.$refs.hCompress.compress(obj, e.detail.avatarUrl).then((res) => {
+        params.filePath = res;
+        http.upload(params);
+      });
+    },
+    // 用户昵称
+    getNickNameInt: function (e) {
+      this.name = e.detail.value;
+    },
+    save() {
+      if (this.name.trim() && this.avatar) {
+        this.showAuth = false
+      }
+    }
+
   },
 };
 </script>

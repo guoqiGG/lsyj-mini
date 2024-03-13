@@ -173,6 +173,7 @@ export default {
         },
         callBack: (res) => {
           this.productDetail = res
+          console.log(this.productDetail.name)
           var num = res.goodsSkus[0].price
           this.price = num.toFixed(2)
           this.totalPrice = this.price
@@ -229,10 +230,7 @@ export default {
 
       }
       http.request(params);
-    }, 1000)
-    ,
-
-
+    }, 1000),
     /**
     * 跳转提交订单页
     */
@@ -243,6 +241,19 @@ export default {
       });
     }
   },
+  onShareAppMessage: function (res) {
+    return {
+      title: this.productDetail.name,
+      path: '/pages/package-prod/pages/prod/prod?prodId=' + this.goodsId,
+      imageUrl: this.productDetail.thumbail,
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
+  }
 }
 </script>
 <style>

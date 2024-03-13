@@ -38,7 +38,6 @@
 					</view>
 				</view>
 			</view>
-
 			<view v-if="express" class="submit-order-index-not-express">
 				<view class="submit-order-index-not-express-title">
 					到店自提
@@ -69,13 +68,9 @@
 					</view>
 				</view>
 			</view>
-
-
 			<view class="submit-order-comodity-info">
 				<view class="submit-order-comodity-info-tit">
-					<image class="image" :src="orderItemInfo.goods[0].thumbail">
-
-					</image>
+					<image class="image" :src="orderItemInfo.goods[0].thumbail"></image>
 					<view class="text">
 						<view class="text-title">
 							{{ orderItemInfo.goods[0].goodsName }}
@@ -367,7 +362,7 @@ export default {
 			}
 		},
 		// 提交订单
-		submitOrder: util.debounce(function () {
+		submitOrder: util.debounce(function() {
 			const params = {
 				url: '/pub/order/create',
 				method: 'POST',
@@ -427,12 +422,12 @@ export default {
 			}
 			http.request(params)
 		},
-		/**
-		* 支付成功或失败后的统一跳转
-		* @param {Boolean} isSuccess 是否支付成功
-		* @param {String} orderNumbers 订单编号
-		* @param {Number} dvyType  1 快递 2 自提
-		* */
+		// /**
+		// * 支付成功或失败后的统一跳转
+		// * @param {Boolean} isSuccess 是否支付成功
+		// * @param {String} orderNumbers 订单编号
+		// * @param {Number} dvyType  1 快递 2 自提
+		// **/
 		routeToAfterPay(isSuccess, orderNumbers, dvyType) {
 			let url = ''
 			if (isSuccess) {
@@ -445,7 +440,7 @@ export default {
 			uni.redirectTo({
 				url: url
 			})
-		},
+		}
 	}
 }
 </script>
@@ -736,8 +731,6 @@ export default {
 					font-size: 32rpx;
 					color: #101010;
 				}
-
-				.submit-order-comodity-info-order-remark-right {}
 			}
 
 		}

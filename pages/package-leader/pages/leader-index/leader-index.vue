@@ -7,17 +7,17 @@
 			<view class="user-info">
 				<view class="user-info-photo">
 					<image :src="leaderInfo.avatar ? leaderInfo.avatar : '/static/head04.png'"
-                @error="imageError(leaderInfo, 'pic')" />
+						@error="imageError(leaderInfo, 'pic')" />
 				</view>
 				<view class="user-info-name">
-					{{leaderInfo.leaderName}}
+					{{ leaderInfo.leaderName }}
 				</view>
 			</view>
 			<view class="finance">
 				<view class="finance-number">
 					<view class="finance-number-lf">
 						<view class="finance-number-lf-tit">
-							{{leaderInfo.balance}}
+							{{ leaderInfo.balance }}
 						</view>
 						<view class="finance-number-lf-cot">
 							可提现（元）
@@ -25,7 +25,7 @@
 					</view>
 					<view class="finance-number-lf">
 						<view class="finance-number-lf-tit">
-							{{leaderInfo.totalIncome}}
+							{{ leaderInfo.totalIncome }}
 						</view>
 						<view class="finance-number-lf-cot">
 							总收益（元）
@@ -41,7 +41,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="invite">
+			<view class="invite" @tap="toInvitationCards">
 				<view class="invite-img">
 					<image src="/pages/package-leader/static/invite.png" mode=""></image>
 				</view>
@@ -53,7 +53,7 @@
 				</view>
 			</view>
 			<view class="list">
-				<view class="list-line"  @click="goToFriends()">
+				<view class="list-line" @click="goToFriends()">
 					<view class="list-line-lf">
 						<view class="list-line-lf-img">
 							<image src="/pages/package-leader/static/friend.png" mode=""></image>
@@ -144,24 +144,24 @@ const http = require("@/utils/http");
 export default {
 	data() {
 		return {
-			leaderInfo:{
-				avatar:'',
-				leaderName:'',
-				balance:0,
-				totalIncome:0
+			leaderInfo: {
+				avatar: '',
+				leaderName: '',
+				balance: 0,
+				totalIncome: 0
 			},
 			userId: null,
 		}
 	},
 	onShow: function () {
-		let bbcUserInfo =uni.getStorageSync("bbcUserInfo"); //用户信息
-		this.userId=bbcUserInfo.id
-	    this.getLeaderInformation()
+		let bbcUserInfo = uni.getStorageSync("bbcUserInfo"); //用户信息
+		this.userId = bbcUserInfo.id
+		this.getLeaderInformation()
 	},
 	methods: {
 		instanceWithdrawal() {
 			uni.navigateTo({
-				  url: '/pages/package-leader/pages/withdrawal/withdrawal?withdrawable=' + this.leaderInfo.balance
+				url: '/pages/package-leader/pages/withdrawal/withdrawal?withdrawable=' + this.leaderInfo.balance
 			})
 		},
 		withdrawalRecord() {
@@ -175,29 +175,36 @@ export default {
 				url: "/pages/package-leader/pages/user-shop-details/user-shop-details"
 			})
 		},
-		goToFriends(){
+		goToFriends() {
 			uni.navigateTo({
 				url: "/pages/package-leader/pages/my-friends/my-friends"
 			})
 		},
 		// 查询团长信息
-		getLeaderInformation(){
-			let obj={
-				 userId: this.userId
+		getLeaderInformation() {
+			let obj = {
+				userId: this.userId
 			}
 			const params = {
-			    url: "/pub/leader",
-			    method: "POST",
-			    data: {
-			        sign: 'qcsd',
-			        data: JSON.stringify(obj),
-			    },
-			    callBack: (res) => {
-					this.leaderInfo=res
-			    },
+				url: "/pub/leader",
+				method: "POST",
+				data: {
+					sign: 'qcsd',
+					data: JSON.stringify(obj),
+				},
+				callBack: (res) => {
+					this.leaderInfo = res
+				},
 			}
 			http.request(params);
-		}
+		},
+
+		// 跳转到邀请好友页面
+		toInvitationCards: function () {
+			uni.navigateTo({
+				url: '/pages/package-leader/pages/invitation-cards/invitation-cards'
+			})
+		},
 	}
 }
 </script>
@@ -243,7 +250,7 @@ export default {
 				height: 80rpx;
 
 				image {
-				border-radius: 50%;
+					border-radius: 50%;
 					width: 100%;
 					height: 100%;
 				}

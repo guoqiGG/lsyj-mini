@@ -8,7 +8,6 @@
     "^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
   },
   "pages": [
-    //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
     {
       "path": "pages/index/index",
       "style": {
@@ -44,16 +43,15 @@
       }
     },
     {
-      "path": "pages/basket/basket",
+      "path": "pages/video/video",
       "style": {
-        "navigationBarTitleText": "视频",
+        "navigationBarTitleText": "发现",
         "navigationBarBackgroundColor": "#025BFF",
         "navigationBarTextStyle": "white"
       }
     }
   ],
   "subPackages": [
-    // 退款分包
     {
       "root": "pages/package-refund",
       "pages": [
@@ -67,7 +65,6 @@
         }
       ]
     },
-    // 用户分包
     {
       "root": "pages/package-user",
       "pages": [
@@ -150,7 +147,6 @@
         }
       ]
     },
-    // 支付分包
     {
       "root": "pages/package-pay",
       "pages": [
@@ -161,24 +157,9 @@
             "navigationBarBackgroundColor": "#025BFF",
             "navigationBarTextStyle": "white"
           }
-        },
-        {
-          "path": "pages/pay-result/pay-result",
-          "style": {
-            "backgroundTextStyle": "light"
-          }
-        },
-        {
-          "path": "pages/pay-success/pay-success",
-          "style": {
-            "backgroundTextStyle": "dark",
-            "navigationBarBackgroundColor": "#ffffff",
-            "navigationBarTextStyle": "black"
-          }
         }
       ]
     },
-    // 团长分包
     {
       "root": "pages/package-leader",
       "pages": [
@@ -229,10 +210,17 @@
             "navigationBarBackgroundColor": "#025BFF",
             "navigationBarTextStyle": "white"
           }
+        },
+        {
+          "path": "pages/invitation-cards/invitation-cards",
+          "style": {
+            "navigationBarTitleText": "邀请用户",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
         }
       ]
     },
-    // 会员中心分包
     {
       "root": "pages/package-member-integral",
       "pages": [
@@ -253,7 +241,7 @@
         }
       ]
     },
-    // 商品详情分包
+
     {
       "root": "pages/package-prod",
       "pages": [
@@ -286,8 +274,8 @@
         "selectedIconPath": "/static/tabbar/selected-classify.png"
       },
       {
-        "pagePath": "pages/basket/basket",
-        "text": "视频",
+        "pagePath": "pages/video/video",
+        "text": "发现",
         "iconPath": "/static/tabbar/uncheck-video.png",
         "selectedIconPath": "/static/tabbar/selected-video.png"
       },

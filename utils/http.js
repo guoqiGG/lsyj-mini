@@ -55,6 +55,7 @@ function request(params) {
       }
       // -640 请求成功 用户首次登录
       if (responseData.code == -640) {
+        uni.setStorageSync("noAuth", true);  // 用户是否首次授权
         if (params.callBack) {
           params.callBack(responseData.msg);
         }
@@ -71,6 +72,7 @@ function request(params) {
         uni.removeStorageSync("bbcCode");
         uni.removeStorageSync("bbcUserInfo");
         uni.removeStorageSync("bbcExpiresTimeStamp");
+        uni.removeStorageSync("noAuth");
         if (!params.dontTrunLogin && !getApp().globalData.showLoginExpired) {
           getApp().globalData.showLoginExpired = true;
           uni.showModal({
@@ -89,11 +91,7 @@ function request(params) {
               } else {
                 getApp().globalData.showLoginExpired = false;
                 const router = getCurrentPages();
-                if (router[0].route === "pages/basket/basket") {
-                  util.toHomePage();
-                } else {
-                  uni.navigateBack(0);
-                }
+                uni.navigateBack(0);
               }
             },
           });
@@ -184,26 +182,26 @@ function upload(params) {
     filePath: params.filePath,
     name: params.name,
     header: {
-	   Authorization: uni.getStorageSync("bbcToken"),
+      Authorization: uni.getStorageSync("bbcToken"),
       // Authorization: params.login ? undefined : wx.getStorageSync("bbcToken"),
     },
     dataType: "json",
     responseType:
       params.responseType == undefined ? "json" : params.responseType,
     success: (res) => {
-		console.log(res,'upload===res')
-		const responseData =res.data;
-		console.log(responseData,'responseData')
-		  if (res.statusCode === 200) {
-		    if (params.callBack) {
-		      params.callBack(responseData);
-		    }
-		  } else {
-		    uni.showToast({
-			 title: res.msg || "Error",
-		      icon: "none",
-		    });
-		  }
+      console.log(res, "upload===res");
+      const responseData = res.data;
+      console.log(responseData, "responseData");
+      if (res.statusCode === 200) {
+        if (params.callBack) {
+          params.callBack(responseData);
+        }
+      } else {
+        uni.showToast({
+          title: res.msg || "Error",
+          icon: "none",
+        });
+      }
     },
     fail: function () {
       uni.hideLoading();

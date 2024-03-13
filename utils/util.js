@@ -157,11 +157,13 @@ const loginByCode = (code) => {
     method: "POST",
     data: JSON.stringify({ code: code, loginType: 1 }),
     callBack: (res) => {
+      console.log(1)
       if (!res.id) {
         uni.setStorageSync("bbcTempUid", res);
       } else {
         uni.setStorageSync("bbcTempUid", res.openId);
       }
+
       // 还原全局 正在登录状态
       getApp().globalData.isLanding = false;
       while (getApp().globalData.requestQueue.length) {
@@ -182,6 +184,7 @@ const loginByCode = (code) => {
       uni.removeStorageSync("bbcCode");
       uni.removeStorageSync("bbcUserInfo");
       uni.removeStorageSync("bbcExpiresTimeStamp");
+      uni.removeStorageSync("noAuth");
     },
   };
   http.request(params);

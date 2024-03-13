@@ -14,7 +14,7 @@
                                 <text class="addr-get">{{ item.address }}</text>
                             </view>
                         </view>
-                        <view class="select-btn">
+                        <view class="select-btn" v-if="item.isDefault == 1">
                             <view class="box">
                                 <label :data-addrid="item.id" color="#005AFF">
                                     <!-- <radio :checked="item.isDefault == 1" color="#005AFF" disabled /> -->
