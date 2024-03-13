@@ -41,15 +41,16 @@
         "navigationBarBackgroundColor": "#025BFF",
         "navigationBarTextStyle": "white"
       }
-    },
-    {
-      "path": "pages/video/video",
-      "style": {
-        "navigationBarTitleText": "发现",
-        "navigationBarBackgroundColor": "#025BFF",
-        "navigationBarTextStyle": "white"
-      }
     }
+    // ,
+    // {
+    //   "path": "pages/video/video",
+    //   "style": {
+    //     "navigationBarTitleText": "发现",
+    //     "navigationBarBackgroundColor": "#025BFF",
+    //     "navigationBarTextStyle": "white"
+    //   }
+    // }
   ],
   "subPackages": [
     {
