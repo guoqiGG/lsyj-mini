@@ -273,12 +273,12 @@
         "iconPath": "/static/tabbar/uncheck-classify.png",
         "selectedIconPath": "/static/tabbar/selected-classify.png"
       },
-      {
-        "pagePath": "pages/video/video",
-        "text": "发现",
-        "iconPath": "/static/tabbar/uncheck-video.png",
-        "selectedIconPath": "/static/tabbar/selected-video.png"
-      },
+      // {
+      //   "pagePath": "pages/video/video",
+      //   "text": "发现",
+      //   "iconPath": "/static/tabbar/uncheck-video.png",
+      //   "selectedIconPath": "/static/tabbar/selected-video.png"
+      // },
       {
         "pagePath": "pages/user/user",
         "text": "我的",
