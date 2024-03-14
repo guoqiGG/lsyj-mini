@@ -16,7 +16,7 @@ page {
   padding: 40rpx;
 }
 .prod-content .prod-name {
-  font-size: 34rpx;
+  font-size: 40rpx;
   font-weight: normal;
   line-height: 48rpx;
   letter-spacing: 0.06em;
@@ -38,18 +38,18 @@ page {
   font-weight: 300;
 }
 .prod-content .price .big-num {
-  font-size: 32rpx;
+  font-size: 42rpx;
   color: #f74f06;
   font-weight: 500;
 }
 .prod-content .price .small-num {
-  font-size: 24rpx;
+  font-size: 30rpx;
   color: #f74f06;
   font-weight: 300;
 }
 .prod-number {
   margin-top: 20rpx;
-  font-size: 22rpx;
+  font-size: 26rpx;
   font-weight: normal;
   line-height: 48rpx;
   letter-spacing: 0.06em;

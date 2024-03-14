@@ -259,6 +259,7 @@ export default {
 			.user-info-name {
 				margin-left: 20rpx;
 				color: #FFF;
+				font-size: 32rpx;
 			}
 		}
 
@@ -417,6 +418,7 @@ export default {
 
 					.list-line-lf-text {
 						margin-left: 20rpx;
+						font-size: 28rpx;
 					}
 				}
 			}

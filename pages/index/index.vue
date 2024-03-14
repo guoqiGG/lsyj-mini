@@ -252,7 +252,7 @@ export default {
 	white-space: nowrap;
 	height: 64rpx;
 	line-height: 64rpx;
-	font-size: 33rpx;
+	font-size: 30rpx;
 	color: #232323;
 }
 
@@ -425,6 +425,7 @@ swiper .banner-item .img-box img {
 		box-sizing: border-box;
 		padding: 22rpx 24rpx;
 		color: #FFFFFF;
+		font-size: 34rpx;
 	}
 
 	.sponsored-ad-content-box {

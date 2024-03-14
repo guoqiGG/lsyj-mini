@@ -93,7 +93,7 @@
 						{{ userInfo.leaderAddress ? '自提地址' : '收货地址' }}
 					</view>
 					<view class="receving-address-text-content"
-						style="font-weight: 400;font-size: 28rpx;color: #101010;line-height: 48rpx;"
+						style="font-weight: 400;font-size: 32rpx;color: #101010;line-height: 48rpx;"
 						v-if="userInfo.leaderAddress">{{ userInfo.leaderStore }}
 					</view>
 					<view class="receving-address-text-content" style="margin-top: 10rpx;">
@@ -242,15 +242,15 @@ export default {
 		},
 		goLeader() {
 			util.checkAuthInfo(() => {
-				if (this.isLeader) {
+				// if (this.isLeader) {
 					uni.navigateTo({
 						url: '/pages/package-leader/pages/leader-index/leader-index'
 					})
-				} else {
-					uni.navigateTo({
-						url: '/pages/package-leader/pages/apply-leader/apply-leader'
-					})
-				}
+				// } else {
+					// uni.navigateTo({
+					// 	url: '/pages/package-leader/pages/apply-leader/apply-leader'
+					// })
+				// }
 			})
 		},
 		// 跳转到我的地址列表
@@ -389,7 +389,7 @@ export default {
 
 			.user-name {
 				font-weight: 400;
-				font-size: 34rpx;
+				font-size: 38rpx;
 				color: #FFFFFF;
 				line-height: 48rpx;
 				text-align: left;
@@ -399,7 +399,7 @@ export default {
 
 			.user-name-type {
 				font-weight: 400;
-				font-size: 24rpx;
+				font-size: 32rpx;
 				color: #FFFFFF;
 				line-height: 48rpx;
 				text-align: left;
@@ -409,7 +409,7 @@ export default {
 
 			.login-text {
 				font-weight: 400;
-				font-size: 34rpx;
+				font-size: 38rpx;
 				color: #FFFFFF;
 				line-height: 48rpx;
 				text-align: left;
@@ -441,7 +441,7 @@ export default {
 			.order-title-right {
 				width: 144rpx;
 				line-height: 48rpx;
-				font-size: 20rpx;
+				font-size: 28rpx;
 				color: #979797;
 			}
 		}
@@ -450,8 +450,13 @@ export default {
 			margin-top: 44rpx;
 			display: flex;
 			justify-content: space-between;
+			
 
 			.order-wrap {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
 				.order-img {
 					width: 78rpx;
 					height: 78rpx;
@@ -468,7 +473,7 @@ export default {
 
 				.order-text {
 					text-align: center;
-					font-size: 24rpx;
+					font-size:30rpx;
 					line-height: 48rpx;
 					margin-top: 28rpx;
 				}
@@ -492,12 +497,12 @@ export default {
 			padding-left: 28rpx;
 
 			.receving-address-text-title {
-				font-size: 34rpx;
+				font-size: 38rpx;
 				color: #101010;
 			}
 
 			.receving-address-text-content {
-				font-size: 24rpx;
+				font-size: 28rpx;
 				color: #3D3D3D;
 			}
 		}
@@ -528,12 +533,12 @@ export default {
 			padding-right: 98rpx;
 
 			.become-leader-text-title {
-				font-size: 34rpx;
+				font-size: 38rpx;
 				color: #101010;
 			}
 
 			.become-leader-text-content {
-				font-size: 24rpx;
+				font-size: 30rpx;
 				color: #3D3D3D;
 			}
 		}
@@ -561,7 +566,7 @@ export default {
 		padding: 18rpx 19rpx;
 
 		.service-tool-title {
-			font-size: 34rpx;
+			font-size: 38rpx;
 		}
 
 		.service-tool-content {
@@ -576,6 +581,7 @@ export default {
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
+				align-items: center;
 			}
 
 			.service-tool-content-img {
@@ -593,7 +599,7 @@ export default {
 
 			.service-tool-content-text {
 				text-align: center;
-				font-size: 24rpx;
+				font-size: 28rpx;
 				line-height: 48rpx;
 			}
 

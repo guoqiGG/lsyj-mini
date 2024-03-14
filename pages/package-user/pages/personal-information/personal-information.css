@@ -34,6 +34,7 @@ page {
   min-width: 25%;
   white-space: nowrap;
   color: #010101;
+  font-size: 28rpx;
 }
 .item-wrap .cloumn-item:not(:first-child) {
   border-top: #e1e1e1 1rpx solid;

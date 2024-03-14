@@ -2,7 +2,7 @@
     border-bottom: 1px solid #f2f2f2;
     display: flex;
     justify-content: space-around;
-    font-size: 14px;
+    font-size: 32rpx;
     position: fixed;
     top: 0;
     z-index: 1000;

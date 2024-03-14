@@ -7,8 +7,8 @@
       <view class="prod-name">{{ productDetail.name }}</view>
       <view class="price">
         <text class="symbol">￥</text>
-        <text class="big-num">{{ parseInt(price) }}</text>
-        <text class="big-num">.{{ smallPrice }}</text>
+		<text class="big-num">{{ parsePrice(price)[0] }}</text>
+		<text class="small-num">.{{ parsePrice(price)[1] }}</text>
       </view>
       <view class="prod-number">仅剩<text class="red">{{ productDetail.stock }}</text>件</view>
     </view>
@@ -47,8 +47,10 @@
             <view class="sku-info-right">
               <view class="price">
                 <text class="symbol">￥</text>
-                <text class="big-num">{{ parseInt(totalPrice) }}</text>
-                <text class="big-num">.{{ totalSmallPrice }}</text>
+        <!--        <text class="big-num">{{ parseInt(totalPrice) }}</text>
+                <text class="big-num">.{{ totalSmallPrice }}</text> -->
+				<text class="big-num">{{ parsePrice(totalPrice)[0] }}</text>
+				<text class="small-num">.{{ parsePrice(totalPrice)[1] }}</text>
               </view>
               <view class="select-number">已选：<text class="number">{{ numberValue }}件</text></view>
               <view class="stock">库存：<text class="stock-number">{{ productDetail.stock }}</text></view>
@@ -94,9 +96,9 @@ export default {
       goodsId: null,//商品id
       productDetail: {},
       price: null, // 总价格
-      smallPrice: null, // 小数价格
+      // smallPrice: null, // 小数价格
       totalPrice: null, //总价格
-      totalSmallPrice: null,//总的小数
+      // totalSmallPrice: null,//总的小数
       chechIndex: 0, //选中商品规格 默认第一个
       orderType: 1,// 1-配送单，2-自提单
     }
@@ -136,29 +138,20 @@ export default {
     numberValueMinus() {
       this.numberValue = Number(this.numberValue)
       this.numberValue = this.numberValue <= 1 ? 1 : this.numberValue - 1
-      this.totalPrice = (this.price * this.numberValue).toFixed(2)
-      var parts = this.totalPrice.split('.');
-      if (parts.length === 2) {
-        this.totalSmallPrice = parts[1]
-      }
+      this.totalPrice = (this.price * this.numberValue)
+     
     },
     // 增加商品数量
     numberValueAdd() {
       this.numberValue = Number(this.numberValue)
       this.numberValue = this.numberValue + 1
-      this.totalPrice = (this.price * this.numberValue).toFixed(2)
-      var parts = this.totalPrice.split('.');
-      if (parts.length === 2) {
-        this.totalSmallPrice = parts[1]
-      }
+      this.totalPrice = (this.price * this.numberValue)
+      
     },
     numberInput() {
       this.numberValue = Number(this.numberValue)
-      this.totalPrice = (this.price * this.numberValue).toFixed(2)
-      var parts = this.totalPrice.split('.');
-      if (parts.length === 2) {
-        this.totalSmallPrice = parts[1]
-      }
+      this.totalPrice = (this.price * this.numberValue)
+      
     },
     getProductDetail() {
       let obj = {
@@ -173,15 +166,8 @@ export default {
         },
         callBack: (res) => {
           this.productDetail = res
-          console.log(this.productDetail.name)
-          var num = res.goodsSkus[0].price
-          this.price = num.toFixed(2)
-          this.totalPrice = this.price
-          var parts = this.price.split('.');
-          if (parts.length === 2) {
-            this.smallPrice = parts[1]
-            this.totalSmallPrice = parts[1]
-          }
+		  this.price =  this.totalPrice=res.goodsSkus[0].price
+          // this.totalPrice = this.price
           this.goodsSkus = res.goodsSkus
           this.chechIndex = res.goodsSkus[0].id
         },

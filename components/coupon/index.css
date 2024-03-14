@@ -28,7 +28,7 @@
 }
 .coupon-item .left .num {
   font-weight: normal;
-  font-size: 18rpx;
+  font-size: 48rpx;
   height: 70rpx;
   line-height: 70rpx;
   font-family: arial;
@@ -41,7 +41,7 @@
   font-weight: normal;
 }
 .coupon-item .left .num .coupon-price .small {
-  font-size: 18rpx;
+  font-size: 28rpx;
 }
 .coupon-item .left .coupon-condition {
   font-size: 24rpx;

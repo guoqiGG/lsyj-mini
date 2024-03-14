@@ -37,14 +37,14 @@ page {
 
 .address .personal .info-tit .name {
   margin-right: 30rpx;
-  font-size: 32rpx;
+  font-size: 34rpx;
   max-width: 90%;
   display: inline-block;
   word-break: break-all;
 }
 
 .address .personal .info-tit .tel {
-  font-size: 30rpx;
+  font-size: 34rpx;
 }
 
 .address .personal .info-tit image {
@@ -58,7 +58,7 @@ page {
 }
 
 .personal .addr {
-  font-size: 28rpx;
+  font-size: 26rpx;
   margin: 10rpx 0;
   margin-top: 20rpx;
 }
@@ -93,7 +93,7 @@ page {
 }
 
 .footer text {
-  font-size: 32rpx;
+  font-size: 34rpx;
   color: #005aff;
 }
 

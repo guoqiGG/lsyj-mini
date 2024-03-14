@@ -1,7 +1,7 @@
 <template>
   <view :class="' coupon-item ' + (canUse ? '' : 'gray')">
     <view class="left">
-      <view class="num">￥<text class="coupon-price">
+      <view class="num"><text style="font-size: 28rpx;">￥</text><text class="coupon-price">
           <text>{{ parsePrice(item.couponAmount)[0] }}</text>
           <text class="small">.{{ parsePrice(item.couponAmount)[1] }}</text>
         </text>
