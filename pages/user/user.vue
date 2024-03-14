@@ -170,7 +170,7 @@
 		<view>
 			<u-popup :show="showAuth" closeable="true" @close="closeShowAuthPopup">
 				<view class="con-container">
-					<view class="title"><text>氢春态欢乐园 申请</text></view>
+					<view class="title"><text>氢春态6欢乐团 申请</text></view>
 					<view class="desc">
 						<view class="desc-big"><text>获取您的昵称、头像</text></view>
 						<view class="desc-small"><text>提供具有辨识度的用户中心界面</text></view>
@@ -361,7 +361,7 @@ export default {
 		// 获取用户信息
 		getUserInfo() {
 			const params = {
-				url: "/pub/user/infById?userId=" + uni.getStorageSync('bbcUserinfo').id,
+				url: "/pub/user/infById?userId=" + uni.getStorageSync('bbcUserInfo').id,
 				method: "GET",
 				callBack: (res) => {
 					uni.setStorageSync('bbcUserInfo', res)

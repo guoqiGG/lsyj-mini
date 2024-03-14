@@ -9,7 +9,7 @@
                 <text>邀你一起加入，推广赢奖励</text>
             </view>
             <view class="invatation-img">
-                <image :show-menu-by-longpress='true' src="/static/head04.png" mode="scaleToFill" />
+                <image v-if="shareWxCode" :show-menu-by-longpress='true' :src="shareWxCode" mode="scaleToFill" />
             </view>
             <view class="in-card-text">
                 <text class="line"></text>
@@ -45,21 +45,7 @@ export default {
     },
 
     methods: {
-        /**
-         * 获取分销员信息
-         */
-        getDisInfo() {
-            http.request({
-                url: '/p/distribution/user/distributionUserInfo',
-                method: 'GET',
-                data: {
-                    shopId: 1
-                },
-                callBack: (res) => {
-                    this.distInfo = res
-                }
-            })
-        },
+
         /**
          * 生成分销邀请二维码
          * 小程序端 生成小程序菊花码  否则生成普通二维码
@@ -67,16 +53,9 @@ export default {
         getInvitationCode() {
             // 请求小程序菊花码
             const params = {
-                url: '/pub/leader/qr/code',
-                method: 'POST',
+                url: '/pub/leader/qr/code?scene=' + this.leaderInfo.id,
+                method: 'GET',
                 responseType: 'arraybuffer',
-                data: {
-                    sign: "qcsd",
-                    data: JSON.stringify({
-                        scene: this.leaderInfo.id,
-                        pageStr: '/pages/index/index'
-                    })
-                },
                 callBack: (res) => {
                     console.log(res)
                     this.shareWxCode = 'data:image/jpg;base64,' + wx.arrayBufferToBase64(res)

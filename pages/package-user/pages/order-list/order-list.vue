@@ -17,7 +17,7 @@
 					</view>
 					<view class="order-list-content-box-content-text">
 						<view class="title">
-							测试限购
+							限购
 						</view>
 						<view class="price">
 							<view class="price-number">
@@ -49,7 +49,7 @@
 					</view>
 					<view class="order-list-content-box-content-text">
 						<view class="title">
-							测试限购
+							限购
 						</view>
 						<view class="price">
 							<view class="price-number">

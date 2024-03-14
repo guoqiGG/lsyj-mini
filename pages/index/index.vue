@@ -102,9 +102,12 @@ export default {
 	onLoad: function (options) {
 
 	},
-	onShareAppMessage: function (e) {
+	onShareAppMessage: function () {
+		wx.showShareMenu({
+			withShareTicket: true,
+			menus: ['shareAppMessage', 'shareTimeline']
+		})
 		return {
-
 			path: "pages/user/user",
 			title: mpAppName,
 			imageUrl: '/static/logo.png',
@@ -116,10 +119,18 @@ export default {
 			}
 		};
 	},
+	//用户点击右上角分享朋友圈
+	onShareTimeline: function () {
+		return {
+			title: '氢春态6欢乐团',
+			imageUrl: '/static/logo.png'
+		}
+	},
+
 	data() {
 		return {
 			navigationBarIsShow: true,
-			title: '氢春态欢乐园',
+			title: '氢春态6欢乐团',
 			tabConfig: {
 				background: '',
 				fontColor: '#FFFFFF',
