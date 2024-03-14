@@ -93,6 +93,7 @@
 
 <script>
 import navigationBar from '@/components/navigation-bar/index.vue'
+import { mpAppName } from '@/utils/config';
 const util = require("@/utils/util.js");
 export default {
 	components: {
@@ -103,7 +104,16 @@ export default {
 	},
 	onShareAppMessage: function (e) {
 		return {
+
 			path: "pages/user/user",
+			title: mpAppName,
+			imageUrl: '/static/logo.png',
+			success: function (res) {
+				// 转发成功
+			},
+			fail: function (res) {
+				// 转发失败
+			}
 		};
 	},
 	data() {

@@ -66,324 +66,321 @@
 </template>
 
 <script>
-	const http = require("@/utils/http");
-	const util = require("@/utils/util.js");
-	import {
-		picDomain
-	} from "@/utils/config";
-	import hCompress from "@/components/helang-compress/helang-compress";
-	import {
-		resolve
-	} from "path";
-	import {
-		rejects
-	} from "assert";
-	export default {
-		props: {},
-		components: {
-			hCompress,
-		},
-		data() {
-			return {
-				uniLoginLogoImg: "",
-				code: "",
-				isPrivacy: 0,
-				passwordType: true,
-				appType: uni.getStorageSync("bbcAppType"),
-				privacyNumber: "",
-				// 图片域名
-				picDomain: picDomain,
-				showAuth: false, // 用户是否首次登录 true 是 false 否
-				name: '',
-				avatar: ''
-			};
-		},
+const http = require("@/utils/http");
+const util = require("@/utils/util.js");
+import {
+	picDomain
+} from "@/utils/config";
+import hCompress from "@/components/helang-compress/helang-compress";
+import {
+	resolve
+} from "path";
+import {
+	rejects
+} from "assert";
+export default {
+	props: {},
+	components: {
+		hCompress,
+	},
+	data() {
+		return {
+			uniLoginLogoImg: "",
+			code: "",
+			isPrivacy: 0,
+			passwordType: true,
+			appType: uni.getStorageSync("bbcAppType"),
+			privacyNumber: "",
+			// 图片域名
+			picDomain: picDomain,
+			showAuth: false, // 用户是否首次登录 true 是 false 否
+			name: '',
+			avatar: ''
+		};
+	},
 
 
+	/**
+	 * 生命周期函数--监听页面加载
+	 */
+	onLoad: function (options) {
+
+		// 头部导航标题
+		uni.setNavigationBarTitle({
+			title: '用户登录',
+		});
+
+
+	},
+
+	/**
+	 * 生命周期函数--监听页面初次渲染完成
+	 */
+	onReady: function () {
+		uni.getSystemInfo({
+			success: (res) => {
+				// 根据屏幕高度设置 top 值
+				this.regLocation = res.windowHeight - 150 + "px";
+			},
+		});
+	},
+
+	/**
+	 * 生命周期函数--监听页面显示
+	 */
+	onShow: function () {
+		// 头部导航标题
+		uni.setNavigationBarTitle({
+			title: '用户登录'
+		});
+
+		// // // 如果没有tempUid 则先获取
+		// util.weChatLogin()
+		// setTimeout(() => {
+		//   if (uni.getStorageSync('noAuth')) {
+		//     this.showAuth = true
+		//   } else {
+		//     this.showAuth = false
+		//   }
+		// }, 1000)
+
+		if (getApp().globalData.isLanding) return;
+		// 改变全局中登录
+		const globalData = getApp().globalData;
+		globalData.isLanding = true;
+		wx.login({
+			success: (res) => {
+				// 用code 请求登录
+				this.loginByCode(res.code);
+			},
+		});
+	},
+	methods: {
 		/**
-		 * 生命周期函数--监听页面加载
+		 * 通过微信返回的code登录
+		 * @param {String} code 请求微信返回的 code
 		 */
-		onLoad: function(options) {
+		loginByCode(code) {
+			const params = {
+				url: "/pub/user/login/auth",
+				method: "POST",
+				data: JSON.stringify({
+					code: code,
+					loginType: 1
+				}),
+				callBack: (res) => {
+					if (!res.id) {
+						uni.setStorageSync("bbcTempUid", res);
+					} else {
+						uni.setStorageSync("bbcTempUid", res.openId);
+					}
 
-			// 头部导航标题
-			uni.setNavigationBarTitle({
-				title: '用户登录',
-			});
-
-
-		},
-
-		/**
-		 * 生命周期函数--监听页面初次渲染完成
-		 */
-		onReady: function() {
-			uni.getSystemInfo({
-				success: (res) => {
-					// 根据屏幕高度设置 top 值
-					this.regLocation = res.windowHeight - 150 + "px";
-				},
-			});
-		},
-
-		/**
-		 * 生命周期函数--监听页面显示
-		 */
-		onShow: function() {
-			// 头部导航标题
-			uni.setNavigationBarTitle({
-				title: '用户登录'
-			});
-
-			// // // 如果没有tempUid 则先获取
-			// util.weChatLogin()
-			// setTimeout(() => {
-			//   if (uni.getStorageSync('noAuth')) {
-			//     this.showAuth = true
-			//   } else {
-			//     this.showAuth = false
-			//   }
-			// }, 1000)
-
-			if (getApp().globalData.isLanding) return;
-			// 改变全局中登录
-			const globalData = getApp().globalData;
-			globalData.isLanding = true;
-			wx.login({
-				success: (res) => {
-					// 用code 请求登录
-					this.loginByCode(res.code);
-				},
-			});
-
-		},
-
-		methods: {
-			/**
-			 * 通过微信返回的code登录
-			 * @param {String} code 请求微信返回的 code
-			 */
-			loginByCode(code) {
-				const params = {
-					url: "/pub/user/login/auth",
-					method: "POST",
-					data: JSON.stringify({
-						code: code,
-						loginType: 1
-					}),
-					callBack: (res) => {
-						if (!res.id) {
-							uni.setStorageSync("bbcTempUid", res);
-						} else {
-							uni.setStorageSync("bbcTempUid", res.openId);
-						}
-
-						// 还原全局 正在登录状态
-						getApp().globalData.isLanding = false;
-						while (getApp().globalData.requestQueue.length) {
-							http.request(getApp().globalData.requestQueue.pop());
-							getApp().globalData.currentReqCounts--;
-						}
-						if (uni.getStorageSync('noAuth')) {
-							this.showAuth = true
-						} else {
-							this.showAuth = false
-						}
-					},
-					errCallBack: () => {
-						// 还原全局 正在登录状态
-						getApp().globalData.isLanding = false;
-						while (getApp().globalData.requestQueue.length) {
-							http.request(getApp().globalData.requestQueue.pop());
-							getApp().globalData.currentReqCounts--;
-						}
-						uni.removeStorageSync("bbcLoginResult");
-						uni.removeStorageSync("bbcToken");
-						uni.removeStorageSync("bbcHadBindUser");
-						uni.removeStorageSync("bbcCode");
-						uni.removeStorageSync("bbcUserInfo");
-						uni.removeStorageSync("bbcExpiresTimeStamp");
-						uni.removeStorageSync("noAuth");
-					},
-				};
-				http.request(params);
-			},
-			/**
-			 * 蒙版按钮
-			 */
-			maskBtn() {
-				uni.showToast({
-					title: '请先阅读并勾选协议',
-					icon: "none",
-				});
-			},
-
-			/**
-			 * 微信小程序获取手机号一键登录按钮
-			 */
-			getPhoneNumberLogin(e) {
-				// 拒绝了授权
-				if (!e.detail.code) {
-					return;
-				}
-				const params = {
-					url: "/pub/user/login/auth",
-					method: "POST",
-					data: JSON.stringify({
-						code: e.detail.code,
-						loginType: 2,
-						openid: uni.getStorageSync('bbcTempUid'),
-						name: this.name,
-						avatar: this.avatar
-					}),
-					callBack: (res) => {
-						if (res.loginToken) {
-							uni.setStorageSync("bbcIsPrivacy", 1);
-							uni.setStorageSync("bbcHadLogin", true);
-							uni.setStorageSync("bbcToken", res.loginToken);
-							uni.setStorageSync("bbcLoginResult", res); // 保存整个登录数据
-							uni.setStorageSync("bbcUserInfo", res); //用户信息
-							uni.setStorageSync('noAuth', false) // 用户是否首次授权
-							const expiresTimeStamp =
-								(res.expiresIn * 1000) / 2 + new Date().getTime();
-							// 缓存token的过期时间
-							uni.setStorageSync("bbcExpiresTimeStamp", expiresTimeStamp);
-							// 还原全局 正在登录状态
-							getApp().globalData.isLanding = false;
-							while (getApp().globalData.requestQueue.length) {
-								http.request(getApp().globalData.requestQueue.pop());
-							}
-							let routeUrl = uni.getStorageSync("routeUrl")
-							if (routeUrl) {
-								// 跳转到 "领取礼品卡" 
-								// uni.switchTab({
-								// url: '/pages/user-login/user-login'
-								// });
-							} else {
-								uni.redirectTo({
-									url: "/pages/package-user/pages/login-success/login-success",
-								});
-							}
-
-						}
-					},
-					errCallBack: (err) => {
-						console.log(err)
-						this.loginErrHandle(err);
-					},
-				};
-				http.request(params);
-			},
-
-
-			/**
-			 * 条款点击事件(勾选/取选)
-			 */
-			handlePrivacyClick() {
-				this.isPrivacy = this.isPrivacy === 1 ? 0 : 1;
-			},
-
-			/**
-			 * 登录异常
-			 */
-			loginErrHandle(err) {
-				if (
-					err.code === "A00001" ||
-					err.code === "A00005" ||
-					err.code === "A00006"
-				) {
-					uni.showToast({
-						title: err.msg || "Error",
-						icon: "none",
-					});
-				}
-				if (err.code === "A00012") {
 					// 还原全局 正在登录状态
 					getApp().globalData.isLanding = false;
 					while (getApp().globalData.requestQueue.length) {
 						http.request(getApp().globalData.requestQueue.pop());
 						getApp().globalData.currentReqCounts--;
 					}
-					// tempUid 错误，重新获取
-					uni.removeStorageSync("bbcTempUid");
-					uni.showModal({
-						showCancel: false,
-						title: '提示',
-						content: '登录信息异常，请重新登录',
-						confirmText: '确定',
-						success: (res) => {
-							if (res.confirm) {
-								// #ifdef H5
-								window.history.replaceState({},
-									"",
-									window.location.href.split("?")[0]
-								);
-								// #endif
-								util.weChatLogin();
-							}
-						},
-					});
-				}
-				if (err.code === "A04002") {
-					// 弹窗
-					uni.showModal({
-						showCancel: false,
-						title: '该账户已绑定其他微信',
-						content: '一个账户只能绑定一个微信，您的手机号已经绑定了其他微信，请您先解除后再尝试。',
-						confirmText: '知道了',
-						confirmColor: "#F81A1A",
-					});
-				}
-			},
-
-			/**
-			 * 回到首页
-			 */
-			toIndex() {
-				util.toHomePage();
-			},
-			/**
-			 * 去服务条款和隐私协议页面
-			 */
-			toTermsOfService(key) {
-				uni.navigateTo({
-					url: "/pages/package-user/pages/terms-page/terms-page?sts=" + key,
-				});
-			},
-			/**
-			 * 头像
-			 */
-			getUploadImg: function(e) {
-				var tempFilePaths = e.detail.avatarUrl;
-				const params = {
-					url: "/upload/oss",
-					filePath: tempFilePaths,
-					name: "file",
-					callBack: (res2) => {
-						this.avatar = res2
-					},
-				};
-				const obj = {
-					src: tempFilePaths,
-					quality: 0.2,
-				};
-				this.$refs.hCompress.compress(obj, e.detail.avatarUrl).then((res) => {
-					params.filePath = res;
-					http.upload(params);
-				});
-			},
-			// 用户昵称
-			getNickNameInt: function(e) {
-				this.name = e.detail.value;
-			},
-			save() {
-				if (this.name.trim() && this.avatar) {
-					this.showAuth = false
-				}
-			}
-
+					if (uni.getStorageSync('noAuth')) {
+						this.showAuth = true
+					} else {
+						this.showAuth = false
+					}
+				},
+				errCallBack: () => {
+					// 还原全局 正在登录状态
+					getApp().globalData.isLanding = false;
+					while (getApp().globalData.requestQueue.length) {
+						http.request(getApp().globalData.requestQueue.pop());
+						getApp().globalData.currentReqCounts--;
+					}
+					uni.removeStorageSync("bbcLoginResult");
+					uni.removeStorageSync("bbcToken");
+					uni.removeStorageSync("bbcHadBindUser");
+					uni.removeStorageSync("bbcCode");
+					uni.removeStorageSync("bbcUserInfo");
+					uni.removeStorageSync("bbcExpiresTimeStamp");
+					uni.removeStorageSync("noAuth");
+				},
+			};
+			http.request(params);
 		},
-	};
+		/**
+		 * 蒙版按钮
+		 */
+		maskBtn() {
+			uni.showToast({
+				title: '请先阅读并勾选协议',
+				icon: "none",
+			});
+		},
+
+		/**
+		 * 微信小程序获取手机号一键登录按钮
+		 */
+		getPhoneNumberLogin(e) {
+			// 拒绝了授权
+			if (!e.detail.code) {
+				return;
+			}
+			const params = {
+				url: "/pub/user/login/auth",
+				method: "POST",
+				data: JSON.stringify({
+					code: e.detail.code,
+					loginType: 2,
+					openid: uni.getStorageSync('bbcTempUid'),
+					name: this.name,
+					avatar: this.avatar
+				}),
+				callBack: (res) => {
+					if (res.loginToken) {
+						uni.setStorageSync("bbcIsPrivacy", 1);
+						uni.setStorageSync("bbcHadLogin", true);
+						uni.setStorageSync("bbcToken", res.loginToken);
+						uni.setStorageSync("bbcLoginResult", res); // 保存整个登录数据
+						uni.setStorageSync("bbcUserInfo", res); //用户信息
+						uni.setStorageSync('noAuth', false) // 用户是否首次授权
+						const expiresTimeStamp =
+							(res.expiresIn * 1000) / 2 + new Date().getTime();
+						// 缓存token的过期时间
+						uni.setStorageSync("bbcExpiresTimeStamp", expiresTimeStamp);
+						// 还原全局 正在登录状态
+						getApp().globalData.isLanding = false;
+						while (getApp().globalData.requestQueue.length) {
+							http.request(getApp().globalData.requestQueue.pop());
+						}
+						let routeUrl = uni.getStorageSync("routeUrl")
+						if (routeUrl) {
+							// 跳转到 "领取礼品卡" 
+							// uni.switchTab({
+							// url: '/pages/user-login/user-login'
+							// });
+						} else {
+							uni.redirectTo({
+								url: "/pages/package-user/pages/login-success/login-success",
+							});
+						}
+
+					}
+				},
+				errCallBack: (err) => {
+					console.log(err)
+					this.loginErrHandle(err);
+				},
+			};
+			http.request(params);
+		},
+
+
+		/**
+		 * 条款点击事件(勾选/取选)
+		 */
+		handlePrivacyClick() {
+			this.isPrivacy = this.isPrivacy === 1 ? 0 : 1;
+		},
+
+		/**
+		 * 登录异常
+		 */
+		loginErrHandle(err) {
+			if (
+				err.code === "A00001" ||
+				err.code === "A00005" ||
+				err.code === "A00006"
+			) {
+				uni.showToast({
+					title: err.msg || "Error",
+					icon: "none",
+				});
+			}
+			if (err.code === "A00012") {
+				// 还原全局 正在登录状态
+				getApp().globalData.isLanding = false;
+				while (getApp().globalData.requestQueue.length) {
+					http.request(getApp().globalData.requestQueue.pop());
+					getApp().globalData.currentReqCounts--;
+				}
+				// tempUid 错误，重新获取
+				uni.removeStorageSync("bbcTempUid");
+				uni.showModal({
+					showCancel: false,
+					title: '提示',
+					content: '登录信息异常，请重新登录',
+					confirmText: '确定',
+					success: (res) => {
+						if (res.confirm) {
+							// #ifdef H5
+							window.history.replaceState({},
+								"",
+								window.location.href.split("?")[0]
+							);
+							// #endif
+							util.weChatLogin();
+						}
+					},
+				});
+			}
+			if (err.code === "A04002") {
+				// 弹窗
+				uni.showModal({
+					showCancel: false,
+					title: '该账户已绑定其他微信',
+					content: '一个账户只能绑定一个微信，您的手机号已经绑定了其他微信，请您先解除后再尝试。',
+					confirmText: '知道了',
+					confirmColor: "#F81A1A",
+				});
+			}
+		},
+
+		/**
+		 * 回到首页
+		 */
+		toIndex() {
+			util.toHomePage();
+		},
+		/**
+		 * 去服务条款和隐私协议页面
+		 */
+		toTermsOfService(key) {
+			uni.navigateTo({
+				url: "/pages/package-user/pages/terms-page/terms-page?sts=" + key,
+			});
+		},
+		/**
+		 * 头像
+		 */
+		getUploadImg: function (e) {
+			var tempFilePaths = e.detail.avatarUrl;
+			const params = {
+				url: "/upload/oss",
+				filePath: tempFilePaths,
+				name: "file",
+				callBack: (res2) => {
+					this.avatar = res2
+				},
+			};
+			const obj = {
+				src: tempFilePaths,
+				quality: 0.2,
+			};
+			this.$refs.hCompress.compress(obj, e.detail.avatarUrl).then((res) => {
+				params.filePath = res;
+				http.upload(params);
+			});
+		},
+		// 用户昵称
+		getNickNameInt: function (e) {
+			this.name = e.detail.value;
+		},
+		save() {
+			if (this.name.trim() && this.avatar) {
+				this.showAuth = false
+			}
+		}
+	},
+};
 </script>
 <style>
-	@import "./user-login.css";
+@import "./user-login.css";
 </style>
