@@ -55,7 +55,7 @@
 			</view>
 			<view class="right">
 				<view class="name">
-					云辉测试限购
+					云辉限购
 				</view>
 				<view class="price_box">
 					<view class="price">
