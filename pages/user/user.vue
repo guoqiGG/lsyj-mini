@@ -264,15 +264,15 @@ export default {
 		},
 		goLeader() {
 			util.checkAuthInfo(() => {
-				// if (this.isLeader) {
+				if (this.isLeader) {
 					uni.navigateTo({
 						url: '/pages/package-leader/pages/leader-index/leader-index'
 					})
-				// } else {
-					// uni.navigateTo({
-					// 	url: '/pages/package-leader/pages/apply-leader/apply-leader'
-					// })
-				// }
+				} else {
+					uni.navigateTo({
+						url: '/pages/package-leader/pages/apply-leader/apply-leader'
+					})
+				}
 			})
 		},
 		// 跳转到我的地址列表
