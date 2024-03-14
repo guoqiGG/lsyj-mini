@@ -4,7 +4,7 @@
             <view class="user-avatar">
                 <image src="/static/head04.png" mode="scaleToFill" />
             </view>
-            <view class="user-name"><text>用户名称</text></view>
+            <view class="user-name"><text>{{leaderInfo.leaderName}}</text></view>
             <view class="in-text">
                 <text>邀你一起加入，推广赢奖励</text>
             </view>
