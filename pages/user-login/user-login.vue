@@ -378,7 +378,6 @@ export default {
 				this.showAuth = false
 			}
 		}
-
 	},
 };
 </script>
