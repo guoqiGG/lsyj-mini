@@ -122,7 +122,6 @@ export default {
         var url = '/package-prod/pages/prod-classify/prod-classify?sts=' + this.stsType
         var id = this.item.couponId
         var title = '优惠券活动商品'
-
         if (id) {
           url += '&tagid=' + id + '&title=' + title
         }

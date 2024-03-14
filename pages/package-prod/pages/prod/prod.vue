@@ -108,7 +108,6 @@ export default {
     }
   },
   onShow() {
-    util.checkAuthInfo(() => { });
     if (uni.getStorageSync('bbcUserInfo').leaderName && uni.getStorageSync('bbcUserInfo').leaderMobile) {
       this.orderType = 2
     }
@@ -191,46 +190,49 @@ export default {
     skuSelectClick(id) {
       this.chechIndex = id
     },
-    buyNow: util.debounce(function () {
-      // 订单预检
-      let obj = {
-        loginToken: uni.getStorageSync('bbcToken'),
-        userId: uni.getStorageSync('bbcUserInfo').id,
-        orderType: this.orderType,
-        goods: [
-          {
-            goodsId: this.goodsId,
-            skuId: this.chechIndex,
-            buyNumber: this.numberValue
+    buyNow:
+      util.debounce(function () {
+        util.checkAuthInfo(() => {
+          // 订单预检
+          let obj = {
+            loginToken: uni.getStorageSync('bbcToken'),
+            userId: uni.getStorageSync('bbcUserInfo').id,
+            orderType: this.orderType,
+            goods: [
+              {
+                goodsId: this.goodsId,
+                skuId: this.chechIndex,
+                buyNumber: this.numberValue
+              }
+            ]
           }
-        ]
-      }
-      const params = {
-        url: "/pub/order/preview",
-        method: "POST",
-        data: {
-          sign: 'qcsd',
-          data: JSON.stringify(obj),
-        },
-        callBack: (res) => {
-          let orderItem = res
-          let url = '/pages/package-pay/pages/submit-order/submit-order'
-          this.toSubmitOrder(orderItem, url)
-        },
-        errCallBack: (errMsg) => {
-          if (errMsg.code === 500) {
-            uni.showToast({
-              title: errMsg.msg,
-              icon: 'none',
-              mask: true
-            })
-          }
-          this.closeSkuPopup()
-        },
+          const params = {
+            url: "/pub/order/preview",
+            method: "POST",
+            data: {
+              sign: 'qcsd',
+              data: JSON.stringify(obj),
+            },
+            callBack: (res) => {
+              let orderItem = res
+              let url = '/pages/package-pay/pages/submit-order/submit-order'
+              this.toSubmitOrder(orderItem, url)
+            },
+            errCallBack: (errMsg) => {
+              if (errMsg.code === 500) {
+                uni.showToast({
+                  title: errMsg.msg,
+                  icon: 'none',
+                  mask: true
+                })
+              }
+              this.closeSkuPopup()
+            },
 
-      }
-      http.request(params);
-    }, 1000),
+          }
+          http.request(params);
+        })
+      }, 1000),
     /**
     * 跳转提交订单页
     */

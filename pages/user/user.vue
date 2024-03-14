@@ -3,18 +3,18 @@
 		<view class="background"></view>
 		<view class="user">
 			<view class="user-login" v-if="isAuthInfo">
-				<button class="user-img" style="background-color: transparent; margin: 0; padding: 0"
-					open-type="chooseAvatar" @chooseavatar="getUploadImg">
-					<image class="" :src="userInfo.avatar
+				<image class="user-img" :src="userInfo.avatar
 				? userInfo.avatar : '/static/head04.png'
 				" mode="scaleToFill" />
-				</button>
 				<view class="user-info">
 					<view class="user-name">
-						<input style=" width: auto;min-width: 100rpx;" class="txt-infor" type="nickname"
-							:value="userInfo.name" @change="getNickNameInt">
+						<view>
+							{{ userInfo.name }}
+						</view>
+						<view class="info-edit" @tap="editInfo">
+							<image src="/static/info-edit.png" mode="scaleToFill" />
+						</view>
 					</view>
-
 					<view class="user-name-type">
 						{{ userInfo.type === 0 ? '普通' : userInfo.type === 1 ? '团长' : '' }}
 					</view>
@@ -187,14 +187,6 @@ export default {
 	},
 
 	onShow: function () {
-		// if (!uni.getStorageSync("bbcUserInfo")) {
-		// 	uni.showToast({
-		// 		title: '您当前还没有登录，请点击页面上方头像进行登录！',
-		// 		icon: 'none',
-		// 		mask: true
-		// 	})
-		// }
-
 		// 用户信息
 		this.userInfo = uni.getStorageSync("bbcUserInfo"); //用户信息
 		this.userInfo.type === 0 ? this.isLeader = false : this.userInfo.type === 1 ? this.isLeader = true : ''
@@ -395,7 +387,22 @@ export default {
 				text-align: left;
 				font-style: normal;
 				text-transform: none;
+				display: flex;
+				flex-direction: row;
 			}
+
+			.info-edit {
+				margin-left: 15rpx;
+				width: 52rpx;
+				height: 52rpx;
+
+				image {
+					width: 100%;
+					height: 100%;
+				}
+			}
+
+			.info-edit image {}
 
 			.user-name-type {
 				font-weight: 400;
