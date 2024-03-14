@@ -65,7 +65,7 @@ const previousPage = (isRefreshToken) => {
   // 判断上一页面是否为tabbar页面 (首页和分类页无需登录接口)
   const isTabbar =
     prevPage.route === "pages/user/user" ||
-    prevPage.route === "pages/video/video";
+    prevPage.route === "pages/discover/discover";
 
   if (isTabbar) {
     uni.switchTab({

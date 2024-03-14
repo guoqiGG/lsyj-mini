@@ -50,8 +50,8 @@
   "quickapp": {},
   /* 小程序特有相关 */
   "mp-weixin": {
-    // "appid": "wxfde31417f37933aa", // 氢春态5
-    "appid": "wx35b4644786775a09", // 氢春态6
+    "appid": "wxfde31417f37933aa", // 氢春态5
+    // "appid": "wx35b4644786775a09", // 氢春态6
     // "appid": "wx2ce1b5f7423287cb", // 氢春态7
     "setting": {
       "urlCheck": false

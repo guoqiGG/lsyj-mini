@@ -44,7 +44,7 @@
     }
     // ,
     // {
-    //   "path": "pages/video/video",
+    //   "path": "pages/discover/discover",
     //   "style": {
     //     "navigationBarTitleText": "发现",
     //     "navigationBarBackgroundColor": "#025BFF",
@@ -275,7 +275,7 @@
         "selectedIconPath": "/static/tabbar/selected-classify.png"
       },
       // {
-      //   "pagePath": "pages/video/video",
+      //   "pagePath": "pages/discover/discover",
       //   "text": "发现",
       //   "iconPath": "/static/tabbar/uncheck-video.png",
       //   "selectedIconPath": "/static/tabbar/selected-video.png"

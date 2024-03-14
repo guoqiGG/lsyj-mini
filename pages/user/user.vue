@@ -330,7 +330,25 @@ export default {
 			};
 			http.request(params);
 		},
-
+		openShowAuthPopup() {
+			this.showAuth = true
+		},
+		// 关闭授权弹出层
+		closeShowAuthPopup() {
+			this.showAuth = false
+		},
+		// 获取用户信息
+		getUserInfo() {
+			const params = {
+				url: "/pub/user/infById?userId=" + uni.getStorageSync('bbcUserInfo').id,
+				method: "GET",
+				callBack: (res) => {
+					uni.setStorageSync('bbcUserInfo', res)
+					this.userInfo = res
+				},
+			};
+			http.request(params);
+		}
 	}
 }
 </script>
@@ -450,13 +468,14 @@ export default {
 			margin-top: 44rpx;
 			display: flex;
 			justify-content: space-between;
-			
+
 
 			.order-wrap {
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
 				align-items: center;
+
 				.order-img {
 					width: 78rpx;
 					height: 78rpx;
@@ -473,7 +492,7 @@ export default {
 
 				.order-text {
 					text-align: center;
-					font-size:30rpx;
+					font-size: 30rpx;
 					line-height: 48rpx;
 					margin-top: 28rpx;
 				}
