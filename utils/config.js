@@ -33,7 +33,7 @@ if (process.env.VUE_APP_CUSTOM_ENV === "test") {
   picDomain = "http://qingchuntaijava1.oss-cn-beijing.aliyuncs.com";
 }
 
-exports.mpAppId = mpAppId;
+// exports.mpAppId = mpAppId;
 exports.mpAppName = mpAppName;
 exports.picDomain = picDomain;
 exports.domain = domain;
