@@ -22,18 +22,19 @@
 				</view>
 			</view>
 			<!-- 自提点名称 -->
-			<view class="section" v-if="type == 0">
+			<!-- <view class="section" v-if="type == 0">
 				<input placeholder="自提点名称" type="text" maxlength="18" @input="onStationNameInput" />
+			</view> -->
+			<!-- 备注 -->
+			<view class="section">
+				<input placeholder="自提点名称" type="remark"  @input="onRemarkInput" />
 			</view>
 			<!-- 自提点地址 -->
 			<view class="section section-address" v-if="type == 0">
-				<input style="padding-right: 70rpx;" placeholder="自提点地址" :value="address" type="text" maxlength="18"
+				<input style="padding-right: 70rpx;" placeholder="自提点地址" :value="address" type="text" 
 					@input="onAddrInput" />
 			</view>
-			<!-- 备注 -->
-			<view class="section">
-				<input placeholder="备注(非必填)" type="remark" maxlength="18" @input="onRemarkInput" />
-			</view>
+			
 
 			<!-- 提交申请栏 -->
 			<view class="submit-btn" @tap="submitDisterApply">
@@ -140,7 +141,8 @@ export default {
 					title: '请输入正确的手机号码',
 					icon: 'none'
 				})
-			} else if (this.type == 0 && leaderStore == '') {
+			} 
+			else if (this.type == 0 && remark == '') {
 				uni.showToast({
 					title: '自提点名称不能为空',
 					icon: 'none'

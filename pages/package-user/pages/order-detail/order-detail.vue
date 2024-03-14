@@ -1,7 +1,7 @@
 <template>
 	<view class="order-detail">
 		<view class="order-detail-backgroundImg">
-			<image src="/pages/package-user/static/order-detail.png" mode=""></image>
+			<image src="/pages/package-user/static/order-detail-bg.png" mode=""></image>
 		</view>
 		<view class="order-detail-status">
 			<view class="order-detail-status-content">
@@ -14,17 +14,20 @@
 			</view>
 			<view class="order-detail-status-content">
 				<view class="status-img-box">
-					<image class="status-img" src="/pages/package-user/static/order-detail-status.png" mode=""></image>
+					<image v-if="1===2" class="status-img" src="/pages/package-user/static/order-detail-status.png" mode=""></image>
+					<image v-else class="status-img" src="/pages/package-user/static/order-detail-status2.png" mode=""></image>
 				</view>
-				<view class="status-text">
+				<view class="status-text" :class="1==2?'isSelectColor':''">
 					商品发货
 				</view>
 			</view>
 			<view class="order-detail-status-content">
 				<view class="status-img-box">
-					<image class="status-img" src="/pages/package-user/static/order-detail-status.png" mode=""></image>
+					
+					<image v-if="1===2" class="status-img" src="/pages/package-user/static/order-detail-status.png" mode=""></image>
+					<image v-else class="status-img" src="/pages/package-user/static/order-detail-status2.png" mode=""></image>
 				</view>
-				<view class="status-text">
+				<view class="status-text" :class="1==2?'isSelectColor':''">
 					交易完成
 				</view>
 			</view>
@@ -32,7 +35,7 @@
 		<!-- 地址 -->
 		<view class="address">
 			<view class="icon">
-				<image style="width: 40rpx;height: 45rpx;" src="../../static/icon_delivery.png" mode=""></image>
+				<image style="width: 38rpx;height: 40rpx;" src="/pages/package-user/static/address.png" mode=""></image>
 			</view>
 			<view class="right">
 				<view class="address-info">
@@ -147,31 +150,30 @@
 			align-items: center;
 
 			.order-detail-status-content {
-				// width: 33%;
 				flex: 1;
 				height: 84rpx;
 				display: flex;
 				justify-content: center;
 				align-items: center;
 				position: relative;
-				background-color: plum;
 				font-size: 24rpx;
+				text-align: center;
 
 				.status-img-box {
 					position: absolute;
-					left: 50%;
+					margin: 0 auto;
 					top: -20rpx;
-					width: 35rpx;
-					height: 35rpx;
-					background-color: greenyellow;
+					width: 36rpx;
+					height: 36rpx;
+					background-color: #fff;
 					border-radius: 50%;
 					display: flex;
 					justify-content: center;
 					align-items: center;
 
 					.status-img {
-						width: 30rpx;
-						height: 30rpx;
+						width: 80%;
+						height: 80%;
 					}
 				}
 
@@ -326,8 +328,6 @@
 		.refundBtn {
 			width: 100%;
 			height: 128rpx;
-			// position: fixed;
-			// bottom: 10rpx;
 			background-color: #FFFFFF;
 			align-items: center;
 			display: flex;
