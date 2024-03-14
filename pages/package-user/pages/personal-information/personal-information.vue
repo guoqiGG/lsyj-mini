@@ -65,7 +65,7 @@ export default {
 			bbcUserInfo: {},
 			userId: null, //用户Id
 			nickName: "", // 用户昵称
-			phoneNumber: "18437930709", // 手机号
+			phoneNumber: "null", // 手机号
 			pic: "", // 用户头像
 		};
 	},
@@ -74,6 +74,7 @@ export default {
 		this.queryUserInfo();
 	},
 	onShow: function () {
+		
 		// 头部导航标题
 		uni.setNavigationBarTitle({
 			title: '账户设置',
@@ -150,7 +151,7 @@ export default {
 			this.nickName = this.bbcUserInfo.name
 			this.pic = this.bbcUserInfo.avatar
 			this.photoFiles = this.bbcUserInfo.avatar
-			this.phoneNumber = this.bbcUserInfo.userMobile; // 用户手机号
+			this.phoneNumber = this.bbcUserInfo.mobile; // 用户手机号
 		},
 
 		// 移动按钮点击事件
@@ -221,8 +222,8 @@ export default {
 			if (this.isChange) {
 				let obj = {
 					userId: this.userId,
-					avatarUrl: this.photoFiles,
-					nickName: this.nickName,
+					avatar: this.photoFiles,
+					name: this.nickName,
 				}
 				const params = {
 					url: "/pub/user/update",

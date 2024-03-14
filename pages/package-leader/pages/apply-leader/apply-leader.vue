@@ -57,12 +57,14 @@ export default {
 			type: 0, // 0有店 1无店
 			mobile: '',	// 手机号
 			address: '',// 门店地址
-			userId: 6,
+			userId: null,
 			remark: ''
 		}
 	},
 
 	onShow: function () {
+		let bbcUserInfo = uni.getStorageSync("bbcUserInfo"); //用户信息
+		this.userId = bbcUserInfo.id
 		// 头部导航标题
 		uni.setNavigationBarTitle({
 			title: '申请团长'
