@@ -34,7 +34,7 @@
 					共1件商品 总计：0.01
 				</view>
 			</view>
-			<view class="order-list-content-box">
+			<view class="order-list-content-box" @click="goOrderDetail()">
 				<view class="order-list-content-box-title">
 					<view class="order-list-content-box-title-left">
 						订单编号：1764841653610352640
@@ -170,6 +170,10 @@
 	/deep/ .u-tabs__wrapper__nav__line {
 		left: -12rpx;
 		width: 58rpx !important;
+		
+	}
+	/deep/ .u-tabs__wrapper__nav__item__text {
+		font-size: 28rpx!important;
 	}
 
 	.order-list {
@@ -188,6 +192,7 @@
 			height: 398rpx;
 			box-sizing: border-box;
 			padding: 18rpx 22rpx;
+			font-size: 28rpx;
 		}
 
 		.order-list-content-box-title {

@@ -5,40 +5,109 @@
 		</view>
 		<view class="order-detail-status">
 			<view class="order-detail-status-content">
-				<view class="order-detail-status-content-img">
-					<image src="/pages/package-user/static/order-detail-status.png" mode=""></image>
+				<view class="status-img-box">
+					<image class="status-img" src="/pages/package-user/static/order-detail-status.png" mode=""></image>
 				</view>
-				<view class="order-detail-status-content-text">
+				<view class="status-text" :class="1==1?'isSelectColor':''">
 					买家付款
 				</view>
 			</view>
 			<view class="order-detail-status-content">
-				<view class="order-detail-status-content-status">
+				<view class="status-img-box">
+					<image class="status-img" src="/pages/package-user/static/order-detail-status.png" mode=""></image>
 				</view>
-				<view class="order-detail-status-content-text">
+				<view class="status-text">
 					商品发货
 				</view>
 			</view>
 			<view class="order-detail-status-content">
-				<view class="order-detail-status-content-status">
+				<view class="status-img-box">
+					<image class="status-img" src="/pages/package-user/static/order-detail-status.png" mode=""></image>
 				</view>
-				<view class="order-detail-status-content-text">
+				<view class="status-text">
 					交易完成
 				</view>
 			</view>
 		</view>
+		<!-- 地址 -->
 		<view class="address">
-			<view class="address-icon">
-				！！
+			<view class="icon">
+				<image style="width: 40rpx;height: 45rpx;" src="../../static/icon_delivery.png" mode=""></image>
 			</view>
-			<view class="address-name">
-				北京市
-			</view>
-			<view class="address-tel">
-				1753331996
+			<view class="right">
+				<view class="address-info">
+					<text class="name">收件人</text>
+					<text class="name">8888888888</text>
+				</view>
+				<view class="addres-detail">
+					北京市市辖区东城区
+				</view>
 			</view>
 		</view>
-		
+
+		<!-- 产品 -->
+		<view class="product">
+			<view class="product_icon">
+				<!-- <image style="width: 40rpx;height: 45rpx;" src="../../static/icon_delivery.png" mode=""></image> -->
+			</view>
+			<view class="right">
+				<view class="name">
+					云辉测试限购
+				</view>
+				<view class="price_box">
+					<view class="price">
+						<text>￥23.35</text>
+						<text style="color: #979797;">1件</text>
+					</view>
+					<view class="btn">
+						申请退款
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- 订单 -->
+		<view class="order">
+			<view class="item">
+				<text style="color: #9E9E9E;">订单编号：</text>
+				<text>1764841653610352640</text>
+			</view>
+			<view class="item">
+				<text style="color: #9E9E9E;">下单时间：</text>
+				<text>2024-03-05 10：33：34</text>
+			</view>
+			<view class="line">
+			</view>
+			<view class="item">
+				<text style="color: #9E9E9E;">支付方式：</text>
+				<text>微信支付</text>
+			</view>
+			<view class="item">
+				<text style="color: #9E9E9E;">配送方式：</text>
+				<text>快递配送</text>
+			</view>
+			<view class="btn">
+				复制
+			</view>
+		</view>
+		<view class="total_price" style="height: 190rpx;">
+			<view class="item">
+				<text style="color: #9E9E9E;">商品总额：</text>
+				<text>￥0.01</text>
+			</view>
+			<view class="item">
+				<text style="color: #9E9E9E;">商品运费：</text>
+				<text>￥0.01</text>
+			</view>
+			<view class="item">
+				<text></text>
+				<text style="color:#C53032">订单总额：<text style="font-size: 32rpx;">￥0.01</text></text>
+			</view>
+		</view>
+		<view class="refundBtn">
+			<view class="btn">
+				整单退款
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -46,56 +115,236 @@
 	export default {
 		data() {
 			return {
-				
+
 			}
 		},
 		methods: {
-			
+
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	.order-detail{
+	.order-detail {
 		width: 100vw;
 		overflow-x: hidden;
 		height: 100vh;
 		overflow: auto;
 		background: #f2f2f2;
-		.order-detail-backgroundImg{
+
+		.order-detail-backgroundImg {
 			width: 100%;
 			height: 200rpx;
-			image{
+
+			image {
 				width: 100%;
 				height: 100%;
 			}
 		}
-		.order-detail-status{
+
+		.order-detail-status {
 			display: flex;
-			justify-content: space-between;
 			align-items: center;
-			.order-detail-status-content{
-				width: 33%;
-				height: 142px;
+
+			.order-detail-status-content {
+				// width: 33%;
+				flex: 1;
+				height: 84rpx;
 				display: flex;
-				flex-direction: column;
 				justify-content: center;
 				align-items: center;
 				position: relative;
-				.order-detail-status-content-text{
-					font-size: 12px;
+				background-color: plum;
+				font-size: 24rpx;
+
+				.status-img-box {
+					position: absolute;
+					left: 50%;
+					top: -20rpx;
+					width: 35rpx;
+					height: 35rpx;
+					background-color: greenyellow;
+					border-radius: 50%;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+
+					.status-img {
+						width: 30rpx;
+						height: 30rpx;
+					}
+				}
+
+				.isSelectColor {
+					color: #C53032;
+				}
+
+			}
+		}
+
+		.address {
+			margin-top: 20rpx;
+			height: 90rpx;
+			background: #FFFFFF;
+			padding: 24rpx 20rpx;
+			display: flex;
+
+			.icon {
+				width: 60rpx;
+				text-align: center;
+				margin-top: 10rpx;
+			}
+
+			.right {
+				flex: 1;
+
+				.address-info {
+					width: 100%;
+					display: flex;
+					font-size: 28rpx;
+					font-weight: 400;
+
+					.name {
+						width: 50%;
+					}
+				}
+
+				.addres-detail {
+					margin-top: 10rpx;
+					font-weight: 400;
+					font-size: 24rpx;
+					color: #979797;
 				}
 			}
 		}
-		.order-detail-status-content-img{
-			position: absolute;
-			width: 15px;
-			height: 15px;
-			image{
-				width: 100%;
-				height: 100%;
+
+		.product {
+			margin-top: 20rpx;
+			height: 200rpx;
+			background: #FFFFFF;
+			padding: 34rpx 40rpx;
+			display: flex;
+
+			.product_icon {
+				width: 194rpx;
+				height: 194rpx;
+				background: #D8D8D8;
+				border-radius: 12rpx 12rpx 12rpx 12rpx;
+				margin-right: 34rpx;
+			}
+
+			.right {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+
+				.name {
+					font-weight: 400;
+					font-size: 28rpx;
+					color: #101010;
+				}
+
+				.price_box {
+					display: flex;
+					justify-content: space-between;
+
+					.price {
+						font-weight: 400;
+						font-size: 24rpx;
+						color: #C53032;
+					}
+
+					.btn {
+						width: 132rpx;
+						height: 36rpx;
+						font-weight: 400;
+						font-size: 22rpx;
+						color: #C53032;
+						text-align: center;
+						background: #FFFFFF;
+						border-radius: 18rpx 18rpx 18rpx 18rpx;
+						border: 2rpx solid #C53032;
+
+					}
+				}
+			}
+		}
+
+		.order {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			height: 324rpx;
+			margin-top: 20rpx;
+			background: #FFFFFF;
+			padding: 40rpx 28rpx;
+			font-weight: 400;
+			font-size: 24rpx;
+			color: #101010;
+			position: relative;
+
+			.line {
+				width: 710rpx;
+				height: 0rpx;
+				border: 2rpx solid #E6E6E6;
+			}
+
+			.btn {
+				position: absolute;
+				right: 30rpx;
+				top: 30rpx;
+				width: 90rpx;
+				height: 36rpx;
+				background: #FFFFFF;
+				border-radius: 38rpx 38rpx 38rpx 38rpx;
+				border: 2rpx solid #979797;
+				text-align: center;
+			}
+		}
+
+		.total_price {
+			margin: 20rpx 0;
+			height: 190rpx;
+			background: #FFFFFF;
+			border-radius: 0rpx 0rpx 0rpx 0rpx;
+			font-weight: 400;
+			font-size: 24rpx;
+			color: #101010;
+			line-height: 34rpx;
+			padding: 20rpx 32rpx;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+
+			.item {
+				display: flex;
+				justify-content: space-between;
+			}
+		}
+
+		.refundBtn {
+			width: 100%;
+			height: 128rpx;
+			// position: fixed;
+			// bottom: 10rpx;
+			background-color: #FFFFFF;
+			align-items: center;
+			display: flex;
+			justify-content: flex-end;
+
+			.btn {
+				width: 164rpx;
+				height: 62rpx;
+				border-radius: 31rpx;
+				border: 2rpx solid #C53032;
+				line-height:62rpx ;
+				font-weight: 400;
+				font-size: 28rpx;
+				color: #C53032;
+				text-align: center;
+				margin-right: 30rpx;
 			}
 		}
 	}
-
 </style>
