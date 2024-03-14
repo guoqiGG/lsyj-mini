@@ -33,7 +33,7 @@
 			</view>
 		</view>
 		<view class="withdrawal-btn">
-			<u-button @click="onSubmitApplyWithdrawal()" text="确认提现"></u-button>
+			<u-button style="font-size: 40rpx;" @click="onSubmitApplyWithdrawal()" text="确认提现"></u-button>
 		</view>
 		<view class="withdrawal-text">
 			<view class="withdrawal-text-cot">
@@ -137,7 +137,7 @@
 		justify-content: space-between;
 		align-items: center;
 		.withdrawal-tit-lf{
-			ont-size: 36rpx;
+			font-size: 36rpx;
 			color: #101010;
 		}
 		.withdrawal-tit-rt{
@@ -163,7 +163,7 @@
 			justify-content: space-between;
 			align-items: center;
 			.withdrawal-cot-cot-lf{
-				font-size: 60rpx;
+				font-size: 28rpx;
 			}
 			.withdrawal-cot-cot-rt{
 				font-size: 28rpx;
@@ -198,11 +198,17 @@
 			background: #C53032 !important;
 			color: #FFFFFF;
 		}
+		/deep/ .u-button__text{
+			font-size: 40rpx !important;
+		}
+			
+		
 	}
 	.withdrawal-text{
 		margin-top: 40rpx;
 		box-sizing: border-box;
 		padding-left: 36rpx;
+		
 		.withdrawal-text-cot{
 			font-size: 26rpx;
 			margin-bottom: 20rpx;

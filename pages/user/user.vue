@@ -3,18 +3,18 @@
 		<view class="background"></view>
 		<view class="user">
 			<view class="user-login" v-if="isAuthInfo">
-				<image class="user-img" :src="userInfo.avatar
+				<button class="user-img" style="background-color: transparent; margin: 0; padding: 0"
+					open-type="chooseAvatar" @chooseavatar="getUploadImg">
+					<image class="" :src="userInfo.avatar
 				? userInfo.avatar : '/static/head04.png'
 				" mode="scaleToFill" />
+				</button>
 				<view class="user-info">
 					<view class="user-name">
-						<view>
-							{{ userInfo.name }}
-						</view>
-						<view class="info-edit" @tap="openShowAuthPopup">
-							<image src="/static/info-edit.png" mode="scaleToFill" />
-						</view>
+						<input style=" width: auto;min-width: 100rpx;" class="txt-infor" type="nickname"
+							:value="userInfo.name" @change="getNickNameInt">
 					</view>
+
 					<view class="user-name-type">
 						{{ userInfo.type === 0 ? '普通' : userInfo.type === 1 ? '团长' : '' }}
 					</view>
@@ -166,34 +166,6 @@
 
 		</view>
 		<hCompress ref="hCompress" />
-		<!-- 授权登录 -->
-		<view>
-			<u-popup :show="showAuth" closeable="true" @close="closeShowAuthPopup">
-				<view class="con-container">
-					<view class="title"><text>氢春态欢乐园 申请</text></view>
-					<view class="desc">
-						<view class="desc-big"><text>获取您的昵称、头像</text></view>
-						<view class="desc-small"><text>提供具有辨识度的用户中心界面</text></view>
-					</view>
-					<view class="line"></view>
-					<view class="avatar">
-						<view class="avatar-title"><text>头像</text></view>
-						<button class="avatar-img" style="background-color: transparent; margin: 0; padding: 0"
-							open-type="chooseAvatar" @chooseavatar="getUploadImg">
-							<image :src="userInfo.avatar ? userInfo.avatar : '/static/head04.png'" mode="scaleToFill" />
-						</button>
-					</view>
-					<view class="line"></view>
-					<view class="name">
-						<view class="name-title"><text>昵称</text></view>
-						<input class="name-input" type="nickname" placeholder="请输入昵称" :value="userInfo.name"
-							@change="getNickNameInt">
-					</view>
-					<view class="line"></view>
-					<view class="button" @tap="save"><text>保存</text></view>
-				</view>
-			</u-popup>
-		</view>
 	</view>
 </template>
 
@@ -207,8 +179,7 @@ export default {
 		return {
 			isLeader: true,  // 是否是团长
 			userInfo: {}, // 用户信息
-			isAuthInfo: false, //用户是否登录
-			showAuth: false	 // 显示授权用户信息
+			isAuthInfo: false, //用户是否登录	
 		}
 	},
 	components: {
@@ -216,12 +187,19 @@ export default {
 	},
 
 	onShow: function () {
+		// if (!uni.getStorageSync("bbcUserInfo")) {
+		// 	uni.showToast({
+		// 		title: '您当前还没有登录，请点击页面上方头像进行登录！',
+		// 		icon: 'none',
+		// 		mask: true
+		// 	})
+		// }
+
 		// 用户信息
 		this.userInfo = uni.getStorageSync("bbcUserInfo"); //用户信息
 		this.userInfo.type === 0 ? this.isLeader = false : this.userInfo.type === 1 ? this.isLeader = true : ''
 		if (uni.getStorageSync("bbcToken")) {
 			this.isAuthInfo = true;
-			this.getUserInfo()
 			this.getDefaultAddress()
 		} else {
 			this.isAuthInfo = false;
@@ -299,6 +277,7 @@ export default {
 				name: "file",
 				callBack: (res2) => {
 					this.userInfo.avatar = res2
+					this.setUserInfo()
 				},
 			};
 			const obj = {
@@ -313,9 +292,10 @@ export default {
 		// 用户昵称
 		getNickNameInt: function (e) {
 			this.userInfo.name = e.detail.value;
+			this.setUserInfo()
 		},
 		// 修改用户信息
-		save() {
+		setUserInfo() {
 			let obj = {
 				userId: this.userInfo.id,
 				avatar: this.userInfo.avatar,
@@ -329,19 +309,20 @@ export default {
 					data: JSON.stringify(obj),
 				},
 				callBack: (res) => {
-					this.getUserInfo()
-					this.showAuth = false
+					uni.setStorageSync("bbcUserInfo", res); //用户信息
+					this.userInfo = res
+					uni.showToast({
+						title: "修改成功",
+						icon: "none",
+					});
 				},
-				errCallBack: (res) => {
-					this.showAuth = false
-				}
 			};
 			http.request(params);
 		},
 		// 用户默认地址
 		getDefaultAddress() {
 			const params = {
-				url: "/pub/user/address?loginToken=" + uni.getStorageSync('bbcToken'),
+				url: "/pub/user/address?loginToken=" + this.userInfo.loginToken,
 				method: "GET",
 				callBack: (res) => {
 					this.userInfo.userAddress = res.userAddress
@@ -349,26 +330,7 @@ export default {
 			};
 			http.request(params);
 		},
-		// 打开授权弹出层
-		openShowAuthPopup() {
-			this.showAuth = true
-		},
-		// 关闭授权弹出层
-		closeShowAuthPopup() {
-			this.showAuth = false
-		},
-		// 获取用户信息
-		getUserInfo() {
-			const params = {
-				url: "/pub/user/infoByToken?loginToken=" + uni.getStorageSync('bbcToken'),
-				method: "GET",
-				callBack: (res) => {
-					uni.setStorageSync('bbcUserInfo', res)
-					this.userInfo = res
-				},
-			};
-			http.request(params);
-		}
+
 	}
 }
 </script>
@@ -433,22 +395,7 @@ export default {
 				text-align: left;
 				font-style: normal;
 				text-transform: none;
-				display: flex;
-				flex-direction: row;
 			}
-
-			.info-edit {
-				margin-left: 15rpx;
-				width: 52rpx;
-				height: 52rpx;
-
-				image {
-					width: 100%;
-					height: 100%;
-				}
-			}
-
-			.info-edit image {}
 
 			.user-name-type {
 				font-weight: 400;
@@ -659,117 +606,5 @@ export default {
 		}
 
 	}
-}
-
-.con-container {
-	padding: 50rpx 46rpx 70rpx;
-}
-
-.con-container .title {
-	font-weight: 400;
-	font-size: 28rpx;
-	color: #101010;
-	line-height: 48rpx;
-	text-align: left;
-	font-style: normal;
-	text-transform: none;
-	text-align: center;
-}
-
-.con-container .desc {
-	margin-top: 34rpx;
-}
-
-.con-container .desc .desc-big {
-	font-weight: 400;
-	font-size: 28rpx;
-	color: #101010;
-	line-height: 48rpx;
-	text-align: left;
-	font-style: normal;
-	text-transform: none;
-}
-
-.con-container .desc .desc-small {
-	font-weight: 400;
-	font-size: 24rpx;
-	color: #979797;
-	line-height: 48rpx;
-	text-align: left;
-	font-style: normal;
-	text-transform: none;
-}
-
-.con-container .button {
-	margin: 66rpx auto 0;
-	width: 364rpx;
-	height: 78rpx;
-	background: #025bff;
-	border-radius: 12rpx 12rpx 12rpx 12rpx;
-	font-weight: 400;
-	font-size: 28rpx;
-	color: #ffffff;
-	line-height: 78rpx;
-	text-align: center;
-	font-style: normal;
-	text-transform: none;
-}
-
-.con-container .button.un {
-	background: #F6F6F6;
-	color: #979797;
-}
-
-.con-container .line {
-	width: 100%;
-	height: 1rpx;
-	background: #e6e6e6;
-	margin: 22rpx 0;
-}
-
-.con-container .avatar,
-.con-container .name {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-}
-
-.con-container .avatar .avatar-title,
-.con-container .name .name-title {
-	font-weight: 400;
-	font-size: 28rpx;
-	color: #101010;
-	line-height: 48rpx;
-	text-align: left;
-	font-style: normal;
-	text-transform: none;
-	margin-right: 58rpx;
-}
-
-.con-container .avatar .avatar-img {
-	width: 78rpx;
-	height: 78rpx;
-	background: #f4f4f4;
-	border-radius: 8rpx 8rpx 8rpx 8rpx;
-	overflow: hidden;
-}
-
-.con-container .avatar .avatar-img image {
-	width: 100%;
-	height: 100%;
-}
-
-.con-container .name {
-	padding: 14rpx 0;
-}
-
-.con-container .name .name-input {
-	font-weight: 400;
-	font-size: 28rpx;
-	color: #979797;
-	line-height: 48rpx;
-	text-align: left;
-	font-style: normal;
-	text-transform: none;
 }
 </style>
