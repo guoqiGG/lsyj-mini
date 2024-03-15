@@ -6,7 +6,9 @@
 		<view class="order-detail-status">
 			<view class="order-detail-status-content">
 				<view class="status-img-box">
-					<image class="status-img" src="/pages/package-user/static/order-detail-status.png" mode=""></image>
+					<image v-if="orderDetail.orderStatus>1" class="status-img" src="/pages/package-user/static/order-detail-status.png"
+						mode=""></image>
+					<image v-else class="status-img" src="/pages/package-user/static/order-detail-status.png" mode=""></image>
 				</view>
 				<view class="status-text" :class="1==1?'isSelectColor':''">
 					买家付款
@@ -14,8 +16,10 @@
 			</view>
 			<view class="order-detail-status-content">
 				<view class="status-img-box">
-					<image v-if="1===2" class="status-img" src="/pages/package-user/static/order-detail-status.png" mode=""></image>
-					<image v-else class="status-img" src="/pages/package-user/static/order-detail-status2.png" mode=""></image>
+					<image v-if="orderDetail.orderStatus>2" class="status-img" src="/pages/package-user/static/order-detail-status.png"
+						mode=""></image>
+					<image v-else class="status-img" src="/pages/package-user/static/order-detail-status2.png" mode="">
+					</image>
 				</view>
 				<view class="status-text" :class="1==2?'isSelectColor':''">
 					商品发货
@@ -23,9 +27,11 @@
 			</view>
 			<view class="order-detail-status-content">
 				<view class="status-img-box">
-					
-					<image v-if="1===2" class="status-img" src="/pages/package-user/static/order-detail-status.png" mode=""></image>
-					<image v-else class="status-img" src="/pages/package-user/static/order-detail-status2.png" mode=""></image>
+
+					<image v-if="orderDetail.orderStatus>3" class="status-img" src="/pages/package-user/static/order-detail-status.png"
+						mode=""></image>
+					<image v-else class="status-img" src="/pages/package-user/static/order-detail-status2.png" mode="">
+					</image>
 				</view>
 				<view class="status-text" :class="1==2?'isSelectColor':''">
 					交易完成
@@ -39,11 +45,11 @@
 			</view>
 			<view class="right">
 				<view class="address-info">
-					<text class="name">收件人</text>
-					<text class="name">8888888888</text>
+					<text class="name">{{orderDetail.userName}}</text>
+					<text class="name">{{orderDetail.userPhone}}</text>
 				</view>
 				<view class="addres-detail">
-					北京市市辖区东城区
+					{{orderDetail.address}}
 				</view>
 			</view>
 		</view>
@@ -51,18 +57,18 @@
 		<!-- 产品 -->
 		<view class="product">
 			<view class="product_icon">
-				<!-- <image style="width: 40rpx;height: 45rpx;" src="../../static/icon_delivery.png" mode=""></image> -->
+				<image style="width: 100%;height: 100%;" :src="orderDetail.orderGoods[0].thumbail" mode=""></image>
 			</view>
 			<view class="right">
 				<view class="name">
-					云辉限购
+					{{orderDetail.orderGoods[0].title}}
 				</view>
 				<view class="price_box">
 					<view class="price">
-						<text>￥23.35</text>
-						<text style="color: #979797;">1件</text>
+						<text>￥{{orderDetail.orderGoods[0].salePrice}}</text>
+						<text style="color: #979797;">{{orderDetail.goodsCount}}件</text>
 					</view>
-					<view class="btn">
+					<view class="btn" @click="applyRefund(orderDetail.orderId)">
 						申请退款
 					</view>
 				</view>
@@ -72,11 +78,11 @@
 		<view class="order">
 			<view class="item">
 				<text style="color: #9E9E9E;">订单编号：</text>
-				<text>1764841653610352640</text>
+				<text>{{orderDetail.orderId}}</text>
 			</view>
 			<view class="item">
 				<text style="color: #9E9E9E;">下单时间：</text>
-				<text>2024-03-05 10：33：34</text>
+				<text>{{orderDetail.statusCreateTime}}</text>
 			</view>
 			<view class="line">
 			</view>
@@ -86,7 +92,7 @@
 			</view>
 			<view class="item">
 				<text style="color: #9E9E9E;">配送方式：</text>
-				<text>快递配送</text>
+				<text>{{orderDetail.orderType===1?'快递配送':orderDetail.orderType===2?'到店自提':''}}</text>
 			</view>
 			<view class="btn">
 				复制
@@ -95,18 +101,18 @@
 		<view class="total_price" style="height: 190rpx;">
 			<view class="item">
 				<text style="color: #9E9E9E;">商品总额：</text>
-				<text>￥0.01</text>
+				<text>￥{{orderDetail.totalAmount}}</text>
 			</view>
 			<view class="item">
 				<text style="color: #9E9E9E;">商品运费：</text>
-				<text>￥0.01</text>
+				<text>￥{{orderDetail.totalAmount}}</text>
 			</view>
 			<view class="item">
 				<text></text>
-				<text style="color:#C53032">订单总额：<text style="font-size: 32rpx;">￥0.01</text></text>
+				<text style="color:#C53032">订单总额：<text style="font-size: 32rpx;">￥{{orderDetail.totalAmount}}</text></text>
 			</view>
 		</view>
-		<view class="refundBtn">
+		<view class="refundBtn" @click="applyRefund(orderDetail.orderId)">
 			<view class="btn">
 				整单退款
 			</view>
@@ -115,13 +121,51 @@
 </template>
 
 <script>
+	const http = require("@/utils/http");
 	export default {
 		data() {
 			return {
-
+				orderId: null, //订单id
+				loginToken: null,
+				orderDetail:null,
 			}
 		},
+		onLoad(option) {
+			if (option.orderId) {
+				this.orderId = option.orderId
+				let bbcLoginResult = uni.getStorageSync("bbcLoginResult"); //用户信息
+				this.loginToken = bbcLoginResult.loginToken
+				this.getOrderDetail()
+			}
+
+		},
 		methods: {
+			getOrderDetail() {
+				let obj = {
+					orderId: this.orderId,
+					loginToken: this.loginToken,
+				}
+				const params = {
+					url: "/pub/order/detail",
+					method: "POST",
+					data: {
+						sign: 'qcsd',
+						data: JSON.stringify(obj),
+					},
+					callBack: (res) => {
+						this.orderDetail = res
+					},
+				}
+				http.request(params);
+
+			},
+			// 申请退款
+			applyRefund(orderId){
+				uni.navigateTo({
+					url:`/pages/package-refund/pages/apply-refund/apply-refund?orderId=`+orderId
+				})
+		
+			},
 
 		}
 	}
@@ -338,7 +382,7 @@
 				height: 62rpx;
 				border-radius: 31rpx;
 				border: 2rpx solid #C53032;
-				line-height:62rpx ;
+				line-height: 62rpx;
 				font-weight: 400;
 				font-size: 28rpx;
 				color: #C53032;

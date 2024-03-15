@@ -7,12 +7,12 @@
 					<view class="order-list-content-box-title-left">
 						订单编号：{{item.orderId}}
 					</view>
-					<view class="order-list-content-box-title-right">
+					<view class="order-list-content-box-title-right" :class="item.orderStatus>1?'blue':''">
 						<!-- // 00全部 1待支付 2待发货(已支付) 3已发货 4确认收货 -->
 						{{item.orderStatus===1?'待支付':item.orderStatus===2?'待发货':item.orderStatus===3?'已发货':item.orderStatus===4?'已完成':''}}
 					</view>
 				</view>
-				<view class="order-list-content-box-content" @click="goOrderDetail()">
+				<view class="order-list-content-box-content" @click="goOrderDetail(item.orderId)">
 						<image class="order-list-content-box-content-img" :src="item.orderGoods[0].thumbail" mode=""></image>
 					<view class="order-list-content-box-content-text">
 						<view class="title">
@@ -31,6 +31,12 @@
 				</view>
 				<view class="order-list-content-box-count">
 					共{{item.goodsCount}}件商品 总计：{{item.totalAmount}}
+				</view>
+				
+				<view class="order-list-content-box-btn"  v-if="item.orderStatus===1" @click="cancelOrder(item.orderId)">
+					<view class="cancelBtn">
+						取消订单
+					</view>
 				</view>
 			</view>
 			<!-- 空列表或加载全部提示 -->
@@ -72,6 +78,7 @@
 				pageSIize: 10, //总页数
 				loginToken: null,
 				status: null,
+				userId:null,//用户id
 				activeLineStyle: {
 					width: '56rpx',
 					height: '2rpx',
@@ -79,10 +86,8 @@
 				}
 			}
 		},
-		onLoad(orderId) {
-			console.log(orderId)
-			this.currentTab = orderId.id
-
+		onLoad(option) {
+			this.currentTab = option.id
 			if(this.currentTab==0){
 				this.status=this.list1[0].id
 			}else if(this.currentTab==1){
@@ -98,19 +103,45 @@
 		onShow() {
 			let bbcLoginResult = uni.getStorageSync("bbcLoginResult"); //用户信息
 			this.loginToken = bbcLoginResult.loginToken
+			this.userId = bbcLoginResult.id
 			this.getOrderLists()
 		},
 		methods: {
-			goOrderDetail() {
+			// 跳转取订单详情
+			goOrderDetail(orderId) {
 				uni.navigateTo({
-					url: '/pages/package-user/pages/order-detail/order-detail'
+					url:`/pages/package-user/pages/order-detail/order-detail?orderId=`+orderId
 				})
+			},
+			// 取消订单
+			cancelOrder(orderId){
+				let obj = {
+					orderId: orderId,
+					userId: this.userId,
+					loginToken: this.loginToken,
+				}
+				const params = {
+					url: "/pub/order/cancel",
+					method: "POST",
+					data: {
+						sign: 'qcsd',
+						data: JSON.stringify(obj),
+					},
+					callBack: (res) => {
+						  uni.showToast({
+						    title: "取消成功~",
+						    icon: "none",
+						  });
+					},
+				}
+				http.request(params);
 			},
 			handleTabClick(e) {
 				this.currentTab = e.index;
 				this.status = e.id
 				this.getOrderLists()
 			},
+			// 获取订单信息
 			getOrderLists() {
 				this.isLoaded = false
 				let obj = {
@@ -129,7 +160,6 @@
 					callBack: (res) => {
 						this.isLoaded = true
 						this.orderLists = this.pageNo == 1 ? res : this.orderLists.concat(res)
-						console.log(this.orderLists,'orderLists',this.pageSIize,'this.pageSIize')
 						this.pageSIize = res.total == 0 ? 1 : Math.ceil(res.total / this.pageSize)
 					},
 				}
@@ -177,7 +207,7 @@
 			background: #fff;
 			margin-top: 20rpx;
 			width: 750rpx;
-			height: 398rpx;
+			// height: 398rpx;
 			box-sizing: border-box;
 			padding: 18rpx 22rpx;
 			font-size: 28rpx;
@@ -187,6 +217,9 @@
 			display: flex;
 			justify-content: space-between;
 			margin-bottom: 26rpx;
+			.blue{
+				color: #025BFF;
+			}
 		}
 
 		.order-list-content-box-content {
@@ -222,6 +255,24 @@
 			margin-top: 18rpx;
 			display: flex;
 			justify-content: flex-end;
+		}
+		.order-list-content-box-btn{
+			width: 100%;
+			height: 54rpx;
+			display: flex;
+			justify-content: flex-end;
+			margin: 10rpx;
+			.cancelBtn{
+				width: 168rpx;
+				height: 54rpx;
+				border: 2rpx solid #D90024;
+				font-weight: 400;
+				font-size: 24rpx;
+				color: #D90024;
+				line-height: 54rpx;
+				text-align: center;
+				border-radius: 30rpx;
+			}
 		}
 	}
 </style>
