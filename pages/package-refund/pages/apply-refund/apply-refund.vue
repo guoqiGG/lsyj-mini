@@ -36,7 +36,7 @@
 					<!-- {{orderDetail.userPhone}} -->
 				</u-form-item>
 				<u-form-item labelWidth="208rpx" label="退款说明" borderBottom>
-					<input class="" placeholder="必填最多50字" type="text" :value="orderDetail.userPhone" maxlength="50"
+					<input class="" placeholder="必填最多50字" type="text" value="" maxlength="50"
 					  @input="onAddrInput" />
 				</u-form-item>
 				<u-form-item labelWidth="208rpx" label="退款凭证" borderBottom>
@@ -63,13 +63,12 @@
 			}
 		},
 		onLoad(option) {
-			// if (option.orderId) {
-				// this.orderNumber = option.orderId
-				this.orderNumber = "qc240315421100001"
+			if (option.orderId) {
+				this.orderNumber = option.orderId
 				let bbcLoginResult = uni.getStorageSync("bbcLoginResult"); //用户信息
 				this.loginToken = bbcLoginResult.loginToken
 				this.getOrderDetail()
-			// }
+			}
 		},
 	
 		methods: {

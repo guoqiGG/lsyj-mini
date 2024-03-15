@@ -66,7 +66,7 @@
 				<view class="price_box">
 					<view class="price">
 						<text>￥{{orderDetail.orderGoods[0].salePrice}}</text>
-						<text style="color: #979797;">{{orderDetail.goodsCount}}件</text>
+						<text style="color: #979797;margin-left: 20rpx;">{{orderDetail.goodsCount}}件</text>
 					</view>
 					<view class="btn" @click="applyRefund(orderDetail.orderId)">
 						申请退款

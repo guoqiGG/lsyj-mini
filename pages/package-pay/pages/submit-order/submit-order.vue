@@ -56,7 +56,7 @@
 							</view>
 						</view>
 						<view class="not-express-info-address">
-							{{ userInfo.addressName }}
+							{{ userInfo.leaderAddress }}
 						</view>
 					</view>
 					<view class="submit-order-index-not-express-content-line">
