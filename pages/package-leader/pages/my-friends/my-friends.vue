@@ -6,6 +6,9 @@
             <view class="search-button" @click="searchBtn()">搜索</view>
         </view>
       <view class="con">
+		  <view class="" style="margin-left: 40rpx;">
+		  	总人数：{{total}}
+		  </view>
         <view class="list-con" v-for="(item,index) in friendsList" :key="index">
             <!-- <image class="img-avatar" src="/static/head04.png" mode="scaleToFill" /> -->
             <image class="img-avatar" :src="item.avatar" mode="scaleToFill" />
@@ -16,7 +19,6 @@
         </view>
 		<!-- 空列表或加载全部提示 -->
 		<EmptyAllTips v-if="isLoaded" :isEmpty="!friendsList.length" emptyTips="暂无数据" :isAll="isAll" />
-		
 	  </view>
     </view>
 </template>
@@ -26,6 +28,7 @@ const http = require("@/utils/http");
 export default {
     data() {
         return {
+			total:0,
 			isLoaded: false,
 			isAll: false,
             searchValue: null,
@@ -59,6 +62,7 @@ export default {
 			    },
 			    callBack: (res) => {
 					this.isLoaded = true
+					this.total=res.total
 					this.friendsList = this.current == 1 ? res.list : this.friendsList.concat(res.list)
 					this.pages = res.total == 0 ? 1 : Math.ceil(res.total / this.pages)
 			    },
