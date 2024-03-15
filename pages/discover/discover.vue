@@ -36,7 +36,7 @@
 								<text class="value">{{ item.total }}</text>
 							</view>
 							<view class="waterfall-item__ft__desc uv-line-2">
-								<text class="value">{{ item.typeStr }}asdadddddddddddddddddddddddddddddddddddddd</text>
+								<text class="value">{{ item.typeStr }}</text>
 							</view>
 						</view>
 					</view>
@@ -120,11 +120,13 @@
 			videoPlay(currentId) {
 				this.list.map((item,index)=>{
 					if(item.id==currentId){
+						console.log('if')
 						let video = uni.createVideoContext("video" + currentId, this)
 						video.play()
 					}else{
+						console.log('else')
 						let video2 = uni.createVideoContext("video" + item.id, this)
-						video2.pause()
+						video2.stop()
 					}
 				})
 				
