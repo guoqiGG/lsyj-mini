@@ -98,7 +98,7 @@
 							<image src="/pages/package-leader/static/friend.png" mode=""></image>
 						</view>
 						<view class="list-line-lf-text">
-							用户购物明细
+							购物明细
 						</view>
 					</view>
 					<view class="list-line-rt">
@@ -169,7 +169,7 @@ export default {
 				url: "/pages/package-leader/pages/take-notes/take-notes"
 			})
 		},
-		// 用户购物明细
+		// 购物明细
 		userShopDetails() {
 			uni.navigateTo({
 				url: "/pages/package-leader/pages/user-shop-details/user-shop-details"
@@ -194,6 +194,7 @@ export default {
 				},
 				callBack: (res) => {
 					this.leaderInfo = res
+					uni.setStorageSync('bbcLeaderInfo', res)
 				},
 			}
 			http.request(params);
@@ -228,10 +229,9 @@ export default {
 		width: 100%;
 		height: 350rpx;
 		opacity: 1;
-
-		background: #E53130;
+		background: linear-gradient(180deg, #025BFF 0%, #025BFF 29%, #FFFFFF 100%);
 	}
-
+	
 	.leader-index-cot {
 		position: absolute;
 		top: 0;

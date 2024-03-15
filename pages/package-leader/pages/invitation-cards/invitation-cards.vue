@@ -2,9 +2,9 @@
     <view class="container">
         <view class="con">
             <view class="user-avatar">
-                <image src="/static/head04.png" mode="scaleToFill" />
+                <image :src="leaderInfo.avatar ? leaderInfo.avatar : '/static/head04.png'" mode="scaleToFill" />
             </view>
-            <view class="user-name"><text>{{leaderInfo.leaderName}}</text></view>
+            <view class="user-name"><text>{{ leaderInfo.leaderName }}</text></view>
             <view class="in-text">
                 <text>邀你一起加入，推广赢奖励</text>
             </view>
@@ -38,17 +38,15 @@ export default {
         uni.setNavigationBarTitle({
             title: '邀请用户'
         })
-        util.checkAuthInfo(() => {
-            this.leaderInfo = uni.getStorageSync('bbcUserInfo')
-            this.getInvitationCode()
-        })
+        this.leaderInfo = uni.getStorageSync('bbcUserInfo')
+        this.getInvitationCode()
     },
+
 
     methods: {
 
         /**
          * 生成分销邀请二维码
-         * 小程序端 生成小程序菊花码  否则生成普通二维码
          */
         getInvitationCode() {
             // 请求小程序菊花码
@@ -57,7 +55,6 @@ export default {
                 method: 'GET',
                 responseType: 'arraybuffer',
                 callBack: (res) => {
-                    console.log(res)
                     this.shareWxCode = 'data:image/jpg;base64,' + wx.arrayBufferToBase64(res)
                 }
             }

@@ -100,7 +100,32 @@ export default {
 		navigationBar
 	},
 	onLoad: function (options) {
+		// 团长绑定用户
+		if (options.scene) {
+			if (uni.getStorageSync('bbcToken')) {
+				http.request({
+					url: '/pub/leader/binding',
+					methods: 'POST',
+					data: {
+						data: JSON.stringify({
+							loginToken: uni.getStorageSync('bbcToken'),
+							parentId: options.scene
+						})
+					},
+					callBack: (res) => {
+						uni.showToast({
+							title: '绑定团长成功',
+							icon: 'none',
+						})
+					}
+				})
+			} else {
+				uni.getStorageSync('sceneBindLeader', options.scene)
+				util.checkAuthInfo(() => {
 
+				})
+			}
+		}
 	},
 	onShareAppMessage: function () {
 		wx.showShareMenu({
