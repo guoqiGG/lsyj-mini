@@ -14,7 +14,7 @@
             <image class="img-avatar" :src="item.avatar" mode="scaleToFill" />
             <view class="right-con">
                 <view class="name">{{item.realName}}</view>
-                <view class="phone">18437930709</view>
+                <view class="phone">{{item.mobile}}</view>
             </view>
         </view>
 		<!-- 空列表或加载全部提示 -->
