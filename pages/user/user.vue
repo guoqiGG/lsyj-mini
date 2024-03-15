@@ -88,6 +88,7 @@
 						请在地址管理中添加收货地址
 					</view>
 				</view>
+
 				<view class="receving-address-text" v-if="isAuthInfo">
 					<view class="receving-address-text-title">
 						{{ userInfo.leaderAddress ? '自提地址' : '收货地址' }}
@@ -103,7 +104,7 @@
 					<view class="receving-address-text-content" v-if="userInfo.leaderAddress"><text
 							style="font-weight: 400;font-size: 28rpx;color: #101010;line-height: 48rpx;">
 							{{ userInfo.leaderName }}：</text>{{ userInfo.leaderMobile }}</view>
-				</view>
+				</view>				
 				<view class="receving-address-pic">
 					<image src="/static/user/receiving-address.png" mode=""></image>
 				</view>
@@ -216,9 +217,7 @@ export default {
 	},
 
 	onShow: function () {
-		// 用户信息
-		this.userInfo = uni.getStorageSync("bbcUserInfo"); //用户信息
-		this.userInfo.type === 0 ? this.isLeader = false : this.userInfo.type === 1 ? this.isLeader = true : ''
+
 		if (uni.getStorageSync("bbcToken")) {
 			this.isAuthInfo = true;
 			this.getUserInfo()
@@ -361,12 +360,12 @@ export default {
 		// 获取用户信息
 		getUserInfo() {
 			const params = {
-				// url: "/pub/user/infById?userId=" + uni.getStorageSync('bbcUserInfo').id,
-				url: "/pub/user/infoByToken?loginToken=" + uni.getStorageSync('bbcUserInfo').loginToken,
+				url: "/pub/user/infoByToken?loginToken=" + uni.getStorageSync('bbcToken'),
 				method: "GET",
 				callBack: (res) => {
 					uni.setStorageSync('bbcUserInfo', res)
 					this.userInfo = res
+					this.userInfo.type === 0 ? this.isLeader = false : this.userInfo.type === 1 ? this.isLeader = true : ''
 				},
 			};
 			http.request(params);
@@ -511,6 +510,7 @@ export default {
 				flex-direction: column;
 				justify-content: space-between;
 				align-items: center;
+
 				.order-img {
 					width: 78rpx;
 					height: 78rpx;

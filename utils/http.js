@@ -55,7 +55,7 @@ function request(params) {
       }
       // -640 请求成功 用户首次登录
       if (responseData.code == -640) {
-        uni.setStorageSync("noAuth", true);  // 用户是否首次授权
+        uni.setStorageSync("noAuth", true); // 用户是否首次授权
         if (params.callBack) {
           params.callBack(responseData.msg);
         }
@@ -183,7 +183,6 @@ function upload(params) {
     name: params.name,
     header: {
       Authorization: uni.getStorageSync("bbcToken"),
-      // Authorization: params.login ? undefined : wx.getStorageSync("bbcToken"),
     },
     dataType: "json",
     responseType:
