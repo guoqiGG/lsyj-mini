@@ -507,6 +507,10 @@ export default {
 			justify-content: space-between;
 
 			.order-wrap {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				align-items: center;
 				.order-img {
 					width: 78rpx;
 					height: 78rpx;
@@ -631,6 +635,7 @@ export default {
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
+				align-items: center;
 			}
 
 			.service-tool-content-img {
