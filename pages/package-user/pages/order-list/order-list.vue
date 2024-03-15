@@ -2,71 +2,41 @@
 	<view class="order-list">
 		<u-tabs :scrollable="false" :current="currentTab" :list="list1" @click="handleTabClick()"></u-tabs>
 		<view class="order-list-content">
-			<view class="order-list-content-box" v-for="(item,index) in orderLists" :key="item.id">
+			<view class="order-list-content-box" v-for="(item,index) in orderLists" :key="item.orderId">
 				<view class="order-list-content-box-title">
 					<view class="order-list-content-box-title-left">
-						订单编号：<!-- {{item.}} -->
+						订单编号：{{item.orderId}}
 					</view>
 					<view class="order-list-content-box-title-right">
-						待发货
+						<!-- // 00全部 1待支付 2待发货(已支付) 3已发货 4确认收货 -->
+						{{item.orderStatus===1?'待支付':item.orderStatus===2?'待发货':item.orderStatus===3?'已发货':item.orderStatus===4?'已完成':''}}
 					</view>
 				</view>
 				<view class="order-list-content-box-content" @click="goOrderDetail()">
-					<view class="order-list-content-box-content-img">
-
-					</view>
+						<image class="order-list-content-box-content-img" :src="item.orderGoods[0].thumbail" mode=""></image>
 					<view class="order-list-content-box-content-text">
 						<view class="title">
-							限购
+							{{item.orderGoods[0].title}}
 						</view>
 						<view class="price">
 							<view class="price-number">
-								0.01
+								￥{{item.orderGoods[0].salePrice}}
 							</view>
 							<view class="price-amount">
-								X1
+								{{item.goodsCount}}件
 							</view>
 
 						</view>
 					</view>
 				</view>
 				<view class="order-list-content-box-count">
-					共1件商品 总计：0.01
+					共{{item.goodsCount}}件商品 总计：{{item.totalAmount}}
 				</view>
 			</view>
-			<view class="order-list-content-box" @click="goOrderDetail()">
-				<view class="order-list-content-box-title">
-					<view class="order-list-content-box-title-left">
-						订单编号：1764841653610352640
-					</view>
-					<view class="order-list-content-box-title-right">
-						待发货
-					</view>
-				</view>
-				<view class="order-list-content-box-content">
-					<view class="order-list-content-box-content-img">
-
-					</view>
-					<view class="order-list-content-box-content-text">
-						<view class="title">
-							限购
-						</view>
-						<view class="price">
-							<view class="price-number">
-								0.01
-							</view>
-							<view class="price-amount">
-								X1
-							</view>
-
-						</view>
-					</view>
-				</view>
-				<view class="order-list-content-box-count">
-					共1件商品 总计：0.01
-				</view>
-			</view>
-
+			<!-- 空列表或加载全部提示 -->
+			<EmptyAllTips v-if="isLoaded" :isEmpty="!orderLists.length" :emptyTips="i18n.noCommodity"
+				:isAll="current == pages" />
+		
 		</view>
 	</view>
 
@@ -77,32 +47,31 @@
 	export default {
 		data() {
 			return {
+				// 00全部 1待支付 2待发货(已支付) 3已发货 4确认收货
 				list1: [{
 					name: '全部',
-					id:10009999,
+					id: 0,
 				}, {
 					name: '待付款',
-					id:1000,
+					id: 1,
 				}, {
 					name: '待发货',
-					id:1001,
+					id: 2,
 				}, {
 					name: '待收货',
-					id:2001,
+					id: 3,
 				}, {
 					name: '已完成',
-					id:2002,
+					id: 4,
 				}],
+				isLoaded: false,
+				isAll: false,
 				currentTab: 0,
-				
-				// 1000-待付款,1001-已支付(待发货),2001-待收货,2002-后台确认收货（已完成),3001-用户点击确认收货(已完成),9000-已取消,-8000-错误
-				
-				
 				orderLists: [],
 				pageNo: 1, // 当前页
 				pageSIize: 10, //总页数
 				loginToken: null,
-				status:null,
+				status: null,
 				activeLineStyle: {
 					width: '56rpx',
 					height: '2rpx',
@@ -113,10 +82,22 @@
 		onLoad(orderId) {
 			console.log(orderId)
 			this.currentTab = orderId.id
+
+			if(this.currentTab==0){
+				this.status=this.list1[0].id
+			}else if(this.currentTab==1){
+				this.status=this.list1[1].id
+			}else if(this.currentTab==2){
+				this.status=this.list1[2].id
+			}else if(this.currentTab==3){
+				this.status=this.list1[3].id
+			}else if(this.currentTab==4){
+				this.status=this.list1[4].id
+			}
 		},
 		onShow() {
-			let bbcUserInfo = uni.getStorageSync("bbcUserInfo"); //用户信息
-			this.loginToken = bbcUserInfo.loginToken
+			let bbcLoginResult = uni.getStorageSync("bbcLoginResult"); //用户信息
+			this.loginToken = bbcLoginResult.loginToken
 			this.getOrderLists()
 		},
 		methods: {
@@ -127,14 +108,16 @@
 			},
 			handleTabClick(e) {
 				this.currentTab = e.index;
-				this.status=e.id
+				this.status = e.id
+				this.getOrderLists()
 			},
 			getOrderLists() {
+				this.isLoaded = false
 				let obj = {
 					pageNo: this.pageNo,
 					pageSIize: this.pageSIize,
-					loginToken: 1,
-					status:1000,
+					loginToken: this.loginToken,
+					status: this.status,
 				}
 				const params = {
 					url: "/pub/order/list",
@@ -144,7 +127,10 @@
 						data: JSON.stringify(obj),
 					},
 					callBack: (res) => {
-						this.orderLists = res.list
+						this.isLoaded = true
+						this.orderLists = this.pageNo == 1 ? res : this.orderLists.concat(res)
+						console.log(this.orderLists,'orderLists',this.pageSIize,'this.pageSIize')
+						this.pageSIize = res.total == 0 ? 1 : Math.ceil(res.total / this.pageSize)
 					},
 				}
 				http.request(params);
@@ -156,9 +142,10 @@
 		 * 页面上拉触底事件的处理函数
 		 */
 		onReachBottom() {
-			if (this.current < this.pages) {
-				this.current = this.current + 1
-				this.getLeaderFriends()
+			
+			if (this.pageNo < this.pageSIize) {
+				this.pageNo = this.pageNo + 1
+				this.getOrderLists()
 			} else {
 				this.isAll = true
 			}
@@ -170,10 +157,11 @@
 	/deep/ .u-tabs__wrapper__nav__line {
 		left: -12rpx;
 		width: 58rpx !important;
-		
+
 	}
+
 	/deep/ .u-tabs__wrapper__nav__item__text {
-		font-size: 28rpx!important;
+		font-size: 28rpx !important;
 	}
 
 	.order-list {
@@ -198,6 +186,7 @@
 		.order-list-content-box-title {
 			display: flex;
 			justify-content: space-between;
+			margin-bottom: 26rpx;
 		}
 
 		.order-list-content-box-content {
@@ -206,6 +195,9 @@
 			.order-list-content-box-content-img {
 				width: 220rpx;
 				height: 220rpx;
+				margin-right: 22rpx;
+				border-radius: 12rpx
+			
 			}
 
 			.order-list-content-box-content-text {
