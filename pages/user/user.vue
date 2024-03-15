@@ -104,7 +104,7 @@
 					<view class="receving-address-text-content" v-if="userInfo.leaderAddress"><text
 							style="font-weight: 400;font-size: 28rpx;color: #101010;line-height: 48rpx;">
 							{{ userInfo.leaderName }}：</text>{{ userInfo.leaderMobile }}</view>
-				</view>				
+				</view>
 				<view class="receving-address-pic">
 					<image src="/static/user/receiving-address.png" mode=""></image>
 				</view>
@@ -319,6 +319,7 @@ export default {
 				userId: this.userInfo.id,
 				avatar: this.userInfo.avatar,
 				name: this.userInfo.name,
+				loginToken:uni.getStorageSync('bbcToken')
 			}
 			const params = {
 				url: "/pub/user/update",
@@ -328,6 +329,9 @@ export default {
 					data: JSON.stringify(obj),
 				},
 				callBack: (res) => {
+					if (res.loginToken) {
+						uni.setStorageSync('bbcToken', res.loginToken)
+					}
 					this.getUserInfo()
 					this.showAuth = false
 				},

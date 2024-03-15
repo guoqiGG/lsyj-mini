@@ -74,7 +74,7 @@ export default {
 		this.queryUserInfo();
 	},
 	onShow: function () {
-		
+
 		// 头部导航标题
 		uni.setNavigationBarTitle({
 			title: '账户设置',
@@ -224,6 +224,7 @@ export default {
 					userId: this.userId,
 					avatar: this.photoFiles,
 					name: this.nickName,
+					loginToken:uni.getStorageSync('bbcToken')
 				}
 				const params = {
 					url: "/pub/user/update",
@@ -236,7 +237,10 @@ export default {
 						let info = this.bbcUserInfo
 						info.name = this.nickName
 						info.avatar = this.photoFiles,
-							uni.setStorageSync("bbcUserInfo", info); //用户信息
+						uni.setStorageSync("bbcUserInfo", info); //用户信息
+						if (res.loginToken) {
+							uni.setStorageSync('bbcToken', res.loginToken)
+						}
 						uni.showToast({
 							title: "更改成功",
 							icon: "none",

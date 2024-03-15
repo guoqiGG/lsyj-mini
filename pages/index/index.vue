@@ -116,6 +116,9 @@ export default {
 						})
 					},
 					callBack: (res) => {
+						if (res.loginToken) {
+							uni.setStorageSync('bbcToken', res.loginToken)
+						}
 						uni.showToast({
 							title: '绑定成功',
 							icon: 'none',
