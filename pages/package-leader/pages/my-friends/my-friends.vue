@@ -28,7 +28,7 @@ export default {
         return {
 			isLoaded: false,
 			isAll: false,
-            searchValue: '',
+            searchValue: null,
 			userId: null,
 			current: 1,  // 当前页
 			pages: 10 ,//总页数
@@ -46,7 +46,7 @@ export default {
 			this.isLoaded = false
 			let obj={
 				pageNo: this.current,
-				pageSize: this.pageSize,
+				pageSize: this.pages,
 				userId: this.userId,
 				name:this.searchValue,
 			}
@@ -60,7 +60,7 @@ export default {
 			    callBack: (res) => {
 					this.isLoaded = true
 					this.friendsList = this.current == 1 ? res.list : this.friendsList.concat(res.list)
-					this.pages = res.total == 0 ? 1 : Math.ceil(res.total / this.pageSize)
+					this.pages = res.total == 0 ? 1 : Math.ceil(res.total / this.pages)
 			    },
 			}
 			http.request(params);
