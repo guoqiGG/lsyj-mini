@@ -95,11 +95,13 @@
 import navigationBar from '@/components/navigation-bar/index.vue'
 import { mpAppName } from '@/utils/config';
 const util = require("@/utils/util.js");
+const http = require("@/utils/http.js");
 export default {
 	components: {
 		navigationBar
 	},
 	onLoad: function (options) {
+		console.log('options.scene', options)
 		// 团长绑定用户
 		if (options.scene) {
 			if (uni.getStorageSync('bbcToken')) {
@@ -107,6 +109,7 @@ export default {
 					url: '/pub/leader/binding',
 					methods: 'POST',
 					data: {
+						sign: 'qcsd',
 						data: JSON.stringify({
 							loginToken: uni.getStorageSync('bbcToken'),
 							parentId: options.scene
@@ -114,15 +117,13 @@ export default {
 					},
 					callBack: (res) => {
 						uni.showToast({
-							title: '绑定团长成功',
+							title: '绑定成功',
 							icon: 'none',
 						})
 					}
 				})
 			} else {
-				uni.getStorageSync('sceneBindLeader', options.scene)
 				util.checkAuthInfo(() => {
-
 				})
 			}
 		}

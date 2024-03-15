@@ -361,7 +361,8 @@ export default {
 		// 获取用户信息
 		getUserInfo() {
 			const params = {
-				url: "/pub/user/infById?userId=" + uni.getStorageSync('bbcUserInfo').id,
+				// url: "/pub/user/infById?userId=" + uni.getStorageSync('bbcUserInfo').id,
+				url: "/pub/user/infoByToken?loginToken=" + uni.getStorageSync('bbcUserInfo').loginToken,
 				method: "GET",
 				callBack: (res) => {
 					uni.setStorageSync('bbcUserInfo', res)
@@ -549,6 +550,7 @@ export default {
 				font-size: 38rpx;
 				color: #101010;
 			}
+
 			.receving-address-text-content {
 				font-size: 28rpx;
 				color: #3D3D3D;

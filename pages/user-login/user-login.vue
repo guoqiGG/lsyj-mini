@@ -250,27 +250,7 @@ export default {
 						while (getApp().globalData.requestQueue.length) {
 							http.request(getApp().globalData.requestQueue.pop());
 						}
-						// 未登录用户绑定团长
-						if (uni.getStorageSync('sceneBindLeader')) {
-							http.request({
-								url: '/pub/leader/binding',
-								methods: 'POST',
-								data: {
-									data: JSON.stringify({
-										loginToken: uni.getStorageSync('bbcToken'),
-										parentId: uni.getStorageSync('sceneBindLeader')
-									})
-								},
-								callBack: (res) => {
-									uni.removeStorageSync('sceneBindLeader')
-									uni.showToast({
-										title: '绑定团长成功',
-										icon: 'none',
-									})
-								}
-							})
-						}
-
+					
 						let routeUrl = uni.getStorageSync("routeUrl")
 						if (routeUrl) {
 							// 跳转到 "领取礼品卡" 
