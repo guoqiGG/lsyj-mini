@@ -250,7 +250,7 @@ export default {
 						while (getApp().globalData.requestQueue.length) {
 							http.request(getApp().globalData.requestQueue.pop());
 						}
-					
+
 						let routeUrl = uni.getStorageSync("routeUrl")
 						if (routeUrl) {
 							// 跳转到 "领取礼品卡" 
@@ -258,8 +258,8 @@ export default {
 							// url: '/pages/user-login/user-login'
 							// });
 						} else {
-							uni.redirectTo({
-								url: "/pages/package-user/pages/login-success/login-success",
+							uni.switchTab({
+								url: "/pages/index/index",
 							});
 						}
 
@@ -286,52 +286,15 @@ export default {
 		 */
 		loginErrHandle(err) {
 			if (
-				err.code === "A00001" ||
-				err.code === "A00005" ||
-				err.code === "A00006"
+				err.code === 500
 			) {
 				uni.showToast({
 					title: err.msg || "Error",
 					icon: "none",
 				});
 			}
-			if (err.code === "A00012") {
-				// 还原全局 正在登录状态
-				getApp().globalData.isLanding = false;
-				while (getApp().globalData.requestQueue.length) {
-					http.request(getApp().globalData.requestQueue.pop());
-					getApp().globalData.currentReqCounts--;
-				}
-				// tempUid 错误，重新获取
-				uni.removeStorageSync("bbcTempUid");
-				uni.showModal({
-					showCancel: false,
-					title: '提示',
-					content: '登录信息异常，请重新登录',
-					confirmText: '确定',
-					success: (res) => {
-						if (res.confirm) {
-							// #ifdef H5
-							window.history.replaceState({},
-								"",
-								window.location.href.split("?")[0]
-							);
-							// #endif
-							util.weChatLogin();
-						}
-					},
-				});
-			}
-			if (err.code === "A04002") {
-				// 弹窗
-				uni.showModal({
-					showCancel: false,
-					title: '该账户已绑定其他微信',
-					content: '一个账户只能绑定一个微信，您的手机号已经绑定了其他微信，请您先解除后再尝试。',
-					confirmText: '知道了',
-					confirmColor: "#F81A1A",
-				});
-			}
+
+
 		},
 
 		/**
