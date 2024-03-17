@@ -34,18 +34,10 @@ const setRouteUrlAfterLogin = () => {
 };
 
 // 登录返回上一页
-const previousPage = (isRefreshToken) => {
+const previousPage = () => {
   const routeUrlAfterLogin = uni.getStorageSync("bbcRouteUrlAfterLogin");
   const pages = getCurrentPages();
   const nowRoute = pages[pages.length - 1].route;
-  // 若为刷新token的登录
-  if (isRefreshToken) {
-    // 在登录页面登录时
-    if (nowRoute === "pages/user-login/user-login") {
-      util.toHomePage();
-    }
-    return;
-  }
 
   if (pages.length === 1) {
     uni.reLaunch({
@@ -56,7 +48,6 @@ const previousPage = (isRefreshToken) => {
   }
 
   const prevPage = pages[pages.length - 2];
-
   if (!prevPage) {
     util.toHomePage();
     return;
@@ -157,7 +148,7 @@ const loginByCode = (code) => {
     method: "POST",
     data: JSON.stringify({ code: code, loginType: 1 }),
     callBack: (res) => {
-      console.log(1)
+      console.log(1);
       if (!res.id) {
         uni.setStorageSync("bbcTempUid", res);
       } else {
@@ -190,28 +181,7 @@ const loginByCode = (code) => {
   http.request(params);
 };
 
-/**
- * 登录成功
- * @param {Object} loginRes 登录成功返回的数据
- * @param {Boolean} isRefreshToken 该次登录是否为刷新token;
- */
-const loginSuccess = (loginRes, isRefreshToken) => {
-  uni.setStorageSync("bbcIsPrivacy", 1);
-  uni.setStorageSync("bbcHadLogin", true);
-  uni.setStorageSync("bbcToken", loginRes.accessToken);
-  uni.setStorageSync("bbcLoginResult", loginRes); // 保存整个登录数据
-  const expiresTimeStamp =
-    (loginRes.expiresIn * 1000) / 2 + new Date().getTime();
-  // 缓存token的过期时间
-  uni.setStorageSync("bbcExpiresTimeStamp", expiresTimeStamp);
 
-  // 还原全局 正在登录状态
-  getApp().globalData.isLanding = false;
-  while (getApp().globalData.requestQueue.length) {
-    http.request(getApp().globalData.requestQueue.pop());
-  }
-  // previousPage(isRefreshToken);
-};
 
 export const util = {
   checkAuthInfo,
@@ -219,8 +189,7 @@ export const util = {
   toHomePage,
   debounce,
   checkPhoneNumber,
-  weChatLogin,
-  loginSuccess,
+  weChatLogin
 };
 
 module.exports = util;

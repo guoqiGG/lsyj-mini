@@ -25,7 +25,7 @@
 				<label class="statement-label" @tap.stop="handlePrivacyClick">
 					<checkbox class="check-box" :checked="isPrivacy === 1" />
 					<view style="color: #979797">
-						我已阅读并同意氢春态6欢乐团
+						我已阅读并同意氢春态7欢乐团
 						<text @tap.stop="toTermsOfService('serviceTerms')">《服务条款》</text>
 						<text style="color: #979797">和</text>
 						<text @tap.stop="toTermsOfService('servicePolicy')">《隐私协议》</text>
@@ -37,7 +37,7 @@
 		<view>
 			<u-popup :show="showAuth">
 				<view class="con-container">
-					<view class="title"><text>氢春态6欢乐团 申请</text></view>
+					<view class="title"><text>氢春态7欢乐团 申请</text></view>
 					<view class="desc">
 						<view class="desc-big"><text>获取您的昵称、头像</text></view>
 						<view class="desc-small"><text>提供具有辨识度的用户中心界面</text></view>
@@ -133,16 +133,6 @@ export default {
 		uni.setNavigationBarTitle({
 			title: '用户登录'
 		});
-
-		// // // 如果没有tempUid 则先获取
-		// util.weChatLogin()
-		// setTimeout(() => {
-		//   if (uni.getStorageSync('noAuth')) {
-		//     this.showAuth = true
-		//   } else {
-		//     this.showAuth = false
-		//   }
-		// }, 1000)
 
 		if (getApp().globalData.isLanding) return;
 		// 改变全局中登录
@@ -250,19 +240,8 @@ export default {
 						while (getApp().globalData.requestQueue.length) {
 							http.request(getApp().globalData.requestQueue.pop());
 						}
-
-						let routeUrl = uni.getStorageSync("routeUrl")
-						if (routeUrl) {
-							// 跳转到 "领取礼品卡" 
-							// uni.switchTab({
-							// url: '/pages/user-login/user-login'
-							// });
-						} else {
-							uni.switchTab({
-								url: "/pages/index/index",
-							});
-						}
-
+						// 返回未登录前点击的页面
+						util.previousPage()
 					}
 				},
 				errCallBack: (err) => {

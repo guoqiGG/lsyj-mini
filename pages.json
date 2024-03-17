@@ -42,15 +42,15 @@
         "navigationBarTextStyle": "white"
       }
     }
-    ,
-    {
-      "path": "pages/discover/discover",
-      "style": {
-        "navigationBarTitleText": "发现",
-        "navigationBarBackgroundColor": "#025BFF",
-        "navigationBarTextStyle": "white"
-      }
-    }
+    // ,
+    // {
+    //   "path": "pages/discover/discover",
+    //   "style": {
+    //     "navigationBarTitleText": "发现",
+    //     "navigationBarBackgroundColor": "#025BFF",
+    //     "navigationBarTextStyle": "white"
+    //   }
+    // }
   ],
   "subPackages": [
     {
@@ -274,12 +274,12 @@
         "iconPath": "/static/tabbar/uncheck-classify.png",
         "selectedIconPath": "/static/tabbar/selected-classify.png"
       },
-      {
-        "pagePath": "pages/discover/discover",
-        "text": "发现",
-        "iconPath": "/static/tabbar/uncheck-video.png",
-        "selectedIconPath": "/static/tabbar/selected-video.png"
-      },
+      // {
+      //   "pagePath": "pages/discover/discover",
+      //   "text": "发现",
+      //   "iconPath": "/static/tabbar/uncheck-video.png",
+      //   "selectedIconPath": "/static/tabbar/selected-video.png"
+      // },
       {
         "pagePath": "pages/user/user",
         "text": "我的",
