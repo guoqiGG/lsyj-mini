@@ -243,7 +243,8 @@ button::after {
   align-items: center;
 }
 .con-container {
-  padding: 50rpx 46rpx 70rpx;
+  /* padding: 50rpx 46rpx 70rpx; */
+  padding: 50rpx 0rpx 70rpx;
 }
 .con-container .title {
   font-weight: 400;
@@ -257,6 +258,7 @@ button::after {
 }
 .con-container .desc {
   margin-top: 34rpx;
+  padding: 0rpx 46rpx 0rpx;
 }
 .con-container .desc .desc-big {
   font-weight: 400;
@@ -299,16 +301,20 @@ button::after {
   width: 100%;
   height: 1rpx;
   background: #e6e6e6;
-  margin: 22rpx 0;
+  margin: 22rpx 0 0rpx;
 }
 .con-container .avatar,
 .con-container .name {
+	height: 84rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
+  background: linear-gradient(270deg, #FFFFFF 0%, #B4CEFF 100%);
+  padding: 14rpx 46rpx;
 }
 .con-container .avatar .avatar-title,
 .con-container .name .name-title {
+	width: 80rpx;
   font-weight: 400;
   font-size: 28rpx;
   color: #101010;
@@ -319,19 +325,20 @@ button::after {
   margin-right: 58rpx;
 }
 .con-container .avatar .avatar-img {
-  width: 78rpx;
-  height: 78rpx;
+width: 100%;
+		height: 100%;
   background: #f4f4f4;
   border-radius: 8rpx 8rpx 8rpx 8rpx;
   overflow: hidden;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 .con-container .avatar .avatar-img image {
-  width: 100%;
-  height: 100%;
+ width: 78rpx;
+ height: 78rpx;
 }
-.con-container .name {
-  padding: 14rpx 0;
-}
+
 .con-container .name .name-input {
   font-weight: 400;
   font-size: 28rpx;
