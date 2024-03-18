@@ -169,7 +169,7 @@
 		<hCompress ref="hCompress" />
 		<!-- 授权登录 -->
 		<view>
-			<u-popup :show="showAuth" closeable="true" @close="closeShowAuthPopup" >
+			<u-popup :show="showAuth" closeable="true" @close="closeShowAuthPopup">
 				<view class="con-container">
 					<view class="title"><text>氢春态7欢乐团 申请</text></view>
 					<view class="desc">
@@ -236,8 +236,10 @@
 			},
 			// 跳转订单列表
 			goOrderList(orderId) {
-				uni.navigateTo({
-					url: '/pages/package-user/pages/order-list/order-list?id=' + orderId
+				util.checkAuthInfo(() => {
+					uni.navigateTo({
+						url: '/pages/package-user/pages/order-list/order-list?id=' + orderId
+					})
 				})
 			},
 			// 跳转我的卡包
@@ -258,8 +260,10 @@
 			},
 			// 跳转系统设置
 			toSystemSetUp() {
-				uni.navigateTo({
-					url: '/pages/package-user/pages/account-settings/account-settings'
+				util.checkAuthInfo(() => {
+					uni.navigateTo({
+						url: '/pages/package-user/pages/account-settings/account-settings'
+					})
 				})
 			},
 			goLeader() {
