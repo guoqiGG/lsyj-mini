@@ -3,37 +3,41 @@
 		<view class="order-detail-backgroundImg">
 			<image src="/pages/package-user/static/order-detail-bg.png" mode=""></image>
 		</view>
+		<!-- v-if="orderDetail.orderStatus!=5&&orderDetail.orderStatus!=1" -->
 		<view class="order-detail-status">
 			<view class="order-detail-status-content">
 				<view class="status-img-box">
-					<image v-if="orderDetail.orderStatus>1" class="status-img" src="/pages/package-user/static/order-detail-status.png"
-						mode=""></image>
-					<image v-else class="status-img" src="/pages/package-user/static/order-detail-status.png" mode=""></image>
+					<image v-if="orderDetail.orderStatus>1&&orderDetail.orderStatus!=5" class="status-img"
+						src="/pages/package-user/static/order-detail-status.png" mode=""></image>
+					<image v-else class="status-img" src="/pages/package-user/static/order-detail-status2.png" mode="">
+					</image>
 				</view>
-				<view class="status-text" :class="1==1?'isSelectColor':''">
+				<view class="status-text"
+					:class="orderDetail.orderStatus>1&&orderDetail.orderStatus!=5?'isSelectColor':''">
 					买家付款
 				</view>
 			</view>
 			<view class="order-detail-status-content">
 				<view class="status-img-box">
-					<image v-if="orderDetail.orderStatus>2" class="status-img" src="/pages/package-user/static/order-detail-status.png"
-						mode=""></image>
+					<image v-if="orderDetail.orderStatus>2&&orderDetail.orderStatus!=5" class="status-img"
+						src="/pages/package-user/static/order-detail-status.png" mode=""></image>
 					<image v-else class="status-img" src="/pages/package-user/static/order-detail-status2.png" mode="">
 					</image>
 				</view>
-				<view class="status-text" :class="1==2?'isSelectColor':''">
+				<view class="status-text"
+					:class="orderDetail.orderStatus>2&&orderDetail.orderStatus!=5?'isSelectColor':''">
 					商品发货
 				</view>
 			</view>
 			<view class="order-detail-status-content">
 				<view class="status-img-box">
-
-					<image v-if="orderDetail.orderStatus>3" class="status-img" src="/pages/package-user/static/order-detail-status.png"
-						mode=""></image>
+					<image v-if="orderDetail.orderStatus>3&&orderDetail.orderStatus!=5" class="status-img"
+						src="/pages/package-user/static/order-detail-status.png" mode=""></image>
 					<image v-else class="status-img" src="/pages/package-user/static/order-detail-status2.png" mode="">
 					</image>
 				</view>
-				<view class="status-text" :class="1==2?'isSelectColor':''">
+				<view class="status-text"
+					:class="orderDetail.orderStatus>3&&orderDetail.orderStatus!=5?'isSelectColor':''">
 					交易完成
 				</view>
 			</view>
@@ -68,7 +72,8 @@
 						<text>￥{{orderDetail.orderGoods[0].salePrice}}</text>
 						<text style="color: #979797;margin-left: 20rpx;">{{orderDetail.goodsCount}}件</text>
 					</view>
-					<view class="btn" @click="applyRefund(orderDetail.orderId)">
+					<view class="btn" @click="applyRefund(orderDetail.orderId)"
+						v-if="orderDetail.orderStatus!=5&&orderDetail.orderStatus!=1">
 						申请退款
 					</view>
 				</view>
@@ -94,7 +99,7 @@
 				<text style="color: #9E9E9E;">配送方式：</text>
 				<text>{{orderDetail.orderType===1?'快递配送':orderDetail.orderType===2?'到店自提':''}}</text>
 			</view>
-			<view class="btn">
+			<view class="btn" @tap="copyText(orderDetail.orderId)">
 				复制
 			</view>
 		</view>
@@ -109,10 +114,12 @@
 			</view>
 			<view class="item">
 				<text></text>
-				<text style="color:#C53032">订单总额：<text style="font-size: 32rpx;">￥{{orderDetail.totalAmount}}</text></text>
+				<text style="color:#C53032">订单总额：<text
+						style="font-size: 32rpx;">￥{{orderDetail.totalAmount}}</text></text>
 			</view>
 		</view>
-		<view class="refundBtn" @click="applyRefund(orderDetail.orderId)">
+		<view class="refundBtn" @click="applyRefund(orderDetail.orderId)"
+			v-if="orderDetail.orderStatus!=5&&orderDetail.orderStatus!=1">
 			<view class="btn">
 				整单退款
 			</view>
@@ -122,12 +129,13 @@
 
 <script>
 	const http = require("@/utils/http");
+	import uniCopy from "@/components/js_sdk/copy/uni-copy.js";
 	export default {
 		data() {
 			return {
 				orderId: null, //订单id
 				loginToken: null,
-				orderDetail:null,
+				orderDetail: null,
 			}
 		},
 		onLoad(option) {
@@ -160,12 +168,30 @@
 
 			},
 			// 申请退款
-			applyRefund(orderId){
+			applyRefund(orderId) {
 				uni.navigateTo({
-					url:`/pages/package-refund/pages/apply-refund/apply-refund?orderId=`+orderId
+					url: `/pages/package-refund/pages/apply-refund/apply-refund?orderId=` + orderId
 				})
-		
+
 			},
+			copyText(text) {
+				uniCopy({
+					content: text,
+					success: (res) => {
+						uni.showToast({
+							title: res,
+							icon: "none",
+						});
+					},
+					error: (e) => {
+						uni.showToast({
+							title: e,
+							icon: "none",
+							duration: 3000,
+						});
+					},
+				});
+			}
 
 		}
 	}
@@ -302,14 +328,16 @@
 					}
 
 					.btn {
+						
 						width: 132rpx;
-						height: 36rpx;
+						height: 46rpx;
 						font-weight: 400;
-						font-size: 22rpx;
-						color: #C53032;
+						font-size: 24rpx;
+						line-height: 46rpx;
 						text-align: center;
-						background: #FFFFFF;
-						border-radius: 18rpx 18rpx 18rpx 18rpx;
+						border-radius: 30rpx;
+						color: #C53032;
+						border-radius:26rpx ;
 						border: 2rpx solid #C53032;
 
 					}
@@ -342,6 +370,7 @@
 				top: 30rpx;
 				width: 90rpx;
 				height: 36rpx;
+
 				background: #FFFFFF;
 				border-radius: 38rpx 38rpx 38rpx 38rpx;
 				border: 2rpx solid #979797;
@@ -379,10 +408,10 @@
 
 			.btn {
 				width: 164rpx;
-				height: 62rpx;
+				height: 54rpx;
 				border-radius: 31rpx;
 				border: 2rpx solid #C53032;
-				line-height: 62rpx;
+				line-height: 54rpx;
 				font-weight: 400;
 				font-size: 28rpx;
 				color: #C53032;

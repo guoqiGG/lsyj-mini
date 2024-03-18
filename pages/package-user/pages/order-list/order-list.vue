@@ -8,12 +8,13 @@
 						订单编号：{{item.orderId}}
 					</view>
 					<view class="order-list-content-box-title-right" :class="item.orderStatus>1?'blue':''">
-						<!-- // 00全部 1待支付 2待发货(已支付) 3已发货 4确认收货 -->
-						{{item.orderStatus===1?'待支付':item.orderStatus===2?'待发货':item.orderStatus===3?'已发货':item.orderStatus===4?'已完成':''}}
+						<!-- // 00全部 1待支付 2待发货(已支付) 3已发货 4确认收货  5已取消-->
+						{{item.orderStatus===1?'待支付':item.orderStatus===2?'待发货':item.orderStatus===3?'已发货':item.orderStatus===4?'已完成':item.orderStatus===5?'已取消':''}}
 					</view>
 				</view>
 				<view class="order-list-content-box-content" @click="goOrderDetail(item.orderId)">
-						<image class="order-list-content-box-content-img" :src="item.orderGoods[0].thumbail" mode=""></image>
+					<image class="order-list-content-box-content-img" :src="item.orderGoods[0].thumbail" mode="">
+					</image>
 					<view class="order-list-content-box-content-text">
 						<view class="title">
 							{{item.orderGoods[0].title}}
@@ -32,17 +33,25 @@
 				<view class="order-list-content-box-count">
 					共{{item.goodsCount}}件商品 总计：{{item.totalAmount}}
 				</view>
-				
-				<view class="order-list-content-box-btn"  v-if="item.orderStatus===1" @click="cancelOrder(item.orderId)">
-					<view class="cancelBtn">
+
+				<view class="order-list-content-box-btn">
+					<view class="cancelBtn" v-if="item.orderStatus===1" @click="cancelOrder(item.orderId)">
 						取消订单
 					</view>
+					<view class="cancelBtn"
+						style="margin-left: 20rpx;width: 120rpx;color: #D90024;border: 2rpx solid #D90024;"
+						v-if="item.orderStatus===1" @click="payOrder(item.orderId)">
+						付款
+					</view>
+
 				</view>
+
+
 			</view>
 			<!-- 空列表或加载全部提示 -->
 			<EmptyAllTips v-if="isLoaded" :isEmpty="!orderLists.length" :emptyTips="i18n.noCommodity"
 				:isAll="current == pages" />
-		
+
 		</view>
 	</view>
 
@@ -78,7 +87,7 @@
 				pageSIize: 10, //总页数
 				loginToken: null,
 				status: null,
-				userId:null,//用户id
+				userId: null, //用户id
 				activeLineStyle: {
 					width: '56rpx',
 					height: '2rpx',
@@ -88,16 +97,16 @@
 		},
 		onLoad(option) {
 			this.currentTab = option.id
-			if(this.currentTab==0){
-				this.status=this.list1[0].id
-			}else if(this.currentTab==1){
-				this.status=this.list1[1].id
-			}else if(this.currentTab==2){
-				this.status=this.list1[2].id
-			}else if(this.currentTab==3){
-				this.status=this.list1[3].id
-			}else if(this.currentTab==4){
-				this.status=this.list1[4].id
+			if (this.currentTab == 0) {
+				this.status = this.list1[0].id
+			} else if (this.currentTab == 1) {
+				this.status = this.list1[1].id
+			} else if (this.currentTab == 2) {
+				this.status = this.list1[2].id
+			} else if (this.currentTab == 3) {
+				this.status = this.list1[3].id
+			} else if (this.currentTab == 4) {
+				this.status = this.list1[4].id
 			}
 		},
 		onShow() {
@@ -110,11 +119,11 @@
 			// 跳转取订单详情
 			goOrderDetail(orderId) {
 				uni.navigateTo({
-					url:`/pages/package-user/pages/order-detail/order-detail?orderId=`+orderId
+					url: `/pages/package-user/pages/order-detail/order-detail?orderId=` + orderId
 				})
 			},
 			// 取消订单
-			cancelOrder(orderId){
+			cancelOrder(orderId) {
 				let obj = {
 					orderId: orderId,
 					userId: this.userId,
@@ -128,13 +137,45 @@
 						data: JSON.stringify(obj),
 					},
 					callBack: (res) => {
-						  uni.showToast({
-						    title: "取消成功~",
-						    icon: "none",
-						  });
+						uni.showToast({
+							title: "取消成功~",
+							icon: "none",
+						});
 					},
 				}
 				http.request(params);
+			},
+			// 支付 dvyType 2自提 1快递
+			payOrder(orderId) {
+				const params = {
+					url: '/pub/pay/order',
+					method: 'POST',
+					data: {
+						sign: "qcsd",
+						data: JSON.stringify({
+							orderId: orderId,
+							payType: 10,
+							loginToken: this.loginToken
+						})
+					},
+					callBack: (res) => {
+						wx.requestPayment({
+							timeStamp: res.timeStamp,
+							nonceStr: res.nonceStr,
+							package: res.packageValue,
+							signType: res.signType,
+							paySign: res.paySign,
+							success: e => {
+								console.log('success', e)
+								this.getOrderLists()
+							},
+							fail: (e) => {
+								console.log('failed', e)
+							}
+						})
+					}
+				}
+				http.request(params)
 			},
 			handleTabClick(e) {
 				this.currentTab = e.index;
@@ -172,7 +213,7 @@
 		 * 页面上拉触底事件的处理函数
 		 */
 		onReachBottom() {
-			
+
 			if (this.pageNo < this.pageSIize) {
 				this.pageNo = this.pageNo + 1
 				this.getOrderLists()
@@ -217,7 +258,8 @@
 			display: flex;
 			justify-content: space-between;
 			margin-bottom: 26rpx;
-			.blue{
+
+			.blue {
 				color: #025BFF;
 			}
 		}
@@ -230,7 +272,6 @@
 				height: 220rpx;
 				margin-right: 22rpx;
 				border-radius: 12rpx
-			
 			}
 
 			.order-list-content-box-content-text {
@@ -256,19 +297,21 @@
 			display: flex;
 			justify-content: flex-end;
 		}
-		.order-list-content-box-btn{
+
+		.order-list-content-box-btn {
 			width: 100%;
 			height: 54rpx;
 			display: flex;
 			justify-content: flex-end;
 			margin: 10rpx;
-			.cancelBtn{
+
+			.cancelBtn {
 				width: 168rpx;
 				height: 54rpx;
-				border: 2rpx solid #D90024;
+				border: 2rpx solid #979797;
 				font-weight: 400;
 				font-size: 24rpx;
-				color: #D90024;
+				color: #979797;
 				line-height: 54rpx;
 				text-align: center;
 				border-radius: 30rpx;

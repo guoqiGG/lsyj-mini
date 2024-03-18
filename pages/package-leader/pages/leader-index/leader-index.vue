@@ -118,7 +118,7 @@
 						<u-icon name="arrow-right" size="28"></u-icon>
 					</view>
 				</view>
-				<view class="list-line">
+				<view class="list-line" @click="liveBroadcast()">
 					<view class="list-line-lf">
 						<view class="list-line-lf-img">
 							<image src="/pages/package-leader/static/hx.png" mode=""></image>
@@ -178,6 +178,12 @@ export default {
 		goToFriends() {
 			uni.navigateTo({
 				url: "/pages/package-leader/pages/my-friends/my-friends"
+			})
+		},
+		// 直播间
+		liveBroadcast(){
+			uni.navigateTo({
+				url: "/pages/package-leader/pages/live-broadcast/live-broadcast"
 			})
 		},
 		// 查询团长信息

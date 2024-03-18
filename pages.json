@@ -219,7 +219,23 @@
             "navigationBarBackgroundColor": "#025BFF",
             "navigationBarTextStyle": "white"
           }
-        }
+        },
+		{
+		  "path": "pages/live-broadcast/live-broadcast",
+		  "style": {
+		    "navigationBarTitleText": "直播间",
+		    "navigationBarBackgroundColor": "#025BFF",
+		    "navigationBarTextStyle": "white"
+		  }
+		},
+		{
+		  "path": "pages/live-room/live-room",
+		  "style": {
+		    "navigationBarTitleText": "直播间",
+		    "navigationBarBackgroundColor": "#025BFF",
+		    "navigationBarTextStyle": "white"
+		  }
+		}
       ]
     },
     {

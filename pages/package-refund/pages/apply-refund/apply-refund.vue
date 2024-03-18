@@ -5,16 +5,19 @@
 			<u-line></u-line>
 			<view class="refund-info-content">
 				<view class="refund-info-content-img">
-					<image style="width: 100%;height: 100%;border-radius: 14rpx;" :src="orderDetail.orderGoods[0].thumbail" mode=""></image>
+					<image style="width: 100%;height: 100%;border-radius: 14rpx;"
+						:src="orderDetail.orderGoods[0].thumbail" mode=""></image>
 				</view>
 				<view class="refund-info-content-text">
 					<view class="refund-info-content-text-title">
 						商品退款
 					</view>
 					<view class="refund-info-content-text-content">
-						<view class="refund-info-content-text-content-price" >
-							<text style="color: #C53032;font-size: 32rpx;">￥{{orderDetail.orderGoods[0].salePrice}}</text>
-							<text style="margin-left: 14rpx;color: #979797;font-size: 24rpx;">{{orderDetail.goodsCount}}件</text>
+						<view class="refund-info-content-text-content-price">
+							<text
+								style="color: #C53032;font-size: 32rpx;">￥{{orderDetail.orderGoods[0].salePrice}}</text>
+							<text
+								style="margin-left: 14rpx;color: #979797;font-size: 24rpx;">{{orderDetail.goodsCount}}件</text>
 						</view>
 					</view>
 				</view>
@@ -22,8 +25,8 @@
 		</view>
 
 		<u-cell-group>
-			<u-cell title="退款方式" value="仅退款"></u-cell>
-			<u-cell title="退款原因" value="拍错/多拍/不喜欢" isLink></u-cell>
+			<u-cell title="退款方式" :value="refundMethod" isLink @click="pickerMethod()"></u-cell>
+			<u-cell title="退款原因" :value="refundReason" isLink @click="pickerReason()"></u-cell>
 		</u-cell-group>
 		<u-cell-group>
 			<u-cell title="退款金额" :value="orderDetail.totalAmount"></u-cell>
@@ -31,35 +34,53 @@
 		<view class="u-form">
 			<u--form labelPosition="left">
 				<u-form-item labelWidth="208rpx" label="手机号码" borderBottom>
-					<input class="" placeholder="请输入手机号码" type="text" :value="orderDetail.userPhone" maxlength="11"
-					  @input="onAddrInput" />
-					<!-- {{orderDetail.userPhone}} -->
+					<input class="" placeholder="请输入手机号码" type="text" :value="orderDetail.userPhone" maxlength="11" />
 				</u-form-item>
 				<u-form-item labelWidth="208rpx" label="退款说明" borderBottom>
-					<input class="" placeholder="必填最多50字" type="text" value="" maxlength="50"
-					  @input="onAddrInput" />
+					<input class="" placeholder="必填最多50字" type="text" :value="remark" maxlength="50"
+						@input="onAddrInput" />
 				</u-form-item>
-				<u-form-item labelWidth="208rpx" label="退款凭证" borderBottom>
+				<!-- <u-form-item labelWidth="208rpx" label="退款凭证" borderBottom>
 					<u-upload :fileList="fileList1" @afterRead="afterRead" @delete="deletePic" name="1" multiple
 						:maxCount="10"></u-upload>
-				</u-form-item>
-
-
+				</u-form-item> -->
 			</u--form>
 		</view>
 		<view class="button-style" @click="applyRefund">
 			退款凭证
 		</view>
+
+		<!-- picker -->
+		<u-picker :show="show" :defaultIndex="defaultIndex" :columns="columns" @confirm="confirm"
+			@cancel="cancel"></u-picker>
+		<u-picker :show="show2" :defaultIndex="defaultIndex2" :columns="columns2" @confirm="confirm2"
+			@cancel="cancel2"></u-picker>
 	</view>
 </template>
 <script setup>
 	const http = require("@/utils/http");
+	const config = require("@/utils/config.js"); // 统一的网络请求方法
 	export default {
 		data() {
 			return {
+				fileList1: [],
+				defaultIndex: [0],
+				show: false,
+				columns: [
+					['拍错', '协商一致退款', '其他']
+				],
+				defaultIndex2: [0],
+				show2: false,
+				columns2: [
+					['仅退款', '退货退款', ]
+				],
 				orderNumber: null,
 				loginToken: null,
+				userId: null,
 				orderDetail: null,
+				refundMethod: "仅退款", //退款方式
+				refundReason: "拍错", //退款原因
+				remark: null, //备注
 			}
 		},
 		onLoad(option) {
@@ -67,11 +88,89 @@
 				this.orderNumber = option.orderId
 				let bbcLoginResult = uni.getStorageSync("bbcLoginResult"); //用户信息
 				this.loginToken = bbcLoginResult.loginToken
+				this.userId = bbcLoginResult.id
 				this.getOrderDetail()
 			}
 		},
-	
+
 		methods: {
+			// 删除图片
+			deletePic(event) {
+				this[`fileList${event.name}`].splice(event.index, 1)
+			},
+			// 新增图片
+			async afterRead(event) {
+				// 当设置 multiple 为 true 时, file 为数组格式，否则为对象格式
+				let lists = [].concat(event.file)
+				let fileListLen = this[`fileList${event.name}`].length
+				lists.map((item) => {
+					this[`fileList${event.name}`].push({
+						...item,
+						status: 'uploading',
+						message: '上传中'
+					})
+				})
+				for (let i = 0; i < lists.length; i++) {
+					const result = await this.uploadFilePromise(lists[i].url)
+					let item = this[`fileList${event.name}`][fileListLen]
+					this[`fileList${event.name}`].splice(fileListLen, 1, Object.assign(item, {
+						status: 'success',
+						message: '',
+						url: result
+					}))
+					fileListLen++
+				}
+			},
+			uploadFilePromise(url) {
+				console.log(config.domain,'config.domain')
+				let httpurl=config.domain+"/upload/oss"
+				console.log(httpurl,'httpurl====================>')
+				return new Promise((resolve, reject) => {
+					let a = uni.uploadFile({
+						url: config.domain+"/upload/oss", // 仅为示例，非真实的接口地址
+						filePath: url,
+						name: 'file',
+						formData: {
+							user: 'test'
+						},
+						success: (res) => {
+							setTimeout(() => {
+								resolve(res.data.data)
+							}, 1000)
+						}
+					});
+				})
+			},
+
+
+
+
+			pickerReason() {
+				this.show = true
+			},
+			confirm(e) {
+				this.defaultIndex = e.indexs[0]
+				this.refundReason = e.value[0]
+				this.show = false
+			},
+			cancel(e) {
+				this.show = false
+			},
+
+			pickerMethod() {
+				this.show2 = true
+			},
+			confirm2(e) {
+				this.defaultIndex2 = e.indexs[0]
+				this.refundMethod = e.value[0]
+				this.show2 = false
+			},
+			cancel2(e) {
+				this.show2 = false
+			},
+			onAddrInput(e) {
+				this.remark = e.detail.value
+			},
 			getOrderDetail() {
 				let obj = {
 					orderId: this.orderNumber,
@@ -92,10 +191,14 @@
 				http.request(params);
 
 			},
-			applyRefund(){
+			applyRefund() {
 				let obj = {
-					orderId: this.orderId,
 					loginToken: this.loginToken,
+					orderId: this.orderNumber,
+					userId: this.userId,
+					refundReason: this.defaultIndex+1,
+					remark: this.remark,
+					// pics:this.pics,
 				}
 				const params = {
 					url: "/pub/order/apply/refund",
@@ -106,8 +209,8 @@
 					},
 					callBack: (res) => {
 						uni.showToast({
-						  title: "申请成功~",
-						  icon: "none",
+							title: "申请成功~",
+							icon: "none",
 						});
 					},
 				}
@@ -136,7 +239,7 @@
 		.refund-info-content {
 			display: flex;
 			justify-content: flex-start;
-			padding: 48rpx 32rpx ;
+			padding: 48rpx 32rpx;
 
 			.refund-info-content-img {
 				margin-right: 16rpx;
@@ -150,6 +253,7 @@
 				display: flex;
 				flex-direction: column;
 				justify-content: space-between;
+
 				.refund-info-content-text-title {
 					font-size: 14px;
 				}

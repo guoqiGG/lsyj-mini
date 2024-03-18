@@ -100,7 +100,7 @@ export default {
       totalPrice: null, //总价格
       // totalSmallPrice: null,//总的小数
       chechIndex: 0, //选中商品规格 默认第一个
-      orderType: 1,// 1-配送单，2-自提单
+      orderType: 1,// 1-配送单，2-自提单   leaderType 0-有店 1-无店
     }
   },
   onLoad(option) {
@@ -110,9 +110,16 @@ export default {
     }
   },
   onShow() {
-    if (uni.getStorageSync('bbcUserInfo').leaderName && uni.getStorageSync('bbcUserInfo').leaderMobile) {
-      this.orderType = 2
-    }
+  //   if (uni.getStorageSync('bbcUserInfo').leaderName && uni.getStorageSync('bbcUserInfo').leaderMobile) {
+		// leaderType===0?
+		// 
+  //     this.orderType = 2
+  //   }
+	if(uni.getStorageSync('bbcUserInfo').leaderType===0){
+		this.orderType = 2
+	}else if(uni.getStorageSync('bbcUserInfo').leaderType===1){
+		this.orderType = 1
+	}
     this.skuShow = false
   },
   methods: {
