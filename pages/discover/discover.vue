@@ -9,7 +9,7 @@
 					<view v-for="(item, index) in list1" :key="item.id" class="waterfall-item">
 						<view class="waterfall-item__image" :style="[imageStyle(item)]">
 							<video :src="item.video" :show-bottom-progress="false" :style="[imageStyle(item)]"
-								:id="'video' + item.id"  @play="videoPlay(item.id)"></video>
+								:id="'video' + item.id" @play="videoPlay"></video>
 						</view>
 						<view class=" waterfall-item__ft">
 							<view class="waterfall-item__ft__title">
@@ -29,7 +29,7 @@
 					<view v-for="(item, index) in list2" :key="item.id" class="waterfall-item">
 						<view class="waterfall-item__image" :style="[imageStyle(item)]">
 							<video :src="item.video" :show-bottom-progress="false" :style="[imageStyle(item)]"
-								:id="'video' + item.id"  @play="videoPlay(item.id)"></video>
+								:id="'video' + item.id" @play="videoPlay"></video>
 						</view>
 						<view class="waterfall-item__ft">
 							<view class="waterfall-item__ft__title">
@@ -64,7 +64,9 @@
 				current: 1,
 				isLoaded: false,
 				isAll: false,
-				indexCurrent: null
+				indexCurrent: null,
+				videoContext: null,
+				vid: '',
 			}
 		},
 		computed: {
@@ -117,20 +119,42 @@
 					http.request(params)
 				})
 			},
-			videoPlay(currentId) {
-				this.list.map((item,index)=>{
-					if(item.id==currentId){
-						console.log('if')
-						let video = uni.createVideoContext("video" + currentId, this)
-						video.play()
-					}else{
-						console.log('else')
-						let video2 = uni.createVideoContext("video" + item.id, this)
-						video2.stop()
-					}
-				})
-				
+			// videoPlay(currentId) {
+			// 	this.list.map((item,index)=>{
+			// 		if(item.id==currentId){
+			// 			console.log('if')
+			// 			let video = uni.createVideoContext("video" + currentId, this)
+			// 			video.play()
+			// 		}else{
+			// 			console.log('else')
+			// 			let video2 = uni.createVideoContext("video" + item.id, this)
+			// 			video2.pause()
+			// 		}
+			// 	})
+
+			// },
+			videoPlay(event) {
+				console.log('打印', event);
+				// 获取当前播放视频的id
+				let vid = event.currentTarget.id;
+				// 如果播放的视频不等于默认的,并且存在这么一个视频对象,那么让这个视频对象暂停
+				this.vid !== vid && this.videoContext && this.videoContext.stop()
+				//视频对象换成最新的
+				this.videoContext = uni.createVideoContext(vid)
+				// 视频的id也换成当前点击的最新的了
+				this.vid = vid;
+				console.log(this.videoContext, 'this.videoContext')
+				console.log(this.vid, '	this.vid ')
 			},
+
+
+		},
+		onHide() {
+			// this.videoContexts.forEach(context => {
+			// 	context.pause();
+			// 	context.destroy();
+			// });
+			// this.videoContexts = [];
 		},
 		async onReachBottom() {
 			if (this.current < this.pages) {
