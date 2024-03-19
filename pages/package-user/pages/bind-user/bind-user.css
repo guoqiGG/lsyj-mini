@@ -1,0 +1,95 @@
+.container {
+  height: 100vh;
+  width: 100%;
+}
+.con {
+  margin: 250rpx 100rpx 0;
+  background: linear-gradient(90deg, #ffeae0 0%, #fdd9dc 100%);
+  box-shadow: 0rpx 8rpx 24rpx 0rpx rgba(141, 141, 141, 0.3);
+  border-radius: 5rpx;
+  position: relative;
+  height: 792rpx;
+  padding-top: 100rpx;
+  box-sizing: border-box;
+}
+.con .user-avatar {
+  position: absolute;
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  top: -70rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.con .user-avatar image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.user-name {
+  font-weight: 400;
+  font-size: 40rpx;
+  color: #101010;
+  line-height: 48rpx;
+  text-align: center;
+  font-style: normal;
+  text-transform: none;
+}
+.in-text {
+  margin-top: 48rpx;
+  font-weight: 400;
+  font-size: 32rpx;
+  color: #3d3d3d;
+  line-height: 48rpx;
+  letter-spacing: 1px;
+  text-align: center;
+  font-style: normal;
+  text-transform: none;
+}
+.invatation-img {
+  margin: 78rpx auto 0;
+  width: 356rpx;
+  height: 356rpx;
+  /* background: #d8d8d8; */
+  border-radius: 24rpx 24rpx 24rpx 24rpx;
+}
+.invatation-img image {
+  width: 100%;
+  height: 100%;
+  border-radius: 24rpx 24rpx 24rpx 24rpx;
+}
+.in-card-text {
+  margin-top: 54rpx;
+  font-weight: 400;
+  font-size: 28rpx;
+  color: #3d3d3d;
+  line-height: 48rpx;
+  /* letter-spacing: 7px; */
+  font-style: normal;
+  text-transform: none;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.in-card-text .line {
+  display: block;
+  width: 132rpx;
+  height: 4rpx;
+  background: #eeeeee;
+}
+.in-card-text .title {
+  padding: 0 20rpx;
+}
+
+.download {
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #3d3d3d;
+  line-height: 48rpx;
+  text-align: center;
+  font-style: normal;
+  text-transform: none;
+  margin-top: 46rpx;
+}

@@ -104,27 +104,58 @@ export default {
 		console.log('options.scene', options)
 		// 团长绑定用户
 		if (options.scene) {
+
+
 			if (uni.getStorageSync('bbcToken')) {
-				http.request({
-					url: '/pub/leader/binding',
-					methods: 'POST',
-					data: {
-						sign: 'qcsd',
-						data: JSON.stringify({
-							loginToken: uni.getStorageSync('bbcToken'),
-							parentId: options.scene
-						})
-					},
-					callBack: (res) => {
-						if (res.loginToken) {
-							uni.setStorageSync('bbcToken', res.loginToken)
+				if (options.scene.includes('/')) { // 团长扫用户
+					let userId = options.scene.split('/')[0]
+					let giftId = options.scene.split('/')[1]
+					let userToken = options.scene.split('/')[2]
+					http.request({
+						url: '/pub/user/leader/binding',
+						methods: 'POST',
+						data: {
+							sign: 'qcsd',
+							data: JSON.stringify({
+								loginToken: uni.getStorageSync('bbcToken'),
+								userId: userId,
+								giftRuleUserId: giftId,
+								userToken: userToken
+							})
+						},
+						callBack: (res) => {
+							if (res.loginToken) {
+								uni.setStorageSync('bbcToken', res.loginToken)
+							}
+							uni.showToast({
+								title: '核销成功',
+								icon: 'none',
+							})
 						}
-						uni.showToast({
-							title: '绑定成功',
-							icon: 'none',
-						})
-					}
-				})
+					})
+				} else { // 用户扫团长
+					http.request({
+						url: '/pub/leader/binding',
+						methods: 'POST',
+						data: {
+							sign: 'qcsd',
+							data: JSON.stringify({
+								loginToken: uni.getStorageSync('bbcToken'),
+								parentId: options.scene
+							})
+						},
+						callBack: (res) => {
+							if (res.loginToken) {
+								uni.setStorageSync('bbcToken', res.loginToken)
+							}
+							uni.showToast({
+								title: '绑定成功',
+								icon: 'none',
+							})
+						}
+					})
+				}
+
 			} else {
 				util.checkAuthInfo(() => {
 				})

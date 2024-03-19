@@ -7,7 +7,7 @@
             </view>
         </view>
         <view class="container">
-            <view class="item" v-for="item,index in dataList" :key="index">
+            <view class="item" v-for="item, index in dataList" :key="index">
                 <view class="left">
                     <image src="../../static/icon_delivery.png" mode="scaleToFill" />
                 </view>
@@ -23,9 +23,20 @@
                     @tap="syntheticGiftCard(coupon_state == 1 ? item.giftId : item.id, userId)">
                     <text class="text">合并</text>
                 </view>
-                <view class="use" v-if="coupon_state == '2' && item.status == 0"
-                    @tap="writeOffSyntheticGiftCard(coupon_state == 1 ? item.giftId : item.id, userId)">核销
+
+                <view class="use" v-if="coupon_state == 1 && item.type == 2"
+                    @tap="syntheticGiftCard(coupon_state == 1 ? item.giftId : item.id, userId)">
+                    <text class="text">合并</text>
                 </view>
+
+                <view class="use" v-if="coupon_state == '2' && item.status == 0 && item.type == 0"
+                    @tap="writeOffSyntheticGiftCard(item.id, userId)">核销
+                </view>
+
+                <view class="use" v-if="coupon_state == '2' && item.status == 0 && item.type == 2"
+                    @tap="toBindLeader(item.id)">扫码核销
+                </view>
+
                 <view class="use used" v-if="coupon_state == '2' && item.status == 1">已核销</view>
             </view>
             <!-- 空列表或加载全部提示 -->
@@ -54,10 +65,12 @@ export default {
         uni.setNavigationBarTitle({
             title: "我的卡包",
         });
-        if (uni.getStorageSync('bbcUserInfo')) {
-            this.userId = uni.getStorageSync('bbcUserInfo').id
-        }
-        this.getGiftCardList()
+        util.checkAuthInfo(() => {
+            if (uni.getStorageSync('bbcUserInfo')) {
+                this.userId = uni.getStorageSync('bbcUserInfo').id
+            }
+            this.getGiftCardList()
+        })
     },
     methods: {
         // 标签切换事件
@@ -181,9 +194,15 @@ export default {
                 },
             });
         }, 1000
-        )
-    },
+        ),
+        toBindLeader: util.debounce(function (id) {
+            console.log('/pages/package-user/pages/bind-user/bind-user?giftId=' + id)
 
+            uni.navigateTo({
+                url: '/pages/package-user/pages/bind-user/bind-user?giftId=' + id
+            })
+        }, 1000),
+    },
     /**
     * 页面上拉触底事件的处理函数
     */
