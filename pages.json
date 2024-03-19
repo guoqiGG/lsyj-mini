@@ -156,6 +156,7 @@
         {
           "path": "pages/exchange-area/exchange-area",
           "style": {
+            "navigationBarTitleText": "领取礼品卡",
             "navigationBarBackgroundColor": "#025BFF",
             "navigationBarTextStyle": "white"
           }

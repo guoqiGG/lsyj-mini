@@ -148,14 +148,14 @@ export default {
                             icon: 'none',
                             mask: true
                         })
+                        this.pages = 1
+                        this.current = 1
+                        this.getGiftCardList()
 
                     }
                 },
             }
             http.request(params);
-            this.pages = 1
-            this.current = 1
-            this.getGiftCardList()
         }, 1000),
         // 核销合成礼品卡
         writeOffSyntheticGiftCard: util.debounce(function (id, userId) {

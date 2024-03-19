@@ -104,20 +104,16 @@ export default {
 		console.log('options.scene', options)
 		// 团长绑定用户
 		if (options.scene) {
-
-
 			if (uni.getStorageSync('bbcToken')) {
-				if (options.scene.includes('/')) { // 团长扫用户
-					let userId = options.scene.split('/')[0]
-					let giftId = options.scene.split('/')[1]
-					let userToken = options.scene.split('/')[2]
+				if (options.scene.includes('*')) { // 团长扫用户
+					let userId = options.scene.split('*')[0]
+					let giftId = options.scene.split('*')[1]
 					http.request({
 						url: '/pub/user/leader/binding',
 						methods: 'POST',
 						data: {
 							sign: 'qcsd',
 							data: JSON.stringify({
-								loginToken: uni.getStorageSync('bbcToken'),
 								userId: userId,
 								giftRuleUserId: giftId,
 								userToken: userToken

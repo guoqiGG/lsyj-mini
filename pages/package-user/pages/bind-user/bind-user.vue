@@ -56,7 +56,7 @@ export default {
         getInvitationCode() {
             // 请求小程序菊花码
             const params = {
-                url: '/pub/leader/qr/code?scene=' + this.userInfo.id + '/' + this.giftId + '/' + uni.getStorageSync('bbcToken'),
+                url: '/pub/leader/qr/code?scene=' + this.userInfo.id + '*' + this.giftId,
                 method: 'GET',
                 responseType: 'arraybuffer',
                 callBack: (res) => {
