@@ -105,7 +105,8 @@ export default {
 		// 团长绑定用户
 		if (options.scene) {
 			if (uni.getStorageSync('bbcToken')) {
-				if (options.scene.includes('*')) { // 团长扫用户
+				console.log(decodeURIComponent(options.scene))
+				if (decodeURIComponent(options.scene).includes('*')) { // 团长扫用户
 					let userId = options.scene.split('*')[0]
 					let giftId = options.scene.split('*')[1]
 					http.request({
@@ -116,7 +117,7 @@ export default {
 							data: JSON.stringify({
 								userId: userId,
 								giftRuleUserId: giftId,
-								userToken: userToken
+								loginToken: uni.getStorageSync('bbcToken')
 							})
 						},
 						callBack: (res) => {

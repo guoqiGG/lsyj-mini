@@ -69,7 +69,19 @@ export default {
             if (uni.getStorageSync('bbcUserInfo')) {
                 this.userId = uni.getStorageSync('bbcUserInfo').id
             }
-            this.getGiftCardList()
+            const params = {
+                url: "/pub/user/update/gift",
+                method: "POST",
+                data: JSON.stringify({
+                    userId: uni.getStorageSync('bbcUserInfo').id,
+                    openid: uni.getStorageSync('bbcUserInfo').openId
+                }),
+                callBack: (res) => {
+                    this.getGiftCardList()
+                },
+            }
+            http.request(params);
+
         })
     },
     methods: {
