@@ -108,6 +108,7 @@ Vue.prototype.toFixxed = (val) => {
   }
   return toFixxed(2, val);
 };
+
 app.$mount();
 // #endif
 

@@ -118,78 +118,12 @@ const checkPhoneNumber = (phoneNumber) => {
   return regexp.test(phoneNumber);
 };
 
-/**
- * 微信环境统一登录方法 (公众号 & 小程序)
- */
-const weChatLogin = () => {
-  if (getApp().globalData.isLanding) return;
-  // 改变全局中登录
-  const globalData = getApp().globalData;
-  globalData.isLanding = true;
-
-  // 微信小程序
-  // 请求微信接口获取 code
-  wx.login({
-    success: (res) => {
-      // 用code 请求登录
-      loginByCode(res.code);
-    },
-  });
-  return;
-};
-
-/**
- * 通过微信返回的code登录
- * @param {String} code 请求微信返回的 code
- */
-const loginByCode = (code) => {
-  const params = {
-    url: "/pub/user/login/auth",
-    method: "POST",
-    data: JSON.stringify({ code: code, loginType: 1 }),
-    callBack: (res) => {
-      console.log(1);
-      if (!res.id) {
-        uni.setStorageSync("bbcTempUid", res);
-      } else {
-        uni.setStorageSync("bbcTempUid", res.openId);
-      }
-
-      // 还原全局 正在登录状态
-      getApp().globalData.isLanding = false;
-      while (getApp().globalData.requestQueue.length) {
-        http.request(getApp().globalData.requestQueue.pop());
-        getApp().globalData.currentReqCounts--;
-      }
-    },
-    errCallBack: () => {
-      // 还原全局 正在登录状态
-      getApp().globalData.isLanding = false;
-      while (getApp().globalData.requestQueue.length) {
-        http.request(getApp().globalData.requestQueue.pop());
-        getApp().globalData.currentReqCounts--;
-      }
-      uni.removeStorageSync("bbcLoginResult");
-      uni.removeStorageSync("bbcToken");
-      uni.removeStorageSync("bbcHadBindUser");
-      uni.removeStorageSync("bbcCode");
-      uni.removeStorageSync("bbcUserInfo");
-      uni.removeStorageSync("bbcExpiresTimeStamp");
-      uni.removeStorageSync("noAuth");
-    },
-  };
-  http.request(params);
-};
-
-
-
 export const util = {
   checkAuthInfo,
   previousPage,
   toHomePage,
   debounce,
   checkPhoneNumber,
-  weChatLogin
 };
 
 module.exports = util;

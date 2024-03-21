@@ -109,8 +109,6 @@ export default {
 		uni.setNavigationBarTitle({
 			title: '用户登录',
 		});
-
-
 	},
 
 	/**
@@ -161,20 +159,38 @@ export default {
 				callBack: (res) => {
 					if (!res.id) {
 						uni.setStorageSync("bbcTempUid", res);
+						// 还原全局 正在登录状态
+						getApp().globalData.isLanding = false;
+						while (getApp().globalData.requestQueue.length) {
+							http.request(getApp().globalData.requestQueue.pop());
+							getApp().globalData.currentReqCounts--;
+						}
+						if (uni.getStorageSync('noAuth')) {
+							this.showAuth = true
+						} else {
+							this.showAuth = false
+						}
 					} else {
 						uni.setStorageSync("bbcTempUid", res.openId);
-					}
-
-					// 还原全局 正在登录状态
-					getApp().globalData.isLanding = false;
-					while (getApp().globalData.requestQueue.length) {
-						http.request(getApp().globalData.requestQueue.pop());
-						getApp().globalData.currentReqCounts--;
-					}
-					if (uni.getStorageSync('noAuth')) {
-						this.showAuth = true
-					} else {
-						this.showAuth = false
+						if (res.loginToken) {
+							uni.setStorageSync("bbcIsPrivacy", 1);
+							uni.setStorageSync("bbcHadLogin", true);
+							uni.setStorageSync("bbcToken", res.loginToken);
+							uni.setStorageSync("bbcLoginResult", res); // 保存整个登录数据
+							uni.setStorageSync("bbcUserInfo", res); //用户信息
+							uni.setStorageSync('noAuth', false) // 用户是否首次授权
+							const expiresTimeStamp =
+								(res.expiresIn * 1000) / 2 + new Date().getTime();
+							// 缓存token的过期时间
+							uni.setStorageSync("bbcExpiresTimeStamp", expiresTimeStamp);
+							// 还原全局 正在登录状态
+							getApp().globalData.isLanding = false;
+							while (getApp().globalData.requestQueue.length) {
+								http.request(getApp().globalData.requestQueue.pop());
+							}
+							// 返回未登录前点击的页面
+							util.previousPage()
+						}
 					}
 				},
 				errCallBack: () => {
