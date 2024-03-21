@@ -362,7 +362,7 @@ export default {
 			}
 		},
 		// 提交订单
-		submitOrder: util.debounce(function() {
+		submitOrder: util.debounce(function () {
 			const params = {
 				url: '/pub/order/create',
 				method: 'POST',
@@ -432,10 +432,10 @@ export default {
 			let url = ''
 			if (isSuccess) {
 				// 支付成功后的跳转
-				url = dvyType == 2 ? ('/pages/package-pay/pages/pay-success/pay-success?sts=1&orderNumbers=' + orderNumbers + '&dvyType=' + dvyType) : ('/pages/package-pay/pages/pay-result/pay-result?sts=1&orderNumbers=' + orderNumbers + '&dvyType=' + dvyType)
+				url = '/pages/package-pay/pages/pay-result/pay-result?sts=1&orderNumbers=' + orderNumbers
 			} else {
 				// 支付失败的跳转
-				url = '/pages/package-pay/pages/pay-result/pay-result?sts=0&orderNumbers=' + orderNumbers + '&payType=' + payType
+				url = '/pages/package-pay/pages/pay-result/pay-result?sts=0&orderNumbers=' + orderNumbers
 			}
 			uni.redirectTo({
 				url: url

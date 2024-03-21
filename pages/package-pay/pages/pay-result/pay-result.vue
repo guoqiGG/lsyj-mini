@@ -1,7 +1,5 @@
-
-
 <template>
-  <view class="Mall4j container">
+  <view class="container">
     <!-- 失败 -->
     <view v-if="sts == 0" class="pay-fail">
       <view class="img">
@@ -11,13 +9,12 @@
       <view class="order-detail-title">订单信息</view>
       <view class="tips">
         该订单会为您保留
-        <text class="warn">30分钟</text>
-        ,<text class="tips">30分钟之后如果还未付款,系统将自动取消该订单</text>
+        <text class="warn">5分钟</text>
+        ,<text class="tips">5分钟之后如果还未付款,系统将自动取消该订单</text>
       </view>
 
       <view class="btns">
         <text class="button checkorder" @tap="toOrderList">查看订单</text>
-        <text class="button payagain" @tap="payAgain">重新支付</text>
       </view>
     </view>
     <!-- 成功 -->
@@ -36,7 +33,6 @@
 </template>
 
 <script>
-import util from "@/utils/util.js";
 export default {
   components: {},
   props: {},
@@ -44,10 +40,6 @@ export default {
     return {
       sts: 0,
       orderNumbers: "",
-      selPayType: "",
-      orderType: "", // 订单类型 1团购 2秒杀
-      hadUpload: false,
-      ordermold: "", // 1虚拟商品
     };
   },
   /**
@@ -57,81 +49,19 @@ export default {
     this.setData({
       sts: options.sts,
       orderNumbers: options.orderNumbers,
-      orderType: options.orderType,
-      ordermold: options.ordermold,
     });
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () { },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    // 设置头部导航标题
-    uni.setNavigationBarTitle({
-      title: '支付结果'
-    });
-    if (this.sts == 1) {
-      if (!this.hadUpload) {
-        util.tapLog(null, this.orderNumbers, true);
-        this.hadUpload = true;
-      }
-    }
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () { },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-    this.hadUpload = false;
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () { },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () { },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () { },
   methods: {
     toOrderList: function () {
-      let paySts = this.sts == 0 ? 1 : 2;
-      if (this.orderType == 1 || this.ordermold == 1) {
-        // 1团购 || orderMold=1虚拟商品
-        paySts = 0;
-      }
-      paySts = 0;
-      this.$Router.replace({
-        path: "/package-user/pages/order-list/order-list",
-        query: { sts: paySts },
+      uni.navigateTo({
+        url: "/pages/package-user/pages/order-list/order-list?id=0"
       });
     },
     // 继续购物
     toCategory: function () {
       uni.switchTab({
         url: "/pages/category/category",
-      });
-    },
-    payAgain: function () {
-      this.$Router.replace({
-        path: "/package-pay/pages/pay-way/pay-way",
-        query: { orderNumbers: this.orderNumbers },
       });
     },
   },
