@@ -411,11 +411,11 @@ export default {
 						paySign: res.paySign,
 						success: e => {
 							console.log('success', e)
-							// this.routeToAfterPay(true, orderNumbers)
+							this.routeToAfterPay(true, this.orderNumbers)
 						},
 						fail: (e) => {
 							console.log('failed', e)
-							// this.routeToAfterPay(false, orderNumbers)
+							this.routeToAfterPay(false, this.orderNumbers)
 						}
 					})
 				}
@@ -426,9 +426,8 @@ export default {
 		// * 支付成功或失败后的统一跳转
 		// * @param {Boolean} isSuccess 是否支付成功
 		// * @param {String} orderNumbers 订单编号
-		// * @param {Number} dvyType  1 快递 2 自提
 		// **/
-		routeToAfterPay(isSuccess, orderNumbers, dvyType) {
+		routeToAfterPay(isSuccess, orderNumbers) {
 			let url = ''
 			if (isSuccess) {
 				// 支付成功后的跳转
