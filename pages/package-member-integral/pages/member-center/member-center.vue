@@ -3,10 +3,10 @@
     <view class="container">
         <view class="member-info-container">
             <view class="member-avatar">
-                <image class="img" src="../../static/member-avatar-default.png" mode="scaleToFill" />
+                <image style="width: 100%;height: 100%;margin: 0,0;" v-if="bbcUserInfo.avatar" class="img" :src="bbcUserInfo.avatar" mode="" />
             </view>
-            <view class="member-name">QCT9996</view>
-            <view class="member-level">普通</view>
+            <view class="member-name">{{bbcUserInfo.name}}</view>
+            <view class="member-level">{{bbcUserInfo.type==1?'团长':'普通'}}</view>
         </view>
         <view class="watch-beans">
             <view class="watch-container" @tap="clickWatch">
@@ -72,8 +72,11 @@
 	export default {
 		data() {
 			return {
-				
+				bbcUserInfo:null,
 			}
+		},
+		onShow() {
+			this.bbcUserInfo = uni.getStorageSync("bbcUserInfo"); //用户信息
 		},
 		methods: {
 			clickWatch(){

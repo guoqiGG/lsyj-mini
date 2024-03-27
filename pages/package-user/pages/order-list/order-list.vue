@@ -141,6 +141,7 @@
 							title: "取消成功~",
 							icon: "none",
 						});
+						this.getOrderLists()
 					},
 				}
 				http.request(params);
