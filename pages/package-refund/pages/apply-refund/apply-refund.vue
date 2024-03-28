@@ -135,6 +135,9 @@
 							title: "申请成功~",
 							icon: "none",
 						});
+						uni.navigateTo({
+							url: `/pages/package-user/pages/order-list/order-list?id=` + 0
+						})
 					},
 				}
 				http.request(params);
