@@ -2,14 +2,14 @@
   <!-- 我的优惠券 -->
   <view class="Mall4j container">
     <view class="h-tabs">
-      <!-- 我的优惠券状态(优惠券状态 0:失效 1:有效 2:使用过) -->
-      <view :class="'h-tab ' + (status == 1 ? 'on' : '')" data-status="1" @tap="changeTab">未使用</view>
-      <view :class="'h-tab ' + (status == 2 ? 'on' : '')" data-status="2" @tap="changeTab">使用记录</view>
-      <view :class="'h-tab ' + (status == 0 ? 'on' : '')" data-status="0" @tap="changeTab">已过期</view>
+		 <!-- 0待使用 1已使用 2已过期 -->
+      <view :class="'h-tab ' + (status == 0 ? 'on' : '')" data-status="0" @tap="changeTab">未使用</view>
+      <view :class="'h-tab ' + (status == 1 ? 'on' : '')" data-status="1" @tap="changeTab">使用记录</view>
+      <view :class="'h-tab ' + (status == 2 ? 'on' : '')" data-status="2" @tap="changeTab">已过期</view>
     </view>
     <view class="coupons">
       <block v-for="(item, id) in couponList" :key="id">
-        <coupon :data-couponid="item.couponId" :can-use="status == 1" :coupon-item="item" :status="status"
+        <coupon :data-couponid="item.couponId" :can-use="status == 0" :coupon-item="item" :status="status"
           :my-coupon="true" />
       </block>
     </view>
@@ -30,7 +30,7 @@ export default {
   props: {},
   data() {
     return {
-      status: 1,
+      status: 0,
       couponList: [],
       pages: 1,
       current: 1,
@@ -117,7 +117,8 @@ export default {
      *  标签切换事件
      */
     changeTab(e) {
-      this.current = 1
+      // this.current = 1
+	  console.log(e,'eeeeeeeeeeeeeeeeeeee')
       this.status = e.currentTarget.dataset.status
       this.loadMyCouponData(this.status)
     }

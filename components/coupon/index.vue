@@ -6,10 +6,7 @@
           <text class="small">.{{ parsePrice(item.couponAmount)[1] }}</text>
         </text>
       </view>
-      <!-- <view class="num">
-        <text class="coupon-price">{{ item.couponAmount }}</text>元可用
-      </view> -->
-      <view class="coupon-condition">满{{ item.couponAmount }}元可用</view>
+      <view class="coupon-condition"  v-if="item.fullAmount&&item.typeList && (item.typeList).includes(4)">满{{item.fullAmount}}元可用</view>
     </view>
     <view class="right">
       <view class="c-des">
@@ -17,10 +14,10 @@
           <text class="c-type">平台</text>
           <text>{{ item.couponName }}</text>
         </text>
-        <view class="rule" v-if="item.type == 0">全部分类可用</view>
-        <view class="rule" v-if="item.type == 1">指定分类不可用</view>
-        <view class="rule" v-if="item.type == 2">指定商品不可用 </view>
-        <view class="rule" v-if="item.type == 3">指定商品可用</view>
+        <view class="rule"  v-if="item.type == 0">全部分类可用</view>
+       <view class="rule"  v-if="item.typeList && (item.typeList).includes(1)" >指定分类不可用</view>
+       <view class="rule" v-if="item.typeList && (item.typeList).includes(2)">指定商品不可用 </view>
+        <view class="rule" v-if="item.typeList && (item.typeList).includes(3)">指定商品可用</view>
         <view v-if="item && update" class="c-date">
           <view v-if="showTimeType == 1 && item.validTimeType == 2" class="c-data-info">{{ '领券' + ' ' }}{{
     item.validDays }}天后失效</view>
@@ -33,10 +30,11 @@
         </view>
       </view>
       <!-- 我的优惠券状态(优惠券状态 0:失效 1:有效 2:使用过) -->
+	  <!-- 0待使用 1已使用 2已过期 -->
       <!-- 已使用 -->
-      <image v-if="status == 2 && myCoupon" class="tag-img" src="/static/coupon-used.png" />
+      <image v-if="status == 1 && myCoupon" class="tag-img" src="/static/coupon-used.png" />
       <!-- 已过期 -->
-      <image v-if="status == 0 && myCoupon" class="tag-img" src="/static/coupon-ot.png" />
+      <image v-if="status == 2 && myCoupon" class="tag-img" src="/static/coupon-ot.png" />
     </view>
   </view>
 </template>
