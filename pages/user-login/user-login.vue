@@ -25,7 +25,7 @@
 				<label class="statement-label" @tap.stop="handlePrivacyClick">
 					<checkbox class="check-box" :checked="isPrivacy === 1" />
 					<view style="color: #979797">
-						我已阅读并同意氢春态6欢乐团
+						我已阅读并同意氢春时代
 						<text @tap.stop="toTermsOfService('serviceTerms')">《服务条款》</text>
 						<text style="color: #979797">和</text>
 						<text @tap.stop="toTermsOfService('servicePolicy')">《隐私协议》</text>
@@ -37,7 +37,7 @@
 		<view>
 			<u-popup :show="showAuth">
 				<view class="con-container">
-					<view class="title"><text>氢春态6欢乐团 申请</text></view>
+					<view class="title"><text>氢春时代 申请</text></view>
 					<view class="desc">
 						<view class="desc-big"><text>获取您的昵称、头像</text></view>
 						<view class="desc-small"><text>提供具有辨识度的用户中心界面</text></view>
@@ -68,9 +68,6 @@
 <script>
 const http = require("@/utils/http");
 const util = require("@/utils/util.js");
-import {
-	picDomain
-} from "@/utils/config";
 import hCompress from "@/components/helang-compress/helang-compress";
 import {
 	resolve
@@ -91,8 +88,6 @@ export default {
 			passwordType: true,
 			appType: uni.getStorageSync("bbcAppType"),
 			privacyNumber: "",
-			// 图片域名
-			picDomain: picDomain,
 			showAuth: false, // 用户是否首次登录 true 是 false 否
 			name: '',
 			avatar: ''

@@ -179,7 +179,7 @@ export default {
 	//用户点击右上角分享朋友圈
 	onShareTimeline: function () {
 		return {
-			title: '氢春态6欢乐团',
+			title: '氢春时代',
 			imageUrl: '/static/logo.png'
 		}
 	},
@@ -187,7 +187,7 @@ export default {
 	data() {
 		return {
 			navigationBarIsShow: true,
-			title: '氢春态6欢乐团',
+			title: '氢春时代',
 			tabConfig: {
 				background: '',
 				fontColor: '#FFFFFF',

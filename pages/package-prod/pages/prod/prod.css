@@ -278,6 +278,7 @@ page {
 }
 .con-container .buy-now {
   margin: 30rpx auto 20rpx;
+  padding: 8rpx 0;
   text-align: center;
   width: 345rpx;
   border-radius: 50rpx;

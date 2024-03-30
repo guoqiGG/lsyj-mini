@@ -43,9 +43,6 @@
 <script>
 // 获取应用实例
 const http = require("@/utils/http.js");
-import {
-	picDomain
-} from "@/utils/config.js";
 var t = 0;
 var show = false;
 var moveY = 200;

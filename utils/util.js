@@ -1,6 +1,5 @@
 const config = require("./config.js");
 const http = require("./http.js");
-import { picDomain } from "./config.js";
 
 // 检查是否授权
 const checkAuthInfo = (fn) => {

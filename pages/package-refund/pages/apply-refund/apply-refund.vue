@@ -33,7 +33,6 @@
 		</u-cell-group>
 		<view class="u-form">
 			<u--form labelPosition="left">
-		
 				<u-form-item labelWidth="208rpx" label="手机号码" borderBottom>
 					<input class="" placeholder="请输入手机号码" type="text" :value="orderDetail.userPhone" maxlength="11" />
 				</u-form-item>
@@ -48,7 +47,7 @@
 			</u--form>
 		</view>
 		<view class="button-style" @click="applyRefund">
-			退款凭证
+			确定
 		</view>
 		<u-picker :show="show" :defaultIndex="defaultIndex" :columns="columns" @confirm="confirm"
 			@cancel="show= false"></u-picker>
