@@ -63,6 +63,14 @@
             "navigationBarBackgroundColor": "#025BFF",
             "navigationBarTextStyle": "white"
           }
+        },
+        {
+          "path": "pages/refund-detail/refund-detail",
+          "style": {
+            "navigationBarTitleText": "退款详情",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
         }
       ]
     },
