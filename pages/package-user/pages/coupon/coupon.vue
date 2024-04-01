@@ -2,13 +2,13 @@
   <!-- 我的优惠券 -->
   <view class="Mall4j container">
     <view class="h-tabs">
-		 <!-- 0待使用 1已使用 2已过期 -->
+      <!-- 0待使用 1已使用 2已过期 -->
       <view :class="'h-tab ' + (status == 0 ? 'on' : '')" data-status="0" @tap="changeTab">未使用</view>
       <view :class="'h-tab ' + (status == 1 ? 'on' : '')" data-status="1" @tap="changeTab">使用记录</view>
       <view :class="'h-tab ' + (status == 2 ? 'on' : '')" data-status="2" @tap="changeTab">已过期</view>
     </view>
     <view class="coupons">
-      <block v-for="(item, id) in couponList" :key="id">
+      <block v-for="(item, index) in couponList" :key="index">
         <coupon :data-couponid="item.couponId" :can-use="status == 0" :coupon-item="item" :status="status"
           :my-coupon="true" />
       </block>
@@ -118,8 +118,12 @@ export default {
      */
     changeTab(e) {
       // this.current = 1
-	  console.log(e,'eeeeeeeeeeeeeeeeeeee')
+      console.log(e, 'eeeeeeeeeeeeeeeeeeee')
       this.status = e.currentTarget.dataset.status
+      this.current = 1
+      this.pages = 1
+      this.couponList = []
+
       this.loadMyCouponData(this.status)
     }
   }
