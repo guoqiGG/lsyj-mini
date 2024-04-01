@@ -73,10 +73,11 @@
 						<text style="color: #979797;margin-left: 20rpx;">{{orderDetail.goodsCount}}件</text>
 					</view>
 					<view class="btn" @click="applyRefund(orderDetail.orderId)"
-						v-if="orderDetail.orderStatus!=5&&orderDetail.orderStatus!=1&&orderDetail.refundStatus==0">
-						<!-- 订单退款状态：0-未申请退款；1-申请退款；2-退款中；3-退款失败；4-退款成功 5后台手动退款 -->
+						v-if="orderDetail.orderStatus==2&&orderDetail.isCanApplyRefund==1">
+						<!-- isCanApplyRefund==1可以申请0,不可申请 -->
 						申请退款
 					</view>
+				
 				</view>
 			</view>
 		</view>
@@ -120,8 +121,9 @@
 			</view>
 		</view>
 		<view class="refundBtn" @click="applyRefund(orderDetail.orderId)"
-			v-if="orderDetail.orderStatus!=5&&orderDetail.orderStatus!=1&&orderDetail.refundStatus==0">
-			<!-- 订单退款状态：0-未申请退款；1-申请退款；2-退款中；3-退款失败；4-退款成功 5后台手动退款 -->
+		
+			>
+			<!-- v-if="orderDetail.orderStatus!=5&&orderDetail.orderStatus!=1&&orderDetail.isCanApplyRefund==1" -->
 			<view class="btn">
 				整单退款
 			</view>

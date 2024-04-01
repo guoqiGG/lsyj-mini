@@ -1,15 +1,19 @@
 <template>
 	<view class="order-list">
-		<u-tabs :scrollable="false" :current="currentTab" :list="list1" @click="handleTabClick()"></u-tabs>
+		<u-tabs :scrollable="true" :current="currentTab" :list="list1" @click="handleTabClick()"></u-tabs>
 		<view class="order-list-content">
 			<view class="order-list-content-box" v-for="(item,index) in orderLists" :key="item.orderId">
 				<view class="order-list-content-box-title">
 					<view class="order-list-content-box-title-left">
 						订单编号：{{item.orderId}}
 					</view>
-					<view class="order-list-content-box-title-right" :class="item.orderStatus>1?'blue':''">
+					<view class="order-list-content-box-title-right" :class="item.orderStatus>1?'blue':''" v-if="currentTab!==5">
 						<!-- // 00全部 1待支付 2待发货(已支付) 3已发货 4确认收货  5已取消-->
 						{{item.orderStatus===1?'待支付':item.orderStatus===2?'待发货':item.orderStatus===3?'已发货':item.orderStatus===4?'已完成':item.orderStatus===5?'已取消':''}}
+					</view>
+					<view class="order-list-content-box-title-right" :class="item.orderStatus>1?'blue':''" v-else>
+						<!-- //0-未申请退款；1-申请退款；2-退款中；3-退款失败；4-退款成功 5后台手动退款成功-->
+						{{item.refundStatus===0?'未申请退款':item.refundStatus===1?'申请退款':item.refundStatus===2?'退款中':item.refundStatus===3?'退款失败':item.refundStatus===4?'退款成功':item.refundStatus===5?'后台退款成功':''}}
 					</view>
 				</view>
 				<view class="order-list-content-box-content" @click="goOrderDetail(item.orderId)">
@@ -78,7 +82,12 @@
 				}, {
 					name: '已完成',
 					id: 4,
-				}],
+				},
+				{
+					name: '退款/售后',
+					id: 100,
+				},
+				],
 				isLoaded: false,
 				isAll: false,
 				currentTab: 0,
@@ -107,6 +116,8 @@
 				this.status = this.list1[3].id
 			} else if (this.currentTab == 4) {
 				this.status = this.list1[4].id
+			} else if (this.currentTab == 5) {
+				this.status = this.list1[5].id
 			}
 		},
 		onShow() {
@@ -118,9 +129,12 @@
 		methods: {
 			// 跳转取订单详情
 			goOrderDetail(orderId) {
-				uni.navigateTo({
-					url: `/pages/package-user/pages/order-detail/order-detail?orderId=` + orderId
-				})
+				if(this.currentTab!==5){
+					uni.navigateTo({
+						url: `/pages/package-user/pages/order-detail/order-detail?orderId=` + orderId
+					})
+				}
+				
 			},
 			// 取消订单
 			cancelOrder(orderId) {
@@ -231,6 +245,7 @@
 		width: 58rpx !important;
 
 	}
+		
 
 	/deep/ .u-tabs__wrapper__nav__item__text {
 		font-size: 28rpx !important;
