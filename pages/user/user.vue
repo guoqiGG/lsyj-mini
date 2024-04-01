@@ -68,7 +68,7 @@
 							已完成
 						</view>
 					</view>
-					<view class="order-wrap" @click="goRefund()">
+					<view class="order-wrap" @click="goOrderList(5)">
 						<view class="order-img">
 							<image src="/static/user/order-refund.png" mode=""></image>
 						</view>
