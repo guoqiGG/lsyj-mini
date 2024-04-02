@@ -121,7 +121,7 @@
 			</view>
 		</view>
 		<view class="refundBtn" @click="applyRefund(orderDetail.orderId)"
-		
+		v-if="orderDetail.orderStatus==2&&orderDetail.isCanApplyRefund==1"
 			>
 			<!-- v-if="orderDetail.orderStatus!=5&&orderDetail.orderStatus!=1&&orderDetail.isCanApplyRefund==1" -->
 			<view class="btn">
