@@ -38,16 +38,24 @@
 					共{{item.goodsCount}}件商品 总计：{{item.totalAmount}}
 				</view>
 
-				<view class="order-list-content-box-btn">
-					<view class="cancelBtn" v-if="item.orderStatus===1" @click="cancelOrder(item.orderId)">
+				<view class="order-list-content-box-btn" v-if="item.orderStatus===1">
+					<view class="cancelBtn"  @click="cancelOrder(item.orderId)">
 						取消订单
 					</view>
 					<view class="cancelBtn"
 						style="margin-left: 20rpx;width: 120rpx;color: #D90024;border: 2rpx solid #D90024;"
-						v-if="item.orderStatus===1" @click="payOrder(item.orderId)">
+						 @click="payOrder(item.orderId)">
 						付款
 					</view>
 
+				</view>
+				<view class="order-list-content-box-btn" v-if="item.orderStatus===3">
+					<view class="cancelBtn"
+						style="margin-left: 20rpx;width: 120rpx;color: #D90024;border: 2rpx solid #D90024;"
+						 @click="receive(item.orderId)">
+						确认收货
+					</view>
+				
 				</view>
 
 
@@ -188,6 +196,23 @@
 								console.log('failed', e)
 							}
 						})
+					}
+				}
+				http.request(params)
+			},
+			// 确认收货
+			receive(orderId) {
+				const params = {
+					url: '/pub/order/confirm',
+					method: 'POST',
+					data: {
+						sign: "qcsd",
+						data: JSON.stringify({
+							orderId: orderId,
+						})
+					},
+					callBack: (res) => {
+						this.getOrderLists()
 					}
 				}
 				http.request(params)

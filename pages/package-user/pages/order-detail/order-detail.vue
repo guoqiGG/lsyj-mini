@@ -77,6 +77,10 @@
 						<!-- isCanApplyRefund==1可以申请0,不可申请 -->
 						申请退款
 					</view>
+					<view class="btn" @click="receive(orderDetail.orderId)"
+						v-if="orderDetail.orderStatus==3">
+						确认收货
+					</view>
 				
 				</view>
 			</view>
@@ -108,26 +112,35 @@
 		<view class="total_price" style="height: 190rpx;">
 			<view class="item">
 				<text style="color: #9E9E9E;">商品总额：</text>
-				<text>￥{{orderDetail.totalAmount}}</text>
+				<text style="font-size: 30rpx;">￥{{orderDetail.totalAmount}}</text>
 			</view>
 			<view class="item">
 				<text style="color: #9E9E9E;">商品运费：</text>
-				<text>￥{{orderDetail.totalAmount}}</text>
+				<text style="font-size: 30rpx;">￥{{orderDetail.totalAmount}}</text>
 			</view>
 			<view class="item">
 				<text></text>
 				<text style="color:#C53032">订单总额：<text
-						style="font-size: 32rpx;">￥{{orderDetail.totalAmount}}</text></text>
+						style="font-size: 34rpx;">￥{{orderDetail.totalAmount}}</text></text>
 			</view>
 		</view>
 		<view class="refundBtn" @click="applyRefund(orderDetail.orderId)"
 		v-if="orderDetail.orderStatus==2&&orderDetail.isCanApplyRefund==1"
 			>
-			<!-- v-if="orderDetail.orderStatus!=5&&orderDetail.orderStatus!=1&&orderDetail.isCanApplyRefund==1" -->
 			<view class="btn">
 				整单退款
 			</view>
+			
 		</view>
+		<view class="refundBtn" @click="receive(orderDetail.orderId)"
+		v-if="orderDetail.orderStatus==3"
+			>
+			<view class="btn">
+				确认收货
+			</view>
+			
+		</view>
+		
 	</view>
 </template>
 
@@ -176,6 +189,24 @@
 				uni.navigateTo({
 					url: `/pages/package-refund/pages/apply-refund/apply-refund?orderId=` + orderId
 				})
+
+			},
+			// 确认收货
+			receive(orderId) {
+				const params = {
+					url: "/pub/order/confirm",
+					method: "POST",
+					data: {
+						sign: 'qcsd',
+						data: JSON.stringify({
+							orderId: orderId,
+						}),
+					},
+					callBack: (res) => {
+						this.getOrderDetail()
+					},
+				}
+				http.request(params);
 
 			},
 			copyText(text) {
@@ -230,7 +261,7 @@
 				justify-content: center;
 				align-items: center;
 				position: relative;
-				font-size: 24rpx;
+				font-size: 26rpx;
 				text-align: center;
 
 				.status-img-box {
@@ -288,7 +319,7 @@
 				.addres-detail {
 					margin-top: 10rpx;
 					font-weight: 400;
-					font-size: 24rpx;
+					font-size: 26rpx;
 					color: #979797;
 				}
 			}
@@ -327,7 +358,7 @@
 
 					.price {
 						font-weight: 400;
-						font-size: 24rpx;
+						font-size: 32rpx;
 						color: #C53032;
 					}
 
@@ -358,7 +389,7 @@
 			background: #FFFFFF;
 			padding: 40rpx 28rpx;
 			font-weight: 400;
-			font-size: 24rpx;
+			font-size: 28rpx;
 			color: #101010;
 			position: relative;
 
@@ -388,7 +419,7 @@
 			background: #FFFFFF;
 			border-radius: 0rpx 0rpx 0rpx 0rpx;
 			font-weight: 400;
-			font-size: 24rpx;
+			font-size: 28rpx;
 			color: #101010;
 			line-height: 34rpx;
 			padding: 20rpx 32rpx;
