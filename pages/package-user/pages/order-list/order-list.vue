@@ -209,6 +209,7 @@
 						sign: "qcsd",
 						data: JSON.stringify({
 							orderId: orderId,
+							loginToken: this.loginToken
 						})
 					},
 					callBack: (res) => {
