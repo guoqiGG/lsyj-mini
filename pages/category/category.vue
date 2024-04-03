@@ -96,7 +96,8 @@ export default {
 			let data = {
 				categoryId: this.categoryId,
 				pageNo: 1,
-				pageSize: 40
+				pageSize: 40,
+				loginToken: uni.getStorageSync('bbcToken')
 			}
 			const params = {
 				url: '/pub/goods/list',

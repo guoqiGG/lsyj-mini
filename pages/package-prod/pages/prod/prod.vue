@@ -11,6 +11,7 @@
 				<text class="small-num">.{{ parsePrice(price)[1] }}</text>
 			</view>
 			<view class="prod-number">仅剩<text class="red">{{ productDetail.stock }}</text>件</view>
+			<view class="prod-number" v-if="productDetail.canUseCoupon"><text style="color: #9e9e9e;font-size: 24rpx;">{{ productDetail.canUseCoupon===0?'不可用优惠券':'' }}</text></view>
 		</view>
 		<view class="prod-select-number">
 			<view class="prod-select-number-left">

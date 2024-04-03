@@ -64,7 +64,6 @@ function request(params) {
       // -641 token过期
       if (responseData.code === -641) {
         // 重设登录后跳转地址
-
         // util.setRouteUrlAfterLogin();
         uni.removeStorageSync("bbcLoginResult");
         uni.removeStorageSync("bbcToken");
@@ -122,6 +121,10 @@ function request(params) {
       if (responseData.code === 500) {
         if (params.errCallBack) {
           params.errCallBack(responseData);
+		  getApp().globalData.showLoginExpired = false;
+		  uni.redirectTo({
+		    url: "/pages/user-login/user-login",
+		  });
           return;
         }
         uni.showToast({
