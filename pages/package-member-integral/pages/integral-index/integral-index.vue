@@ -20,7 +20,7 @@
           <!-- <goodsitem :prod="prod" /> -->
         </block>
       </view>
-      <view v-if="!scoreProdList.length" class="empty">{{ i18n.noData }}</view>
+      <!-- <view v-if="!scoreProdList.length" class="empty"> 暂无数据 </view> -->
       <!-- 空列表或加载全部提示 -->
       <EmptyAllTips v-if="true" :isEmpty="!scoreProdList.length" :isAll="scoreProdList.length > 10 && loadAll" />
     </view>

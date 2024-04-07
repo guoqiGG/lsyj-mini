@@ -113,7 +113,7 @@ export default {
 		 */
 		handleUserNameClick() {
 			uni.showToast({
-				title: this.i18n.userNameCannotChange,
+				title: '用户名无法更改',
 				icon: "none",
 			});
 		},

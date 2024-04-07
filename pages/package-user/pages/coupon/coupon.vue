@@ -15,7 +15,7 @@
     </view>
 
     <!-- 空列表或加载全部提示 -->
-    <EmptyAllTips v-if="isLoaded" :isEmpty="!couponList.length || couponList == []" :emptyTips="i18n.couponTips"
+    <EmptyAllTips v-if="isLoaded" :isEmpty="!couponList.length || couponList == []" emptyTips="暂无优惠券"
       :isAll="isAll" />
   </view>
 </template>

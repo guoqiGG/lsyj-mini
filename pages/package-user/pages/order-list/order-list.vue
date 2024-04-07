@@ -61,7 +61,7 @@
 
 			</view>
 			<!-- 空列表或加载全部提示 -->
-			<EmptyAllTips v-if="isLoaded" :isEmpty="!orderLists.length" :emptyTips="i18n.noCommodity"
+			<EmptyAllTips v-if="isLoaded" :isEmpty="!orderLists.length" emptyTips="暂无订单信息"
 				:isAll="current == pages" />
 
 		</view>

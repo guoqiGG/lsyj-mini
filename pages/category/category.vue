@@ -24,7 +24,7 @@
 					<prod :item="item" />
 				</block>
 				<!-- 空列表或加载全部提示 -->
-				<EmptyAllTips v-if="isLoaded" :isEmpty="!prodList.length" :emptyTips="i18n.noCommodity"
+				<EmptyAllTips v-if="isLoaded" :isEmpty="!prodList.length" emptyTips="此分类下暂无商品"
 					:isAll="current == pages" />
 
 			</scroll-view>
@@ -86,7 +86,7 @@ export default {
 		onMenuTab: function (e) {
 			var index = e.currentTarget.dataset.index // 
 			this.getProdList(this.categoryList[index].categoryId)
-			this.categoryImg = this.categoryList[index].pic
+			this.categoryImg = this.categoryList[index].categoryPic
 			this.selIndex = index
 		},
 		// 获取分类下的商品列表
