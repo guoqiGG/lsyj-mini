@@ -7,7 +7,7 @@
 			<view class="right-bg">
 				<image src="/static/cube.png" mode="widthFix" />
 			</view>
-			<image class="logo-img" src="/static/logo.png" mode="heightFix" @tap="toIndex" />
+			<image class="logo-img" src="/static/logo_11.png" mode="heightFix" @tap="toIndex" />
 		</view>
 		<!-- 微信登录 -->
 		<view class="login-form">
