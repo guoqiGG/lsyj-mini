@@ -121,10 +121,7 @@ function request(params) {
       if (responseData.code === 500) {
         if (params.errCallBack) {
           params.errCallBack(responseData);
-		  getApp().globalData.showLoginExpired = false;
-		  uni.redirectTo({
-		    url: "/pages/user-login/user-login",
-		  });
+		  // getApp().globalData.showLoginExpired = false;
           return;
         }
         uni.showToast({

@@ -277,15 +277,16 @@ page {
   height: 25rpx;
 }
 .con-container .buy-now {
-  margin: 30rpx auto 20rpx;
+  margin: 40rpx auto 20rpx;
   padding: 8rpx 0;
   text-align: center;
-  width: 345rpx;
+  width: 520rpx;
+   height: 66rpx;
   border-radius: 50rpx;
   background: #f85721;
-  font-size: 32rpx;
+  font-size: 36rpx;
   font-weight: normal;
-  line-height: 60rpx;
+  line-height: 66rpx;
   letter-spacing: 0em;
   color: #ffffff;
 }

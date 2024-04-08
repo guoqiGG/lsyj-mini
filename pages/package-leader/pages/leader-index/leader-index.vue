@@ -66,7 +66,7 @@
 						<u-icon name="arrow-right" size="28"></u-icon>
 					</view>
 				</view>
-				<view class="list-line">
+				<view class="list-line"  @click="goRevenueDetails()">
 					<view class="list-line-lf">
 						<view class="list-line-lf-img">
 							<image src="/pages/package-leader/static/mx.png" mode=""></image>
@@ -167,6 +167,12 @@ export default {
 		withdrawalRecord() {
 			uni.navigateTo({
 				url: "/pages/package-leader/pages/take-notes/take-notes"
+			})
+		},
+		// 收益明细
+		goRevenueDetails() {
+			uni.navigateTo({
+				url: "/pages/package-leader/pages/revenue-details/revenue-details"
 			})
 		},
 		// 购物明细

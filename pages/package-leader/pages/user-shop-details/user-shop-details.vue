@@ -1,197 +1,417 @@
 <template>
-	<view class="content">
-		<view class="search_box">
-			<view class="search">
-				<u-icon top="22" class="search_icon" name="search" size="40"></u-icon>
-				<text class="line"></text>
-				<input type="text" class="input" v-model="keyword" placeholder="搜索订单" />
-				<button size="default" type="default" class="button" @click="searchBtn">搜索</button>
-			</view>
-			<view class="tab" style="margin-top:30rpx;">
-				<u-subsection :list="list" fontSize="14px" activeColor="#025BFF" inactiveColor="#9E9E9E"
-					bgColor="#ffffff" :current="current" @change="sectionChange">
-				</u-subsection>
-			</view>
-		</view>
-		<view class="leader-index">
-			<view class="list">
-				<view class="list_item" v-for="item in 4 ">
-					<view class="top">
-						<text>行止由心</text>
-						<text style="color: #C53032;font-size: 26rpx;">交易关闭</text>
+	<view class="order-list">
+	<!-- 	<view class="search">
+			<u-icon top="22" class="search_icon" name="search" size="40"></u-icon>
+			<text class="line"></text>
+			<input type="text" class="input" v-model="keyword" placeholder="搜索订单" />
+			<button size="default" type="default" class="button" @click="searchBtn">搜索</button>
+		</view> -->
+		<u-tabs :scrollable="true" :current="currentTab" :list="list1" @click="handleTabClick"></u-tabs>
+		<view class="order-list-content">
+			<view class="order-list-content-box" v-for="(item, index) in orderLists" :key="item.orderId">
+				<view class="order-list-content-box-title">
+					<view class="order-list-content-box-title-left">
+						订单编号：{{ item.orderId }}
 					</view>
-					<view class="middle">
-						<image class="pro_img" src="../../static/mx3.png" mode=""></image>
-						<view class="pro_box">
-							<view class="">
-								<view style="font-size: 28rpx;">溢水杯</view>
-								<view style="font-size: 22rpx;">下单时间：2024-03-05 9：45</view>
-							</view>
-							<view class="">
-								<view style="font-size: 24rpx;">溢水杯</view>
-								<view style="font-size: 22rpx;color: #979797;">共1件</view>
-							</view>
-						</view>
+					<view class="order-list-content-box-title-right" :class="item.orderStatus > 1 ? 'blue' : ''"
+						v-if="currentTab !== 5">
+						<!-- // 00全部 1待支付 2待发货(已支付) 3已发货 4确认收货  5已取消-->
+						{{ item.orderStatus === 1 ? '待支付' : item.orderStatus === 2 ? '待发货' : item.orderStatus === 3 ?
+			'已发货' : item.orderStatus === 4 ? '已完成' : item.orderStatus === 5 ? '已取消' : '' }}
 					</view>
-					<view class="footer">
-						<text class="pro_detail">查看详情</text>
+					<view class="order-list-content-box-title-right" :class="item.orderStatus > 1 ? 'blue' : ''" v-else>
+						<!-- //0-未申请退款；1-申请退款；2-退款中；3-退款失败；4-退款成功 5后台手动退款成功-->
+						{{ item.refundStatus === 0 ? '未申请退款' : item.refundStatus === 1 ? '申请退款' : item.refundStatus ===
+			2 ? '退款中' : item.refundStatus === 3 ? '退款失败' : item.refundStatus === 4 ? '退款成功' :
+				item.refundStatus === 5 ? '后台退款成功' : '' }}
 					</view>
 				</view>
+				<view class="order-list-content-box-content" @click="goOrderDetail(item.orderId)">
+					<image class="order-list-content-box-content-img" :src="item.orderGoods[0].thumbail" mode="">
+					</image>
+					<view class="order-list-content-box-content-text">
+						<view class="title">
+							{{ item.orderGoods[0].title }}
+						</view>
+						<view class="price">
+							<view class="price-number">
+								￥{{ item.orderGoods[0].salePrice }}
+							</view>
+							<view class="price-amount">
+								{{ item.goodsCount }}件
+							</view>
+
+						</view>
+					</view>
+				</view>
+				<view class="order-list-content-box-count">
+					共{{ item.goodsCount }}件商品 总计：{{ item.totalAmount }}
+				</view>
+
+				<view class="order-list-content-box-btn" v-if="item.orderStatus === 1">
+					<view class="cancelBtn" @click="cancelOrder(item.orderId)">
+						取消订单
+					</view>
+					<view class="cancelBtn"
+						style="margin-left: 20rpx;width: 120rpx;color: #D90024;border: 2rpx solid #D90024;"
+						@click="payOrder(item.orderId)">
+						付款
+					</view>
+
+				</view>
+				<view class="order-list-content-box-btn" v-if="item.orderStatus === 3">
+					<view class="cancelBtn"
+						style="margin-left: 20rpx;width: 120rpx;color: #D90024;border: 2rpx solid #D90024;"
+						@click="receive(item.orderId)">
+						确认收货
+					</view>
+
+				</view>
+
+
 			</view>
-
+			<!-- 空列表或加载全部提示 -->
+			<EmptyAllTips v-if="isLoaded" :isEmpty="!orderLists.length" emptyTips="暂无订单信息"
+				:isAll="pageNo == pageSIize" />
 		</view>
-
 	</view>
 
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				keyword: '',
-				list: ['全部', '待付款', '待发货', '待收货', '已完成'],
-				current: 0
-			}
-		},
-		methods: {
-			sectionChange(index) {
-				this.current = index;
+const http = require("@/utils/http");
+export default {
+	data() {
+		return {
+			// 00全部 1待支付 2待发货(已支付) 3已发货 4确认收货
+			list1: [{
+				name: '全部',
+				id: 0,
+			}, {
+				name: '待付款',
+				id: 1,
+			}, {
+				name: '待发货',
+				id: 2,
+			}, {
+				name: '待收货',
+				id: 3,
+			}, {
+				name: '已完成',
+				id: 4,
 			},
-			searchBtn() {
-				console.log(124235)
-				console.log(this.keyword)
+			{
+				name: '退款/售后',
+				id: 100,
+			},
+			],
+			isLoaded: false,
+			isAll: false,
+			currentTab: 0,
+			orderLists: [],
+			pageNo: 1, // 当前页
+			pageSIize: 10, //总页数
+			loginToken: null,
+			status: 0,
+			userId: null, //用户id
+			activeLineStyle: {
+				width: '56rpx',
+				height: '2rpx',
+				background: '#025BFF'
+			}
+		}
+	},
+	onLoad(option) {
+		
+	},
+	onShow() {
+		let bbcLoginResult = uni.getStorageSync("bbcLoginResult"); //用户信息
+		this.loginToken = bbcLoginResult.loginToken
+		this.userId = bbcLoginResult.id
+		this.mobile=bbcLoginResult.leaderMobile
+		this.getOrderLists()
+	},
+	methods: {
+		// searchBtn() {
+		// 	console.log(124235)
+		// 	console.log(this.keyword)
+		// }
+		// 跳转取订单详情
+		goOrderDetail(orderId) {
+			if (this.currentTab !== 5) {
+				uni.navigateTo({
+					url: `/pages/package-user/pages/order-detail/order-detail?orderId=` + orderId
+				})
 			}
 
+		},
+		// 取消订单
+		cancelOrder(orderId) {
+			let obj = {
+				orderId: orderId,
+				userId: this.userId,
+				loginToken: this.loginToken,
+			}
+			const params = {
+				url: "/pub/order/cancel",
+				method: "POST",
+				data: {
+					sign: 'qcsd',
+					data: JSON.stringify(obj),
+				},
+				callBack: (res) => {
+					uni.showToast({
+						title: "取消成功~",
+						icon: "none",
+					});
+					this.getOrderLists()
+				},
+			}
+			http.request(params);
+		},
+		// 支付 dvyType 2自提 1快递
+		payOrder(orderId) {
+			const params = {
+				url: '/pub/pay/order',
+				method: 'POST',
+				data: {
+					sign: "qcsd",
+					data: JSON.stringify({
+						orderId: orderId,
+						payType: 10,
+						loginToken: this.loginToken
+					})
+				},
+				callBack: (res) => {
+					wx.requestPayment({
+						timeStamp: res.timeStamp,
+						nonceStr: res.nonceStr,
+						package: res.packageValue,
+						signType: res.signType,
+						paySign: res.paySign,
+						success: e => {
+							console.log('success', e)
+							this.getOrderLists()
+						},
+						fail: (e) => {
+							console.log('failed', e)
+						}
+					})
+				}
+			}
+			http.request(params)
+		},
+		// 确认收货
+		receive(orderId) {
+			const params = {
+				url: '/pub/order/confirm',
+				method: 'POST',
+				data: {
+					sign: "qcsd",
+					data: JSON.stringify({
+						orderId: orderId,
+						loginToken: this.loginToken
+					})
+				},
+				callBack: (res) => {
+					this.getOrderLists()
+				}
+			}
+			http.request(params)
+		},
+		handleTabClick(e) {
+			this.currentTab = e.index;
+			this.pageNo=1
+			this.orderLists=[]
+			this.status = e.id
+			this.getOrderLists()
+		},
+		// 获取订单信息
+		getOrderLists() {
+			this.isLoaded = false
+			let obj = {
+				pageNo: this.pageNo,
+				pageSIize: this.pageSIize,
+				loginToken: this.loginToken,
+				status: this.status,
+				mobile:this.mobile,
+			}
+			const params = {
+				url: "/pub/order/list",
+				method: "POST",
+				data: {
+					sign: 'qcsd',
+					data: JSON.stringify(obj),
+				},
+				callBack: (res) => {
+					this.isLoaded = true
+					this.orderLists = this.pageNo == 1 ? res : this.orderLists.concat(res)
+					this.pageSIize = res.total == 0 ? 1 : Math.ceil(res.total / this.pageSize)
+				},
+			}
+			http.request(params);
+		},
+
+	},
+
+	/**
+	 * 页面上拉触底事件的处理函数
+	 */
+	onReachBottom() {
+
+		if (this.pageNo < this.pageSIize) {
+			this.pageNo = this.pageNo + 1
+			this.getOrderLists()
+		} else {
+			this.isAll = true
 		}
 	}
+}
 </script>
 
 <style lang="scss" scoped>
-	.search_box{
-		height: 166rpx;
-		padding: 26rpx 22rpx;
-		background: #FFFFFF;
-		.search {
-			height: 78rpx;
-			position: relative;
-			background: #FFFFFF;
-			box-shadow: 0rpx 8rpx 24rpx 0rpx rgba(141, 141, 141, 0.3);
-			border-radius: 40rpx;
-			padding-left: 10rpx;
-			.line {
-				position: absolute;
-				top: 22rpx;
-				left: 56rpx;
-				width: 4rpx;
-				height: 40rpx;
-				background-color: rgba(216, 216, 216, 0.3);
-			}
-		
-			.uicon-search {
-				position: absolute !important;
-				left: 0 !important;
-				top: 10rpx !important;
-			}
-		
-			.input {
-				position: absolute;
-				left: 60rpx;
-				top: 0;
-				width: 90%;
-				height: 58rpx;
-				padding: 10rpx 20rpx;
-				border-radius: 40rpx;
-		
-			}
-		
-			.button {
-				position: absolute;
-				right: 0;
-				top: 0;
-				text-align: center;
-				width: 202rpx;
-				height: 78rpx;
-				background: #025BFF;
-				box-shadow: 0rpx 8rpx 24rpx 0rpx rgba(141, 141, 141, 0.3);
-				border-radius: 0rpx 40rpx 40rpx 0rpx;
-				font-weight: 400;
-				font-size: 32rpx;
-				color: #FFFFFF;
-				z-index: 99;
-		
-			}
-		}
-		
-		.tab {
-			.u-subsection {
-				font-size: 30rpx !important;
-		
-				.u-subsection__item__text {
-					font-size: 30rpx !important;
-				}
-			}
-		}
-	}
-	.leader-index {
-		width: 100vw;
-		overflow-x: hidden;
-		overflow-y: auto;
+/deep/ .u-tabs__wrapper__nav__line {
+	left: -12rpx;
+	width: 58rpx !important;
+
+}
+
+
+/deep/ .u-tabs__wrapper__nav__item__text {
+	font-size: 28rpx !important;
+}
+
+.order-list {
+	background: #f2f2f2;
+	height: 100vh;
+	width: 100vw;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.order-list-content {
+	.order-list-content-box {
+		background: #fff;
+		margin-top: 20rpx;
+		width: 750rpx;
+		// height: 398rpx;
 		box-sizing: border-box;
-		padding: 0rpx 22rpx;
-		background: #f2f2f2;
-		position: relative;
-		.list {
-			margin-top: 20rpx;
-			font-weight: 400;
-			.list_item {
-				height: 312rpx;
-				border-radius: 12rpx;
-				opacity: 1;
-				background: #FFFFFF;
-				padding: 14rpx 18rpx 10rpx;
-				margin-bottom: 20rpx;
-				.top {
-					display: flex;
-					justify-content: space-between;
-				}
-				.middle {
-					margin-top: 30rpx;
-					display: flex;
-					align-items: center;
-					.pro_img {
-						width: 168rpx;
-						height: 168rpx;
-						border-radius: 12rpx;
-						opacity: 1;
-						background: #D8D8D8;
-						margin-right: 30rpx;
-					}
-					.pro_box {
-						display: flex;
-						flex: 1;
-						justify-content: space-between;
-					}
-		
-				}
-				.footer {
-					display: flex;
-					justify-content: flex-end;
-					.pro_detail {
-						width: 138rpx;
-						height: 46rpx;
-						background: #FFFFFF;
-						border-radius: 27rpx 27rpx 27rpx 27rpx;
-						border: 2rpx solid #C53032;
-						font-size: 24rpx;
-						font-weight: 400;
-						color: #C53032;
-						text-align: center;
-						line-height: 46rpx;
-					}
-				}
+		padding: 18rpx 22rpx;
+		font-size: 28rpx;
+	}
+
+	.order-list-content-box-title {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 26rpx;
+
+		.blue {
+			color: #025BFF;
+		}
+	}
+
+	.order-list-content-box-content {
+		display: flex;
+
+		.order-list-content-box-content-img {
+			width: 220rpx;
+			height: 220rpx;
+			margin-right: 22rpx;
+			border-radius: 12rpx
+		}
+
+		.order-list-content-box-content-text {
+			margin-top: 62rpx;
+
+			.title {
+				font-size: 32rpx;
+			}
+
+			.price {
+				width: 474rpx;
+				display: flex;
+				justify-content: space-between;
+				margin-top: 20rpx;
+				font-size: 24rpx;
+
 			}
 		}
-		
 	}
+
+	.order-list-content-box-count {
+		margin-top: 18rpx;
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	.order-list-content-box-btn {
+		width: 100%;
+		height: 54rpx;
+		display: flex;
+		justify-content: flex-end;
+		margin: 10rpx;
+
+		.cancelBtn {
+			width: 168rpx;
+			height: 54rpx;
+			border: 2rpx solid #979797;
+			font-weight: 400;
+			font-size: 24rpx;
+			color: #979797;
+			line-height: 54rpx;
+			text-align: center;
+			border-radius: 30rpx;
+		}
+	}
+}
+// .search {
+// 			height: 78rpx;
+// 			position: relative;
+// 			background: #FFFFFF;
+// 			box-shadow: 0rpx 8rpx 24rpx 0rpx rgba(141, 141, 141, 0.3);
+// 			border-radius: 40rpx;
+// 			padding-left: 10rpx;
+// 			.line {
+// 				position: absolute;
+// 				top: 22rpx;
+// 				left: 56rpx;
+// 				width: 4rpx;
+// 				height: 40rpx;
+// 				background-color: rgba(216, 216, 216, 0.3);
+// 			}
+		
+// 			.uicon-search {
+// 				position: absolute !important;
+// 				left: 0 !important;
+// 				top: 10rpx !important;
+// 			}
+		
+// 			.input {
+// 				position: absolute;
+// 				left: 60rpx;
+// 				top: 0;
+// 				width: 90%;
+// 				height: 58rpx;
+// 				padding: 10rpx 20rpx;
+// 				border-radius: 40rpx;
+		
+// 			}
+		
+// 			.button {
+// 				position: absolute;
+// 				right: 0;
+// 				top: 0;
+// 				text-align: center;
+// 				width: 202rpx;
+// 				height: 78rpx;
+// 				background: #025BFF;
+// 				box-shadow: 0rpx 8rpx 24rpx 0rpx rgba(141, 141, 141, 0.3);
+// 				border-radius: 0rpx 40rpx 40rpx 0rpx;
+// 				font-weight: 400;
+// 				font-size: 32rpx;
+// 				color: #FFFFFF;
+// 				z-index: 99;
+		
+// 			}
+// 		}
 </style>
