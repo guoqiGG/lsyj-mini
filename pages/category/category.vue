@@ -63,6 +63,14 @@ export default {
 		this.selIndex = 0
 		this.getCategory()
 	},
+	onShareAppMessage: function () {
+		return {
+			path: "pages/category/category",
+			title: "氢春时代",
+			imageUrl: '/static/logo.png',
+			
+		};
+	},
 	methods: {
 		// 获取商品分类
 		getCategory() {

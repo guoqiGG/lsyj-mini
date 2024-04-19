@@ -80,10 +80,7 @@ export default {
     }
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () { },
+
   methods: {
     /**
      * 获取我的优惠券列表

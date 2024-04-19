@@ -227,6 +227,15 @@ export default {
 			this.isAuthInfo = false;
 		}
 	},
+
+	onShareAppMessage: function () {
+		return {
+			path: "pages/user/user",
+			title: "氢春时代",
+			imageUrl: '/static/logo.png',
+			
+		};
+	},
 	methods: {
 		// 跳转申请退款
 		goRefund() {

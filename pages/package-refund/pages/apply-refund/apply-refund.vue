@@ -25,7 +25,7 @@
 		</view>
 
 		<u-cell-group>
-			<u-cell title="退款方式" value="退货退款"  ></u-cell>
+			<u-cell title="退款方式" value="退货退款"></u-cell>
 			<u-cell title="退款原因" :value="refundReason" isLink @click="pickerMethod()"></u-cell>
 		</u-cell-group>
 		<u-cell-group>
@@ -51,7 +51,7 @@
 		</view>
 		<u-picker :show="show" :defaultIndex="defaultIndex" :columns="columns" @confirm="confirm"
 			@cancel="show= false"></u-picker>
-	
+
 	</view>
 </template>
 <script setup>
@@ -72,7 +72,7 @@
 				orderDetail: null,
 				refundReason: "拍错", //退款原因
 				remark: null, //备注
-				
+
 			}
 		},
 		onLoad(option) {
@@ -101,27 +101,33 @@
 					},
 					callBack: (res) => {
 						this.orderDetail = res
-						
+
 					},
 				}
 				http.request(params);
-			
+
 			},
 			// 退款
 			applyRefund() {
-				let pics=[]
-				this.fileList1.map(item=>{
+				let pics = []
+				this.fileList1.map(item => {
 					pics.push(item.url)
 				})
 				let obj = {
 					loginToken: this.loginToken,
 					orderId: this.orderNumber,
 					userId: this.userId,
-					refundReason: Number(this.defaultIndex)+1,
+					refundReason: Number(this.defaultIndex) + 1,
 					remark: this.remark,
-					pics:pics,
-					refundGoods:[{goodsId:this.orderDetail.orderGoods[0].goodsId,number:this.orderDetail.goodsCount}]
+					pics: pics,
+					refundGoods: [{
+						goodsId: this.orderDetail.orderGoods[0].goodsId,
+						number: this.orderDetail.goodsCount
+					}]
 				}
+				
+
+
 				const params = {
 					url: "/pub/order/apply/refund",
 					method: "POST",
@@ -133,15 +139,29 @@
 						uni.showToast({
 							title: "申请成功~",
 							icon: "none",
+							duration: 2000
 						});
-						uni.navigateTo({
-							url: `/pages/package-user/pages/order-list/order-list?id=` + 0
-						})
+						// uni.reLaunch({
+						// 	url: `/pages/package-user/pages/order-list/order-list?id=` + 0
+						// })
+						setTimeout(()=>{
+							let pages = getCurrentPages();
+							if (pages && pages.length > 2) {
+								uni.navigateBack({
+									delta: 2
+								});
+							} else {
+								uni.reLaunch({
+									url: `/pages/package-user/pages/order-list/order-list?id=` + 0
+								})
+							}
+						},2000)
+						
 					},
 				}
 				http.request(params);
 			},
-			
+
 			// 删除图片
 			deletePic(event) {
 				this[`fileList${event.name}`].splice(event.index, 1)
@@ -169,10 +189,10 @@
 				}
 			},
 			uploadFilePromise(url) {
-				let httpurl=config.domain+"/upload/oss"
+				let httpurl = config.domain + "/upload/oss"
 				return new Promise((resolve, reject) => {
 					let a = uni.uploadFile({
-						url: config.domain+"/upload/oss", // 仅为示例，非真实的接口地址
+						url: config.domain + "/upload/oss", // 仅为示例，非真实的接口地址
 						filePath: url,
 						name: 'file',
 						formData: {
