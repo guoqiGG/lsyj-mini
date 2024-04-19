@@ -157,10 +157,6 @@
 				http.request(params);
 				
 			},
-		
-
-
-
 			// 标签切换事件
 			changeTab(e) {
 				this.coupon_state = e.currentTarget.dataset.type
