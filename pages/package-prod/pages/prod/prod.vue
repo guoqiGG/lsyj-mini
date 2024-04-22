@@ -11,7 +11,9 @@
 				<text class="small-num">.{{ parsePrice(price)[1] }}</text>
 			</view>
 			<view class="prod-number">仅剩<text class="red">{{ productDetail.stock }}</text>件</view>
-			<view class="prod-number" v-if="productDetail.canUseCoupon"><text style="color: #9e9e9e;font-size: 24rpx;">{{ productDetail.canUseCoupon===0?'不可用优惠券':'' }}</text></view>
+			<view class="prod-number" v-if="productDetail.canUseCoupon"><text
+					style="color: #9e9e9e;font-size: 24rpx;">{{ productDetail.canUseCoupon===0?'不可用优惠券':'' }}</text>
+			</view>
 		</view>
 		<view class="prod-select-number">
 			<view class="prod-select-number-left">
@@ -63,6 +65,7 @@
 						<view class="number-title"><text>数量</text></view>
 						<view class="number-con">
 							<view class="minus" @tap="numberValueMinus">-</view>
+
 							<input class="input" type="number" min="1" v-model="numberValue" @input="numberInput()" />
 							<view class="add" @tap="numberValueAdd">+</view>
 						</view>
@@ -158,9 +161,30 @@
 
 			},
 			numberInput() {
-				this.numberValue = Number(this.numberValue)
-				this.totalPrice = (this.price * this.numberValue)
-
+				if (isNaN(this.numberValue)) { //判断值是不是数字
+					this.$nextTick(() => {
+						this.numberValue = 1
+						this.totalPrice = (this.price * this.numberValue)
+					})
+				} else if (this.numberValue == "") { //这是当只有1位的时候，删除这个会进入这个判断，如果没有该判断，当只有一位的时候就不能删除
+					this.$nextTick(() => {
+						this.numberValue = 1
+						this.totalPrice = (this.price * this.numberValue)
+					})
+				} else if (this.numberValue == 0) { //判断值是不是1
+					this.$nextTick(() => {
+						this.numberValue = 1
+						this.totalPrice = (this.price * this.numberValue)
+					})
+				} else if (this.numberValue.indexOf(".") != -1) { //判断有没有输入小数点
+					this.$nextTick(() => {
+						this.numberValue=Math.floor(this.numberValue);
+						this.totalPrice = (this.price * this.numberValue)
+						
+					})
+				}else{
+					this.totalPrice = (this.price * this.numberValue)
+				}
 			},
 			getProductDetail() {
 				let obj = {
@@ -186,7 +210,7 @@
 			skuSelectClick(id) {
 				this.chechIndex = id
 			},
-			buyNow(){
+			buyNow() {
 				util.checkAuthInfo(() => {
 					// 订单预检
 					let obj = {
@@ -221,50 +245,50 @@
 							}
 							this.closeSkuPopup()
 						},
-				
+
 					}
 					http.request(params);
 				})
 			},
-				//buyNow: util.debounce(function () {
-				// util.checkAuthInfo(() => {
-				// 	// 订单预检
-				// 	let obj = {
-				// 		loginToken: uni.getStorageSync('bbcToken'),
-				// 		userId: uni.getStorageSync('bbcUserInfo').id,
-				// 		orderType: this.orderType,
-				// 		goods: [{
-				// 			goodsId: this.goodsId,
-				// 			skuId: this.chechIndex,
-				// 			buyNumber: this.numberValue
-				// 		}]
-				// 	}
-				// 	const params = {
-				// 		url: "/pub/order/preview",
-				// 		method: "POST",
-				// 		data: {
-				// 			sign: 'qcsd',
-				// 			data: JSON.stringify(obj),
-				// 		},
-				// 		callBack: (res) => {
-				// 			let orderItem = res
-				// 			let url = '/pages/package-pay/pages/submit-order/submit-order'
-				// 			this.toSubmitOrder(orderItem, url)
-				// 		},
-				// 		errCallBack: (errMsg) => {
-				// 			if (errMsg.code === 500) {
-				// 				uni.showToast({
-				// 					title: errMsg.msg,
-				// 					icon: 'none',
-				// 					mask: true
-				// 				})
-				// 			}
-				// 			this.closeSkuPopup()
-				// 		},
+			//buyNow: util.debounce(function () {
+			// util.checkAuthInfo(() => {
+			// 	// 订单预检
+			// 	let obj = {
+			// 		loginToken: uni.getStorageSync('bbcToken'),
+			// 		userId: uni.getStorageSync('bbcUserInfo').id,
+			// 		orderType: this.orderType,
+			// 		goods: [{
+			// 			goodsId: this.goodsId,
+			// 			skuId: this.chechIndex,
+			// 			buyNumber: this.numberValue
+			// 		}]
+			// 	}
+			// 	const params = {
+			// 		url: "/pub/order/preview",
+			// 		method: "POST",
+			// 		data: {
+			// 			sign: 'qcsd',
+			// 			data: JSON.stringify(obj),
+			// 		},
+			// 		callBack: (res) => {
+			// 			let orderItem = res
+			// 			let url = '/pages/package-pay/pages/submit-order/submit-order'
+			// 			this.toSubmitOrder(orderItem, url)
+			// 		},
+			// 		errCallBack: (errMsg) => {
+			// 			if (errMsg.code === 500) {
+			// 				uni.showToast({
+			// 					title: errMsg.msg,
+			// 					icon: 'none',
+			// 					mask: true
+			// 				})
+			// 			}
+			// 			this.closeSkuPopup()
+			// 		},
 
-				// 	}
-				// 	http.request(params);
-				// })
+			// 	}
+			// 	http.request(params);
+			// })
 			// }, 1000)
 			/**
 			 * 跳转提交订单页

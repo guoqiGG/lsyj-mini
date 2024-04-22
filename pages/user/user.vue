@@ -37,24 +37,27 @@
 				</view>
 				<view class="order-content">
 					<view class="order-wrap" @click="goOrderList(1)">
-						<view class="order-img">
-							<image src="/static/user/pay.png" mode=""></image>
+						<view class="order-img" style="position: relative;">
+							<image src="/static/user/pay.png" mode="" ></image>
+							<u-badge  :offset="[-10, -20]" type="error" bgColor="rgb(197,48,50)" :absolute="true" color="#ffffff" max="99" :value="orderNum.pendingPaymentNum"></u-badge>
 						</view>
 						<view class="order-text">
 							待付款
 						</view>
 					</view>
 					<view class="order-wrap" @click="goOrderList(2)">
-						<view class="order-img">
+						<view class="order-img" style="position: relative;">
 							<image src="/static/user/order-deliver.png" mode=""></image>
+							<u-badge  :offset="[-10, -20]" type="error" bgColor="rgb(197,48,50)" :absolute="true" color="#ffffff" max="99" :value="orderNum.pendingDeliveryNum"></u-badge>
 						</view>
 						<view class="order-text">
 							待发货
 						</view>
 					</view>
 					<view class="order-wrap" @click="goOrderList(3)">
-						<view class="order-img">
+						<view class="order-img" style="position: relative;">
 							<image src="/static/user/order-receiving.png" mode=""></image>
+							<u-badge  :offset="[-10, -20]" type="error" bgColor="rgb(197,48,50)" :absolute="true" color="#ffffff" max="99" :value="orderNum.deliveryNum"></u-badge>
 						</view>
 						<view class="order-text">
 							待收货
@@ -209,7 +212,8 @@ export default {
 			isLeader: true, // 是否是团长
 			userInfo: {}, // 用户信息
 			isAuthInfo: false, //用户是否登录
-			showAuth: false // 显示授权用户信息
+			showAuth: false ,// 显示授权用户信息
+			orderNum:null,
 		}
 	},
 	components: {
@@ -217,12 +221,12 @@ export default {
 	},
 
 	onShow: function () {
-
 		if (uni.getStorageSync("bbcToken")) {
 			this.isAuthInfo = true;
 			this.userInfo = uni.getStorageSync('bbcUserInfo')
 			this.getUserInfo()
 			this.getDefaultAddress()
+			this.getOrderNum()
 		} else {
 			this.isAuthInfo = false;
 		}
@@ -237,6 +241,23 @@ export default {
 		};
 	},
 	methods: {
+		// 获取订单消息数量
+		getOrderNum() {
+			const params = {
+				url: "/pub/user/order/num" ,
+				method: "POST",
+				data: {
+					sign: 'qcsd',
+					data: JSON.stringify({loginToken:uni.getStorageSync('bbcToken')}),
+				},
+				
+				callBack: (res) => {
+					this.orderNum=res
+					console.log(res,'res==========>')
+				},
+			};
+			http.request(params);
+		},
 		// 跳转申请退款
 		goRefund() {
 			uni.navigateTo({
