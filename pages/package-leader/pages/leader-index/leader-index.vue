@@ -118,7 +118,7 @@
 						<u-icon name="arrow-right" size="28"></u-icon>
 					</view>
 				</view>
-				<view class="list-line" @click="liveBroadcast()">
+				<!-- <view class="list-line" @click="liveBroadcast()">
 					<view class="list-line-lf">
 						<view class="list-line-lf-img">
 							<image src="/pages/package-leader/static/hx.png" mode=""></image>
@@ -130,7 +130,7 @@
 					<view class="list-line-rt">
 						<u-icon name="arrow-right" size="28"></u-icon>
 					</view>
-				</view>
+				</view> -->
 
 			</view>
 
@@ -187,11 +187,11 @@ export default {
 			})
 		},
 		// 直播间
-		liveBroadcast(){
-			uni.navigateTo({
-				url: "/pages/package-leader/pages/live-broadcast/live-broadcast"
-			})
-		},
+		// liveBroadcast(){
+			// uni.navigateTo({
+			// 	url: "/pages/package-leader/pages/live-broadcast/live-broadcast"
+			// })
+		// },
 		// 查询团长信息
 		getLeaderInformation() {
 			let obj = {

@@ -117,12 +117,12 @@ export default {
 		// 分享
 		toLivePage(e) {
 			// 跳转到直播间页面
-			uni.navigateTo({
-				url: "/pages/package-leader/pages/live-room/live-room?room_id=" +
-					e.currentTarget.dataset.roomid +
-					"&url=" +
-					e.currentTarget.dataset.url,
-			});
+			// uni.navigateTo({
+			// 	url: "/pages/package-leader/pages/live-room/live-room?room_id=" +
+			// 		e.currentTarget.dataset.roomid +
+			// 		"&url=" +
+			// 		e.currentTarget.dataset.url,
+			// });
 		},
 	},
 };

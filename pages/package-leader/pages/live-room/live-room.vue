@@ -1,9 +1,9 @@
 <template>
 	<view class="Mall4j wallet-container">
 		<view class="con">
-			<image src="https://devcdn.hnbjx.net.cn/0c12b6d0-59c0-11ee-aba8-c9501bbb929b.png" @tap="toLive(room_id)">
+			<!-- <image src="https://devcdn.hnbjx.net.cn/0c12b6d0-59c0-11ee-aba8-c9501bbb929b.png" @tap="toLive(room_id)"> -->
 			</image>
-			<text class="desc">点击图片观看直播</text>
+			<text class="desc">点击图片观看</text>
 		</view>
 	</view>
 </template>
@@ -30,7 +30,7 @@ export default {
 	onShow: function () {
 		util.checkAuthInfo(() => { });
 		uni.setNavigationBarTitle({
-			title: "邀请进直播间",
+			// title: "邀请进直播间",
 		});
 	},
 	methods: {
@@ -52,11 +52,11 @@ export default {
 	onShareAppMessage() {
 		return {
 			title: dayjs().format("MM-DD") + "氢春态欢乐团邀您一起观看直播",
-			path: "/package-user/pages/live-room/live-room?room_id=" +
-				this.room_id +
-				"&url=" +
-				this.url,
-			imageUrl: "http://qingchuntaijava1.oss-cn-beijing.aliyuncs.com/2023/10/2065112b1ce4443dad9ec00cfdcfd58b.jpg",
+			// path: "/package-user/pages/live-room/live-room?room_id=" +
+			// 	this.room_id +
+			// 	"&url=" +
+			// 	this.url,
+			// imageUrl: "http://qingchuntaijava1.oss-cn-beijing.aliyuncs.com/2023/10/2065112b1ce4443dad9ec00cfdcfd58b.jpg",
 		};
 	},
 };
