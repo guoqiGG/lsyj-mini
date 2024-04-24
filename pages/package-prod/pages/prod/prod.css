@@ -241,20 +241,24 @@ page {
   text-transform: none;
 }
 .goods-sku-list {
-  display: float;
+  /* display: float; */
   padding-top: 15rpx;
   overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-between;
 }
 .goods-sku-list .goods-sku-list-item {
-  float: left;
-  width: 152.5rpx;
-  height: 80rpx;
-  line-height: 80rpx;
+	width: 40%;
+	overflow: hidden;
+  /* float: left; */
+  /* width: 152.5rpx; */
+  /* height: 80rpx; */
+  /* line-height: 80rpx; */
   background: #F1F1F1;
   border-radius: 8rpx 8rpx 8rpx 8rpx;
-  /* padding: 16rpx 50rpx; */
+  padding: 10rpx 20rpx;
   text-align: center;
-  margin-left: 20rpx;
   margin-bottom: 20rpx;
   color: #101010;
 }

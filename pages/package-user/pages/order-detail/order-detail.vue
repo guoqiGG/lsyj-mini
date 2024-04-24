@@ -67,6 +67,9 @@
 				<view class="name">
 					{{orderDetail.orderGoods[0].title}}
 				</view>
+				<view class="size">
+					{{orderDetail.orderGoods[0].specificationName}}默认
+				</view>
 				<view class="price_box">
 					<view class="price">
 						<text>￥{{orderDetail.orderGoods[0].salePrice}}</text>
@@ -352,11 +355,14 @@
 					font-size: 28rpx;
 					color: #101010;
 				}
+				.size{
+					font-size: 22rpx;
+					color: #696868;
+				}
 
 				.price_box {
 					display: flex;
 					justify-content: space-between;
-
 					.price {
 						font-weight: 400;
 						font-size: 32rpx;

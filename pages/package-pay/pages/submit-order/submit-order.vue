@@ -75,6 +75,9 @@
 						<view class="text-title">
 							{{ orderItemInfo.goods[0].goodsName }}
 						</view>
+						<view class="text-size">
+							{{ orderItemInfo.goods[0].specificationName }}
+						</view>
 						<view class="text-cot">
 							<view class="text-cot-price">
 								￥{{ parsePrice(orderItemInfo.goodsAmount)[0]
@@ -675,10 +678,17 @@
 							line-height: 48rpx;
 							color: #101010;
 						}
+							
+						.text-size{
+							font-size: 26rpx;
+							line-height: 48rpx;
+							color: #696868;
+							margin-top: 20rpx;
+						}
 
 						.text-cot {
 							width: 442rpx;
-							margin-top: 112rpx;
+							margin-top: 44rpx;
 							display: flex;
 							justify-content: space-between;
 
