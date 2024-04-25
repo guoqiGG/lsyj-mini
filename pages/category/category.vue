@@ -23,6 +23,7 @@
 				<block v-for="(item, key) in prodList" :key="key">
 					<prod :item="item" />
 				</block>
+				<view style="height:1rpx;"></view>
 				<!-- 空列表或加载全部提示 -->
 				<EmptyAllTips v-if="isLoaded" :isEmpty="!prodList.length" emptyTips="此分类下暂无商品"
 					:isAll="current == pages" />

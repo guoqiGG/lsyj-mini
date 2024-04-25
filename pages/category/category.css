@@ -1,8 +1,8 @@
 /* pages/category/category.wxss */
 
-page {
+/* page {
   height: 100%;
-}
+} */
 uni-page-wrapper {
   height: 0 !important;
 }
@@ -173,10 +173,11 @@ uni-page-wrapper {
 
 .rightcontent {
   width: 75%;
+  height: 100%;
+  box-sizing: border-box;
   /*  #ifndef  MP-WEIXIN  */
   padding-bottom: 100rpx;
   /*  #endif  */
-  box-sizing: border-box;
   background-color: #f5f5f5;
   z-index: 1;
 }

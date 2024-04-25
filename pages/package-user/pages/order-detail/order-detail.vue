@@ -67,8 +67,8 @@
 				<view class="name">
 					{{orderDetail.orderGoods[0].title}}
 				</view>
-				<view class="size">
-					{{orderDetail.orderGoods[0].specificationName}}默认
+				<view class="size" v-if="orderDetail.specificationName!=='默认'">
+					{{orderDetail.specificationName?orderDetail.specificationName:''}}
 				</view>
 				<view class="price_box">
 					<view class="price">

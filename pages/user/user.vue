@@ -416,16 +416,14 @@ export default {
 
 <style lang="less" scoped>
 .main {
-	overflow-y: auto;
 	background: #f2f2f2;
-	// z-index: 2;
 	height: 100vh;
 	overflow: auto;
 	position: relative;
 }
 
 .background {
-	position: fixed;
+	position: absolute;
 	left: 0rpx;
 	top: 0rpx;
 	width: 100vw;
@@ -435,12 +433,13 @@ export default {
 }
 
 .user {
-	position: fixed;
+	position: absolute;
 	box-sizing: border-box;
 	overflow-x: hidden;
-	padding: 0 20rpx;
+	padding: 0 20rpx 20rpx;
 	width: 100vw;
 	z-index: 5;
+	
 
 	.user-login {
 		box-sizing: border-box;
