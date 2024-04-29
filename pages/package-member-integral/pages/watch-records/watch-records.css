@@ -1,0 +1,70 @@
+.gift-write-off {
+  background: #f6f6f6;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+.container {
+  margin: 0rpx 30rpx;
+  box-sizing: border-box;
+  padding-top: 10rpx;
+}
+.item {
+  box-sizing: border-box;
+  background: #ffffff;
+  padding: 30rpx 30rpx;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+  margin-top: 20rpx;
+  border-radius: 10rpx;
+}
+.item:nth-child(1) {
+  margin-top: 0;
+}
+.item .date {
+  font-size: 28rpx;
+  font-weight: 400;
+  line-height: 50rpx;
+  border-bottom: 1rpx solid #f6f6f6;
+}
+.item .item-cen {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20rpx 0;
+  /* border-bottom: 1rpx solid #f6f6f6; */
+}
+.item .item-cen .img {
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.item .item-cen .img image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.item .item-cen .right-con {
+  margin-left: 30rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+.room-name {
+  font-size: 32rpx;
+  color: #101010;
+}
+.item .item-cen .right-con .watch-time {
+  padding: 10rpx 0;
+  color: #010101;
+  font-size: 24rpx;
+}
+.item .item-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10rpx;
+}
+.item .item-btn .btn {
+  font-size: 24rpx;
+  font-weight: 400;
+  padding: 5rpx 20rpx;
+  border-radius: 20rpx;
+  border: 1rpx solid #f1f1f1;
+}

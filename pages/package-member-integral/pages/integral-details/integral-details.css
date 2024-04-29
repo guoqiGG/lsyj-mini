@@ -1,0 +1,39 @@
+.gift-write-off {
+  background: #f6f6f6;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+.container {
+  margin: 0rpx 30rpx;
+  box-sizing: border-box;
+  padding-top: 10rpx;
+}
+.item {
+  box-sizing: border-box;
+  background: #ffffff;
+  padding: 30rpx 30rpx;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+  margin-top: 20rpx;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.type{
+  font-size: 32rpx;
+  color: #010101;
+}
+.red{
+  color: #F51E1C;
+  font-size: 32rpx;
+  font-weight: 500;
+  margin-right: 10rpx;
+}
+.green{
+  color: #54C945;
+  font-size: 32rpx;
+  font-weight: 500;
+  margin-right: 10rpx;
+}
+

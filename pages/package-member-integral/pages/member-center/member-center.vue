@@ -3,10 +3,11 @@
     <view class="container">
         <view class="member-info-container">
             <view class="member-avatar">
-                <image style="width: 100%;height: 100%;margin: 0,0;" v-if="bbcUserInfo.avatar" class="img" :src="bbcUserInfo.avatar" mode="" />
+                <image style="width: 100%;height: 100%;margin: 0,0;" v-if="bbcUserInfo.avatar" class="img"
+                    :src="bbcUserInfo.avatar" mode="" />
             </view>
-            <view class="member-name">{{bbcUserInfo.name}}</view>
-            <view class="member-level">{{bbcUserInfo.type==1?'团长':'普通'}}</view>
+            <view class="member-name">{{ bbcUserInfo.name }}</view>
+            <view class="member-level">{{ bbcUserInfo.type == 1 ? '团长' : '普通' }}</view>
         </view>
         <view class="watch-beans">
             <view class="watch-container" @tap="clickWatch">
@@ -15,16 +16,16 @@
                     <image class="right-arrow" src="../../static/icon-right-arrow.png"></image>
                 </view>
                 <view class="number">
-                    0
+                    {{ watchRecordTotal }}
                 </view>
             </view>
-            <view class="watch-container blue-container"  @tap="clickWatch">
+            <view class="watch-container blue-container" @tap="toIntegralDetailsPage">
                 <view class="text-con">
                     <view>当前青春豆</view>
                     <image class="right-arrow" src="../../static/icon-right-arrow-blue.png"></image>
                 </view>
                 <view class="number">
-                    0
+                    {{ bbcUserInfo.score ? bbcUserInfo.score : 0 }}
                 </view>
             </view>
         </view>
@@ -69,25 +70,42 @@
     </view>
 </template>
 <script>
-	export default {
-		data() {
-			return {
-				bbcUserInfo:null,
-			}
-		},
-		onShow() {
-			this.bbcUserInfo = uni.getStorageSync("bbcUserInfo"); //用户信息
-		},
-		methods: {
-			clickWatch(){
-                uni.showToast({
-                    title: '功能暂未开放',
-                    icon: 'none',
-                    mask: true
-                })
+const http = require("@/utils/http");
+export default {
+    data() {
+        return {
+            bbcUserInfo: null,
+            watchRecordTotal: 0
+        }
+    },
+    onShow() {
+        this.bbcUserInfo = uni.getStorageSync("bbcUserInfo"); //用户信息
+        this.watchRecord()
+    },
+    methods: {
+        // 跳转到观看记录
+        clickWatch() {
+            uni.navigateTo({ url: '/pages/package-member-integral/pages/watch-records/watch-records' })
+        },
+        // 跳转到氢春豆明细
+        toIntegralDetailsPage() {
+            uni.navigateTo({ url: '/pages/package-member-integral/pages/integral-details/integral-details' })
+        },
+        // 观看记录
+        watchRecord() {
+            const params = {
+                url: "/huan/tuo/user/viewing/time/list",
+                method: "POST",
+                data: JSON.stringify({ pageSize: 5, pageNo: 1, userId: uni.getStorageSync('bbcUserInfo').id }),
+                // data: JSON.stringify({ pageSize: 5, pageNo: 1, userId: 71872 }),
+                callBack: (res) => {
+                    this.watchRecordTotal = res.list.length
+                }
             }
-		}
-	}
+            http.request(params);
+        }
+    }
+}
 </script>
 <style>
 @import './member-center.css'

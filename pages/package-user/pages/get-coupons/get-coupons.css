@@ -1,0 +1,81 @@
+Page {
+  width: 100%;
+  min-height: 100vh;
+  background: #F6f6f6;
+}
+.con {
+  padding: 20rpx;
+  background: transparent;
+}
+.con .list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-shadow: 0rpx 8rpx 24rpx 0rpx rgba(141, 141, 141, 0.3);
+  height: 186rpx;
+  border-radius: 20rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: transparent;
+}
+.con .list .left-con {
+  width: 200rpx;
+  border-radius: 6px 0px 0px 6px;
+  background: #ea3b26;
+  height: 100%;
+  text-align: center;
+  line-height: 200rpx;
+  font-weight: 400;
+  font-size: 64rpx;
+  color: #ffffff;
+  font-style: normal;
+  text-transform: none;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.dot {
+  width: 20rpx;
+  height: 20rpx;
+  background: #f6f6f6;
+  border-radius: 50%;
+  position: absolute;
+  top: -10rpx;
+  right: -10rpx;
+  z-index: 5;
+}
+.dot:nth-child(2){
+  top: 176rpx;
+  right: -10rpx;
+}
+
+.right-con {
+  background: #fff;
+  padding: 20rpx;
+  width: calc(100% - 200rpx);
+  box-sizing: border-box;
+  height: 100%;
+}
+.right-con .name {
+  font-size: 40rpx;
+  color: #010101;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.right-con .button {
+  border-radius: 12rpx;
+  background: #fff;
+  border: 2rpx solid #ea3b26;
+  color: #ea3b26;
+  text-align: center;
+  padding: 10rpx;
+  font-size: 32rpx;
+  font-weight: normal;
+  letter-spacing: 0.06em;
+  display: block;
+  float: right;
+  margin-top: 20rpx;
+  width: 140rpx;
+}

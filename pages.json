@@ -168,6 +168,14 @@
             "navigationBarBackgroundColor": "#025BFF",
             "navigationBarTextStyle": "white"
           }
+        },
+        {
+          "path": "pages/get-coupons/get-coupons",
+          "style": {
+            "navigationBarTitleText": "领取优惠券",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
         }
       ]
     },
@@ -181,8 +189,7 @@
             "navigationBarBackgroundColor": "#025BFF",
             "navigationBarTextStyle": "white"
           }
-        }
-        ,
+        },
         {
           "path": "pages/pay-result/pay-result",
           "style": {
@@ -236,14 +243,14 @@
             "navigationBarTextStyle": "white"
           }
         },
-		{
-			"path": "pages/revenue-details/revenue-details",
-			"style": {
-				"navigationBarTitleText": "收益明细",
-				"navigationBarBackgroundColor": "#025BFF",
-				"navigationBarTextStyle": "white"
-			}
-		},
+        {
+          "path": "pages/revenue-details/revenue-details",
+          "style": {
+            "navigationBarTitleText": "收益明细",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
+        },
         {
           "path": "pages/user-shop-details/user-shop-details",
           "style": {
@@ -294,6 +301,22 @@
           "style": {
             "navigationBarTitleText": "青春豆中心",
             "enablePullDownRefresh": false
+          }
+        },
+        {
+          "path": "pages/watch-records/watch-records",
+          "style": {
+            "navigationBarTitleText": "观看记录",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
+          }
+        },
+        {
+          "path": "pages/integral-details/integral-details",
+          "style": {
+            "navigationBarTitleText": "氢春豆明细",
+            "navigationBarBackgroundColor": "#025BFF",
+            "navigationBarTextStyle": "white"
           }
         }
       ]
