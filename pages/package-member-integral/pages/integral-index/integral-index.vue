@@ -98,7 +98,7 @@ export default {
     }
   },
   methods: {
-    // 跳转到氢春豆明细
+    // 跳转到青春豆明细
     toIntegralDetailsPage() {
       uni.navigateTo({ url: '/pages/package-member-integral/pages/integral-details/integral-details' })
     },

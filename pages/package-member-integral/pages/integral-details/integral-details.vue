@@ -1,8 +1,26 @@
 <template>
     <view class="gift-write-off">
         <view class="container">
+            <view class="top-con">
+                <view class="top">
+                    <view class="left">
+                        <view class="text">账户青春豆（个）</view>
+                        <view class="bean-con">
+                            <image src="/static/bean.png" />
+                            <view class="bean-num">{{userInfo.score?userInfo:0}}</view>
+                        </view>
+                    </view>
+                    <view class="right">
+                       去兑换
+                    </view>
+                </view>
+            </view>
+            <view class="title">青春豆明细</view>
             <view class="item" v-for="(item, index) in dataList" v-key="index">
-                <view class="type">{{item.scoreName}}</view>
+                <view class="item-left">
+                    <view class="type">{{ item.scoreName }}</view>
+                    <view class="time">{{item.createTime}}</view>
+                </view>
                 <view v-if="item.type === 3"><text class="red">-</text><text class="red">{{ item.score }}</text></view>
                 <view v-else><text class="green">+</text><text class="green">{{ item.score }}</text></view>
             </view>
@@ -14,6 +32,8 @@
 </template>
 
 <script>
+import { userInfo } from "os";
+
 const config = require("@/utils/config.js");
 const http = require("@/utils/http.js");
 const util = require("@/utils/util.js");
@@ -28,11 +48,13 @@ export default {
             dataList: [],
             isLoaded: false,
             isAll: false,
+            userInfo: {}
         };
     },
 
     onShow: function () {
         this.getScoreList();
+        this.userInfo = uni.getStorageSync('bbcUserInfo')
     },
 
     /**
@@ -44,7 +66,7 @@ export default {
     methods: {
 
         /**
-         * 获取氢春豆明细
+         * 获取青春豆明细
          */
         getScoreList() {
             this.isLoaded = false;
@@ -53,7 +75,8 @@ export default {
                 method: "POST",
                 data: {
                     sign: 'qcsd',
-                    data: JSON.stringify({ pageSize: this.size, pageNo: this.current, userId: uni.getStorageSync('bbcUserInfo').id,loginToken:uni.getStorageSync('bbcToken'),categoryId:1 }),
+                    // data: JSON.stringify({ pageSize: this.size, pageNo: this.current, userId: uni.getStorageSync('bbcUserInfo').id, loginToken: uni.getStorageSync('bbcToken'), categoryId: 1 }),
+                    data: JSON.stringify({ pageSize: this.size, pageNo: this.current, userId: 71872, loginToken: uni.getStorageSync('bbcToken'), categoryId: 1 }),
                 },
                 callBack: (res) => {
                     this.isLoaded = true;

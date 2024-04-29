@@ -2,14 +2,17 @@
     <view class="gift-write-off">
         <view class="container">
             <view class="item" v-for="(item, index) in dataList" v-key="index">
-                <view class="date">{{ item.createTime.split(" ")[0] }}</view>
+
                 <view class="item-cen">
                     <view class="img">
-                        <image src="/static/icon-live.png" @error="errorImg(index)" />
+                        <image src="/static/watch-records-img.png" @error="errorImg(index)" />
                     </view>
                     <view class="right-con">
-                        <view class="room-name">{{ item.courseName }}</view>
-                        <view class="watch-time">观看时长：<text class="time">{{ item.durationStr }}</text></view>
+                        <view class="right-top">
+                            <view class="room-name">{{ item.courseName }}</view>
+                            <view class="watch-time">观看时长：<text class="time">{{ item.durationStr }}</text></view>
+                        </view>
+                        <view class="date">{{ item.createTime.split(" ")[0] }}</view>
                     </view>
                 </view>
             </view>
@@ -58,7 +61,7 @@ export default {
             const params = {
                 url: "/huan/tuo/user/viewing/time/list",
                 method: "POST",
-                data: JSON.stringify({ pageSize: this.size, pageNo: this.current, userId: uni.getStorageSync('bbcUserInfo').id }),
+                data: JSON.stringify({ pageSize: this.size, pageNo: this.current, userId: uni.getStorageSync('bbcUserInfo').id }),            
                 callBack: (res) => {
                     this.isLoaded = true;
                     this.dataList = this.current == 1 ? res.list : this.dataList.concat(res.list)

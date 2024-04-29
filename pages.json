@@ -314,7 +314,7 @@
         {
           "path": "pages/integral-details/integral-details",
           "style": {
-            "navigationBarTitleText": "氢春豆明细",
+            "navigationBarTitleText": "青春豆明细",
             "navigationBarBackgroundColor": "#025BFF",
             "navigationBarTextStyle": "white"
           }
