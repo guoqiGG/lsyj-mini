@@ -103,7 +103,7 @@
 						订单备注：
 					</view>
 					<view class="submit-order-comodity-info-order-remark-right">
-						选填
+						<input placeholder="选填" type="text" @input="commentInput" />
 					</view>
 
 				</view>
@@ -252,6 +252,7 @@ export default {
 			}],
 			checkList: [],
 			orderItemInfo: {}, //订单信息
+			comment: '', //订单备注
 			userInfo: {},
 		}
 	},
@@ -279,6 +280,9 @@ export default {
 		}
 	},
 	methods: {
+		commentInput(e) {
+			this.comment = e.detail.value
+		},
 		close() {
 			this.show = false
 			// console.log('close');
@@ -372,7 +376,7 @@ export default {
 						userAddressId: this.express ? '' : this.address.id,
 						address: this.express ? this.userInfo.leaderAddress : '',
 						goods: this.orderItemInfo.goods,
-						comment: '',
+						comment: this.comment,
 						openId: this.userInfo.openId
 					})
 				},
@@ -725,6 +729,10 @@ export default {
 				.submit-order-comodity-info-order-remark-left {
 					font-size: 32rpx;
 					color: #101010;
+				}
+
+				.submit-order-comodity-info-order-remark-right {
+					width: calc(100% - 170rpx);
 				}
 			}
 
