@@ -16,13 +16,16 @@
         <view class="text">青春豆兑换</view>
       </view>
       <view class="con-box">
-        <block v-for="(prod, prodId) in scoreProdList" :key="prodId">
-          <!-- <goodsitem :prod="prod" /> -->
-        </block>
+        <view class="item" v-for="item in 1">
+          <image src="/static/clothes.png" />
+          <view @tap="exchange">
+            <text>衣服优惠券</text>
+          </view>
+        </view>
       </view>
       <!-- <view v-if="!scoreProdList.length" class="empty"> 暂无数据 </view> -->
       <!-- 空列表或加载全部提示 -->
-      <EmptyAllTips v-if="true" :isEmpty="!scoreProdList.length" :isAll="scoreProdList.length > 10 && loadAll" />
+      <!-- <EmptyAllTips v-if="true" :isEmpty="!scoreProdList.length" :isAll="scoreProdList.length > 10 && loadAll" /> -->
     </view>
   </view>
 </template>
@@ -138,6 +141,36 @@ export default {
       };
       http.request(param);
     },
+
+    // 兑换
+    exchange() {
+      const params = {
+        url: "/pub/user/integral/exchange",
+        method: "POST",
+        data: JSON.stringify({ userId: uni.getStorageSync('bbcUserInfo').id }),
+        callBack: (res) => {
+          uni.showToast({
+            title: '兑换成功',
+            icon: 'none'
+          })
+          this.getUserInfo()
+        }
+      }
+      http.request(params);
+
+    },
+    // 获取用户信息
+    getUserInfo() {
+      const params = {
+        url: "/pub/user/infoByToken?loginToken=" + uni.getStorageSync('bbcToken'),
+        method: "GET",
+        callBack: (res) => {
+          uni.setStorageSync('bbcUserInfo', res)
+          this.userInfo = res
+        },
+      };
+      http.request(params);
+    }
   },
 };
 </script>

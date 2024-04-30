@@ -7,10 +7,10 @@
                         <view class="text">账户青春豆（个）</view>
                         <view class="bean-con">
                             <image src="/static/bean.png" />
-                            <view class="bean-num">{{userInfo.score?userInfo:0}}</view>
+                            <view class="bean-num">{{userInfo.score?userInfo.score:0}}</view>
                         </view>
                     </view>
-                    <view class="right">
+                    <view class="right" @tap="toIntegralIndexPage">
                        去兑换
                     </view>
                 </view>
@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import { userInfo } from "os";
 
 const config = require("@/utils/config.js");
 const http = require("@/utils/http.js");
@@ -53,8 +52,9 @@ export default {
     },
 
     onShow: function () {
-        this.getScoreList();
         this.userInfo = uni.getStorageSync('bbcUserInfo')
+        this.getScoreList();
+        
     },
 
     /**
@@ -64,6 +64,9 @@ export default {
         this.getNextPage();
     },
     methods: {
+        toIntegralIndexPage(){
+            uni.navigateTo({ url: '/pages/package-member-integral/pages/integral-index/integral-index' })
+        },
 
         /**
          * 获取青春豆明细
