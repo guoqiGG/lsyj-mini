@@ -1,8 +1,9 @@
-page {
-  width: 100%;
-  height: 100%;
+.container {
   background: #e6e6e6;
+  padding-bottom: 200rpx; 
+  overflow-y: scroll;
 }
+
 .image-con {
   width: 100%;
   height: 750rpx;
@@ -246,16 +247,16 @@ page {
   overflow: hidden;
   display: flex;
   flex-wrap: wrap;
-  justify-content:space-between;
+  justify-content: space-between;
 }
 .goods-sku-list .goods-sku-list-item {
-	width: 40%;
-	overflow: hidden;
+  width: 40%;
+  overflow: hidden;
   /* float: left; */
   /* width: 152.5rpx; */
   /* height: 80rpx; */
   /* line-height: 80rpx; */
-  background: #F1F1F1;
+  background: #f1f1f1;
   border-radius: 8rpx 8rpx 8rpx 8rpx;
   padding: 10rpx 20rpx;
   text-align: center;
@@ -285,7 +286,7 @@ page {
   padding: 8rpx 0;
   text-align: center;
   width: 520rpx;
-   height: 66rpx;
+  height: 66rpx;
   border-radius: 50rpx;
   background: #f85721;
   font-size: 36rpx;

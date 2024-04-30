@@ -11,8 +11,8 @@ if (process.env.NODE_ENV === "production") {
 
 // =============== 开发环境 ===============
 if (process.env.NODE_ENV === "development") {
-  domain = "http://192.168.110.69:8072"; // 本地
-  // domain = "https://qct.hnliyue.cn/youth"; // 线上
+  // domain = "http://192.168.110.69:8072"; // 本地
+  domain = "https://qct.hnliyue.cn/youth"; // 线上
 
 }
 

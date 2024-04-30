@@ -75,8 +75,7 @@ export default {
                 method: "POST",
                 data: {
                     sign: 'qcsd',
-                    // data: JSON.stringify({ pageSize: this.size, pageNo: this.current, userId: uni.getStorageSync('bbcUserInfo').id, loginToken: uni.getStorageSync('bbcToken'), categoryId: 1 }),
-                    data: JSON.stringify({ pageSize: this.size, pageNo: this.current, userId: 71872, loginToken: uni.getStorageSync('bbcToken'), categoryId: 1 }),
+                    data: JSON.stringify({ pageSize: this.size, pageNo: this.current, userId: uni.getStorageSync('bbcUserInfo').id, loginToken: uni.getStorageSync('bbcToken'), categoryId: 1 }),
                 },
                 callBack: (res) => {
                     this.isLoaded = true;
