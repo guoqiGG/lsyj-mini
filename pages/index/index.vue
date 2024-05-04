@@ -1,29 +1,21 @@
 <template>
 	<view class="main">
-		<view class="top">
-			<!-- 导航&公告 -->
-			<!-- #ifndef H5-->
-			<navigationBar v-if="navigationBarIsShow" bg-color="bg-gradual-pink" :show-back="false"
-				:navigation-bar-style="tabConfig" :is-left="false" :is-bg-img="isBgImg" :title="title" />
-			<!-- #endif -->
-			<view :class="['news-swiper']">
-				<!-- 消息播放 -->
-				<view class="news-swiper-con">
-					<view class="message-play">
-						<image src="/static/horn.png" class="hornpng" />
-						<view class="scroll-news-content" :style="'transform: translateX(' + move + 'px);'">
-							<view class="news-content">
-								<view class="news-text">走进氢春态，省钱成常态！进入直播间，福利不间断！</view>
-							</view>
+		<!-- #ifndef H5-->
+		<navigationBar v-if="navigationBarIsShow" bg-color="bg-gradual-pink" :show-back="false"
+			:navigation-bar-style="tabConfig" :is-left="false" :is-bg-img="isBgImg" :title="title" />
+		<!-- #endif -->
+		<view :class="['news-swiper']">
+			<view class="news-swiper-con">
+				<view class="message-play">
+					<image src="/static/horn.png" class="hornpng" />
+					<view class="scroll-news-content" :style="'transform: translateX(' + move + 'px);'">
+						<view class="news-content">
+							<view class="news-text">走进氢春态，省钱成常态！进入直播间，福利不间断！</view>
 						</view>
-						<!-- <text class="arrow" /> -->
 					</view>
 				</view>
-				<!-- 消息播放end -->
 			</view>
-			<!-- 导航&公告end -->
 		</view>
-
 		<swiper class="swiper" circular="true" :indicator-dots="true" :autoplay="true" :interval="3000"
 			:duration="1000">
 			<block v-for="(item, seq) in indexImgs" :key="seq">
@@ -34,48 +26,45 @@
 				</swiper-item>
 			</block>
 		</swiper>
-
-		<view class="content">
-			<view class="middle">
-				<view class="convert" @click="goConvert()">
-					<image class="bg-convert-2" src="/static/bg-convert-2.png" />
-					<image class="bg-convert-3" src="/static/bg-convert-3.png" />
-					<view class="convert-title">
-						青春豆兑换区
-					</view>
-					<view class="convert-sub">
-						福利多多
-					</view>
-					<view class="convert-go-pic">
-						<view class="convert-go">
-							GO>
-						</view>
-					</view>
+		<view class="middle">
+			<view class="convert" @click="goConvert()">
+				<image class="bg-convert-2" src="/static/bg-convert-2.png" />
+				<image class="bg-convert-3" src="/static/bg-convert-3.png" />
+				<view class="convert-title">
+					青春豆兑换区
 				</view>
-				<view class="singIn" @tap="goMemberCenter">
-					<image class="bg-singIn-2" src="/static/bg-singIn-2.png" />
-					<image class="bg-singIn-3" src="/static/bg-singIn-3.png" />
-					<view class="singIn-title">
-						签到
-					</view>
-					<view class="singIn-sub">
-						签到有礼
-					</view>
-					<view class="singIn-go-pic">
-						<view class="singIn-go">
-							GO>
-						</view>
+				<view class="convert-sub">
+					福利多多
+				</view>
+				<view class="convert-go-pic">
+					<view class="convert-go">
+						GO>
 					</view>
 				</view>
 			</view>
-			<view class="sponsored-ad">
-				<view class="sponsored-ad-title">
-					看直播
+			<view class="singIn" @tap="goMemberCenter">
+				<image class="bg-singIn-2" src="/static/bg-singIn-2.png" />
+				<image class="bg-singIn-3" src="/static/bg-singIn-3.png" />
+				<view class="singIn-title">
+					签到
 				</view>
-				<view class="sponsored-ad-content-box">
-					<view class="sponsored-ad-content">
-						<image src="/static/zhibo.png" style="width: 100%; height:100%;" alt="" />
+				<view class="singIn-sub">
+					签到有礼
+				</view>
+				<view class="singIn-go-pic">
+					<view class="singIn-go">
+						GO>
 					</view>
+				</view>
+			</view>
+		</view>
+		<view class="sponsored-ad">
+			<view class="sponsored-ad-title">
+				看直播
+			</view>
+			<view class="sponsored-ad-content-box">
+				<view class="sponsored-ad-content">
+					<image src="/static/zhibo.png" style="width: 100%; height:100%;" alt="" />
 				</view>
 			</view>
 		</view>
@@ -187,22 +176,17 @@ export default {
 			},
 			isBgImg: false,
 			indexImgs: [{
-				imgUrl: 'https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/02/20/1.jpg',
+				imgUrl: 'https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/05/04/6efbd16f-1e56-49d6-9b1f-87c194c7dd281.jpg',
 				id: 1
 			},
 			{
-				imgUrl: 'https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/02/20/2.jpg',
+				imgUrl: 'https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/05/04/76a44316-80b3-44d5-849c-ca18c1d9802a2.jpg',
 				id: 2
 			},
 			{
-				imgUrl: 'https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/02/20/3.jpg',
+				imgUrl: 'https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/05/04/6ac44d13-c03c-423a-956c-86e02bb274c63.jpg',
 				id: 3
-			},
-			{
-				imgUrl: 'https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/02/20/4.jpg',
-				id: 4
-			},
-			],
+			}]
 		}
 	},
 	// js文件，广告事件监听 Page({
@@ -241,32 +225,16 @@ export default {
 .main {
 	background-color: #e6e6e6;
 	min-height: 100vh;
+	background: linear-gradient(180deg, #025BFF 0%, rgba(2, 91, 255, 0) 40%);
 }
 
-.content {
-	// width: 700rpx;
-	padding: 0 20rpx;
-	box-sizing: border-box;
-	// height: 100vh;
-	background: #e6e6e6;
-	overflow-x: hidden;
-}
 
-.top {
-	background: linear-gradient(180deg, #025BFF 0%, rgba(2, 91, 255, 0) 100%);
-	width: 100%;
-	height: 480rpx;
-}
 
 .news-swiper {
-	padding: 0 10rpx;
+	margin-top: 10rpx;
 }
 
-.news-swiper-con {
-	display: block;
-	padding-top: 26rpx;
-	height: 280rpx;
-}
+.news-swiper-con {}
 
 // /* 消息播放 */
 .message-play {
@@ -310,17 +278,6 @@ export default {
 	animation: loop 8s linear infinite;
 }
 
-.scroll-news-content .content {
-	display: inline-block;
-	background: #fff;
-}
-
-.scroll-news-content .content:nth-child(2) {
-	margin-left: 10rpx;
-	padding-right: 50rpx;
-	box-sizing: border-box;
-}
-
 @keyframes loop {
 	0% {
 		transform: translateX(100%);
@@ -339,7 +296,7 @@ swiper {
 	width: calc(100% - 40rpx);
 	height: 320rpx;
 	margin: 0 20rpx;
-	margin-top: -195rpx;
+	margin-top: 20rpx;
 	border-radius: 8rpx;
 	overflow: hidden;
 }
@@ -364,6 +321,7 @@ swiper .banner-item .img-box img {
 	justify-content: space-between;
 	align-items: center;
 	margin-top: 20rpx;
+	padding: 0 20rpx;
 
 	.convert {
 		width: 346rpx;
@@ -504,6 +462,7 @@ swiper .banner-item .img-box img {
 
 .sponsored-ad {
 	width: 710rpx;
+	margin: 0 20rpx;
 	margin-top: 20rpx;
 	padding-top: 20rpx;
 	padding-bottom: 30rpx;
