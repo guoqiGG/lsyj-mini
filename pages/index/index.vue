@@ -8,12 +8,7 @@
 			<!-- #endif -->
 			<view :class="['news-swiper']">
 				<!-- 消息播放 -->
-				<view style="
-            display: block;
-            padding-top: 26rpx;
-            height: 280rpx;
-            background: #005aff;
-          ">
+				<view class="news-swiper-con">
 					<view class="message-play">
 						<image src="/static/horn.png" class="hornpng" />
 						<view class="scroll-news-content" :style="'transform: translateX(' + move + 'px);'">
@@ -43,6 +38,8 @@
 		<view class="content">
 			<view class="middle">
 				<view class="convert" @click="goConvert()">
+					<image class="bg-convert-2" src="/static/bg-convert-2.png" />
+					<image class="bg-convert-3" src="/static/bg-convert-3.png" />
 					<view class="convert-title">
 						青春豆兑换区
 					</view>
@@ -53,13 +50,11 @@
 						<view class="convert-go">
 							GO>
 						</view>
-						<view class="convert-pic">
-							<image src="/static/index-convert.png" alt="" />
-						</view>
 					</view>
-
 				</view>
 				<view class="singIn" @tap="goMemberCenter">
+					<image class="bg-singIn-2" src="/static/bg-singIn-2.png" />
+					<image class="bg-singIn-3" src="/static/bg-singIn-3.png" />
 					<view class="singIn-title">
 						签到
 					</view>
@@ -70,21 +65,17 @@
 						<view class="singIn-go">
 							GO>
 						</view>
-						<view class="singIn-pic">
-							<image src="/static/index-signIn.png" alt="" />
-						</view>
 					</view>
 				</view>
 			</view>
 			<view class="sponsored-ad">
 				<view class="sponsored-ad-title">
-					赞助广告
+					看直播
 				</view>
 				<view class="sponsored-ad-content-box">
-					<!-- <view class="sponsored-ad-content"> -->
-					<ad unit-id="adunit-a27196394237e84f" bindload="adLoad" binderror="adError" bindclose="adClose">
-					</ad>
-					<!-- </view> -->
+					<view class="sponsored-ad-content">
+						<image src="/static/zhibo.png" style="width: 100%; height:100%;" alt="" />
+					</view>
 				</view>
 			</view>
 		</view>
@@ -262,7 +253,7 @@ export default {
 }
 
 .top {
-	background: #025BFF;
+	background: linear-gradient(180deg, #025BFF 0%, rgba(2, 91, 255, 0) 100%);
 	width: 100%;
 	height: 480rpx;
 }
@@ -271,58 +262,38 @@ export default {
 	padding: 0 10rpx;
 }
 
+.news-swiper-con {
+	display: block;
+	padding-top: 26rpx;
+	height: 280rpx;
+}
+
 // /* 消息播放 */
 .message-play {
 	position: relative;
 	height: 64rpx;
 	background: #fff;
-	margin: 0 10rpx;
-	padding: 0 10rpx 0 55rpx;
+	margin: 0 20rpx;
 	box-sizing: border-box;
-	border-radius: 8rpx;
+	border-radius: rpx;
+	padding: 0rpx 0 0rpx 120rpx;
+	border-radius: 40rpx;
 }
 
 .message-play .hornpng {
-	width: 140rpx;
-	height: 250rpx;
+	width: 202rpx;
+	height: 202rpx;
 	position: absolute;
-	left: -20rpx;
-	bottom: -25rpx;
+	left: -46rpx;
+	top: -80rpx;
 	margin-right: 8rpx;
 	z-index: 998;
-	transform: rotate(-12deg);
-}
-
-.message-play .swiper-cont {
-	height: 64rpx;
-	line-height: 64rpx;
-	margin-top: 0;
-	z-index: 999;
-}
-
-.message-play .swiper-cont .items {
-	text-overflow: ellipsis;
-	display: -webkit-box;
-	-webkit-line-clamp: 1;
-	-webkit-box-orient: vertical;
-	text-align: left;
-	font-size: 32rpx;
+	transform: rotate(12.78deg);
 }
 
 .news-text {
 	color: #BC0906;
 	font-size: 30rpx;
-}
-
-.arrow {
-	width: 15rpx;
-	height: 15rpx;
-	border-top: 3rpx solid #686868;
-	border-right: 3rpx solid #686868;
-	transform: rotate(45deg);
-	position: absolute;
-	right: 30rpx;
-	top: 34rpx;
 }
 
 .scroll-news-content {
@@ -395,13 +366,38 @@ swiper .banner-item .img-box img {
 	margin-top: 20rpx;
 
 	.convert {
-		background: linear-gradient(270deg, #BCD73A 0%, #43C944 96%);
-		;
 		width: 346rpx;
 		height: 294rpx;
-		border-radius: 8rpx;
+		background: linear-gradient(90deg, #3874e4 0%, #BA55FF 100%);
+		border-radius: 20rpx;
 		box-sizing: border-box;
 		padding: 14rpx 22rpx;
+		position: relative;
+		overflow: hidden;
+
+		.bg-convert-2 {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+		}
+
+		.bg-convert-3 {
+			position: absolute;
+			width: 130%;
+			height: 130%;
+			top: -45rpx;
+			left: -55rpx;
+		}
+
+		.convert-title {
+			font-weight: 400;
+			font-size: 40rpx;
+			color: #FFFFFF;
+			line-height: 48rpx;
+			letter-spacing: 1px;
+		}
 
 		.convert-title {
 			font-size: 36rpx;
@@ -409,84 +405,97 @@ swiper .banner-item .img-box img {
 		}
 
 		.convert-sub {
+			font-weight: 400;
 			font-size: 22rpx;
 			color: #FFFFFF;
+			line-height: 48rpx;
 		}
 
 		.convert-go-pic {
 			display: flex;
 			justify-content: space-between;
-			width: 320rpx;
 			height: 196rpx;
 
 			.convert-go {
-				margin-top: 114rpx;
+				margin-top: 94rpx;
 				width: 112rpx;
 				height: 62rpx;
 				background: #fff;
 				border-radius: 30rpx;
-				color: #AAD53D;
 				line-height: 62rpx;
 				text-align: center;
+				font-weight: 400;
+				font-size: 40rpx;
+				color: #6E2EED;
+				line-height: 62rpx;
 			}
 
 			.convert-pic {
 				box-sizing: border-box;
-				width: 196rpx;
 				height: 196rpx;
-
-				image {
-					width: 100%;
-					height: 100%;
-				}
 			}
 		}
 	}
 
 	.singIn {
-		background: linear-gradient(270deg, #F1C33C 0%, #FE8206 100%);
 		width: 346rpx;
 		height: 294rpx;
-		border-radius: 8rpx;
 		box-sizing: border-box;
 		padding: 14rpx 22rpx;
+		position: relative;
+		background: linear-gradient(90deg, #e7324d 0%, #e2ae70 100%);
+		border-radius: 20rpx;
+		overflow: hidden;
+
+		.bg-singIn-2 {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+		}
+
+		.bg-singIn-3 {
+			position: absolute;
+			width: 130%;
+			height: 130%;
+			top: -45rpx;
+			left: -55rpx;
+		}
 
 		.singIn-title {
-			font-size: 36rpx;
+			font-weight: 400;
+			font-size: 40rpx;
 			color: #FFFFFF;
+			line-height: 48rpx;
+			letter-spacing: 1px;
+			font-style: normal;
+			text-transform: none;
 		}
 
 		.singIn-sub {
+			font-weight: 400;
 			font-size: 22rpx;
 			color: #FFFFFF;
+			line-height: 48rpx;
 		}
 
 		.singIn-go-pic {
 			display: flex;
 			justify-content: space-between;
-			width: 320rpx;
 			height: 196rpx;
 
 			.singIn-go {
-				margin-top: 114rpx;
+				margin-top: 94rpx;
 				width: 112rpx;
 				height: 62rpx;
 				background: #fff;
 				border-radius: 30rpx;
-				color: #FD8307;
 				line-height: 62rpx;
 				text-align: center;
-			}
-
-			.singIn-pic {
-				box-sizing: border-box;
-				width: 196rpx;
-				height: 196rpx;
-
-				image {
-					width: 120%;
-					height: 120%;
-				}
+				font-weight: 400;
+				font-size: 40rpx;
+				color: #F32843;
 			}
 		}
 	}
@@ -496,31 +505,35 @@ swiper .banner-item .img-box img {
 .sponsored-ad {
 	width: 710rpx;
 	margin-top: 20rpx;
-	background: #FFFFFF;
+	padding-top: 20rpx;
+	padding-bottom: 30rpx;
 
 	.sponsored-ad-title {
-		background: linear-gradient(270deg, #86AFFF 0%, #045BFF 100%);
-		height: 86rpx;
+		margin: 0 20rpx 20rpx;
+		height: 48rpx;
 		box-sizing: border-box;
-		padding: 22rpx 24rpx;
-		color: #FFFFFF;
+		font-weight: 400;
 		font-size: 34rpx;
+		color: #101010;
+		line-height: 48rpx;
+		letter-spacing: 1px;
+		border-left: 6rpx solid #518BFC;
+		padding-left: 10rpx;
 	}
 
 	.sponsored-ad-content-box {
 		box-sizing: border-box;
-		padding: 52rpx 24rpx;
-		width: 710rpx;
-		height: 404rpx;
-		border-radius: 8rpx;
-		background: #FFFFFF;
+		padding: 30rpx 24rpx;
+		width: 100%;
+		border-radius: 20rpx;
+		background: #9DBEFF;
 	}
 
 	.sponsored-ad-content {
-		width: 662rpx;
+		width: 100%;
 		height: 296rpx;
-		border-radius: 8rpx;
-		background: #D8D8D8;
+		border-radius: 20rpx;
+		//background: #D8D8D8;
 	}
 }
 </style>

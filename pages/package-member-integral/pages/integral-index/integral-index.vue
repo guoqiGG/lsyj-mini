@@ -27,6 +27,23 @@
       <!-- 空列表或加载全部提示 -->
       <!-- <EmptyAllTips v-if="true" :isEmpty="!scoreProdList.length" :isAll="scoreProdList.length > 10 && loadAll" /> -->
     </view>
+    <view class="member-growth">
+      <view class="member-tit">
+        公告：
+      </view>
+      <view class="content">
+        <view class="content-text">
+          为方便家人们兑换礼品，已领取的衣服卡和万能卡做如下变更:
+        </view>
+        <view class="content-text">
+          ① 衣服卡变换成青春豆，一张衣服卡等于一个青春豆，请在首页☞青春豆兑换区查看；
+        </view>
+        <view class="content-text">
+          ② 万能卡变换成代金券，一张万能卡等于0.3元代金券，请在个人中心的优惠券中查看。
+          如果有青春豆或代金券数量对不上的可以联系团长。
+        </view>
+      </view>
+    </view>
   </view>
 </template>
 
