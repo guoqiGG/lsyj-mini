@@ -1,7 +1,7 @@
 <template>
     <view class="gift-write-off">
         <view class="container">
-            <view class="item" v-for="(item, index) in dataList" v-key="index">
+            <view class="item" v-for="(item, index) in dataList" :key="index">
 
                 <view class="item-cen">
                     <view class="img">
@@ -61,7 +61,7 @@ export default {
             const params = {
                 url: "/huan/tuo/user/viewing/time/list",
                 method: "POST",
-                data: JSON.stringify({ pageSize: this.size, pageNo: this.current, userId: uni.getStorageSync('bbcUserInfo').id }),            
+                data: JSON.stringify({ pageSize: this.size, pageNo: this.current, userId: uni.getStorageSync('bbcUserInfo').id }),
                 callBack: (res) => {
                     this.isLoaded = true;
                     this.dataList = this.current == 1 ? res.list : this.dataList.concat(res.list)

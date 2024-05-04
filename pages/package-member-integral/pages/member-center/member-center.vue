@@ -25,7 +25,7 @@
                     <image class="right-arrow" src="../../static/icon-right-arrow-blue.png"></image>
                 </view>
                 <view class="number">
-                    {{ userInfo.score ? userInfo.score : 0 }}
+                    {{ score ? score : 0 }}
                 </view>
             </view>
         </view>
@@ -70,17 +70,21 @@
     </view>
 </template>
 <script>
+import { userInfo } from "os";
+
 const http = require("@/utils/http");
 export default {
     data() {
         return {
-            userInfo: null,
-            watchRecordTotal: 0
+            score: null,
+            watchRecordTotal: 0,
+            userInfo: {}
         }
     },
     onShow() {
-        this.userInfo = uni.getStorageSync("bbcUserInfo"); //用户信息
+        this.userInfo = uni.getStorageSync('bbcUserInfo')
         this.watchRecord()
+        this.getScore()
     },
     methods: {
         // 跳转到观看记录
@@ -89,7 +93,7 @@ export default {
         },
         // 跳转到青春豆明细
         toIntegralDetailsPage() {
-            uni.navigateTo({ url: '/pages/package-member-integral/pages/integral-details/integral-details' })
+            uni.navigateTo({ url: '/pages/package-member-integral/pages/integral-details/integral-details?score=' + this.score })
         },
         // 观看记录
         watchRecord() {
@@ -102,6 +106,23 @@ export default {
                     this.watchRecordTotal = res.list.length
                 }
             }
+            http.request(params);
+        },
+        // 获取用户青春豆数量
+        getScore() {
+            const params = {
+                url: "/pub/user/integral",
+                method: "post",
+                data: {
+                    sign: 'qcsd',
+                    data: JSON.stringify({
+                        userId: uni.getStorageSync('bbcUserInfo').id
+                    })
+                },
+                callBack: (res) => {
+                    this.score = res.score
+                },
+            };
             http.request(params);
         }
     }

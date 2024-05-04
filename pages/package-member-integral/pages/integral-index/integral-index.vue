@@ -5,7 +5,7 @@
       <view class="my-integral">
         <view class="number-box">
           <view class="text">我的青春豆</view>
-          <view class="number">{{ userInfo.score ? userInfo.score : 0 }}</view>
+          <view class="number">{{ score ? score : 0 }}</view>
         </view>
         <view class="det" @tap="toIntegralDetailsPage">明细
         </view>
@@ -49,10 +49,9 @@
 
 <script>
 const http = require("@/utils/http.js");
-// import goodsitem from "../../components/integral-goods-list/index.vue";
+const util = require("@/utils/util.js");
 export default {
   components: {
-    // goodsitem,
   },
   props: {},
   data() {
@@ -60,24 +59,12 @@ export default {
       current: 1,
       size: 20,
       scoreProdList: [],
-      scoreInfo: "",
+      score: null,
       pages: "",
       loadAll: false, // 已加载全部
       isLoaded: false,
-      userInfo: {}
     };
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    // this.getScoreProdList();
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () { },
 
   /**
    * 生命周期函数--监听页面显示
@@ -86,24 +73,8 @@ export default {
     uni.setNavigationBarTitle({
       title: '青春豆中心',
     });
-    this.userInfo = uni.getStorageSync('bbcUserInfo')
+    this.getScore()
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () { },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () { },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () { },
-
   /**
    * 页面上拉触底事件的处理函数
    */
@@ -120,47 +91,11 @@ export default {
   methods: {
     // 跳转到青春豆明细
     toIntegralDetailsPage() {
-      uni.navigateTo({ url: '/pages/package-member-integral/pages/integral-details/integral-details' })
-    },
-    /**
-     * 获取青春豆商品列表
-     */
-    getScoreProdList() {
-      this.isLoaded = false;
-      var param = {
-        url: "/search/page",
-        method: "GET",
-        data: {
-          current: this.current,
-          size: this.size,
-          prodType: 3,
-          sort: 2,
-          userId: uni.getStorageSync("bbcUserInfo")
-            ? uni.getStorageSync("bbcUserInfo").userId
-            : "",
-        },
-        callBack: (res) => {
-          this.isLoaded = true;
-          var scoreProdList = [];
-          if (this.current == 1) {
-            this.setData({
-              scoreProdList: res.records[0].products,
-              pages: res.pages,
-            });
-          } else {
-            scoreProdList = this.scoreProdList;
-            scoreProdList.push(...res.records[0].products);
-            this.setData({
-              scoreProdList,
-            });
-          }
-        },
-      };
-      http.request(param);
+      uni.navigateTo({ url: '/pages/package-member-integral/pages/integral-details/integral-details?score=' + this.score })
     },
 
     // 兑换
-    exchange() {
+    exchange: util.debounce(function () {
       const params = {
         url: "/pub/user/integral/exchange",
         method: "POST",
@@ -170,20 +105,25 @@ export default {
             title: '兑换成功',
             icon: 'none'
           })
-          this.getUserInfo()
+          this.getScore()
         }
       }
       http.request(params);
 
-    },
-    // 获取用户信息
-    getUserInfo() {
+    }, 1000),
+    // 获取用户青春豆数量
+    getScore() {
       const params = {
-        url: "/pub/user/infoByToken?loginToken=" + uni.getStorageSync('bbcToken'),
-        method: "GET",
+        url: "/pub/user/integral",
+        method: "post",
+        data: {
+          sign: 'qcsd',
+          data: JSON.stringify({
+            userId: uni.getStorageSync('bbcUserInfo').id
+          })
+        },
         callBack: (res) => {
-          uni.setStorageSync('bbcUserInfo', res)
-          this.userInfo = res
+          this.score = res.score
         },
       };
       http.request(params);

@@ -7,19 +7,19 @@
                         <view class="text">账户青春豆（个）</view>
                         <view class="bean-con">
                             <image src="/static/bean.png" />
-                            <view class="bean-num">{{userInfo.score?userInfo.score:0}}</view>
+                            <view class="bean-num">{{ score ? score : 0 }}</view>
                         </view>
                     </view>
                     <view class="right" @tap="toIntegralIndexPage">
-                       去兑换
+                        去兑换
                     </view>
                 </view>
             </view>
             <view class="title">青春豆明细</view>
-            <view class="item" v-for="(item, index) in dataList" v-key="index">
+            <view class="item" v-for="(item, index) in dataList" :key="index">
                 <view class="item-left">
                     <view class="type">{{ item.scoreName }}</view>
-                    <view class="time">{{item.createTime}}</view>
+                    <view class="time">{{ item.createTime }}</view>
                 </view>
                 <view v-if="item.type === 3"><text class="red">-</text><text class="red">{{ item.score }}</text></view>
                 <view v-else><text class="green">+</text><text class="green">{{ item.score }}</text></view>
@@ -47,14 +47,16 @@ export default {
             dataList: [],
             isLoaded: false,
             isAll: false,
-            userInfo: {}
+            score: null
         };
     },
-
+    onLoad(options) {
+        if (options.score) {
+            this.score = options.score
+        }
+    },
     onShow: function () {
-        this.userInfo = uni.getStorageSync('bbcUserInfo')
         this.getScoreList();
-        
     },
 
     /**
@@ -64,7 +66,7 @@ export default {
         this.getNextPage();
     },
     methods: {
-        toIntegralIndexPage(){
+        toIntegralIndexPage() {
             uni.navigateTo({ url: '/pages/package-member-integral/pages/integral-index/integral-index' })
         },
 
