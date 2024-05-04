@@ -103,7 +103,8 @@ export default {
         callBack: (res) => {
           uni.showToast({
             title: '兑换成功',
-            icon: 'none'
+            icon: 'none',
+            duration: 3000
           })
           this.getScore()
         }
