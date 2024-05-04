@@ -33,14 +33,19 @@
       </view>
       <view class="content">
         <view class="content-text">
-          为方便家人们兑换礼品，已领取的衣服卡和万能卡做如下变更:
+          为方便家人们兑换礼品，已领取的衣服卡和积分做如下变更:
         </view>
         <view class="content-text">
-          ① 衣服卡变换成青春豆，一张衣服卡等于一个青春豆，请在首页☞青春豆兑换区查看；
+          ①衣服卡变换成青春豆，一张衣服卡等于一个青春豆；
         </view>
         <view class="content-text">
-          ② 万能卡变换成代金券，一张万能卡等于0.3元代金券，请在个人中心的优惠券中查看。
-          如果有青春豆或代金券数量对不上的可以联系团长。
+          ②小鹅通积分变换成青春豆，一个积分等于一个青春豆；
+        </view>
+        <view class="content-text">
+          ③青春豆兑换的优惠券在“优惠券”中查询
+        </view>
+        <view class="content-text">
+          如果有青春豆数量对不上的可以联系团长。
         </view>
       </view>
     </view>
