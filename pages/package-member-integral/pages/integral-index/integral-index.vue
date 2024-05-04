@@ -17,9 +17,10 @@
       </view>
       <view class="con-box">
         <view class="item" v-for="item in 1">
-          <image src="/static/clothes.png" />
+          <image
+            src="https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/05/04/a2f9f7e1-8f89-4998-8a1d-187ec5e82889%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240504161638.jpg" />
           <view @tap="exchange">
-            <text>衣服优惠券</text>
+            <text v-if="scoreNumber">衣服优惠券(需{{ scoreNumber }}豆)</text>
           </view>
         </view>
       </view>
@@ -68,6 +69,7 @@ export default {
       pages: "",
       loadAll: false, // 已加载全部
       isLoaded: false,
+      scoreNumber: null
     };
   },
 
@@ -79,6 +81,7 @@ export default {
       title: '青春豆中心',
     });
     this.getScore()
+    this.getExchangeScore()
   },
   /**
    * 页面上拉触底事件的处理函数
@@ -130,6 +133,17 @@ export default {
         },
         callBack: (res) => {
           this.score = res.score
+        },
+      };
+      http.request(params);
+    },
+    // 获取衣服券需要多少豆兑换
+    getExchangeScore() {
+      const params = {
+        url: "/test/user/integral",
+        method: "get",
+        callBack: (res) => {
+          this.scoreNumber = res
         },
       };
       http.request(params);

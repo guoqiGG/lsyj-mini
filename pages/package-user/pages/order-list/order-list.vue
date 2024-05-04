@@ -24,7 +24,7 @@
 						<view class="title">
 							{{ item.orderGoods[0].title }}
 						</view>
-						<view class="size" v-if="item.specificationName !== '默认'">
+						<view class="size" v-if="item.specificationName != '默认'">
 							{{ item.specificationName ? item.specificationName :''}}
 						</view>
 						<view class="price">
