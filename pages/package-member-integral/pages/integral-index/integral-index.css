@@ -69,9 +69,10 @@ page {
 .con-box .item {
   width: calc((100% - 30rpx) / 2);
   border-radius: 16rpx;
-  background-color: #cb484a;
   display: inline-block;
   margin-top: 20rpx;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
 }
 
 .con-box .item:nth-child(2n) {
@@ -81,23 +82,30 @@ page {
 .con-box .item image {
   width: 100%;
   height: 306rpx;
-  border-radius: 16rpx;
-  margin-top: -1rpx;
+  border-radius: 16rpx 16rpx 0 0;
 }
-.con-box .item view {
-  width: 100%;
-  height: 78rpx;
+
+.con-box .item .button {
+  background-color: #cb484a;
+  height: 70rpx;
+  font-weight: 400;
+  font-size: 40rpx;
+  color: #ffffff;
+  line-height: 70rpx;
+  letter-spacing: 10px;
+  text-align: center;
+  border-radius: 0rpx 0 16rpx 16rpx;
+}
+.con-box .item .desc {
+  color: #cb484a;
+  background: #ffffff;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
   font-weight: 400;
   font-size: 32rpx;
-  line-height: 78rpx;
-  color: #ffffff;
-  text-align: center;
-  box-sizing: border-box;
+  color: #cb484a;
   margin-top: -10rpx;
-  border-radius: 16rpx;
-}
-.con-box .item view text{
-  width: 100%;
 }
 
 .member-growth {

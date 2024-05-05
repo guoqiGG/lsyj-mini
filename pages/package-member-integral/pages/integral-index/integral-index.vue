@@ -19,8 +19,9 @@
         <view class="item" v-for="item in 1">
           <image
             src="https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/05/04/a2f9f7e1-8f89-4998-8a1d-187ec5e82889%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240504161638.jpg" />
-          <view @tap="exchange">
-            <text v-if="scoreNumber">衣服优惠券(需{{ scoreNumber }}豆)</text>
+          <view class="desc"> <text v-if="scoreNumber">T恤套装券(需{{ scoreNumber }}豆)</text></view>
+          <view class="button" @tap="exchange">
+            <text>立即兑换</text>
           </view>
         </view>
       </view>
