@@ -1,6 +1,6 @@
 <template>
   <!-- 青春豆商城 -->
-  <view class="Mall4j integral-index">
+  <view class=" integral-index">
     <view class="integral-msg">
       <view class="my-integral">
         <view class="number-box">
@@ -13,14 +13,15 @@
     </view>
     <view class="integral-list">
       <view class="member-tits">
-        <view class="text">青春豆兑换</view>
+        <view class="text">青春豆兑换<text class="bulletin" @tap="popShow">(☞兑换须知)</text></view>
       </view>
       <view class="con-box">
-        <view class="item" v-for="item in 1">
-          <image
-            src="https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/05/04/a2f9f7e1-8f89-4998-8a1d-187ec5e82889%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240504161638.jpg" />
-          <view class="desc"> <text v-if="scoreNumber">T恤套装券(需{{ scoreNumber }}豆)</text></view>
-          <view class="button" @tap="exchange">
+        <view class="item" v-for="item in exchangeList" :key="item.id">
+          <image :src="item.url" />
+          <view class="desc"> <text>{{ item.name }}{{ item.type === 2 ? '价值' + item.key + '元' : '' }} (需{{ item.value
+              }}豆)</text>
+          </view>
+          <view class="button" @tap="exchange(item.id, item.type)">
             <text>立即兑换</text>
           </view>
         </view>
@@ -29,28 +30,37 @@
       <!-- 空列表或加载全部提示 -->
       <!-- <EmptyAllTips v-if="true" :isEmpty="!scoreProdList.length" :isAll="scoreProdList.length > 10 && loadAll" /> -->
     </view>
-    <view class="member-growth">
-      <view class="member-tit">
-        公告：
+
+    <uv-popup ref="popup" mode="center" bgColor="none">
+      <view class="member-growth">
+        <image class="bg-2" src="/static/bulletin-bg-2.png" />
+        <image class="bg-3" src="/static/bulletin-bg-3.png" />
+        <view class="title">欢迎体验</view>
+        <view class="con">
+          <view class="member-tit">
+            公告
+          </view>
+          <view class="content">
+            <view class="content-text">
+              为方便家人们兑换礼品，已领取的衣服卡和积分做如下变更:
+            </view>
+            <view class="content-text">
+              ①衣服卡变换成青春豆，一张衣服卡等于一个青春豆；
+            </view>
+            <view class="content-text">
+              ②小鹅通积分变换成青春豆，一个积分等于一个青春豆；
+            </view>
+            <view class="content-text">
+              ③青春豆兑换的优惠券在“优惠券”中查询
+            </view>
+            <view class="content-text">
+              如果有青春豆数量对不上的可以联系团长。
+            </view>
+          </view>
+        </view>
+        <view class="close" @tap="close">×</view>
       </view>
-      <view class="content">
-        <view class="content-text">
-          为方便家人们兑换礼品，已领取的衣服卡和积分做如下变更:
-        </view>
-        <view class="content-text">
-          ①衣服卡变换成青春豆，一张衣服卡等于一个青春豆；
-        </view>
-        <view class="content-text">
-          ②小鹅通积分变换成青春豆，一个积分等于一个青春豆；
-        </view>
-        <view class="content-text">
-          ③青春豆兑换的优惠券在“优惠券”中查询
-        </view>
-        <view class="content-text">
-          如果有青春豆数量对不上的可以联系团长。
-        </view>
-      </view>
-    </view>
+    </uv-popup>
   </view>
 </template>
 
@@ -70,7 +80,8 @@ export default {
       pages: "",
       loadAll: false, // 已加载全部
       isLoaded: false,
-      scoreNumber: null
+      exchangeList: [],
+      show: false
     };
   },
 
@@ -82,7 +93,7 @@ export default {
       title: '青春豆中心',
     });
     this.getScore()
-    this.getExchangeScore()
+    this.getExchangeList()
   },
   /**
    * 页面上拉触底事件的处理函数
@@ -98,17 +109,26 @@ export default {
     }
   },
   methods: {
+    popShow() {
+      this.$refs.popup.open('center');
+    },
+    close() {
+      this.$refs.popup.close()
+    },
+    goHome() {
+      util.toHomePage()
+    },
     // 跳转到青春豆明细
     toIntegralDetailsPage() {
       uni.navigateTo({ url: '/pages/package-member-integral/pages/integral-details/integral-details?score=' + this.score })
     },
 
     // 兑换
-    exchange: util.debounce(function () {
+    exchange: util.debounce(function (id, type) {
       const params = {
-        url: "/pub/user/integral/exchange",
+        url: "/pub/exchange/get",
         method: "POST",
-        data: JSON.stringify({ userId: uni.getStorageSync('bbcUserInfo').id }),
+        data: JSON.stringify({ userId: uni.getStorageSync('bbcUserInfo').id, id: id, type: type }),
         callBack: (res) => {
           uni.showToast({
             title: '兑换成功',
@@ -119,7 +139,6 @@ export default {
         }
       }
       http.request(params);
-
     }, 1000),
     // 获取用户青春豆数量
     getScore() {
@@ -138,13 +157,17 @@ export default {
       };
       http.request(params);
     },
-    // 获取衣服券需要多少豆兑换
-    getExchangeScore() {
+    // 获取兑换列表
+    getExchangeList() {
       const params = {
-        url: "/test/user/integral",
-        method: "get",
+        url: "/pub/exchange/list",
+        method: "post",
+        data: JSON.stringify({
+          pageSize: 10000000,
+          pageNo: 1
+        }),
         callBack: (res) => {
-          this.scoreNumber = res
+          this.exchangeList = res.list
         },
       };
       http.request(params);
@@ -154,4 +177,9 @@ export default {
 </script>
 <style>
 @import "./integral-index.css";
+</style>
+<style lang="scss" scoped>
+/deep/ .uv-popup .uv-popup__content {
+  overflow: visible !important;
+}
 </style>
