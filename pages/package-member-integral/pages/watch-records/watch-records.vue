@@ -2,9 +2,8 @@
     <view class="gift-write-off">
         <view class="container">
             <view class="item" v-for="(item, index) in dataList" :key="index">
-
                 <view class="item-cen">
-                    <view class="img">
+                    <view class="img" :style="{ background: backgroundArr[index % 6] }">
                         <image src="/static/watch-records-img.png" @error="errorImg(index)" />
                     </view>
                     <view class="right-con">
@@ -38,6 +37,7 @@ export default {
             dataList: [],
             isLoaded: false,
             isAll: false,
+            backgroundArr: ['#ffbb00', '#3DD951', '#35D8E4', '#053E84', '#8987FF', '#DD87FF']
         };
     },
 

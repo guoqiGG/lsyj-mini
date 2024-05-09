@@ -114,13 +114,13 @@
   border-radius: 124rpx 124rpx 124rpx 124rpx;
   border: 2rpx solid #ffffff;
   font-weight: 400;
-  font-size: 24rpx;
+  font-size: 32rpx;
   color: #025bff;
-  line-height: 48rpx;
+  line-height: 54rpx;
   text-align: left;
   font-style: normal;
   text-transform: none;
-  padding: 0 20rpx;
+  padding: 5rpx 20rpx;
 }
 .title {
   margin-left: 30rpx;

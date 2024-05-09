@@ -10,10 +10,11 @@
 .item {
   box-sizing: border-box;
   background: #ffffff;
-  padding: 20rpx 30rpx;
+  padding: 30rpx;
   margin-top: 20rpx;
   border-radius: 20rpx;
   box-shadow: 4rpx 4rpx 12rpx 4rpx rgba(183, 208, 255, 0.8);
+  box-sizing: border-box;
 }
 .item:nth-child(1) {
   margin-top: 0;
@@ -26,29 +27,26 @@
   text-align: left;
   font-style: normal;
   text-transform: none;
-  margin-top: 10rpx;
 }
 .item .item-cen {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 20rpx 0;
 }
 .item .item-cen .img {
-  width: 140rpx;
-  height: 140rpx;
-  background: #ffbb00;
+  width: 120rpx;
+  height: 120rpx;
   border-radius: 50%;
 }
 
 .item .item-cen .img image {
-  width: 100rpx;
-  height: 100rpx;
-  margin-top: 20rpx;
-  margin-left: 20rpx;
+  width: 70rpx;
+  height: 70rpx;
+  margin-top: 25rpx;
+  margin-left: 25rpx;
 }
 .item .item-cen .right-con {
-  margin-left: 34rpx;
+  margin-left: 54rpx;
   font-size: 28rpx;
   color: #333;
 }
@@ -58,8 +56,6 @@
   color: #101010;
   line-height: 48rpx;
   text-align: left;
-  font-style: normal;
-  text-transform: none;
 }
 .item .item-cen .right-con .watch-time {
   font-weight: 400;
@@ -67,8 +63,6 @@
   color: #979797;
   line-height: 48rpx;
   text-align: left;
-  font-style: normal;
-  text-transform: none;
 }
 .item .item-btn {
   display: flex;
