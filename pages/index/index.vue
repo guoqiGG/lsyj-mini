@@ -18,10 +18,11 @@
 		</view>
 		<swiper class="swiper" circular="true" :indicator-dots="true" :autoplay="true" :interval="3000"
 			:duration="1000">
-			<block v-for="(item, seq) in indexImgs" :key="seq">
+			<block v-for="item in indexImgs" :key="item.id">
 				<swiper-item class="banner-item">
 					<view class="img-box">
-						<img :src="item.imgUrl" alt="" />
+						<img v-if="item.type == 0" :src="item.url" alt="" />
+						<video v-else :src="item.url" :controls="false" autoplay loop muted :object-fit="fill"></video>
 					</view>
 				</swiper-item>
 			</block>
@@ -68,17 +69,22 @@
 				</view>
 			</view>
 		</view>
+		<motherPop ref="motherPop"></motherPop>
 	</view>
 </template>
 
 <script>
 import navigationBar from '@/components/navigation-bar/index.vue'
+import motherPop from '@/components/popup/index.vue'
 import { mpAppName } from '@/utils/config';
+
 const util = require("@/utils/util.js");
 const http = require("@/utils/http.js");
+import dayjs from 'dayjs';
 export default {
 	components: {
-		navigationBar
+		navigationBar,
+		motherPop
 	},
 	onLoad: function (options) {
 		console.log('options.scene', options)
@@ -133,12 +139,12 @@ export default {
 						}
 					})
 				}
-
 			} else {
 				util.checkAuthInfo(() => {
 				})
 			}
 		}
+		this.getCarousel()
 	},
 	onShareAppMessage: function () {
 		wx.showShareMenu({
@@ -164,7 +170,9 @@ export default {
 			imageUrl: '/static/logo.png'
 		}
 	},
-
+	onShow() {
+		this.popShow()
+	},
 	data() {
 		return {
 			navigationBarIsShow: true,
@@ -175,18 +183,7 @@ export default {
 				iconColor: '#FFFFFF'
 			},
 			isBgImg: false,
-			indexImgs: [{
-				imgUrl: 'https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/05/04/6efbd16f-1e56-49d6-9b1f-87c194c7dd281.jpg',
-				id: 1
-			},
-			{
-				imgUrl: 'https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/05/04/76a44316-80b3-44d5-849c-ca18c1d9802a2.jpg',
-				id: 2
-			},
-			{
-				imgUrl: 'https://qingchuntai2.oss-cn-beijing.aliyuncs.com/2024/05/04/6ac44d13-c03c-423a-956c-86e02bb274c63.jpg',
-				id: 3
-			}]
+			indexImgs: []
 		}
 	},
 	// js文件，广告事件监听 Page({
@@ -201,6 +198,9 @@ export default {
 		console.log('Banner 广告关闭')
 	},
 	methods: {
+		popShow() {
+			this.$refs.motherPop.popShow()
+		},
 		// 跳转到青春豆兑换专区
 		goConvert() {
 			util.checkAuthInfo(() => {
@@ -216,6 +216,20 @@ export default {
 					url: '/pages/package-member-integral/pages/member-center/member-center'
 				})
 			})
+		},
+		// 获取首页轮播列表
+		getCarousel() {
+			var that = this
+			const params = {
+				url: '/swiper/user/list',
+				method: 'GET',
+				callBack: function (res) {
+					that.setData({
+						indexImgs: res
+					})
+				}
+			}
+			http.request(params)
 		}
 	},
 }
@@ -314,6 +328,11 @@ swiper .banner-item .img-box {
 swiper .banner-item .img-box img {
 	width: 100%;
 	height: 320rpx;
+}
+
+swiper .banner-item .img-box video {
+	width: 100%;
+	height: 100%;
 }
 
 .middle {

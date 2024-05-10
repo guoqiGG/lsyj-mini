@@ -31,6 +31,7 @@
 			</scroll-view>
 			<!-- 右侧内容end -->
 		</view>
+		<motherPop ref="motherPop"></motherPop>
 	</view>
 
 </template>
@@ -38,9 +39,11 @@
 <script>
 import http from '@/utils/http'
 import prod from '../../components/production/index.vue'
+import motherPop from '@/components/popup/index.vue'
 export default {
 	components: {
-		prod
+		prod,
+		motherPop
 	},
 	data() {
 		return {
@@ -57,12 +60,14 @@ export default {
 		}
 	},
 	onShow() {
+		this.popShow()
 		// 加载导航标题
 		uni.setNavigationBarTitle({
 			title: '分类商品'
 		})
 		this.selIndex = 0
 		this.getCategory()
+		
 	},
 	onShareAppMessage: function () {
 		return {
@@ -73,6 +78,9 @@ export default {
 		};
 	},
 	methods: {
+		popShow() {
+			this.$refs.motherPop.popShow()
+		},
 		// 获取商品分类
 		getCategory() {
 			var ths = this // 加载分类列表

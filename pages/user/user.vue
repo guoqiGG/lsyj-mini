@@ -38,8 +38,9 @@
 				<view class="order-content">
 					<view class="order-wrap" @click="goOrderList(1)">
 						<view class="order-img" style="position: relative;">
-							<image src="/static/user/pay.png" mode="" ></image>
-							<u-badge  :offset="[-10, -20]" type="error" bgColor="rgb(197,48,50)" :absolute="true" color="#ffffff" max="99" :value="orderNum.pendingPaymentNum"></u-badge>
+							<image src="/static/user/pay.png" mode=""></image>
+							<u-badge :offset="[-10, -20]" type="error" bgColor="rgb(197,48,50)" :absolute="true"
+								color="#ffffff" max="99" :value="orderNum.pendingPaymentNum"></u-badge>
 						</view>
 						<view class="order-text">
 							待付款
@@ -48,7 +49,8 @@
 					<view class="order-wrap" @click="goOrderList(2)">
 						<view class="order-img" style="position: relative;">
 							<image src="/static/user/order-deliver.png" mode=""></image>
-							<u-badge  :offset="[-10, -20]" type="error" bgColor="rgb(197,48,50)" :absolute="true" color="#ffffff" max="99" :value="orderNum.pendingDeliveryNum"></u-badge>
+							<u-badge :offset="[-10, -20]" type="error" bgColor="rgb(197,48,50)" :absolute="true"
+								color="#ffffff" max="99" :value="orderNum.pendingDeliveryNum"></u-badge>
 						</view>
 						<view class="order-text">
 							待发货
@@ -57,7 +59,8 @@
 					<view class="order-wrap" @click="goOrderList(3)">
 						<view class="order-img" style="position: relative;">
 							<image src="/static/user/order-receiving.png" mode=""></image>
-							<u-badge  :offset="[-10, -20]" type="error" bgColor="rgb(197,48,50)" :absolute="true" color="#ffffff" max="99" :value="orderNum.deliveryNum"></u-badge>
+							<u-badge :offset="[-10, -20]" type="error" bgColor="rgb(197,48,50)" :absolute="true"
+								color="#ffffff" max="99" :value="orderNum.deliveryNum"></u-badge>
 						</view>
 						<view class="order-text">
 							待收货
@@ -198,6 +201,7 @@
 				</view>
 			</u-popup>
 		</view>
+		<motherPop ref="motherPop"></motherPop>
 	</view>
 </template>
 
@@ -205,22 +209,24 @@
 const http = require("@/utils/http.js");
 const util = require("@/utils/util");
 import hCompress from "@/components/helang-compress/helang-compress";
-
+import motherPop from '@/components/popup/index.vue'
 export default {
 	data() {
 		return {
 			isLeader: true, // 是否是团长
 			userInfo: {}, // 用户信息
 			isAuthInfo: false, //用户是否登录
-			showAuth: false ,// 显示授权用户信息
-			orderNum:null,
+			showAuth: false,// 显示授权用户信息
+			orderNum: null,
 		}
 	},
 	components: {
 		hCompress,
+		motherPop
 	},
 
 	onShow: function () {
+		this.popShow()
 		if (uni.getStorageSync("bbcToken")) {
 			this.isAuthInfo = true;
 			this.userInfo = uni.getStorageSync('bbcUserInfo')
@@ -237,23 +243,25 @@ export default {
 			path: "pages/user/user",
 			title: "氢春时代",
 			imageUrl: '/static/logo.png',
-			
+
 		};
 	},
 	methods: {
+		popShow() {
+			this.$refs.motherPop.popShow()
+		},
 		// 获取订单消息数量
 		getOrderNum() {
 			const params = {
-				url: "/pub/user/order/num" ,
+				url: "/pub/user/order/num",
 				method: "POST",
 				data: {
 					sign: 'qcsd',
-					data: JSON.stringify({loginToken:uni.getStorageSync('bbcToken')}),
+					data: JSON.stringify({ loginToken: uni.getStorageSync('bbcToken') }),
 				},
-				
 				callBack: (res) => {
-					this.orderNum=res
-					console.log(res,'res==========>')
+					this.orderNum = res
+					console.log(res, 'res==========>')
 				},
 			};
 			http.request(params);
@@ -439,7 +447,7 @@ export default {
 	padding: 0 20rpx 20rpx;
 	width: 100vw;
 	z-index: 5;
-	
+
 
 	.user-login {
 		box-sizing: border-box;
