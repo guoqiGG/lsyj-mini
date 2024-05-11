@@ -60,10 +60,10 @@
 			</view>
 		</view>
 		<view class="sponsored-ad">
-			<view class="sponsored-ad-title">
+			<view class="sponsored-ad-title" @tap="toLiveAddress">
 				看直播
 			</view>
-			<view class="sponsored-ad-content-box">
+			<view class="sponsored-ad-content-box" @tap="toLiveAddress">
 				<view class="sponsored-ad-content">
 					<image src="/static/zhibo.png" style="width: 100%; height:100%;" alt="" />
 				</view>
@@ -230,6 +230,30 @@ export default {
 				}
 			}
 			http.request(params)
+		},
+		// 跳转到欢拓直播地址
+		toLiveAddress() {
+			util.checkAuthInfo(() => {
+				const params = {
+					url: '/huan/tuo/user/courseId',
+					data: JSON.stringify({
+						userId: uni.getStorageSync("bbcUserInfo").id,
+						type: 1  // 0 h5  1 小程序
+					}),
+					callBack: (res) => {
+						if (res) {
+							console.log(encodeURIComponent(res))
+							uni.navigateTo({ url: '/pages/package-user/pages/huantuolive/huantuolive?urls=' + encodeURIComponent(res) })
+						}
+					},
+					errCallBack: () => {
+						alert('errCallBack',)
+					},
+
+				};
+				http.request(params);
+
+			})
 		}
 	},
 }
