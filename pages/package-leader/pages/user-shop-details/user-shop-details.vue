@@ -1,6 +1,6 @@
 <template>
 	<view class="order-list">
-	<!-- 	<view class="search">
+		<!-- 	<view class="search">
 			<u-icon top="22" class="search_icon" name="search" size="40"></u-icon>
 			<text class="line"></text>
 			<input type="text" class="input" v-model="keyword" placeholder="搜索订单" />
@@ -26,7 +26,7 @@
 				item.refundStatus === 5 ? '后台退款成功' : '' }}
 					</view>
 				</view>
-				<view class="order-list-content-box-content" @click="goOrderDetail(item.orderId)">
+				<view class="order-list-content-box-content">
 					<image class="order-list-content-box-content-img" :src="item.orderGoods[0].thumbail" mode="">
 					</image>
 					<view class="order-list-content-box-content-text">
@@ -47,28 +47,6 @@
 				<view class="order-list-content-box-count">
 					共{{ item.goodsCount }}件商品 总计：{{ item.totalAmount }}
 				</view>
-
-				<view class="order-list-content-box-btn" v-if="item.orderStatus === 1">
-					<view class="cancelBtn" @click="cancelOrder(item.orderId)">
-						取消订单
-					</view>
-					<view class="cancelBtn"
-						style="margin-left: 20rpx;width: 120rpx;color: #D90024;border: 2rpx solid #D90024;"
-						@click="payOrder(item.orderId)">
-						付款
-					</view>
-
-				</view>
-				<view class="order-list-content-box-btn" v-if="item.orderStatus === 3">
-					<view class="cancelBtn"
-						style="margin-left: 20rpx;width: 120rpx;color: #D90024;border: 2rpx solid #D90024;"
-						@click="receive(item.orderId)">
-						确认收货
-					</view>
-
-				</view>
-
-
 			</view>
 			<!-- 空列表或加载全部提示 -->
 			<EmptyAllTips v-if="isLoaded" :isEmpty="!orderLists.length" emptyTips="暂无订单信息"
@@ -122,13 +100,13 @@ export default {
 		}
 	},
 	onLoad(option) {
-		
+
 	},
 	onShow() {
 		let bbcLoginResult = uni.getStorageSync("bbcLoginResult"); //用户信息
 		this.loginToken = bbcLoginResult.loginToken
 		this.userId = bbcLoginResult.id
-		this.mobile=bbcLoginResult.leaderMobile
+		this.mobile = bbcLoginResult.leaderMobile
 		this.getOrderLists()
 	},
 	methods: {
@@ -136,93 +114,10 @@ export default {
 		// 	console.log(124235)
 		// 	console.log(this.keyword)
 		// }
-		// 跳转取订单详情
-		goOrderDetail(orderId) {
-			if (this.currentTab !== 5) {
-				uni.navigateTo({
-					url: `/pages/package-user/pages/order-detail/order-detail?orderId=` + orderId
-				})
-			}
-
-		},
-		// 取消订单
-		cancelOrder(orderId) {
-			let obj = {
-				orderId: orderId,
-				userId: this.userId,
-				loginToken: this.loginToken,
-			}
-			const params = {
-				url: "/pub/order/cancel",
-				method: "POST",
-				data: {
-					sign: 'qcsd',
-					data: JSON.stringify(obj),
-				},
-				callBack: (res) => {
-					uni.showToast({
-						title: "取消成功~",
-						icon: "none",
-					});
-					this.getOrderLists()
-				},
-			}
-			http.request(params);
-		},
-		// 支付 dvyType 2自提 1快递
-		payOrder(orderId) {
-			const params = {
-				url: '/pub/pay/order',
-				method: 'POST',
-				data: {
-					sign: "qcsd",
-					data: JSON.stringify({
-						orderId: orderId,
-						payType: 10,
-						loginToken: this.loginToken
-					})
-				},
-				callBack: (res) => {
-					wx.requestPayment({
-						timeStamp: res.timeStamp,
-						nonceStr: res.nonceStr,
-						package: res.packageValue,
-						signType: res.signType,
-						paySign: res.paySign,
-						success: e => {
-							console.log('success', e)
-							this.getOrderLists()
-						},
-						fail: (e) => {
-							console.log('failed', e)
-						}
-					})
-				}
-			}
-			http.request(params)
-		},
-		// 确认收货
-		receive(orderId) {
-			const params = {
-				url: '/pub/order/confirm',
-				method: 'POST',
-				data: {
-					sign: "qcsd",
-					data: JSON.stringify({
-						orderId: orderId,
-						loginToken: this.loginToken
-					})
-				},
-				callBack: (res) => {
-					this.getOrderLists()
-				}
-			}
-			http.request(params)
-		},
 		handleTabClick(e) {
 			this.currentTab = e.index;
-			this.pageNo=1
-			this.orderLists=[]
+			this.pageNo = 1
+			this.orderLists = []
 			this.status = e.id
 			this.getOrderLists()
 		},
@@ -234,7 +129,7 @@ export default {
 				pageSIize: this.pageSIize,
 				loginToken: this.loginToken,
 				status: this.status,
-				mobile:this.mobile,
+				mobile: this.mobile,
 			}
 			const params = {
 				url: "/pub/order/list",
@@ -364,6 +259,7 @@ export default {
 		}
 	}
 }
+
 // .search {
 // 			height: 78rpx;
 // 			position: relative;
@@ -379,13 +275,13 @@ export default {
 // 				height: 40rpx;
 // 				background-color: rgba(216, 216, 216, 0.3);
 // 			}
-		
+
 // 			.uicon-search {
 // 				position: absolute !important;
 // 				left: 0 !important;
 // 				top: 10rpx !important;
 // 			}
-		
+
 // 			.input {
 // 				position: absolute;
 // 				left: 60rpx;
@@ -394,9 +290,9 @@ export default {
 // 				height: 58rpx;
 // 				padding: 10rpx 20rpx;
 // 				border-radius: 40rpx;
-		
+
 // 			}
-		
+
 // 			.button {
 // 				position: absolute;
 // 				right: 0;
@@ -411,7 +307,6 @@ export default {
 // 				font-size: 32rpx;
 // 				color: #FFFFFF;
 // 				z-index: 99;
-		
+
 // 			}
-// 		}
-</style>
+// 		}</style>
