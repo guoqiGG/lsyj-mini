@@ -31,7 +31,6 @@
 			</scroll-view>
 			<!-- 右侧内容end -->
 		</view>
-		<motherPop ref="motherPop"></motherPop>
 	</view>
 
 </template>
@@ -39,11 +38,9 @@
 <script>
 import http from '@/utils/http'
 import prod from '../../components/production/index.vue'
-import motherPop from '@/components/popup/index.vue'
 export default {
 	components: {
-		prod,
-		motherPop
+		prod
 	},
 	data() {
 		return {
@@ -60,7 +57,6 @@ export default {
 		}
 	},
 	onShow() {
-		this.popShow()
 		// 加载导航标题
 		uni.setNavigationBarTitle({
 			title: '分类商品'
@@ -73,7 +69,7 @@ export default {
 		return {
 			path: "pages/category/category",
 			title: "氢春时代",
-			imageUrl: '/static/logo.png',
+			imageUrl: '/static/logo_11.png',
 			
 		};
 	},

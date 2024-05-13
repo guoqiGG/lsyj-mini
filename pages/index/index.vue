@@ -60,38 +60,31 @@
 			</view>
 		</view>
 		<view class="sponsored-ad">
-			<view class="sponsored-ad-title" @tap="toLiveAddress">
-				看直播
-			</view>
+			<!-- <view class="sponsored-ad-title" @tap="toLiveAddress">
+				广告
+			</view> -->
 			<view class="sponsored-ad-content-box" @tap="toLiveAddress">
 				<view class="sponsored-ad-content">
-					<image src="/static/zhibo.png" style="width: 100%; height:100%;" alt="" />
+					<image :src="liveImg" style="width: 100%; height:100%;border-radius: 20rpx;" alt="" />
 				</view>
 			</view>
 		</view>
-		<motherPop ref="motherPop"></motherPop>
 	</view>
 </template>
 
 <script>
 import navigationBar from '@/components/navigation-bar/index.vue'
-import motherPop from '@/components/popup/index.vue'
 import { mpAppName } from '@/utils/config';
-
 const util = require("@/utils/util.js");
 const http = require("@/utils/http.js");
-import dayjs from 'dayjs';
 export default {
 	components: {
-		navigationBar,
-		motherPop
+		navigationBar
 	},
 	onLoad: function (options) {
-		console.log('options.scene', options)
 		// 团长绑定用户
 		if (options.scene) {
 			if (uni.getStorageSync('bbcToken')) {
-				console.log(decodeURIComponent(options.scene))
 				if (decodeURIComponent(options.scene).includes('*')) { // 团长扫用户
 					let userId = options.scene.split('*')[0]
 					let giftId = options.scene.split('*')[1]
@@ -145,6 +138,7 @@ export default {
 			}
 		}
 		this.getCarousel()
+		this.getLiveImg()
 	},
 	onShareAppMessage: function () {
 		wx.showShareMenu({
@@ -152,9 +146,9 @@ export default {
 			menus: ['shareAppMessage', 'shareTimeline']
 		})
 		return {
-			path: "pages/user/user",
+			path: "pages/user/user" + (uni.getStorageSync('bbcUserInfo') ? "?puid=" + (uni.getStorageSync('bbcUserInfo').puid ? uni.getStorageSync('bbcUserInfo').puid : uni.getStorageSync('bbcUserInfo').id) : ''),
 			title: mpAppName,
-			imageUrl: '/static/logo.png',
+			imageUrl: '/static/logo_11.png',
 			success: function (res) {
 				// 转发成功
 			},
@@ -167,11 +161,8 @@ export default {
 	onShareTimeline: function () {
 		return {
 			title: '氢春时代',
-			imageUrl: '/static/logo.png'
+			imageUrl: '/static/logo_11.png'
 		}
-	},
-	onShow() {
-		this.popShow()
 	},
 	data() {
 		return {
@@ -183,24 +174,11 @@ export default {
 				iconColor: '#FFFFFF'
 			},
 			isBgImg: false,
-			indexImgs: []
+			indexImgs: [],
+			liveImg: null,
 		}
 	},
-	// js文件，广告事件监听 Page({
-	adLoad() {
-		console.log('Banner 广告加载成功')
-	},
-
-	adError(err) {
-		console.error('Banner 广告加载失败', err)
-	},
-	adClose() {
-		console.log('Banner 广告关闭')
-	},
 	methods: {
-		popShow() {
-			this.$refs.motherPop.popShow()
-		},
 		// 跳转到青春豆兑换专区
 		goConvert() {
 			util.checkAuthInfo(() => {
@@ -231,6 +209,17 @@ export default {
 			}
 			http.request(params)
 		},
+		// 获取首页直播图片
+		getLiveImg() {
+			const params = {
+				url: '/admin/get/setting?name=HOME_PAGE_IMAGE&pageNo=1&pageSize=10',
+				method: "GET",
+				callBack: (res) => {
+					this.liveImg = res.list[0].value
+				},
+			};
+			http.request(params);
+		},
 		// 跳转到欢拓直播地址
 		toLiveAddress() {
 			util.checkAuthInfo(() => {
@@ -242,7 +231,6 @@ export default {
 					}),
 					callBack: (res) => {
 						if (res) {
-							console.log(encodeURIComponent(res))
 							uni.navigateTo({ url: '/pages/package-user/pages/huantuolive/huantuolive?urls=' + encodeURIComponent(res) })
 						}
 					},

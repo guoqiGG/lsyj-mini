@@ -201,7 +201,6 @@
 				</view>
 			</u-popup>
 		</view>
-		<motherPop ref="motherPop"></motherPop>
 	</view>
 </template>
 
@@ -209,7 +208,6 @@
 const http = require("@/utils/http.js");
 const util = require("@/utils/util");
 import hCompress from "@/components/helang-compress/helang-compress";
-import motherPop from '@/components/popup/index.vue'
 export default {
 	data() {
 		return {
@@ -221,12 +219,10 @@ export default {
 		}
 	},
 	components: {
-		hCompress,
-		motherPop
+		hCompress
 	},
 
 	onShow: function () {
-		this.popShow()
 		if (uni.getStorageSync("bbcToken")) {
 			this.isAuthInfo = true;
 			this.userInfo = uni.getStorageSync('bbcUserInfo')
@@ -237,19 +233,47 @@ export default {
 			this.isAuthInfo = false;
 		}
 	},
+	onLoad(options) {
+		// 分享绑定团长
+		console.log(options)
+		if (options.puid) {
+			if (uni.getStorageSync('bbcToken')) {
+				http.request({
+					url: '/pub/leader/binding',
+					methods: 'POST',
+					data: {
+						sign: 'qcsd',
+						data: JSON.stringify({
+							loginToken: uni.getStorageSync('bbcToken'),
+							parentId: options.puid
+						})
+					},
+					callBack: (res) => {
+						if (res.loginToken) {
+							uni.setStorageSync('bbcToken', res.loginToken)
+							uni.setStorageSync('bbcUserInfo', res)
+						}
+						uni.showToast({
+							title: '绑定成功',
+							icon: 'none',
+							duration: 2000
+						})
+					}
+				})
+			} else {
+				util.checkAuthInfo(() => { })
+			}
+		}
+	},
 
 	onShareAppMessage: function () {
 		return {
 			path: "pages/user/user",
 			title: "氢春时代",
-			imageUrl: '/static/logo.png',
-
+			imageUrl: '/static/logo_11.png',
 		};
 	},
 	methods: {
-		popShow() {
-			this.$refs.motherPop.popShow()
-		},
 		// 获取订单消息数量
 		getOrderNum() {
 			const params = {

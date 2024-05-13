@@ -180,7 +180,7 @@
         {
           "path": "pages/huantuolive/huantuolive",
           "style": {
-            "navigationBarTitleText": "直播间",
+            "navigationBarTitleText": "欢拓",
             "navigationBarBackgroundColor": "#025BFF",
             "navigationBarTextStyle": "white"
           }

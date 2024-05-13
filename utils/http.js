@@ -121,12 +121,13 @@ function request(params) {
       if (responseData.code === 500) {
         if (params.errCallBack) {
           params.errCallBack(responseData);
-		  // getApp().globalData.showLoginExpired = false;
+          // getApp().globalData.showLoginExpired = false;
           return;
         }
         uni.showToast({
           title: responseData.msg || "Error",
           icon: "none",
+          duration: 2000,
         });
         return;
       }
