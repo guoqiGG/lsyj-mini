@@ -170,7 +170,7 @@ export default {
 						if (res.loginToken) {
 							uni.setStorageSync("bbcIsPrivacy", 1);
 							uni.setStorageSync("bbcHadLogin", true);
-							uni.setStorageSync("bbcToken", res.loginToken);
+							uni.setStorageSync('bbcToken', res.loginToken);
 							uni.setStorageSync("bbcLoginResult", res); // 保存整个登录数据
 							uni.setStorageSync("bbcUserInfo", res); //用户信息
 							uni.setStorageSync('noAuth', false) // 用户是否首次授权
@@ -238,7 +238,7 @@ export default {
 					if (res.loginToken) {
 						uni.setStorageSync("bbcIsPrivacy", 1);
 						uni.setStorageSync("bbcHadLogin", true);
-						uni.setStorageSync("bbcToken", res.loginToken);
+						uni.setStorageSync('bbcToken', res.loginToken);
 						uni.setStorageSync("bbcLoginResult", res); // 保存整个登录数据
 						uni.setStorageSync("bbcUserInfo", res); //用户信息
 						uni.setStorageSync('noAuth', false) // 用户是否首次授权

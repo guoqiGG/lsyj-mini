@@ -73,7 +73,7 @@
 						<view class="text-title">
 							{{ orderItemInfo.goods[0].goodsName }}
 						</view>
-						<view class="text-size" v-if="orderItemInfo.goods[0].specificationName!='默认'">
+						<view class="text-size" v-if="orderItemInfo.goods[0].specificationName != '默认'">
 							{{ orderItemInfo.goods[0].specificationName }}
 						</view>
 						<view class="text-cot">
@@ -278,8 +278,30 @@ export default {
 			}
 			this.getUseraddress()
 		}
+		if (uni.getStorageSync('bbcUserInfo').openId) {
+			this.getOpenId()
+		}
 	},
 	methods: {
+		getOpenId() {
+			wx.login({
+				success: (res) => {
+					const params = {
+						url: '/pub/user/updateTokenOpenIdByUserId',
+						method: 'POST',
+						data: JSON.stringify({
+							userId: this.userInfo.id,
+							code: res.code,
+							token: uni.getStorageSync('bbcToken')
+						}),
+						callBack: (res) => {
+						}
+					}
+					http.request(params)
+				},
+			});
+
+		},
 		commentInput(e) {
 			this.comment = e.detail.value
 		},
@@ -369,7 +391,7 @@ export default {
 				data: {
 					sign: "qcsd",
 					data: JSON.stringify({
-						loginToken: this.userInfo.loginToken,
+						loginToken: uni.getStorageSync('bbcToken'),
 						couponIds: this.checkList,
 						userId: this.userInfo.id,
 						orderType: this.express ? 2 : 1,
@@ -406,7 +428,7 @@ export default {
 					data: JSON.stringify({
 						orderId: orderId,
 						payType: payType,
-						loginToken: this.userInfo.loginToken
+						loginToken: uni.getStorageSync('bbcToken')
 					})
 				},
 				callBack: (res) => {
