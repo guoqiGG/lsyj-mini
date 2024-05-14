@@ -278,8 +278,10 @@ export default {
 			}
 			this.getUseraddress()
 		}
-		if (uni.getStorageSync('bbcUserInfo').openId) {
-			this.getOpenId()
+		if (uni.getStorageSync('bbcToken')) {
+			if (!uni.getStorageSync('bbcUserInfo').openId) {
+				this.getOpenId()
+			}
 		}
 	},
 	methods: {
