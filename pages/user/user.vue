@@ -616,7 +616,6 @@ export default {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-
 		.receving-address-text {
 			box-sizing: border-box;
 			padding-left: 28rpx;

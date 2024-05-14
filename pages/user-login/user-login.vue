@@ -69,12 +69,7 @@
 const http = require("@/utils/http");
 const util = require("@/utils/util.js");
 import hCompress from "@/components/helang-compress/helang-compress";
-import {
-	resolve
-} from "path";
-import {
-	rejects
-} from "assert";
+
 export default {
 	props: {},
 	components: {
