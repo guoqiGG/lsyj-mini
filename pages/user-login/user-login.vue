@@ -35,7 +35,7 @@
 		</view>
 		<!-- 授权登录 -->
 		<view>
-			<u-popup :show="showAuth">
+			<u-popup :show="showAuth" closeable="true" @close="closeShowAuthPopup">
 				<view class="con-container">
 					<view class="title"><text>氢春时代 申请</text></view>
 					<view class="desc">
@@ -134,6 +134,11 @@ export default {
 		});
 	},
 	methods: {
+
+		// 关闭授权弹出层
+		closeShowAuthPopup() {
+			this.showAuth = false
+		},
 		/**
 		 * 通过微信返回的code登录
 		 * @param {String} code 请求微信返回的 code
@@ -332,4 +337,10 @@ export default {
 </script>
 <style>
 @import "./user-login.css";
+</style>
+
+<style lang="less">
+.u-icon__icon {
+	font-size: 35rpx !important;
+}
 </style>

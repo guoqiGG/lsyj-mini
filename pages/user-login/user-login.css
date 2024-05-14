@@ -292,8 +292,8 @@ button::after {
   font-style: normal;
   text-transform: none;
 }
-.con-container .button.un{
-  background: #F6F6F6;
+.con-container .button.un {
+  background: #f6f6f6;
   color: #979797;
 }
 
@@ -305,16 +305,16 @@ button::after {
 }
 .con-container .avatar,
 .con-container .name {
-	height: 84rpx;
+  height: 84rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
-  background: linear-gradient(270deg, #FFFFFF 0%, #B4CEFF 100%);
+  background: linear-gradient(270deg, #ffffff 0%, #b4ceff 100%);
   padding: 14rpx 46rpx;
 }
 .con-container .avatar .avatar-title,
 .con-container .name .name-title {
-	width: 80rpx;
+  width: 80rpx;
   font-weight: 400;
   font-size: 28rpx;
   color: #101010;
@@ -325,8 +325,8 @@ button::after {
   margin-right: 58rpx;
 }
 .con-container .avatar .avatar-img {
-width: 100%;
-		height: 100%;
+  width: 100%;
+  height: 100%;
   background: #f4f4f4;
   border-radius: 8rpx 8rpx 8rpx 8rpx;
   overflow: hidden;
@@ -335,8 +335,8 @@ width: 100%;
   align-items: center;
 }
 .con-container .avatar .avatar-img image {
- width: 78rpx;
- height: 78rpx;
+  width: 78rpx;
+  height: 78rpx;
 }
 
 .con-container .name .name-input {
@@ -348,3 +348,5 @@ width: 100%;
   font-style: normal;
   text-transform: none;
 }
+
+
