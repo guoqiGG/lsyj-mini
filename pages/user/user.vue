@@ -238,28 +238,30 @@ export default {
 		console.log(options)
 		if (options.puid) {
 			if (uni.getStorageSync('bbcToken')) {
-				http.request({
-					url: '/pub/leader/binding',
-					methods: 'POST',
-					data: {
-						sign: 'qcsd',
-						data: JSON.stringify({
-							loginToken: uni.getStorageSync('bbcToken'),
-							parentId: options.puid
-						})
-					},
-					callBack: (res) => {
-						if (res.loginToken) {
-							uni.setStorageSync('bbcToken', res.loginToken)
-							uni.setStorageSync('bbcUserInfo', res)
+				if (!uni.getStorageSync('bbcUserInfo').puid) {
+					http.request({
+						url: '/pub/leader/binding',
+						methods: 'POST',
+						data: {
+							sign: 'qcsd',
+							data: JSON.stringify({
+								loginToken: uni.getStorageSync('bbcToken'),
+								parentId: options.puid
+							})
+						},
+						callBack: (res) => {
+							if (res.loginToken) {
+								uni.setStorageSync('bbcToken', res.loginToken)
+								uni.setStorageSync('bbcUserInfo', res)
+							}
+							uni.showToast({
+								title: '绑定成功',
+								icon: 'none',
+								duration: 2000
+							})
 						}
-						uni.showToast({
-							title: '绑定成功',
-							icon: 'none',
-							duration: 2000
-						})
-					}
-				})
+					})
+				}
 			} else {
 				util.checkAuthInfo(() => { })
 			}
@@ -616,6 +618,7 @@ export default {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+
 		.receving-address-text {
 			box-sizing: border-box;
 			padding-left: 28rpx;
@@ -861,4 +864,3 @@ export default {
 	font-size: 35rpx !important;
 }
 </style>
-
