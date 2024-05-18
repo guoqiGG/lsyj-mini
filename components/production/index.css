@@ -2,23 +2,28 @@
 page {
   background: #f4f4f4;
 }
+
 .prod-items {
-  width: calc(100% - 40rpx);
+  width: calc(100% - 20rpx);
   display: flex;
   align-items: flex-start;
   background: #fff;
-  padding: 20rpx;
+  padding: 20rpx 0rpx 20rpx 20rpx;
   box-sizing: border-box;
-  margin-left: 20rpx;
-  margin-right: 20rpx;
-  margin-bottom: 20rpx;
-  border-radius: 10rpx;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+  margin-top: 10rpx;
+}
+
+.hot-imagecont {
+  width: 160rpx;
+  height: 160rpx;
 }
 
 .hot-imagecont .hotsaleimg {
   width: 100%;
   height: 100%;
-  border-radius: 10rpx;
+  border-radius: 8rpx;
 }
 
 .hot-text .hotprod-text {
@@ -34,7 +39,7 @@ page {
   -webkit-box-orient: vertical;
   /* white-space: nowrap; */
   /* display: inline-block; */
-  color: #333;
+  color: #010101;
   font-weight: bold;
 }
 
@@ -55,7 +60,7 @@ page {
   color: #777;
   margin-top: 8rpx;
   overflow: hidden;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
@@ -63,7 +68,7 @@ page {
   position: relative;
   height: 40rpx;
   line-height: 40rpx;
-  font-family: Arial,'PingFang-SC-Heavy';
+  font-family: Arial, "PingFang-SC-Heavy";
   margin-top: 20rpx;
 }
 .collection-row {
@@ -71,44 +76,44 @@ page {
   justify-content: space-between;
 }
 .prod-items .hot-text .prod-text-info .price {
-  color: #FA2C3C;
+  color: #c53032;
   white-space: nowrap;
   font-size: 20rpx;
 }
-.prod-items .hot-text .prod-text-info .price .symbol{
+.prod-items .hot-text .prod-text-info .price .symbol {
   font-size: 20rpx;
 }
-.prod-items .hot-text .prod-text-info .price .big-num{
+.prod-items .hot-text .prod-text-info .price .big-num {
   font-size: 40rpx;
 }
-.prod-items .hot-text .prod-text-info .price .small-num{
+.prod-items .hot-text .prod-text-info .price .small-num {
   font-size: 40rpx;
 }
 
-.deadline-price{
+.deadline-price {
   font-size: 22rpx;
   margin-right: 5rpx;
 }
 
 .collection-btn {
-	overflow:hidden;
-	white-space:nowrap;
-	text-overflow:ellipsis;
-	margin-left: 20rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-left: 20rpx;
 }
 
 .prod-items .hot-text .prod-text-info .price .sold-num {
   margin-left: 10rpx;
 }
 
-.activity-box{
+.activity-box {
   display: inline-block;
   vertical-align: bottom;
   margin-right: 4rpx;
 }
 
 .activity {
-  background-color: #FA2C3C;
+  background-color: #c53032;
   display: inline-block;
   padding: 0 10rpx;
   color: #fff;

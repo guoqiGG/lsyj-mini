@@ -86,24 +86,24 @@
   border: 2rpx solid #F81A1A; */
 }
 .pay-success .my-order{
-  color: #005aff;
-  text-decoration:  #005aff  underline;
+  color: #FD594D;
+  text-decoration:  #FD594D  underline;
 }
 
 .btns .button.payagain {
-  background: #005aff;
-  border: 1rpx solid #005aff;
+  background: #FD594D;
+  border: 1rpx solid #FD594D;
   color: #fff;
   margin-left: 30rpx;
 }
 .pay-success .btns .button.checkorder{
-  border: 1rpx solid #005aff;
-  color: #005aff;
+  border: 1rpx solid #FD594D;
+  color: #FD594D;
 }
 
 .btns .button.shopcontinue {
-  background: #005aff;
-  border: 1rpx solid #005aff;
+  background: #FD594D;
+  border: 1rpx solid #FD594D;
   color: #fff;
   margin-left: 30rpx;
 }

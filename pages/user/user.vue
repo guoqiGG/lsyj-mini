@@ -136,7 +136,7 @@
 				<view class="service-tool-content">
 					<view class="service-tool-content-wrap" @tap="goCoupon">
 						<view class="service-tool-content-img">
-							<image src="/static/user/coupon.png" mode=""></image>
+							<image src="/static/user/coupon.png"></image>
 						</view>
 						<view class="service-tool-content-text">
 							优惠券
@@ -144,7 +144,7 @@
 					</view>
 					<view class="service-tool-content-wrap" @tap="goCardPackage">
 						<view class="service-tool-content-img">
-							<image src="/static/user/bag.png" mode=""></image>
+							<image src="/static/user/bag.png"></image>
 						</view>
 						<view class="service-tool-content-text">
 							卡包
@@ -152,7 +152,7 @@
 					</view>
 					<view class="service-tool-content-wrap" @tap="toSystemSetUp">
 						<view class="service-tool-content-img">
-							<image src="/static/user/system.png" mode=""></image>
+							<image src="/static/user/system.png"></image>
 						</view>
 						<view class="service-tool-content-text">
 							系统设置
@@ -160,7 +160,7 @@
 					</view>
 					<view class="service-tool-content-wrap" @tap="toAddressList">
 						<view class="service-tool-content-img">
-							<image src="/static/user/address-manage.png" mode=""></image>
+							<image src="/static/user/address-manage.png"></image>
 						</view>
 						<view class="service-tool-content-text">
 							地址管理
@@ -177,7 +177,7 @@
 		<view>
 			<u-popup :show="showAuth" closeable="true" @close="closeShowAuthPopup">
 				<view class="con-container">
-					<view class="title"><text>氢春时代 申请</text></view>
+					<view class="title"><text>上品时代 申请</text></view>
 					<view class="desc">
 						<view class="desc-big"><text>获取您的昵称、头像</text></view>
 						<view class="desc-small"><text>提供具有辨识度的用户中心界面</text></view>
@@ -185,7 +185,8 @@
 					<!-- <view class="line"></view> -->
 					<view class="avatar" style="margin-top: 20rpx;">
 						<view class="avatar-title"><text>头像</text></view>
-						<button class="avatar-img" style="background-color: transparent; margin: 0; padding: 0"
+						<button class="avatar-img"
+							style="background-color: transparent; margin: 0; padding: 0;margin-left:13rpx;"
 							open-type="chooseAvatar" @chooseavatar="getUploadImg">
 							<image :src="userInfo.avatar ? userInfo.avatar : '/static/head04.png'" mode="scaleToFill" />
 						</button>
@@ -271,7 +272,7 @@ export default {
 	onShareAppMessage: function () {
 		return {
 			path: "pages/user/user",
-			title: "氢春时代",
+			title: "上品时代",
 			imageUrl: '/static/logo_11.png',
 		};
 	},
@@ -463,7 +464,7 @@ export default {
 	width: 100vw;
 	height: 574rpx;
 	z-index: 3;
-	background: linear-gradient(180deg, #025BFF 0%, rgba(216, 216, 216, 0) 89%);
+	background: linear-gradient(180deg, #fd594d 0%, rgba(216, 216, 216, 0) 89%);
 }
 
 .user {
@@ -502,7 +503,7 @@ export default {
 			.user-name {
 				font-weight: 400;
 				font-size: 34rpx;
-				color: #FFFFFF;
+				color: #010101;
 				line-height: 48rpx;
 				text-align: left;
 				font-style: normal;
@@ -527,7 +528,7 @@ export default {
 			.user-name-type {
 				font-weight: 400;
 				font-size: 24rpx;
-				color: #FFFFFF;
+				color: #010101;
 				line-height: 48rpx;
 				text-align: left;
 				font-style: normal;
@@ -537,7 +538,7 @@ export default {
 			.login-text {
 				font-weight: 400;
 				font-size: 34rpx;
-				color: #FFFFFF;
+				color: #010101;
 				line-height: 48rpx;
 				text-align: left;
 				font-style: normal;
@@ -611,14 +612,13 @@ export default {
 
 	.receving-address {
 		margin-top: 20rpx;
-		width: 710rpx;
-		height: 222rpx;
 		border-radius: 12rpx;
 		background: #FFFFFF;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-
+		padding: 20rpx;
+		box-sizing: border-box;
 		.receving-address-text {
 			box-sizing: border-box;
 			padding-left: 28rpx;
@@ -635,8 +635,8 @@ export default {
 		}
 
 		.receving-address-pic {
-			width: 276rpx;
-			height: 276rpx;
+			width: 176rpx;
+			height: 184rpx;
 
 			image {
 				width: 100%;
@@ -686,7 +686,6 @@ export default {
 	.service-tool {
 		margin-top: 20rpx;
 		width: 710rpx;
-		height: 232rpx;
 		border-radius: 12rpx;
 		background: #FFFFFF;
 		box-sizing: border-box;
@@ -712,8 +711,8 @@ export default {
 			}
 
 			.service-tool-content-img {
-				width: 78rpx;
-				height: 78rpx;
+				width: 120rpx;
+				height: 120rpx;
 				display: flex;
 				justify-content: center;
 				align-items: center;
@@ -745,8 +744,8 @@ export default {
 
 
 .con-container .title {
-	font-weight: 400;
-	font-size: 28rpx;
+	font-weight: 600;
+	font-size: 32rpx;
 	color: #101010;
 	line-height: 48rpx;
 	text-align: left;
@@ -763,7 +762,7 @@ export default {
 
 .con-container .desc .desc-big {
 	font-weight: 400;
-	font-size: 28rpx;
+	font-size: 30rpx;
 	color: #101010;
 	line-height: 48rpx;
 	text-align: left;
@@ -773,7 +772,7 @@ export default {
 
 .con-container .desc .desc-small {
 	font-weight: 400;
-	font-size: 24rpx;
+	font-size: 28rpx;
 	color: #979797;
 	line-height: 48rpx;
 	text-align: left;
@@ -785,10 +784,10 @@ export default {
 	margin: 66rpx auto 0;
 	width: 364rpx;
 	height: 78rpx;
-	background: #025bff;
+	background: #fd594d;
 	border-radius: 12rpx 12rpx 12rpx 12rpx;
 	font-weight: 400;
-	font-size: 28rpx;
+	font-size: 30rpx;
 	color: #ffffff;
 	line-height: 78rpx;
 	text-align: center;
@@ -814,7 +813,9 @@ export default {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	background: linear-gradient(270deg, #FFFFFF 0%, #B4CEFF 100%);
+	background: linear-gradient(270deg,
+			rgba(253, 89, 77, 0.1),
+			rgba(253, 89, 77, 0.3));
 	padding: 14rpx 46rpx;
 }
 
@@ -822,7 +823,7 @@ export default {
 .con-container .name .name-title {
 	width: 80rpx;
 	font-weight: 400;
-	font-size: 28rpx;
+	font-size: 30rpx;
 	color: #101010;
 	line-height: 48rpx;
 	text-align: left;

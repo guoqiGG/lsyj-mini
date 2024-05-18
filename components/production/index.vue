@@ -1,8 +1,8 @@
 <template>
-  <view class="Mall4j prod-items" @tap="toProdPage">
+  <view class="prod-items" @tap="toProdPage">
     <view class="hot-imagecont">
-      <image v-if="item.thumbail" :src="srcToShow" class="hotsaleimg" mode="aspectFit" @error="handlePicError" />
-      <image v-else src="/static/def.png" mode="aspectFit" class="hotsaleimg" />
+      <image v-if="item.thumbail" :src="srcToShow" class="hotsaleimg" @error="handlePicError" />
+      <image v-else src="/static/def.png" class="hotsaleimg" />
     </view>
     <view class="hot-text">
       <view>

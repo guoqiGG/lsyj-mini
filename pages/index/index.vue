@@ -10,7 +10,7 @@
 					<image src="/static/horn.png" class="hornpng" />
 					<view class="scroll-news-content" :style="'transform: translateX(' + move + 'px);'">
 						<view class="news-content">
-							<view class="news-text">走进氢春态，省钱成常态！进入直播间，福利不间断！</view>
+							<view class="news-text">走进上品时代，省钱成常态！进入直播间，福利不间断！</view>
 						</view>
 					</view>
 				</view>
@@ -29,8 +29,7 @@
 		</swiper>
 		<view class="middle">
 			<view class="convert" @click="goConvert()">
-				<image class="bg-convert-2" src="/static/bg-convert-2.png" />
-				<image class="bg-convert-3" src="/static/bg-convert-3.png" />
+				<image class="bg-convert" src="/static/bg-convert.png" />
 				<view class="convert-title">
 					青春豆兑换区
 				</view>
@@ -44,8 +43,7 @@
 				</view>
 			</view>
 			<view class="singIn" @tap="goMemberCenter">
-				<image class="bg-singIn-2" src="/static/bg-singIn-2.png" />
-				<image class="bg-singIn-3" src="/static/bg-singIn-3.png" />
+				<image class="bg-singIn" src="/static/bg-signIn.png" />
 				<view class="singIn-title">
 					签到
 				</view>
@@ -60,9 +58,9 @@
 			</view>
 		</view>
 		<view class="sponsored-ad">
-			<!-- <view class="sponsored-ad-title" @tap="toLiveAddress">
-				广告
-			</view> -->
+			<view class="sponsored-ad-title" @tap="toLiveAddress">
+				赞助广告
+			</view>
 			<view class="sponsored-ad-content-box">
 				<view class="sponsored-ad-content">
 					<image :src="liveImg" style="width: 100%; height:100%;border-radius: 20rpx;" alt="" />
@@ -160,14 +158,14 @@ export default {
 	//用户点击右上角分享朋友圈
 	onShareTimeline: function () {
 		return {
-			title: '氢春时代',
+			title: '上品时代',
 			imageUrl: '/static/logo_11.png'
 		}
 	},
 	data() {
 		return {
 			navigationBarIsShow: true,
-			title: '氢春时代',
+			title: '上品时代',
 			tabConfig: {
 				background: '',
 				fontColor: '#FFFFFF',
@@ -228,7 +226,7 @@ export default {
 .main {
 	background-color: #e6e6e6;
 	min-height: 100vh;
-	background: linear-gradient(180deg, #025BFF 0%, rgba(2, 91, 255, 0) 40%);
+	background: linear-gradient(180deg, #FD594D 0%, #FD594D 20%, #FFF 40%);
 }
 
 
@@ -236,8 +234,6 @@ export default {
 .news-swiper {
 	margin-top: 10rpx;
 }
-
-.news-swiper-con {}
 
 // /* 消息播放 */
 .message-play {
@@ -248,7 +244,7 @@ export default {
 	box-sizing: border-box;
 	border-radius: rpx;
 	padding: 0rpx 0 0rpx 120rpx;
-	border-radius: 40rpx;
+	border-radius: 8rpx;
 }
 
 .message-play .hornpng {
@@ -263,7 +259,7 @@ export default {
 }
 
 .news-text {
-	color: #BC0906;
+	color: #FD594D;
 	font-size: 30rpx;
 }
 
@@ -272,12 +268,14 @@ export default {
 	overflow: hidden;
 	white-space: nowrap;
 	height: 64rpx;
-	line-height: 64rpx;
+	font-weight: 400;
 	font-size: 30rpx;
-	color: #232323;
+
+	line-height: 64rpx;
 }
 
 .scroll-news-content .news-content {
+
 	animation: loop 8s linear infinite;
 }
 
@@ -296,11 +294,9 @@ export default {
 // /* 消息播放end */
 
 swiper {
-	width: calc(100% - 40rpx);
 	height: 320rpx;
-	margin: 0 20rpx;
-	margin-top: 20rpx;
-	border-radius: 8rpx;
+	margin: 20rpx 20rpx 0;
+	border-radius: 20rpx;
 	overflow: hidden;
 }
 
@@ -334,46 +330,39 @@ swiper .banner-item .img-box video {
 	.convert {
 		width: 346rpx;
 		height: 294rpx;
-		background: linear-gradient(90deg, #3874e4 0%, #BA55FF 100%);
-		border-radius: 20rpx;
+		border-radius: 25rpx;
 		box-sizing: border-box;
 		padding: 14rpx 22rpx;
 		position: relative;
 		overflow: hidden;
 
-		.bg-convert-2 {
+		.bg-convert {
 			position: absolute;
-			width: 100%;
-			height: 100%;
-			top: 0;
-			left: 0;
-		}
-
-		.bg-convert-3 {
-			position: absolute;
-			width: 130%;
-			height: 130%;
-			top: -45rpx;
-			left: -55rpx;
+			width: 394rpx;
+			height: 356rpx;
+			top: -2rpx;
+			left: -3rpx;
+			border-radius: 25rpx;
 		}
 
 		.convert-title {
+			position: absolute;
+			top: 15rpx;
+			left: 30rpx;
 			font-weight: 400;
-			font-size: 40rpx;
-			color: #FFFFFF;
+			font-size: 36rpx;
+			color: #0559F4;
 			line-height: 48rpx;
 			letter-spacing: 1px;
 		}
 
-		.convert-title {
-			font-size: 36rpx;
-			color: #FFFFFF;
-		}
-
 		.convert-sub {
+			position: absolute;
+			top: 60rpx;
+			left: 30rpx;
 			font-weight: 400;
 			font-size: 22rpx;
-			color: #FFFFFF;
+			color: #0559F4;
 			line-height: 48rpx;
 		}
 
@@ -381,6 +370,8 @@ swiper .banner-item .img-box video {
 			display: flex;
 			justify-content: space-between;
 			height: 196rpx;
+			position: absolute;
+			bottom: -20rpx;
 
 			.convert-go {
 				margin-top: 94rpx;
@@ -392,7 +383,7 @@ swiper .banner-item .img-box video {
 				text-align: center;
 				font-weight: 400;
 				font-size: 40rpx;
-				color: #6E2EED;
+				color: #0559F4;
 				line-height: 62rpx;
 			}
 
@@ -409,40 +400,36 @@ swiper .banner-item .img-box video {
 		box-sizing: border-box;
 		padding: 14rpx 22rpx;
 		position: relative;
-		background: linear-gradient(90deg, #e7324d 0%, #e2ae70 100%);
-		border-radius: 20rpx;
+		border-radius: 25rpx;
 		overflow: hidden;
 
-		.bg-singIn-2 {
+		.bg-singIn {
+			border-radius: 25rpx;
 			position: absolute;
-			width: 100%;
-			height: 100%;
-			top: 0;
-			left: 0;
-		}
-
-		.bg-singIn-3 {
-			position: absolute;
-			width: 130%;
-			height: 130%;
-			top: -45rpx;
-			left: -55rpx;
+			width: 412rpx;
+			height: 352rpx;
+			top: -2rpx;
+			left: -3rpx;
 		}
 
 		.singIn-title {
+			position: absolute;
+			top: 15rpx;
+			left: 30rpx;
 			font-weight: 400;
-			font-size: 40rpx;
-			color: #FFFFFF;
+			font-size: 36rpx;
+			color: #FF6200;
 			line-height: 48rpx;
 			letter-spacing: 1px;
-			font-style: normal;
-			text-transform: none;
 		}
 
 		.singIn-sub {
+			position: absolute;
+			top: 60rpx;
+			left: 30rpx;
 			font-weight: 400;
 			font-size: 22rpx;
-			color: #FFFFFF;
+			color: #FF6200;
 			line-height: 48rpx;
 		}
 
@@ -450,6 +437,8 @@ swiper .banner-item .img-box video {
 			display: flex;
 			justify-content: space-between;
 			height: 196rpx;
+			position: absolute;
+			bottom: -20rpx;
 
 			.singIn-go {
 				margin-top: 94rpx;
@@ -461,7 +450,8 @@ swiper .banner-item .img-box video {
 				text-align: center;
 				font-weight: 400;
 				font-size: 40rpx;
-				color: #F32843;
+				color: #FF6200;
+				line-height: 62rpx;
 			}
 		}
 	}
@@ -473,7 +463,8 @@ swiper .banner-item .img-box video {
 	margin: 0 20rpx;
 	margin-top: 20rpx;
 	padding-top: 20rpx;
-	padding-bottom: 30rpx;
+	background: linear-gradient(90deg, #F9C0BC 0%, #FD594D 100%);
+	border-radius: 20rpx 20rpx 20rpx 20rpx;
 
 	.sponsored-ad-title {
 		margin: 0 20rpx 20rpx;
@@ -481,16 +472,15 @@ swiper .banner-item .img-box video {
 		box-sizing: border-box;
 		font-weight: 400;
 		font-size: 34rpx;
-		color: #101010;
+		color: #FFFFFF;
 		line-height: 48rpx;
 		letter-spacing: 1px;
-		border-left: 6rpx solid #518BFC;
 		padding-left: 10rpx;
 	}
 
 	.sponsored-ad-content-box {
 		box-sizing: border-box;
-		padding: 30rpx 24rpx;
+		padding: 42rpx 24rpx;
 		width: 100%;
 		border-radius: 20rpx;
 		background: #9DBEFF;

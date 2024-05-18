@@ -19,10 +19,10 @@
         <text>默认地址</text>
         <radio-group>
           <label class="radio" data-default="1" @tap="onDefaultAddr">
-            <radio :checked="isDefault == 1" color="#005AFF" />是
+            <radio :checked="isDefault == 1" color="#FD594D" />是
           </label>
           <label style="margin-left: 10rpx;" class="radio" data-default="0" @tap="onDefaultAddr">
-            <radio :checked="isDefault == 0" color="#005AFF" />否
+            <radio :checked="isDefault == 0" color="#FD594D" />否
           </label>
         </radio-group>
       </view>

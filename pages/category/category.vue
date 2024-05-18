@@ -1,5 +1,5 @@
 <template>
-	<view class="Mall4j container">
+	<view class="container">
 		<!-- 顶部分类图片 -->
 		<view v-if="categoryImg" class="adver-map">
 			<view class="item-a">
@@ -27,7 +27,6 @@
 				<!-- 空列表或加载全部提示 -->
 				<EmptyAllTips v-if="isLoaded" :isEmpty="!prodList.length" emptyTips="此分类下暂无商品"
 					:isAll="current == pages" />
-
 			</scroll-view>
 			<!-- 右侧内容end -->
 		</view>
@@ -63,14 +62,14 @@ export default {
 		})
 		this.selIndex = 0
 		this.getCategory()
-		
+
 	},
 	onShareAppMessage: function () {
 		return {
 			path: "pages/category/category",
-			title: "氢春时代",
+			title: "上品时代",
 			imageUrl: '/static/logo_11.png',
-			
+
 		};
 	},
 	methods: {

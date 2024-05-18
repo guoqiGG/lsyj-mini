@@ -25,7 +25,7 @@
 				<label class="statement-label" @tap.stop="handlePrivacyClick">
 					<checkbox class="check-box" :checked="isPrivacy === 1" />
 					<view style="color: #979797">
-						我已阅读并同意氢春时代
+						我已阅读并同意上品时代
 						<text @tap.stop="toTermsOfService('serviceTerms')">《服务条款》</text>
 						<text style="color: #979797">和</text>
 						<text @tap.stop="toTermsOfService('servicePolicy')">《隐私协议》</text>
@@ -37,7 +37,7 @@
 		<view>
 			<u-popup :show="showAuth" closeable="true" @close="closeShowAuthPopup">
 				<view class="con-container">
-					<view class="title"><text>氢春时代 申请</text></view>
+					<view class="title"><text>上品时代 申请</text></view>
 					<view class="desc">
 						<view class="desc-big"><text>获取您的昵称、头像</text></view>
 						<view class="desc-small"><text>提供具有辨识度的用户中心界面</text></view>
@@ -45,7 +45,7 @@
 					<!-- <view class="line"></view> -->
 					<view class="avatar" style="margin-top: 20rpx;">
 						<view class="avatar-title"><text>头像</text></view>
-						<button class="avatar-img" style="background-color: transparent; margin: 0; padding: 0"
+						<button class="avatar-img" style="background-color: transparent; margin: 0; padding: 0;margin-left: 13rpx;"
 							open-type="chooseAvatar" @chooseavatar="getUploadImg">
 							<image :src="avatar ? avatar : '/static/head04.png'" mode="scaleToFill" />
 						</button>

@@ -174,9 +174,10 @@ export default {
 }
 
 .bar-line .bar-title {
-  font-size: 30rpx;
-  /* font-weight: bold; */
-  line-height: 44rpx;
+  font-weight: 400;
+  font-size: 38rpx;
+  color: #FFFFFF;
+  line-height: 48rpx;
 }
 
 /*
