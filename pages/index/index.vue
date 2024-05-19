@@ -229,8 +229,6 @@ export default {
 	background: linear-gradient(180deg, #FD594D 0%, #FD594D 20%, #e6e6e6 40%);
 }
 
-
-
 .news-swiper {
 	margin-top: 10rpx;
 }
