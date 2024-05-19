@@ -226,7 +226,7 @@ export default {
 .main {
 	background-color: #e6e6e6;
 	min-height: 100vh;
-	background: linear-gradient(180deg, #FD594D 0%, #FD594D 20%, #FFF 40%);
+	background: linear-gradient(180deg, #FD594D 0%, #FD594D 20%, #e6e6e6 40%);
 }
 
 
@@ -483,7 +483,7 @@ swiper .banner-item .img-box video {
 		padding: 42rpx 24rpx;
 		width: 100%;
 		border-radius: 20rpx;
-		background: #9DBEFF;
+		background: #FFFFFF;
 	}
 
 	.sponsored-ad-content {
