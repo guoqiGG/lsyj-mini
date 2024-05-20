@@ -29,7 +29,7 @@
             v-if="showBack"
           >
           </view> -->
-           <image v-if="showBack && isWhiteBack" class="back-img" src="../../static/back-white.png" mode=""
+            <image v-if="showBack && isWhiteBack" class="back-img" src="../../static/back-white.png" mode=""
               @click="$turnPage('1', 'navigateBack')" />
             <image v-if="showBack && !isWhiteBack" class="back-img" src="../../static/back.png" mode=""
               @click="$turnPage('1', 'navigateBack')" />
@@ -141,7 +141,6 @@ export default {
 .bar-sticky {
   position: sticky;
   position: -webkit-sticky;
-  top: 0;
   z-index: 101;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -154,33 +153,33 @@ export default {
 }
 
 /*垂直居中*/
-.container-in {
-  display: flex;
-  -webkit-align-items: center;
-  align-items: center;
-  width: 100%;
-  height: 44px;
-}
+  .container-in {
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    width: 100%;
+    height: 44px;
+  }
 
-.bar-line {
-  height: 44px;
-  /* 导航栏高度 */
-}
+  .bar-line {
+    height: 44px;
+    /* 导航栏高度 */
+  }
 
-.bar-line .bar-back {
-  font-size: 52rpx !important;
-  position: absolute;
-  left: 30rpx;
-}
+  .bar-line .bar-back {
+    font-size: 52rpx !important;
+    position: absolute;
+    left: 30rpx;
+  }
 
-.bar-line .bar-title {
-  font-weight: 400;
-  font-size: 38rpx;
-  color: #FFFFFF;
-  line-height: 48rpx;
-}
+  .bar-line .bar-title {
+    font-weight: 400;
+    font-size: 38rpx;
+    color: #FFFFFF;
+    line-height: 48rpx;
+  }
 
-/*
+  /*
 .rt_pos {
   position: absolute;
   right: 50rpx;
@@ -195,24 +194,23 @@ export default {
   transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
   -webkit-transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
 } */
-.back-img {
-  width: 34rpx;
-  height: 34rpx;
-  position: absolute;
-  left: 30rpx;
-}
+  .back-img {
+    width: 34rpx;
+    height: 34rpx;
+    position: absolute;
+    left: 30rpx;
+  }
 
-.top-bg-img {
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  position: absolute;
-}
+  .top-bg-img {
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+  }
 
-.content-wrap {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-</style>
+  .content-wrap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }</style>

@@ -1,11 +1,8 @@
 <template>
 	<view class="con">
 		<view class="logo">
-			<view class="left-bg">
-				<image src="/static/rectangle.png" mode="widthFix" />
-			</view>
-			<view class="right-bg">
-				<image src="/static/cube.png" mode="widthFix" />
+			<view class="login-bg">
+				<image style="width: 100%;height:100%;" src="/static/login-bg.png"/>
 			</view>
 			<image class="logo-img" src="/static/logo_11.png" mode="heightFix" @tap="toIndex" />
 		</view>
@@ -45,7 +42,8 @@
 					<!-- <view class="line"></view> -->
 					<view class="avatar" style="margin-top: 20rpx;">
 						<view class="avatar-title"><text>头像</text></view>
-						<button class="avatar-img" style="background-color: transparent; margin: 0; padding: 0;margin-left: 13rpx;"
+						<button class="avatar-img"
+							style="background-color: transparent; margin: 0; padding: 0;margin-left: 13rpx;"
 							open-type="chooseAvatar" @chooseavatar="getUploadImg">
 							<image :src="avatar ? avatar : '/static/head04.png'" mode="scaleToFill" />
 						</button>

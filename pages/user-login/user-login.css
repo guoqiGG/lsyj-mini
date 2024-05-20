@@ -1,20 +1,16 @@
 page {
-  background: #fff;
+  background: #FFF3EF;
   height: 100%;
   position: relative;
 }
-.con {
-  padding: 0rpx 0 160rpx 0;
-}
 .logo {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  margin-bottom: 101rpx;
-  object-fit: contain;
-  background: linear-gradient(180deg, #bfd6ff 0%, rgba(238, 238, 238, 0) 100%);
-  height: 500rpx;
   position: relative;
+  width: 100%;
+  height: 600rpx;
+}
+.logo .login-bg {
+  width: 100%;
+  height: 100%;
 }
 .left-bg {
   position: absolute;
@@ -171,7 +167,7 @@ button::after {
   color: #999999;
 }
 .statement text {
-  color: #fd594d;
+  color: #4083FF;
   cursor: pointer;
 }
 .statement .check-box {
@@ -255,7 +251,6 @@ button::after {
   line-height: 48rpx;
   text-align: left;
   text-align: center;
-
 }
 .con-container .desc {
   margin-top: 34rpx;

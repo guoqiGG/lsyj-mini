@@ -224,9 +224,8 @@ export default {
 
 <style lang="less" scoped>
 .main {
-	background-color: #e6e6e6;
 	min-height: 100vh;
-	background: linear-gradient(180deg, #FD594D 0%, #FD594D 20%, #e6e6e6 40%);
+	background: linear-gradient(180deg, #FD594D 0%, #FD594D 20%, #f2f2f2 40%);
 }
 
 .news-swiper {

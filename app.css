@@ -57,11 +57,11 @@ uni-checkbox .uni-checkbox-input {
   width: 32rpx !important;
   height: 32rpx !important;
   border-radius: 50% !important;
-  border-color: #FD594D !important;
+  border-color: #4083FF  !important;
 }
 /*checkbox选中后样式  */
 uni-checkbox .uni-checkbox-input.uni-checkbox-input-checked {
-  background: #FD594D;
+  background: #4083FF ;
   border: 1px solid transparent !important;
 }
 /*checkbox选中后图标样式  */
@@ -78,7 +78,7 @@ uni-checkbox .uni-checkbox-input.uni-checkbox-input-checked::before {
   -webkit-transform: translate(-50%, -50%) scale(1);
 }
 uni-checkbox .uni-checkbox-input.uni-checkbox-input-disabled {
-  background: #e89f9b;
+  background: #4083FF ;
 }
 
 /* #ifdef MP-WEIXIN */
@@ -87,12 +87,12 @@ checkbox .wx-checkbox-input {
   border-radius: 50%;
   width: 35rpx;
   height: 35rpx;
-  border-color: #FD594D !important;
+  border-color: #4083FF  !important;
 }
 /*checkbox选中后样式  */
 checkbox .wx-checkbox-input.wx-checkbox-input-checked {
-  background: #FD594D;
-  border-color: #FD594D;
+  background: #4083FF ;
+  border-color: #4083FF ;
 }
 /*checkbox选中后图标样式  */
 checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
@@ -137,7 +137,7 @@ uni-radio .uni-radio-input {
 /* 选中后的 背景样式 */
 uni-radio .uni-radio-input.uni-radio-input-checked {
   border: none !important;
-  background: #FD594D !important;
+  background: #4083FF  !important;
 }
 /* 选中后的 对勾样式 */
 uni-radio .uni-radio-input.uni-radio-input-checked::before {

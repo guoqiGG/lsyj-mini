@@ -1,11 +1,15 @@
 <template>
 	<view class="main">
-		<view class="background"></view>
+		<navigationBar v-if="navigationBarIsShow" bg-color="bg-gradual-pink" :show-back="false"
+			:navigation-bar-style="tabConfig" :is-left="false" :is-bg-img="isBgImg" :title="title" />
+		<view class="background">
+			<image src="/static/userinfo-bg.png"/>
+		</view>
 		<view class="user">
 			<view class="user-login" v-if="isAuthInfo">
 				<image class="user-img" :src="userInfo.avatar
-				? userInfo.avatar : '/static/head04.png'
-				" mode="scaleToFill" />
+			? userInfo.avatar : '/static/head04.png'
+			" mode="scaleToFill" />
 				<view class="user-info">
 					<view class="user-name">
 						<view>
@@ -105,7 +109,7 @@
 					</view>
 					<view class="receving-address-text-content" style="margin-top: 10rpx;">
 						{{ userInfo.leaderAddress
-				? userInfo.leaderAddress : userInfo.userAddress ? userInfo.userAddress : '请在地址管理中添加收货地址' }}
+			? userInfo.leaderAddress : userInfo.userAddress ? userInfo.userAddress : '请在地址管理中添加收货地址' }}
 					</view>
 					<view class="receving-address-text-content" v-if="userInfo.leaderAddress"><text
 							style="font-weight: 400;font-size: 28rpx;color: #101010;line-height: 48rpx;">
@@ -209,6 +213,8 @@
 const http = require("@/utils/http.js");
 const util = require("@/utils/util");
 import hCompress from "@/components/helang-compress/helang-compress";
+import navigationBar from '@/components/navigation-bar/index.vue'
+
 export default {
 	data() {
 		return {
@@ -217,10 +223,19 @@ export default {
 			isAuthInfo: false, //用户是否登录
 			showAuth: false,// 显示授权用户信息
 			orderNum: null,
+			navigationBarIsShow: true,
+			title: '个人中心',
+			tabConfig: {
+				background: '',
+				fontColor: '#FFFFFF',
+				iconColor: '#FFFFFF'
+			},
+			isBgImg: false,
 		}
 	},
 	components: {
-		hCompress
+		hCompress,
+		navigationBar
 	},
 
 	onShow: function () {
@@ -463,8 +478,10 @@ export default {
 	top: 0rpx;
 	width: 100vw;
 	height: 574rpx;
-	z-index: 3;
-	background: linear-gradient(180deg, #fd594d 0%, rgba(216, 216, 216, 0) 89%);
+}
+.background image{
+	width: 100%;
+	height: 100%;
 }
 
 .user {
@@ -619,6 +636,7 @@ export default {
 		align-items: center;
 		padding: 20rpx;
 		box-sizing: border-box;
+
 		.receving-address-text {
 			box-sizing: border-box;
 			padding-left: 28rpx;
