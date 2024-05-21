@@ -122,19 +122,29 @@ export default {
 		}
 	},
 	onShow() {
-		//   if (uni.getStorageSync('bbcUserInfo').leaderName && uni.getStorageSync('bbcUserInfo').leaderMobile) {
-		// leaderType===0?
-		// 
-		//     this.orderType = 2
-		//   }
-		if (uni.getStorageSync('bbcUserInfo').leaderType === 0) {
-			this.orderType = 2
-		} else if (uni.getStorageSync('bbcUserInfo').leaderType === 1) {
-			this.orderType = 1
-		}
-		this.skuShow = false
+		util.checkAuthInfo(() => {
+			this.getUserInfo()
+			this.skuShow = false
+		})
 	},
 	methods: {
+		// 获取用户信息
+		getUserInfo() {
+			const params = {
+				url: "/pub/user/get/detail?userId=" + uni.getStorageSync('bbcUserInfo').id,
+				method: "GET",
+				callBack: (res) => {
+					uni.setStorageSync('bbcUserInfo', res)
+					this.userInfo = res
+					if (this.userInfo.leaderType === 0) {
+						this.orderType = 2
+					} else if (this.userInfo.leaderType === 1) {
+						this.orderType = 1
+					}
+				},
+			};
+			http.request(params);
+		},
 		toHomePage() {
 			util.toHomePage()
 		},

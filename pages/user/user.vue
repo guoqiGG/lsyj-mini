@@ -3,7 +3,7 @@
 		<navigationBar v-if="navigationBarIsShow" bg-color="bg-gradual-pink" :show-back="false"
 			:navigation-bar-style="tabConfig" :is-left="false" :is-bg-img="isBgImg" :title="title" />
 		<view class="background">
-			<image src="/static/userinfo-bg.png"/>
+			<image src="/static/userinfo-bg.png" />
 		</view>
 		<view class="user">
 			<view class="user-login" v-if="isAuthInfo">
@@ -243,7 +243,6 @@ export default {
 			this.isAuthInfo = true;
 			this.userInfo = uni.getStorageSync('bbcUserInfo')
 			this.getUserInfo()
-			this.getDefaultAddress()
 			this.getOrderNum()
 		} else {
 			this.isAuthInfo = false;
@@ -426,17 +425,6 @@ export default {
 			};
 			http.request(params);
 		},
-		// 用户默认地址
-		getDefaultAddress() {
-			const params = {
-				url: "/pub/user/infById?userId=" + uni.getStorageSync('bbcUserInfo').id,
-				method: "GET",
-				callBack: (res) => {
-					this.userInfo.userAddress = res.userAddress
-				},
-			};
-			http.request(params);
-		},
 		// 打开授权弹出层
 		openShowAuthPopup() {
 			this.showAuth = true
@@ -449,7 +437,7 @@ export default {
 		// 获取用户信息
 		getUserInfo() {
 			const params = {
-				url: "/pub/user/infoByToken?loginToken=" + uni.getStorageSync('bbcToken'),
+				url: "/pub/user/get/detail?userId=" + uni.getStorageSync('bbcUserInfo').id,
 				method: "GET",
 				callBack: (res) => {
 					uni.setStorageSync('bbcUserInfo', res)
@@ -459,7 +447,7 @@ export default {
 				},
 			};
 			http.request(params);
-		}
+		},
 	}
 }
 </script>
@@ -479,7 +467,8 @@ export default {
 	width: 100vw;
 	height: 574rpx;
 }
-.background image{
+
+.background image {
 	width: 100%;
 	height: 100%;
 }
