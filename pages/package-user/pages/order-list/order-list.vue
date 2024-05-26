@@ -49,22 +49,27 @@
 						共{{ item.goodsCount }}件商品 总计：{{ item.totalAmount }}
 					</view>
 
-					<view class="order-list-content-box-btn" v-if="item.orderStatus === 1">
-						<view class="cancelBtn" @click="cancelOrder(item.orderId)">
-							取消订单
-						</view>
-						<view class="cancelBtn"
-							style="margin-left: 20rpx;width: 120rpx;color: #D90024;border: 2rpx solid #D90024;"
-							@click="payOrder(item.orderId)">
-							付款
-						</view>
+					<view class="order-list-content-box-btn">
+						<view class="order-list-content-box-btn">
+							<view class="cancelBtn" style="width: 120rpx;color: #D90024;border: 2rpx solid #D90024;"
+								@click="deleteOrder(item.orderId)" v-if="item.orderStatus !== 1">
+								删除
+							</view>
+							<view style="margin-left:20rpx;" class="cancelBtn" @click="cancelOrder(item.orderId)"
+								v-if="item.orderStatus === 1">
+								取消订单
+							</view>
 
-					</view>
-					<view class="order-list-content-box-btn" v-if="item.orderStatus === 3">
-						<view class="cancelBtn"
-							style="margin-left: 20rpx;width: 120rpx;color: #D90024;border: 2rpx solid #D90024;"
-							@click="receive(item.orderId)">
-							确认收货
+							<view class="cancelBtn"
+								style="margin-left: 20rpx;width: 120rpx;color: #D90024;border: 2rpx solid #D90024;"
+								v-if="item.orderStatus === 1" @click="payOrder(item.orderId)">
+								付款
+							</view>
+							<view class="cancelBtn" v-if="item.orderStatus === 3"
+								style="margin-left: 20rpx;width: 120rpx;color: #D90024;border: 2rpx solid #D90024;"
+								@click="receive(item.orderId)">
+								确认收货
+							</view>
 						</view>
 
 					</view>
@@ -168,6 +173,28 @@ export default {
 				callBack: (res) => {
 					uni.showToast({
 						title: "取消成功~",
+						icon: "none",
+					});
+					this.getOrderLists()
+				},
+			}
+			http.request(params);
+		},
+		deleteOrder(orderId) {
+			let obj = {
+				orderId: orderId,
+				loginToken: this.loginToken
+			}
+			const params = {
+				url: "/pub/order/delete",
+				method: "POST",
+				data: {
+					sign: 'qcsd',
+					data: JSON.stringify(obj),
+				},
+				callBack: (res) => {
+					uni.showToast({
+						title: "删除成功",
 						icon: "none",
 					});
 					this.getOrderLists()
