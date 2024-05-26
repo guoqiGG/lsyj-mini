@@ -1,6 +1,6 @@
 .container {
   background: #e6e6e6;
-  padding-bottom: 200rpx; 
+  padding-bottom: 200rpx;
   overflow-y: scroll;
 }
 
@@ -153,7 +153,7 @@
 
 /* 规格弹出层 */
 .con-container {
-  padding: 36rpx 15rpx;
+  padding: 20rpx 15rpx 0;
 }
 .con-container .sku-info {
   display: flex;
@@ -231,7 +231,7 @@
 }
 .goods-sku {
   background: #ffffff;
-  padding: 40rpx 20rpx;
+  padding: 20rpx 20rpx;
 }
 .goods-sku .goods-sku-title {
   font-weight: 400;
@@ -282,7 +282,7 @@
   height: 25rpx;
 }
 .con-container .buy-now {
-  margin: 40rpx auto 20rpx;
+  margin: 20rpx auto 20rpx;
   padding: 8rpx 0;
   text-align: center;
   width: 520rpx;

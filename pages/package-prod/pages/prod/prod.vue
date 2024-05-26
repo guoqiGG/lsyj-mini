@@ -76,15 +76,17 @@
 							<view class="add" @tap="numberValueAdd">+</view>
 						</view>
 					</view>
-					<view class="goods-sku" v-if="goodsSkus.length > 1">
-						<view class="goods-sku-title"><text>规格</text></view>
-						<view class="goods-sku-list">
-							<view :class="['goods-sku-list-item', chechIndex == item.id ? 'checked' : '']"
-								v-for="item in goodsSkus" :key="item.id" @tap="skuSelectClick(item.id)">
-								{{ item.specificationName }}
+					<scroll-view v-if="goodsSkus.length > 1" scroll-y="true" style="height: 500rpx;">
+						<view class="goods-sku">
+							<view class="goods-sku-title"><text>规格</text></view>
+							<view class="goods-sku-list">
+								<view :class="['goods-sku-list-item', chechIndex == item.id ? 'checked' : '']"
+									v-for="item in goodsSkus" :key="item.id" @tap="skuSelectClick(item.id)">
+									{{ item.specificationName }}
+								</view>
 							</view>
 						</view>
-					</view>
+					</scroll-view>
 					<view class="buy-now" @tap="buyNow()"><text>立即购买</text></view>
 				</view>
 			</u-popup>
