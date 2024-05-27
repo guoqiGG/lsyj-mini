@@ -2,7 +2,7 @@
 	<view class="con">
 		<view class="logo">
 			<view class="login-bg">
-				<image style="width: 100%;height:100%;" src="/static/login-bg.png"/>
+				<image style="width: 100%;height:100%;" src="/static/login-bg.png" />
 			</view>
 			<image class="logo-img" src="/static/logo_11.png" mode="heightFix" @tap="toIndex" />
 		</view>
@@ -92,7 +92,6 @@ export default {
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-
 		// 头部导航标题
 		uni.setNavigationBarTitle({
 			title: '用户登录',
@@ -124,12 +123,15 @@ export default {
 		// 改变全局中登录
 		const globalData = getApp().globalData;
 		globalData.isLanding = true;
-		wx.login({
-			success: (res) => {
-				// 用code 请求登录
-				this.loginByCode(res.code);
-			},
-		});
+		if (!uni.getStorageSync('userLogout')) {
+			wx.login({
+				success: (res) => {
+					// 用code 请求登录
+					this.loginByCode(res.code);
+				},
+			});
+		}
+
 	},
 	methods: {
 
@@ -250,6 +252,7 @@ export default {
 							http.request(getApp().globalData.requestQueue.pop());
 						}
 						// 返回未登录前点击的页面
+						uni.removeStorageSync('userLogout')
 						util.previousPage()
 					}
 				},

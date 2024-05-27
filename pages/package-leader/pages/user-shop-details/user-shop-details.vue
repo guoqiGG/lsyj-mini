@@ -1,59 +1,62 @@
 <template>
-	<view class="order-list">
-		<!-- 	<view class="search">
+	<view style="background: #f2f2f2;">
+		<view class="order-list">
+			<!-- 	<view class="search">
 			<u-icon top="22" class="search_icon" name="search" size="40"></u-icon>
 			<text class="line"></text>
 			<input type="text" class="input" v-model="keyword" placeholder="搜索订单" />
 			<button size="default" type="default" class="button" @click="searchBtn">搜索</button>
 		</view> -->
-		<u-tabs :scrollable="true" :current="currentTab" :list="list1" @click="handleTabClick"></u-tabs>
-		<view class="order-list-content">
-			<view class="order-list-content-box" v-for="(item, index) in orderLists" :key="item.orderId">
-				<view class="order-list-content-box-title">
-					<view class="order-list-content-box-title-left">
-						订单编号：{{ item.orderId }}
-					</view>
-					<view class="order-list-content-box-title-right" :class="item.orderStatus > 1 ? 'blue' : ''"
-						v-if="currentTab !== 5">
-						<!-- // 00全部 1待支付 2待发货(已支付) 3已发货 4确认收货  5已取消-->
-						{{ item.orderStatus === 1 ? '待支付' : item.orderStatus === 2 ? '待发货' : item.orderStatus === 3 ?
-			'已发货' : item.orderStatus === 4 ? '已完成' : item.orderStatus === 5 ? '已取消' : '' }}
-					</view>
-					<view class="order-list-content-box-title-right" :class="item.orderStatus > 1 ? 'blue' : ''" v-else>
-						<!-- //0-未申请退款；1-申请退款；2-退款中；3-退款失败；4-退款成功 5后台手动退款成功-->
-						{{ item.refundStatus === 0 ? '未申请退款' : item.refundStatus === 1 ? '申请退款' : item.refundStatus ===
-			2 ? '退款中' : item.refundStatus === 3 ? '退款失败' : item.refundStatus === 4 ? '退款成功' :
-				item.refundStatus === 5 ? '后台退款成功' : '' }}
-					</view>
-				</view>
-				<view class="order-list-content-box-content">
-					<image class="order-list-content-box-content-img" :src="item.orderGoods[0].thumbail" mode="">
-					</image>
-					<view class="order-list-content-box-content-text">
-						<view class="title">
-							{{ item.orderGoods[0].title }}
+			<u-tabs :scrollable="true" :current="currentTab" :list="list1" @click="handleTabClick"></u-tabs>
+			<view class="order-list-content">
+				<view class="order-list-content-box" v-for="(item, index) in orderLists" :key="item.orderId">
+					<view class="order-list-content-box-title">
+						<view class="order-list-content-box-title-left">
+							订单编号：{{ item.orderId }}
 						</view>
-						<view class="price">
-							<view class="price-number">
-								￥{{ item.orderGoods[0].salePrice }}
+						<view class="order-list-content-box-title-right" :class="item.orderStatus > 1 ? 'blue' : ''"
+							v-if="currentTab !== 5">
+							<!-- // 00全部 1待支付 2待发货(已支付) 3已发货 4确认收货  5已取消-->
+							{{ item.orderStatus === 1 ? '待支付' : item.orderStatus === 2 ? '待发货' : item.orderStatus === 3
+				?
+				'已发货' : item.orderStatus === 4 ? '已完成' : item.orderStatus === 5 ? '已取消' : '' }}
+						</view>
+						<view class="order-list-content-box-title-right" :class="item.orderStatus > 1 ? 'blue' : ''"
+							v-else>
+							<!-- //0-未申请退款；1-申请退款；2-退款中；3-退款失败；4-退款成功 5后台手动退款成功-->
+							{{ item.refundStatus === 0 ? '未申请退款' : item.refundStatus === 1 ? '申请退款' : item.refundStatus
+				===
+				2 ? '退款中' : item.refundStatus === 3 ? '退款失败' : item.refundStatus === 4 ? '退款成功' :
+					item.refundStatus === 5 ? '后台退款成功' : '' }}
+						</view>
+					</view>
+					<view class="order-list-content-box-content" @tap="toOrderDetails(item.orderId)">
+						<image class="order-list-content-box-content-img" :src="item.orderGoods[0].thumbail" mode="">
+						</image>
+						<view class="order-list-content-box-content-text">
+							<view class="title">
+								{{ item.orderGoods[0].title }}
 							</view>
-							<view class="price-amount">
-								{{ item.goodsCount }}件
-							</view>
+							<view class="price">
+								<view class="price-number">
+									￥{{ item.orderGoods[0].salePrice }}
+								</view>
+								<view class="price-amount">
+									{{ item.goodsCount }}件
+								</view>
 
+							</view>
 						</view>
 					</view>
+					<view class="order-list-content-box-count">
+						共{{ item.goodsCount }}件商品 总计：{{ item.totalAmount }}
+					</view>
 				</view>
-				<view class="order-list-content-box-count">
-					共{{ item.goodsCount }}件商品 总计：{{ item.totalAmount }}
-				</view>
+				<!-- 空列表或加载全部提示 -->
+				<EmptyAllTips v-if="isLoaded" :isEmpty="!orderLists.length" emptyTips="暂无订单信息" :isAll="isAll" />
 			</view>
-			<!-- 空列表或加载全部提示 -->
-			<EmptyAllTips v-if="isLoaded" :isEmpty="!orderLists.length" emptyTips="暂无订单信息"
-				:isAll="pageNo == pageSIize" />
 		</view>
 	</view>
-
 </template>
 
 <script>
@@ -88,7 +91,7 @@ export default {
 			currentTab: 0,
 			orderLists: [],
 			pageNo: 1, // 当前页
-			pageSIize: 10, //总页数
+			pageSize: 10, //每页条数
 			loginToken: null,
 			status: 0,
 			userId: null, //用户id
@@ -103,10 +106,9 @@ export default {
 
 	},
 	onShow() {
-		let bbcLoginResult = uni.getStorageSync("bbcLoginResult"); //用户信息
-		this.loginToken = bbcLoginResult.loginToken
-		this.userId = bbcLoginResult.id
-		this.mobile = bbcLoginResult.leaderMobile
+		this.loginToken = uni.getStorageSync("bbcToken")
+		this.userId = uni.getStorageSync("bbcUserInfo").id
+		this.mobile = uni.getStorageSync("bbcUserInfo").leaderMobile
 		this.getOrderLists()
 	},
 	methods: {
@@ -126,7 +128,7 @@ export default {
 			this.isLoaded = false
 			let obj = {
 				pageNo: this.pageNo,
-				pageSIize: this.pageSIize,
+				pageSize: this.pageSize,
 				loginToken: this.loginToken,
 				status: this.status,
 				mobile: this.mobile,
@@ -141,20 +143,27 @@ export default {
 				callBack: (res) => {
 					this.isLoaded = true
 					this.orderLists = this.pageNo == 1 ? res : this.orderLists.concat(res)
-					this.pageSIize = res.total == 0 ? 1 : Math.ceil(res.total / this.pageSize)
+					if (this.pageNo != 1 && res.length == 0) {
+						this.isAll = true
+					}
 				},
 			}
 			http.request(params);
 		},
-
+		// 到订单详情页
+		toOrderDetails(orderId) {
+			let refund = false
+			uni.navigateTo({
+				url: `/pages/package-user/pages/order-detail/order-detail?orderId=${orderId}&showRefund=${refund}`
+			})
+		}
 	},
 
 	/**
 	 * 页面上拉触底事件的处理函数
 	 */
 	onReachBottom() {
-
-		if (this.pageNo < this.pageSIize) {
+		if ((this.orderLists.length % this.pageSize == 0) && this.orderLists.length >= this.pageSize && this.isAll == false) {
 			this.pageNo = this.pageNo + 1
 			this.getOrderLists()
 		} else {
@@ -177,9 +186,6 @@ export default {
 }
 
 .order-list {
-	background: #f2f2f2;
-	height: 100vh;
-	width: 100vw;
 	overflow-x: hidden;
 	overflow-y: auto;
 }
@@ -188,7 +194,6 @@ export default {
 	.order-list-content-box {
 		background: #fff;
 		margin-top: 20rpx;
-		width: 750rpx;
 		// height: 398rpx;
 		box-sizing: border-box;
 		padding: 18rpx 22rpx;

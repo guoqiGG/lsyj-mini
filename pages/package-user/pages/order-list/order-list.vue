@@ -1,5 +1,5 @@
 <template>
-	<view style="height: 100vh;background: #f2f2f2;">
+	<view style="background: #f2f2f2;">
 		<view class="order-list">
 			<u-tabs :scrollable="true" :current="currentTab" :list="list1" @click="handleTabClick()"></u-tabs>
 			<view class="order-list-content">
@@ -291,7 +291,6 @@ export default {
 	 * 页面上拉触底事件的处理函数
 	 */
 	onReachBottom() {
-		console.log(1)
 		if ((this.orderLists.length % this.pageSize == 0) && this.orderLists.length >= this.pageSize && this.isAll == false) {
 			this.pageNo = this.pageNo + 1
 			this.getOrderLists()

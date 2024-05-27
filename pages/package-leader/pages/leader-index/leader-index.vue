@@ -156,7 +156,7 @@
 					<u-icon name="arrow-right" size="28"></u-icon>
 				</view>
 			</view>
-			<view class="list-line">
+			<!-- <view class="list-line">
 				<view class="list-line-lf">
 					<view class="list-line-lf-img">
 						<image src="/pages/package-leader/static/mx3.png" mode=""></image>
@@ -168,7 +168,7 @@
 				<view class="list-line-rt">
 					<u-icon name="arrow-right" size="28"></u-icon>
 				</view>
-			</view>
+			</view> -->
 		</view>
 	</view>
 </template>
