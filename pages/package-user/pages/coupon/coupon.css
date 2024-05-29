@@ -1,56 +1,56 @@
 .h-tabs {
-    border-bottom: 1px solid #f2f2f2;
-    display: flex;
-    justify-content: space-around;
-    font-size: 32rpx;
-    position: fixed;
-    top: 0;
-    z-index: 1000;
-    width: 100%;
-    background: #fff;
-  }
-  
-  .h-tab {
-    height: 88rpx;
-    line-height: 88rpx;
-  }
-  
-  .h-tab.on {
-    border-bottom: 3px solid #FD594D;
-    font-weight: normal;
-    color: #025BFF;
-  }
-  
-  .coupons {
-    padding: 20rpx;
-    padding-top: 88rpx;
-  }
-  
-  /* .empty {
+  border-bottom: 1px solid #f2f2f2;
+  display: flex;
+  justify-content: space-around;
+  font-size: 32rpx;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background: #fff;
+}
+
+.h-tab {
+  height: 88rpx;
+  line-height: 88rpx;
+}
+
+.h-tab.on {
+  border-bottom: 3px solid #fd594d;
+  font-weight: normal;
+  color: #fd594d;
+}
+
+.coupons {
+  padding: 20rpx;
+  padding-top: 88rpx;
+}
+
+/* .empty {
     text-align: center;
     padding-top: 50rpx;
     color: #999999;
     font-size: 28rpx;
   } */
-  /* 列表为空 */
-  .empty {
-    margin-top: 200rpx;
-    text-align: cneter;
-  }
-  .empty-icon {
-    display: block;
-    width: 80rpx;
-    height: 80rpx;
-    margin: 0 auto;
-    margin-bottom: 20rpx;
-  }
-  .empty-icon > image {
-    width: 100%;
-    height: 100%;
-  }
-  .empty-text {
-    font-size: 28rpx;
-    text-align: center;
-    color: #999;
-    line-height: 2em;
-  }
+/* 列表为空 */
+.empty {
+  margin-top: 200rpx;
+  text-align: cneter;
+}
+.empty-icon {
+  display: block;
+  width: 80rpx;
+  height: 80rpx;
+  margin: 0 auto;
+  margin-bottom: 20rpx;
+}
+.empty-icon > image {
+  width: 100%;
+  height: 100%;
+}
+.empty-text {
+  font-size: 28rpx;
+  text-align: center;
+  color: #999;
+  line-height: 2em;
+}

@@ -1,5 +1,6 @@
 <template>
     <view class="gift-write-off">
+        <navigation />
         <view class="container">
             <view class="top-con">
                 <view class="top">
@@ -15,14 +16,17 @@
                     </view>
                 </view>
             </view>
-            <view class="title">青春豆明细</view>
-            <view class="item" v-for="(item, index) in dataList" :key="index">
-                <view class="item-left">
-                    <view class="type">{{ item.scoreName }}</view>
-                    <view class="time">{{ item.createTime }}</view>
+            <view class="detail">
+                <view class="title">青春豆明细</view>
+                <view class="item" v-for="(item, index) in dataList" :key="index">
+                    <view class="item-left">
+                        <view class="type">{{ item.scoreName }}</view>
+                        <view class="time">{{ item.createTime }}</view>
+                    </view>
+                    <view v-if="item.type === 3"><text class="red">-</text><text class="red">{{ item.score }}</text>
+                    </view>
+                    <view v-else><text class="green">+</text><text class="green">{{ item.score }}</text></view>
                 </view>
-                <view v-if="item.type === 3"><text class="red">-</text><text class="red">{{ item.score }}</text></view>
-                <view v-else><text class="green">+</text><text class="green">{{ item.score }}</text></view>
             </view>
             <!-- 空列表或加载全部提示 -->
             <EmptyAllTips v-if="isLoaded" :isEmpty="!dataList.length" emptyTips="暂无数据"

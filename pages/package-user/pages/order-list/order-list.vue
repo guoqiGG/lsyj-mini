@@ -51,22 +51,22 @@
 
 					<view class="order-list-content-box-btn">
 						<view class="order-list-content-box-btn">
-							<view class="cancelBtn" style="width: 120rpx;color: #D90024;border: 2rpx solid #D90024;"
+							<view class="cancelBtn" style="width: 120rpx;color: #FD594D;border: 2rpx solid #FD594D;"
 								@click="deleteOrder(item.orderId)" v-if="item.orderStatus !== 1">
 								删除
 							</view>
-							<view style="margin-left:20rpx;" class="cancelBtn" @click="cancelOrder(item.orderId)"
-								v-if="item.orderStatus === 1">
+							<view style="margin-left:20rpx;width: 120rpx;color: #FD594D;border: 2rpx solid #FD594D;"
+								class="cancelBtn" @click="cancelOrder(item.orderId)" v-if="item.orderStatus === 1">
 								取消订单
 							</view>
 
 							<view class="cancelBtn"
-								style="margin-left: 20rpx;width: 120rpx;color: #D90024;border: 2rpx solid #D90024;"
+								style="margin-left: 20rpx;width: 120rpx;color: #FFF;border: 2rpx solid #FD594D;background:#FD594D;"
 								v-if="item.orderStatus === 1" @click="payOrder(item.orderId)">
 								付款
 							</view>
 							<view class="cancelBtn" v-if="item.orderStatus === 3"
-								style="margin-left: 20rpx;width: 120rpx;color: #D90024;border: 2rpx solid #D90024;"
+								style="margin-left: 20rpx;width: 120rpx;color: #FD594D;border: 2rpx solid #FD594D;"
 								@click="receive(item.orderId)">
 								确认收货
 							</view>

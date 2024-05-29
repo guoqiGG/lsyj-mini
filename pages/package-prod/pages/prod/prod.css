@@ -30,7 +30,7 @@
   overflow: hidden;
 }
 .prod-content .price {
-  margin-top: 46rpx;
+  margin-top: 20rpx;
   line-height: 48rpx;
 }
 .prod-content .price .symbol {
@@ -147,7 +147,7 @@
   font-weight: bold;
   border-radius: 100rpx;
   opacity: 1;
-  background: #f81a19;
+  background: #FD594D;
   color: #fff;
 }
 
@@ -213,7 +213,7 @@
   align-items: center;
   text-align: center;
   background: #f4f4f4;
-  border-radius: 10rpx;
+  border-radius: 40rpx;
 }
 .select-number-con .number-con .input {
   width: 55rpx;
@@ -288,7 +288,7 @@
   width: 520rpx;
   height: 66rpx;
   border-radius: 50rpx;
-  background: #f85721;
+  background: #FD594D;
   font-size: 36rpx;
   font-weight: normal;
   line-height: 66rpx;

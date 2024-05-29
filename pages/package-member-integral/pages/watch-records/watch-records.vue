@@ -1,9 +1,10 @@
 <template>
     <view class="gift-write-off">
+        <navigation />
         <view class="container">
             <view class="item" v-for="(item, index) in dataList" :key="index">
                 <view class="item-cen">
-                    <view class="img" :style="{ background: backgroundArr[index % 6] }">
+                    <view class="img">
                         <image src="/static/watch-records-img.png" @error="errorImg(index)" />
                     </view>
                     <view class="right-con">

@@ -27,14 +27,14 @@
 			</view> -->
 			<!-- 备注 -->
 			<view class="section">
-				<input placeholder="自提点名称" type="remark"  @input="onRemarkInput" />
+				<input placeholder="自提点名称" type="remark" @input="onRemarkInput" />
 			</view>
 			<!-- 自提点地址 -->
 			<view class="section section-address" v-if="type == 0">
-				<input style="padding-right: 70rpx;" placeholder="自提点地址" :value="address" type="text" 
+				<input style="padding-right: 70rpx;" placeholder="自提点地址" :value="address" type="text"
 					@input="onAddrInput" />
 			</view>
-			
+
 
 			<!-- 提交申请栏 -->
 			<view class="submit-btn" @tap="submitDisterApply">
@@ -141,7 +141,7 @@ export default {
 					title: '请输入正确的手机号码',
 					icon: 'none'
 				})
-			} 
+			}
 			else if (this.type == 0 && remark == '') {
 				uni.showToast({
 					title: '自提点名称不能为空',

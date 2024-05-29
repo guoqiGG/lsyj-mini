@@ -12,11 +12,10 @@ page {
   width: 690rpx;
   height: 330rpx;
   position: relative;
-  margin: 20rpx auto 0;
-  background: linear-gradient(270deg, #b9d93a 0%, #46c645 100%);
-  /* background: linear-gradient(287deg, #B1D241 8%, #54C945 54%); */
-  border-radius: 25rpx;
-  box-shadow: 0rpx 10rpx 30rpx 0rpx rgba(29, 137, 0, 0.4);
+  margin: 40rpx auto 0;
+  background-image: url(/static/integral-msg.png);
+  background-size: cover;
+  border-radius: 20rpx;
 }
 .integral-index .integral-msg .image-bg .bg {
   width: 100%;
@@ -68,7 +67,7 @@ page {
   line-height: 32rpx;
 }
 .member-tits .text .bulletin {
-  color: #FD594D;
+  color: #fd594d;
   font-size: 32rpx;
   line-height: 32rpx;
 }
@@ -96,7 +95,7 @@ page {
 }
 
 .con-box .item .button {
-  background-color: #cb484a;
+  background-color: #fd594d;
   height: 70rpx;
   font-weight: 400;
   font-size: 40rpx;
@@ -108,14 +107,14 @@ page {
 }
 .con-box .item .desc {
   padding-top: 10rpx;
-  color: #cb484a;
+  color: #fd594d;
   background: #ffffff;
   height: 120rpx;
   line-height: 60rpx;
   text-align: center;
   font-weight: 400;
   font-size: 32rpx;
-  color: #cb484a;
+  color: #fd594d;
   margin-top: -10rpx;
 }
 

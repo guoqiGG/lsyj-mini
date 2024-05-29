@@ -120,7 +120,7 @@
 			<view class="list-line">
 				<view class="list-line-lf">
 					<view class="list-line-lf-img">
-						<image src="/pages/package-leader/static/ls.png" mode=""></image>
+						<image src="/pages/package-leader/static/bean.png" mode=""></image>
 					</view>
 					<view class="list-line-lf-text">
 						青春豆流水
@@ -133,7 +133,7 @@
 			<view class="list-line" @click="liveBroadcast()">
 				<view class="list-line-lf">
 					<view class="list-line-lf-img">
-						<image src="/pages/package-leader/static/hx.png" mode=""></image>
+						<image src="/pages/package-leader/static/live.png" mode=""></image>
 					</view>
 					<view class="list-line-lf-text">
 						直播间列表
@@ -146,7 +146,7 @@
 			<view class="list-line" @click="userShopDetails()">
 				<view class="list-line-lf">
 					<view class="list-line-lf-img">
-						<image src="/pages/package-leader/static/friend.png" mode=""></image>
+						<image src="/pages/package-leader/static/user-shop.png" mode=""></image>
 					</view>
 					<view class="list-line-lf-text">
 						购物明细
@@ -357,7 +357,7 @@ export default {
 	padding-bottom: 20rpx;
 
 	.leader-index-cot {
-		background: linear-gradient(180deg, #025BFF 0%, #ffffff 100%);
+		background: linear-gradient(180deg, #FD594D 0%, #ffffff 100%);
 		padding: 30rpx;
 	}
 }
@@ -420,7 +420,7 @@ export default {
 				width: 162rpx;
 				height: 54rpx;
 				border-radius: 27rpx;
-				background: #F91919;
+				background: #4083FF;
 				border: 0 solid transparent;
 				color: #FFFFFF;
 			}
@@ -441,8 +441,8 @@ export default {
 				height: 54rpx;
 				border-radius: 27rpx;
 				background: #FFFFFF;
-				border: 2rpx solid #C53032;
-				color: #C53032;
+				border: 2rpx solid #4083FF;
+				color: #4083FF;
 			}
 
 			/deep/ .u-button__text {
@@ -648,7 +648,7 @@ export default {
 		.search {
 			margin-left: 12rpx;
 			padding: 6rpx 12rpx;
-			background: #D93A3C;
+			background: #FD594D;
 			font-weight: 400;
 			font-size: 32rpx;
 			color: #FFFFFF;

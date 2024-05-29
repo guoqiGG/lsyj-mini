@@ -73,13 +73,13 @@ view.right-img {
   width: 50%;
 }
 .phone-number {
-  color: #979797;
+  color: #3342A5;
 }
 
 .logout {
   width: 300rpx;
   background: #fd594d;
-  color: #010101;
+  color: #FFF;
   text-align: center;
   margin: 0 auto;
   margin-top: 100rpx;

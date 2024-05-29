@@ -54,7 +54,7 @@
 }
 
 .right {
-	margin-left: 10rpx;
+	margin-left: 30rpx;
 }
 
 .right .coupon-name {
@@ -83,7 +83,7 @@
 	height: 200rpx;
 	width: 180rpx;
 	position: absolute;
-	background: #C53032;
+	background: #FD594D;
 	color: #ffffff;
 	right: 0;
 	font-size: 36rpx;

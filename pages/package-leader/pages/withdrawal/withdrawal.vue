@@ -194,8 +194,8 @@
 		/deep/ .u-button{
 			width: 638rpx !important;
 			height: 102rpx !important;
-			border-radius: 12rpx !important;
-			background: #C53032 !important;
+			border-radius: 20rpx !important;
+			background: #4083FF !important;
 			color: #FFFFFF;
 		}
 		/deep/ .u-button__text{
