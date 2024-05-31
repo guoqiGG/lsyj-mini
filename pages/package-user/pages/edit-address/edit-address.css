@@ -85,19 +85,19 @@ page {
   line-height: 80rpx;
   margin: auto;
   text-align: center;
-  border: 1rpx solid #FD594D;
+  border: 1rpx solid #A691F4;
   border-radius: 42rpx;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .btn-box .keep {
   color: #fff;
-  background-color: #FD594D;
+  background-color: #A691F4;
 }
 
 .btn-box .clear.btn {
   margin-top: 40rpx;
-  color: #FD594D;
+  color: #A691F4;
 }
 
 /* end 功能按钮 */

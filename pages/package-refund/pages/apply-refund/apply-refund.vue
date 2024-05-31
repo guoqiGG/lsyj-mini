@@ -261,7 +261,7 @@ export default {
 .button-style {
 	width: 710rpx;
 	height: 92rpx;
-	background: #FD594D;
+	background: #A691F4;
 	font-size: 28rpx;
 	line-height: 92rpx;
 	color: #FFFFFF;

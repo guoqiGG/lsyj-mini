@@ -181,7 +181,7 @@
 		<view>
 			<u-popup :show="showAuth" closeable="true" @close="closeShowAuthPopup">
 				<view class="con-container">
-					<view class="title"><text>上品时代 申请</text></view>
+					<view class="title"><text>邻舍云集 申请</text></view>
 					<view class="desc">
 						<view class="desc-big"><text>获取您的昵称、头像</text></view>
 						<view class="desc-small"><text>提供具有辨识度的用户中心界面</text></view>
@@ -286,7 +286,7 @@ export default {
 	onShareAppMessage: function () {
 		return {
 			path: "pages/user/user",
-			title: "上品时代",
+			title: "邻舍云集",
 			imageUrl: '/static/logo_11.png',
 		};
 	},
@@ -629,6 +629,7 @@ export default {
 		.receving-address-text {
 			box-sizing: border-box;
 			padding-left: 28rpx;
+			width: calc(100% - 200rpx);
 
 			.receving-address-text-title {
 				font-size: 38rpx;
@@ -642,8 +643,8 @@ export default {
 		}
 
 		.receving-address-pic {
-			width: 176rpx;
-			height: 184rpx;
+			width: 180rpx;
+			height: 180rpx;
 
 			image {
 				width: 100%;
@@ -678,10 +679,10 @@ export default {
 		}
 
 		.become-leader-pic {
-			padding-left: 28rpx;
+			padding-left: 62rpx;
 			box-sizing: border-box;
-			width: 328rpx;
-			height: 284rpx;
+			width: 250rpx;
+			height: 208rpx;
 
 			image {
 				width: 100%;
@@ -791,7 +792,7 @@ export default {
 	margin: 66rpx auto 0;
 	width: 364rpx;
 	height: 78rpx;
-	background: #fd594d;
+	background: #A691F4;
 	border-radius: 12rpx 12rpx 12rpx 12rpx;
 	font-weight: 400;
 	font-size: 30rpx;
@@ -821,8 +822,8 @@ export default {
 	flex-direction: row;
 	align-items: center;
 	background: linear-gradient(270deg,
-			rgba(253, 89, 77, 0.1),
-			rgba(253, 89, 77, 0.3));
+			rgba(226, 218, 255, 0.1),
+			rgba(226, 218, 255, 0.6));
 	padding: 14rpx 46rpx;
 }
 

@@ -1,5 +1,5 @@
 page {
-  background: #FFF3EF;
+  background: #EBE5FF;
   height: 100%;
   position: relative;
 }
@@ -64,8 +64,8 @@ page {
   line-height: 88rpx;
   margin: 0 auto;
   text-align: center;
-  background-color: #fd594d;
-  border: 1rpx solid #fd594d;
+  background-color: #a691f4;
+  border: 1rpx solid #a691f4;
   color: #fff;
   border-radius: 14rpx;
   font-size: 32rpx;
@@ -74,8 +74,8 @@ page {
   font-weight: normal;
   letter-spacing: 0rpx;
   opacity: 1;
-  background: #fd594d;
-  box-shadow: 0rpx 8rpx 20rpx 0rpx #ffbab5;
+  background: #a691f4;
+  box-shadow: 0rpx 8rpx 20rpx 0rpx #DED5FF;
 }
 .item {
   display: block;
@@ -152,7 +152,7 @@ button::after {
   align-items: flex-start;
   font-size: 28rpx;
   line-height: 48rpx;
-  color: #fd594d;
+  color: #a691f4;
 }
 .statement-label:active {
   background-color: none;
@@ -167,7 +167,7 @@ button::after {
   color: #999999;
 }
 .statement text {
-  color: #4083FF;
+  color: #4083ff;
   cursor: pointer;
 }
 .statement .check-box {
@@ -278,7 +278,7 @@ button::after {
   margin: 66rpx auto 0;
   width: 364rpx;
   height: 78rpx;
-  background: #fd594d;
+  background: #a691f4;
   border-radius: 12rpx 12rpx 12rpx 12rpx;
   font-weight: 400;
   font-size: 30rpx;
@@ -307,8 +307,8 @@ button::after {
   align-items: center;
   background: linear-gradient(
     270deg,
-    rgba(253, 89, 77, 0.1),
-    rgba(253, 89, 77, 0.3)
+    rgba(226, 218, 255, 0.1),
+    rgba(226, 218, 255, 0.6)
   );
   padding: 14rpx 46rpx;
 }

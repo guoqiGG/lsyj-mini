@@ -130,7 +130,7 @@
 					<u-icon name="arrow-right" size="28"></u-icon>
 				</view>
 			</view>
-			<view class="list-line" @click="liveBroadcast()">
+			<!-- <view class="list-line" @click="liveBroadcast()">
 				<view class="list-line-lf">
 					<view class="list-line-lf-img">
 						<image src="/pages/package-leader/static/live.png" mode=""></image>
@@ -142,7 +142,7 @@
 				<view class="list-line-rt">
 					<u-icon name="arrow-right" size="28"></u-icon>
 				</view>
-			</view>
+			</view> -->
 			<view class="list-line" @click="userShopDetails()">
 				<view class="list-line-lf">
 					<view class="list-line-lf-img">
@@ -357,7 +357,7 @@ export default {
 	padding-bottom: 20rpx;
 
 	.leader-index-cot {
-		background: linear-gradient(180deg, #FD594D 0%, #ffffff 100%);
+		background: linear-gradient(180deg, #A691F4 0%, #ffffff 100%);
 		padding: 30rpx;
 	}
 }
@@ -648,7 +648,7 @@ export default {
 		.search {
 			margin-left: 12rpx;
 			padding: 6rpx 12rpx;
-			background: #FD594D;
+			background: #A691F4;
 			font-weight: 400;
 			font-size: 32rpx;
 			color: #FFFFFF;

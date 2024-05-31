@@ -2,9 +2,9 @@
 	<view class="con">
 		<view class="logo">
 			<view class="login-bg">
-				<image style="width: 100%;height:100%;" src="/static/login-bg.png" />
+				<image style="width: 100%;height:100%;" src="/static/login/login_bg.png" />
 			</view>
-			<image class="logo-img" src="/static/logo_11.png" mode="heightFix" @tap="toIndex" />
+			<image class="logo-img" src="/static/logo1.png" mode="heightFix" @tap="toIndex" />
 		</view>
 		<!-- 微信登录 -->
 		<view class="login-form">
@@ -22,7 +22,7 @@
 				<label class="statement-label" @tap.stop="handlePrivacyClick">
 					<checkbox class="check-box" :checked="isPrivacy === 1" />
 					<view style="color: #979797">
-						我已阅读并同意上品时代
+						我已阅读并同意邻舍云集
 						<text @tap.stop="toTermsOfService('serviceTerms')">《服务条款》</text>
 						<text style="color: #979797">和</text>
 						<text @tap.stop="toTermsOfService('servicePolicy')">《隐私协议》</text>
@@ -34,7 +34,7 @@
 		<view>
 			<u-popup :show="showAuth" closeable="true" @close="closeShowAuthPopup">
 				<view class="con-container">
-					<view class="title"><text>上品时代 申请</text></view>
+					<view class="title"><text>邻舍云集 申请</text></view>
 					<view class="desc">
 						<view class="desc-big"><text>获取您的昵称、头像</text></view>
 						<view class="desc-small"><text>提供具有辨识度的用户中心界面</text></view>

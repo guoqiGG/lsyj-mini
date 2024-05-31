@@ -481,7 +481,7 @@ export default {
 	position: relative;
 	padding-bottom: 168rpx;
 	overflow-y: scroll;
-	background: linear-gradient(180deg, #FD594D 0%, #F2F2F2 50%);
+	background: linear-gradient(180deg, #A691F4 0%, #F2F2F2 50%);
 
 
 
@@ -857,7 +857,7 @@ export default {
 					width: 100px !important;
 					height: 36px !important;
 					border-radius: 18px !important;
-					background: linear-gradient(270deg, #FF6766 0%, #FAB613 100%) !important;
+					background: linear-gradient(270deg, #FC4D0E 0%, #FAB613 100%) !important;
 					border: 0px solid transparent;
 				}
 
@@ -1010,7 +1010,7 @@ export default {
 			height: 78rpx !important;
 			border-radius: 54rpx !important;
 
-			background: #FD594D !important;
+			background: #A691F4 !important;
 		}
 	}
 }

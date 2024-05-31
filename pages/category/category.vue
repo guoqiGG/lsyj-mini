@@ -67,7 +67,7 @@ export default {
 	onShareAppMessage: function () {
 		return {
 			path: "pages/category/category",
-			title: "上品时代",
+			title: "邻舍云集",
 			imageUrl: '/static/logo_11.png',
 
 		};

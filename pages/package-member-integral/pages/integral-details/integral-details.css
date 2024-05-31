@@ -10,6 +10,7 @@
   box-sizing: border-box;
   background: #ffffff;
   padding: 30rpx 40rpx;
+  margin: 0 20rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -38,7 +39,7 @@
 .red {
   font-weight: 400;
   font-size: 40rpx;
-  color: #FD682D;
+  color: #fd682d;
   line-height: 48rpx;
   text-align: left;
   font-style: normal;
@@ -47,7 +48,7 @@
 .green {
   font-weight: 400;
   font-size: 40rpx;
-  color: #5BB565;
+  color: #5bb565;
   line-height: 48rpx;
   text-align: left;
   font-style: normal;
@@ -56,8 +57,7 @@
 
 .top-con {
   padding: 32rpx 20rpx;
-  background: #FD594D;
-  border-radius: 0 0 20rpx 20rpx;
+  background: linear-gradient(180deg, #a691f4 0%, #F6f6f6 100%);
 }
 .top-con .top {
   padding: 38rpx 64rpx 64rpx;
@@ -65,6 +65,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  background: #dbd1ff;
+  border-radius: 20rpx 20rpx 20rpx 20rpx;
 }
 .left .text {
   font-weight: 400;
@@ -97,20 +99,20 @@
   text-transform: none;
 }
 .top .right {
-  background: #ff9e27;
-  border-radius: 124rpx 124rpx 124rpx 124rpx;
-  border: 2rpx solid #ffffff;
   font-weight: 400;
-  font-size: 32rpx;
-  color: #fff;
+  font-size: 24rpx;
+  color: #FC8439;
   line-height: 54rpx;
   text-align: left;
   font-style: normal;
   text-transform: none;
   padding: 5rpx 20rpx;
+  background: linear-gradient( 90deg, rgba(255,255,255,0) 0%, #FFFFFF 100%);
+border-radius: 124rpx 124rpx 124rpx 124rpx;
+border: 2rpx solid #FFFFFF;
 }
 .detail {
-  margin: -50rpx 20rpx 0;
+  margin: 0rpx 20rpx 0;
   background: #fff;
   border-radius: 20rpx;
   padding: 36rpx 0;

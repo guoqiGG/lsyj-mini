@@ -7,7 +7,7 @@
 			<input type="text" class="input" v-model="keyword" placeholder="搜索订单" />
 			<button size="default" type="default" class="button" @click="searchBtn">搜索</button>
 		</view> -->
-			<u-tabs :scrollable="true" :current="currentTab" :list="list1" @click="handleTabClick"></u-tabs>
+			<u-tabs lineHeight="4" lineColor="#A691F4" :scrollable="true" :current="currentTab" :list="list1" @click="handleTabClick"></u-tabs>
 			<view class="order-list-content">
 				<view class="order-list-content-box" v-for="(item, index) in orderLists" :key="item.orderId">
 					<view class="order-list-content-box-title">

@@ -16,8 +16,8 @@
                         </view>
                         <view class="select-btn" v-if="item.isDefault == 1">
                             <view class="box">
-                                <label :data-addrid="item.id" color="#FD594D">
-                                    <!-- <radio :checked="item.isDefault == 1" color="#FD594D" disabled /> -->
+                                <label :data-addrid="item.id" color="#A691F4">
+                                    <!-- <radio :checked="item.isDefault == 1" color="#A691F4" disabled /> -->
                                     当前为默认地址
                                 </label>
                             </view>

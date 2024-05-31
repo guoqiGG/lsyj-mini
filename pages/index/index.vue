@@ -10,7 +10,7 @@
 					<image src="/static/horn.png" class="hornpng" />
 					<view class="scroll-news-content" :style="'transform: translateX(' + move + 'px);'">
 						<view class="news-content">
-							<view class="news-text">走进上品时代，省钱成常态！进入直播间，福利不间断！</view>
+							<view class="news-text">走进邻舍云集，省钱成常态！进入直播间，福利不间断！</view>
 						</view>
 					</view>
 				</view>
@@ -29,7 +29,6 @@
 		</swiper>
 		<view class="middle">
 			<view class="convert" @click="goConvert()">
-				<image class="bg-convert" src="/static/bg-convert.png" />
 				<view class="convert-title">
 					青春豆兑换区
 				</view>
@@ -43,7 +42,6 @@
 				</view>
 			</view>
 			<view class="singIn" @tap="goMemberCenter">
-				<image class="bg-singIn" src="/static/bg-signIn.png" />
 				<view class="singIn-title">
 					签到
 				</view>
@@ -158,14 +156,14 @@ export default {
 	//用户点击右上角分享朋友圈
 	onShareTimeline: function () {
 		return {
-			title: '上品时代',
+			title: '邻舍云集',
 			imageUrl: '/static/logo_11.png'
 		}
 	},
 	data() {
 		return {
 			navigationBarIsShow: true,
-			title: '上品时代',
+			title: '邻舍云集',
 			tabConfig: {
 				background: '',
 				fontColor: '#FFFFFF',
@@ -225,7 +223,7 @@ export default {
 <style lang="less" scoped>
 .main {
 	min-height: 100vh;
-	background: linear-gradient(180deg, #FD594D 0%, #FD594D 20%, #f2f2f2 40%);
+	background: linear-gradient(180deg, #A691F4 0%, #A691F4 20%, #f2f2f2 40%);
 }
 
 .news-swiper {
@@ -256,7 +254,7 @@ export default {
 }
 
 .news-text {
-	color: #FD594D;
+	color: #A691F4;
 	font-size: 30rpx;
 }
 
@@ -332,15 +330,7 @@ swiper .banner-item .img-box video {
 		padding: 14rpx 22rpx;
 		position: relative;
 		overflow: hidden;
-
-		.bg-convert {
-			position: absolute;
-			width: 394rpx;
-			height: 356rpx;
-			top: -2rpx;
-			left: -3rpx;
-			border-radius: 25rpx;
-		}
+		background: linear-gradient(90deg, #3AB0D7  0%, #08D0C3 100%);
 
 		.convert-title {
 			position: absolute;
@@ -348,7 +338,7 @@ swiper .banner-item .img-box video {
 			left: 30rpx;
 			font-weight: 400;
 			font-size: 36rpx;
-			color: #0559F4;
+			color: #FFFFFF;
 			line-height: 48rpx;
 			letter-spacing: 1px;
 		}
@@ -359,7 +349,7 @@ swiper .banner-item .img-box video {
 			left: 30rpx;
 			font-weight: 400;
 			font-size: 22rpx;
-			color: #0559F4;
+			color: #FFFFFF;
 			line-height: 48rpx;
 		}
 
@@ -380,7 +370,7 @@ swiper .banner-item .img-box video {
 				text-align: center;
 				font-weight: 400;
 				font-size: 40rpx;
-				color: #0559F4;
+				color: #3AB0D7;
 				line-height: 62rpx;
 			}
 
@@ -399,15 +389,7 @@ swiper .banner-item .img-box video {
 		position: relative;
 		border-radius: 25rpx;
 		overflow: hidden;
-
-		.bg-singIn {
-			border-radius: 25rpx;
-			position: absolute;
-			width: 412rpx;
-			height: 352rpx;
-			top: -2rpx;
-			left: -3rpx;
-		}
+		background: linear-gradient(90deg,  #FE8E06 0%, #FFBF2A 100%);
 
 		.singIn-title {
 			position: absolute;
@@ -415,7 +397,7 @@ swiper .banner-item .img-box video {
 			left: 30rpx;
 			font-weight: 400;
 			font-size: 36rpx;
-			color: #FF6200;
+			color: #FFFFFF;
 			line-height: 48rpx;
 			letter-spacing: 1px;
 		}
@@ -426,7 +408,7 @@ swiper .banner-item .img-box video {
 			left: 30rpx;
 			font-weight: 400;
 			font-size: 22rpx;
-			color: #FF6200;
+			color: #FFFFFF;
 			line-height: 48rpx;
 		}
 
@@ -447,7 +429,7 @@ swiper .banner-item .img-box video {
 				text-align: center;
 				font-weight: 400;
 				font-size: 40rpx;
-				color: #FF6200;
+				color: #FE8E06;
 				line-height: 62rpx;
 			}
 		}
@@ -460,7 +442,7 @@ swiper .banner-item .img-box video {
 	margin: 0 20rpx;
 	margin-top: 20rpx;
 	padding-top: 20rpx;
-	background: linear-gradient(90deg, #F9C0BC 0%, #FD594D 100%);
+	background: linear-gradient(90deg, #045BFF  0%, #86AFFF 100%);
 	border-radius: 20rpx 20rpx 20rpx 20rpx;
 
 	.sponsored-ad-title {

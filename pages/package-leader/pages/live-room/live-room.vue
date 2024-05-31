@@ -51,7 +51,7 @@ export default {
 	// 自定义分享
 	onShareAppMessage() {
 		return {
-			title: dayjs().format("MM-DD") + "上品时代邀您一起观看直播",
+			title: dayjs().format("MM-DD") + "邻舍云集邀您一起观看直播",
 			// path: "/package-user/pages/live-room/live-room?room_id=" +
 			// 	this.room_id +
 			// 	"&url=" +

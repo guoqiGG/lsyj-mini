@@ -51,7 +51,7 @@ page {
   width: 80%;
 }
 .txt-infor {
-  color: #3342A5;
+  color: #737EC2;
 }
 /* 头像 */
 .infor-right-wrap {
@@ -74,7 +74,7 @@ page {
   font-size: 28rpx;
   text-align: center;
   color: #fff;
-  background: #FD594D;
+  background: #A691F4;
   letter-spacing: 2px;
   border-radius: 10rpx;
 }
